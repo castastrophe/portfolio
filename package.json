@@ -22,6 +22,7 @@
     "spandx": "^2.0.1"
   },
   "scripts": {
+    "start": "spandx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
