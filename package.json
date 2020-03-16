@@ -1,0 +1,28 @@
+{
+  "name": "personal-site",
+  "version": "1.0.0",
+  "description": "Personal portfolio site",
+  "main": "index.js",
+  "dependencies": {
+    "@patternfly/pfe-band": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-card": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-cta": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-icon": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-sass": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-styles": "^1.0.0-prerelease.40"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/castastrophe/personal-site.git"
+  },
+  "author": "castastrophe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/castastrophe/personal-site/issues"
+  },
+  "homepage": "https://github.com/castastrophe/personal-site#readme"
+}
