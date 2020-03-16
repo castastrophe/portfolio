@@ -2,16 +2,25 @@
   "name": "personal-site",
   "version": "1.0.0",
   "description": "Personal portfolio site",
-  "main": "index.js",
+  "keywords": [
+    "personal site"
+  ],
+  "main": "index.html",
   "dependencies": {
     "@patternfly/pfe-band": "^1.0.0-prerelease.40",
     "@patternfly/pfe-card": "^1.0.0-prerelease.40",
     "@patternfly/pfe-cta": "^1.0.0-prerelease.40",
     "@patternfly/pfe-icon": "^1.0.0-prerelease.40",
     "@patternfly/pfe-sass": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-styles": "^1.0.0-prerelease.40"
+    "@patternfly/pfe-styles": "^1.0.0-prerelease.40",
+    "@patternfly/pfelement": "^1.0.0-prerelease.39",
+    "require.js": "^1.0.0",
+    "waypoints": "^4.0.1",
+    "webcomponentsjs": "^1.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "spandx": "^2.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/castastrophe/personal-site/issues"
   },
-  "homepage": "https://github.com/castastrophe/personal-site#readme"
+  "homepage": "https://github.com/castastrophe/personal-site#readme",
+  "private": true
 }
