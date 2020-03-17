@@ -16,7 +16,6 @@
     <meta name="keywords" content="css, web development, tutorial, blog">
     <meta name="author" content="Cassondra Roberts">
     <link rel="shortcut icon" href="/img/assets/favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="/fonts/entypo.css" media="all">
 
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="Web development portfolio for @castastrophee.">
@@ -38,32 +37,30 @@
 
     <!-- If JS is not loaded -->
     <noscript>
-        <link rel="stylesheet" href="/css/pfelement--noscript.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/vendor/pfelement--noscript.min.css" rel="stylesheet">
     </noscript>
 
     <!-- Include CSS files -->
-    <link type="text/css" rel="stylesheet" href="/css/home.css" media="all">
+    <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
         integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/css/pfe-base.min.css" />
-    <link rel="stylesheet" href="/css/pfe-layouts.min.css" />
-    <link rel="stylesheet" href="/css/pfelement.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/vendor/pfe-base.min.css" />
+    <link rel="stylesheet" href="/css/vendor/pfe-layouts.min.css" />
+    <link rel="stylesheet" href="/css/vendor/pfelement.min.css" rel="stylesheet">
 
     <!-- uncomment the es5-adapter if you're using the umd version -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
 
-    <script>
-      require([
-        "/js/pfe-band.umd.js",
-        "/js/pfe-card.umd.js",
-        "/js/pfe-cta.umd.js"
-      ]);
-    </script>
+    <script src="/js/vendor/pfelement.umd.min.js"></script>
+    <script src="/js/vendor/pfe-band.umd.min.js"></script>
+    <script src="/js/vendor/pfe-card.umd.min.js"></script>
+    <link rel="stylesheet" href="/css/vendor/pfe-card--lightdom.min.css" rel="stylesheet">
+    <script src="/js/vendor/pfe-cta.umd.min.js"></script>
+    <link rel="stylesheet" href="/css/vendor/pfe-cta--lightdom.min.css" rel="stylesheet">
 </head>
 
 <body class="page-wrapper">
@@ -72,10 +69,10 @@
         <div class="main-wrap">
             <pfe-band data-band-background="transparent" data-padding="half">
                 <div class="band-container" data-layout="space-between" data-align="left">
-                    <div class="header" data-theme="dark">
+                    <div slot="pfe-band--header">
                         <h2 class="header-title">[ Cassondra ]</h2>
                     </div>
-                    <div class="header" data-theme="dark">
+                    <div slot="pfe-band--header">
                         <span class="header-title" data-weight="thin">Follow: </span>
                         <a class="social-icon" href="https://twitter.com/castastrophee"><span
                                 class="fab fa-twitter"></span></a>
@@ -91,7 +88,7 @@
 
             <!-- Featured video -->
             <pfe-band data-band-background="transparent">
-                <div class="band-container" data-layout="stacked" data-theme="dark">
+                <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-ux-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
                             <div class="group" data-layout="8 4">
@@ -102,7 +99,7 @@
                                     </h3>
                                     <p class="header-summary">DrupalCon, April 9-13, 2018 | Nashville, TN</p>
                                 </div>
-                                <pfe-cta data-align="center-center">
+                                <pfe-cta data-align="center-center" data-cta-type="video-play">
                                     <a class="cta-link" data-cta-type="video-play" data-popup="youtube"
                                         href="https://www.youtube.com/watch?v=p3y0ljTr8YQ">Watch now</a>
                                 </pfe-cta>
@@ -120,13 +117,12 @@
                             <img class="image-embed-img" src="./img/assets/profile.jpg">
                         </div>
                     </div>
-                    <div class="group" data-layout="min-stacked" data-theme="dark">
-                        <div class="header" data-theme="dark" data-text-align="left--right">
+                    <div class="group" data-layout="min-stacked">
+                        <div class="header" data-text-align="left--right">
                             <h2 class="header-title">About castastrophe</h2>
-                            <p class="header-summary">I am a <b>passionate</b> Front-end architect &amp; the technical
-                                lead at <a href="https://www.redhat.com/en/about/company">Red&nbsp;Hat</a> on the User
-                                experience design &amp; development team, where we build the design system that powers
-                                many of Red&nbsp;Hat's marketing web assets.</p>
+                            <p class="header-summary">I am a <b>passionate</b> front-end architect &amp; technical
+                                lead at <a href="https://www.redhat.com/en/about/company">Red&nbsp;Hat</a> on the Digital Marketing Strategy &amp; Design team, where we build the design system that powers
+                                many of Red&nbsp;Hat's web assets.</p>
                             <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
                                     technologies and implementing highly-optimized, clean solutions to complex
                                     problems.</b></p>
@@ -138,9 +134,9 @@
 
             <!-- More -->
             <pfe-band data-band-background="transparent" data-padding="half" data-layout="angle">
-                <div class="card" data-justify="justify" data-theme="dark" data-type="custom">
+                <pfe-card data-justify="justify" data-type="custom">
                     <div class="card-body">
-                        <blockquote class="quote" data-theme="dark">
+                        <blockquote class="quote">
                             <div class="quote-container">
                                 <p class="quote-quotation">You're not going to learn code by passively watching someone
                                     else write it. You have to get into it, get really tangled up in it, and ask how you
@@ -153,294 +149,250 @@
                             </p>
                         </blockquote>
                     </div>
-                </div>
-                <div class="group" data-theme="dark" data-band-background="tundora" data-layout="min-stacked">
+                </pfe-card>
+                <div class="group" data-band-background="tundora" data-layout="min-stacked">
                     <div class="header">
                         <p class="header-summary"><b class="extra">Reduce, reuse, recycle: Modular
                                 CSS</b><br />NCDevCon, September 17-18, 2016 | Raleigh, NC</p>
                     </div>
-                    <pfe-cta>
-                        <a class="cta-link" data-cta-type="video-play" data-size="sm" data-popup="youtube"
+                    <pfe-cta data-cta-type="video-play">
+                        <a class="cta-link" data-size="sm" data-popup="youtube"
                             href="https://www.youtube.com/watch?v=8Yyklb78S00">Watch now</a>
                     </pfe-cta>
                 </div>
             </pfe-band>
 
             <!-- Code -->
-            <pfe-band data-band-background="dark">
-                <div class="band-container" data-layout="stacked">
-                    <div class="header" data-theme="dark">
-                        <h2 class="header-title">Coding projects</h2>
-                    </div>
-                    <div class="group" data-layout="4 4 4">
-                        <div class="card" data-justify="justify" data-theme="dark" data-padding="half"
-                            style="background-color: transparent; border: 1px solid white;">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-title">Design system</h3>
-                                <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                        href="https://github.com/patternfly/patternfly-elements"
-                                        title="Click to view project">PatternFly Elements</a></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="content">
-                                    <p>This is a web component-based design system which leverages the ShadowDOM and the
-                                        power of custom properties to create well-scoped elements that make it easy to
-                                        customize. This system was designed for use across Red Hat<sup>&copy;</sup> web
-                                        properties.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
-                                        title="Click to view project" data-cta-type="secondary">View the source code</a>
-                                </pfe-cta>
+            <pfe-band pfe-color="darker">
+                <h2 slot="pfe-band--header" class="header-title">Coding projects</h2>
+                <div class="group" data-layout="4 4 4">
+                    <pfe-card data-justify="justify" data-padding="half"
+                        style="background-color: transparent; border: 1px solid white;">
+                        <div slot="pfe-card--header">
+                            <h3 class="card-header-title">Design system</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://github.com/patternfly/patternfly-elements"
+                                    title="Click to view project">PatternFly Elements</a></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>This is a web component-based design system which leverages the ShadowDOM and the
+                                    power of custom properties to create well-scoped elements that make it easy to
+                                    customize. This system was designed for use across Red Hat<sup>&copy;</sup> web
+                                    properties.</p>
                             </div>
                         </div>
-                        <div class="card" data-justify="justify" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-title">Preview tool</h3>
-                                <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                        href="https://github.com/PatternBuilder/pattern-kit"
-                                        title="Click to view project">PatternKit</a></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="content">
-                                    <p>PatternKit is a preview tool for our internal design system. It utilizes Twig,
-                                        Sass, JavaScript and JSON schemas to create a suite of components. The tool
-                                        let's you preview the component and edit the test data in the schema for a live
-                                        preview.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link" href="https://github.com/PatternBuilder/pattern-kit"
-                                        title="Click to view project" data-cta-type="secondary">View the source code</a>
-                                </pfe-cta>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-title">Preview tool</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://github.com/PatternBuilder/pattern-kit"
+                                    title="Click to view project">PatternKit</a></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>PatternKit is a preview tool for our internal design system. It utilizes Twig,
+                                    Sass, JavaScript and JSON schemas to create a suite of components. The tool
+                                    let's you preview the component and edit the test data in the schema for a live
+                                    preview.</p>
                             </div>
                         </div>
-                        <div class="card" data-justify="justify" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-title">Build tool</h3>
-                                <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                        href="https://github.com/castastrophe/gulp-custom-include"
-                                        title="Click to view project">gulp-custom-include</a></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="content">
-                                    <p>I wrote this plugin because the existing include plugins for Gulp didn't have
-                                        quite the flexibility I wanted in the formatting of the include statements.
-                                        Especially helpful if you have an existing library that already has it's own
-                                        include syntax.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link" href="https://github.com/castastrophe/gulp-custom-include"
-                                        title="Click to view project" data-cta-type="secondary">View the source code</a>
-                                </pfe-cta>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://github.com/PatternBuilder/pattern-kit"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-title">Build tool</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://github.com/castastrophe/gulp-custom-include"
+                                    title="Click to view project">gulp-custom-include</a></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>I wrote this plugin because the existing include plugins for Gulp didn't have
+                                    quite the flexibility I wanted in the formatting of the include statements.
+                                    Especially helpful if you have an existing library that already has it's own
+                                    include syntax.</p>
                             </div>
                         </div>
-                        <div class="card" data-justify="justify" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-title">Single page app</h3>
-                                <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                        href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
-                                        title="Click to view project">Red Hat on GitHub</a></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="content">
-                                    <p>This is the official GitHub page for Red Hat open source projects on GitHub. I
-                                        served as the lead developer in the construction of this page in conjunction
-                                        with a team of designer and developers at Red Hat. You can preview this page <a
-                                            href="https://redhatofficial.github.io/#!/main">here</a>.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link"
-                                        href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
-                                        title="Click to view project" data-cta-type="secondary">View the source code</a>
-                                </pfe-cta>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://github.com/castastrophe/gulp-custom-include"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-title">Single page app</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
+                                    title="Click to view project">Red Hat on GitHub</a></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>This is the official GitHub page for Red Hat open source projects on GitHub. I
+                                    served as the lead developer in the construction of this page in conjunction
+                                    with a team of designer and developers at Red Hat. You can preview this page <a
+                                        href="https://redhatofficial.github.io/#!/main">here</a>.</p>
                             </div>
                         </div>
-                        <div class="card" data-justify="justify" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-title">Design system</h3>
-                                <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                        href="https://github.com/casnroberts/slick"
-                                        title="Click to view project">Slick</a></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="content">
-                                    <p>Slick is a component-driven design system; featuring code for a light-weight
-                                        carousel.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link" href="https://github.com/casnroberts/slick"
-                                        title="Click to view project" data-cta-type="secondary">View the source code</a>
-                                </pfe-cta>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link"
+                                href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-title">Design system</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://github.com/casnroberts/slick"
+                                    title="Click to view project">Slick</a></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>Slick is a component-driven design system; featuring code for a light-weight
+                                    carousel.</p>
                             </div>
                         </div>
-                    </div>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://github.com/casnroberts/slick"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
                 </div>
             </pfe-band>
 
             <!-- Design -->
             <pfe-band data-band-background="tundora">
-                <div class="band-container" data-layout="stacked">
-                    <div class="header" data-theme="dark">
-                        <h2 class="header-title">Design portfolio</h2>
-                    </div>
-                    <div class="group" data-layout="6 6">
-                        <div class="card" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-headline" style="margin-bottom: 5px;">PAGE | Red Hat Learning
-                                    Subscription</h3>
-                                <p class="card-header-summary">2016 July 24</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="image-embed">
-                                    <div class="image-embed-container">
-                                        <a href="./img/assets/2016-07-24_redhat_learning-subscription.png"
-                                            class="popup-link">
-                                            <img class="image-embed-img"
-                                                src="./img/assets/2016-07-24_redhat_learning-subscription_screenshot.png">
-                                        </a>
-                                    </div>
+                <h2 slot="pfe-band--header" class="header-title">Design portfolio</h2>
+                <div class="group" data-layout="6 6">
+                    <pfe-card data-theme="white" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-headline" style="margin-bottom: 5px;">PAGE | Red Hat Learning
+                                Subscription</h3>
+                            <p class="card-header-summary">2016 July 24</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="image-embed">
+                                <div class="image-embed-container">
+                                    <a href="./img/assets/2016-07-24_redhat_learning-subscription.png"
+                                        class="popup-link">
+                                        <img class="image-embed-img"
+                                            src="./img/assets/2016-07-24_redhat_learning-subscription_screenshot.png">
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link"
-                                        href="https://www.redhat.com/en/services/training/learning-subscription"
-                                        title="Click to view page at source" data-cta-type="secondary">View the
-                                        source</a>
-                                </pfe-cta>
-                            </div>
                         </div>
-                        <div class="card" data-theme="white" data-padding="half">
-                            <div class="card-header" data-theme="white">
-                                <h3 class="card-header-headline" style="margin-bottom: 5px;">MICROSITE | Red Hat Summit
-                                </h3>
-                                <p class="card-header-summary">2016 May 20</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="image-embed">
-                                    <div class="image-embed-container">
-                                        <a href="./img/assets/2016-05-20_redhat_summit.png" class="popup-link">
-                                            <img class="image-embed-img"
-                                                src="./img/assets/2016-05-20_redhat_summit_screenshot.png">
-                                        </a>
-                                    </div>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link"
+                                href="https://www.redhat.com/en/services/training/learning-subscription"
+                                title="Click to view page at source" data-cta-type="secondary">View the
+                                source</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card data-theme="white" data-padding="half">
+                        <div slot="pfe-card--header" data-theme="white">
+                            <h3 class="card-header-headline" style="margin-bottom: 5px;">MICROSITE | Red Hat Summit
+                            </h3>
+                            <p class="card-header-summary">2016 May 20</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="image-embed">
+                                <div class="image-embed-container">
+                                    <a href="./img/assets/2016-05-20_redhat_summit.png" class="popup-link">
+                                        <img class="image-embed-img"
+                                            src="./img/assets/2016-05-20_redhat_summit_screenshot.png">
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <pfe-cta>
-                                    <a class="cta-link" href="https://www.redhat.com/en/summit"
-                                        title="Click to view site at source" data-cta-type="secondary">View the
-                                        source</a>
-                                </pfe-cta>
-                            </div>
                         </div>
-                    </div>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://www.redhat.com/en/summit"
+                                title="Click to view site at source" data-cta-type="secondary">View the
+                                source</a>
+                        </pfe-cta>
+                    </pfe-card>
                 </div>
             </pfe-band>
 
             <!-- Personality -->
             <pfe-band data-band-background="purple">
-                <div class="band-container">
-                    <div class="group" data-layout="6 6">
-                        <div class="group" data-layout="stacked" data-theme="dark">
-                            <div class="content">
-                                <pre>push<br>to the remote repo.</pre>
-                                <pre>git pull<br>into the chaos of code,<br>ideas and dreams.</pre>
-                                <pre>make<br>things real that didn't exist<br>yesterday.</pre>
-                            </div>
-                            <pfe-cta>
-                                <a class="cta-link" href="https://github.com/casnroberts/poetry"
-                                    title="Click to view more poetry" data-cta-type="secondary">More poetry</a>
-                            </pfe-cta>
+                <div class="group" data-layout="6 6">
+                    <div class="group" data-layout="stacked">
+                        <div class="content">
+                            <pre>push<br>to the remote repo.</pre>
+                            <pre>git pull<br>into the chaos of code,<br>ideas and dreams.</pre>
+                            <pre>make<br>things real that didn't exist<br>yesterday.</pre>
                         </div>
-                        <div class="card" data-theme="white" data-outline="border">
-                            <div class="image-embed">
-                                <div class="image-embed-container">
-                                    <img class="image-embed-img" src="/img/assets/2015-11_red-hat-team.gif">
-                                </div>
-                            </div>
-                        </div>
+                        <pfe-cta>
+                            <a class="cta-link" href="https://github.com/casnroberts/poetry"
+                                title="Click to view more poetry" data-cta-type="secondary">More poetry</a>
+                        </pfe-cta>
                     </div>
+                    <pfe-card data-theme="white" data-outline="border">
+                        <div class="image-embed">
+                            <div class="image-embed-container">
+                                <img class="image-embed-img" src="/img/assets/2015-11_red-hat-team.gif">
+                            </div>
+                        </div>
+                    </pfe-card>
                 </div>
             </pfe-band>
 
             <!-- Tools -->
             <pfe-band data-band-background="transparent">
-                <div class="band-container" data-layout="stacked">
-                    <div class="header" data-theme="dark">
-                        <h3 class="header-title">Tools</h3>
-                        <h4 class="header-headline">How the site was made</h4>
-                        <p class="header-summary">There are so many amazing tools out there which make building a site
-                            quick and easy. Preprocessors like Sass are invaluable ways to incorporate loops and logic
-                            into your styles and build tools like Gulp.js make producing production-ready code a snap.
-                        </p>
-                    </div>
-                    <section data-layout="gallery5" data-theme="dark">
-                        <a class="card" data-outline="border" data-background="opaque" data-padding="half"
-                            data-text-align="center" data-align="both" href="https://gulpjs.com/"
-                            data-background-hover="tundora">
-                            <div class="card-header">
-                                <h3 class="card-header-headline">Gulp</h3>
-                            </div>
-                        </a>
-                        <a class="card" data-outline="border" data-background="opaque" data-padding="half"
-                            data-text-align="center" data-align="both" href="https://jquery.com/"
-                            data-background-hover="tundora">
-                            <div class="card-header">
-                                <h3 class="card-header-headline">jQuery</h3>
-                            </div>
-                        </a>
-                        <a class="card" data-outline="border" data-background="opaque" data-padding="half"
-                            data-text-align="center" data-align="both" href="https://sass-lang.com/"
-                            data-background-hover="tundora">
-                            <div class="card-header">
-                                <h3 class="card-header-headline">Sass</h3>
-                            </div>
-                        </a>
-                        <a class="card" data-outline="border" data-background="opaque" data-padding="half"
-                            data-text-align="center" data-align="both"
-                            href="https://dimsemenov.com/plugins/magnific-popup" data-background-hover="tundora">
-                            <div class="card-header">
-                                <h3 class="card-header-headline">Magnific pop-up</h3>
-                            </div>
-                        </a>
-                    </pfe-band>
+                <div slot="pfe-band--header">
+                    <h3 class="header-title">Tools</h3>
+                    <h4 class="header-headline">How the site was made</h4>
+                    <p class="header-summary">There are so many amazing tools out there which make building a site
+                        quick and easy. Preprocessors like Sass are invaluable ways to incorporate loops and logic
+                        into your styles and build tools like Gulp.js make producing production-ready code a snap.
+                    </p>
                 </div>
+                <section data-layout="gallery5">
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://github.com/patternfly/patternfly-elements/">Web components</a>
+                    </pfe-cta>
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://gulpjs.com/">Gulp</a>
+                    </pfe-cta>
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://jquery.com/">jQuery</a>
+                    </pfe-cta>
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://sass-lang.com/">Sass</a>
+                    </pfe-cta>
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://dimsemenov.com/plugins/magnific-popup">Magnific pop-up</a>
+                    </pfe-cta>
+                </section>
             </pfe-band>
 
             <!-- Copyright -->
-            <pfe-band data-band-background="dark" data-padding="quarter">
-                <div class="band-container" data-layout="stacked">
-                    <section data-theme="dark">
-                        <div class="content" data-align="center">
-                            <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other
-                                    countries. <a class="cta-link"
-                                        href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn
-                                        more about their trademark guidelines and policies.</a></small></p>
-                        </div>
-                    </pfe-band>
+            <pfe-band pfe-color="darker" data-padding="quarter">
+                <div class="content" data-align="center">
+                    <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other
+                            countries. <a class="cta-link"
+                                href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn
+                                more about their trademark guidelines and policies.</a></small></p>
                 </div>
             </pfe-band>
+
         </div>
     </div>
 
     <footer>
 
         <!-- JS files -->
-        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/jquery.magnific-popup.min.js"></script>
-
-        <script type="text/javascript" src="/js/home.min.js"></script>
+        <!-- <script src="/js/vendor/jquery.magnific-popup.min.js"></script> -->
+        <!-- <script src="/js/home.min.js"></script> -->
 
         <script>
             (function (i, s, o, g, r, a, m) {
