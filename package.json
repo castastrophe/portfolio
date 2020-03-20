@@ -6,22 +6,27 @@
     "personal site"
   ],
   "main": "index.html",
+  "browserslist": [
+    "cover 99.5% in US"
+  ],
   "dependencies": {
     "@patternfly/pfe-band": "^1.0.0-prerelease.40",
     "@patternfly/pfe-card": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-cta": "^1.0.0-prerelease.40",
+    "@patternfly/pfe-cta": "^1.0.0-prerelease.41",
     "@patternfly/pfe-icon": "^1.0.0-prerelease.40",
     "@patternfly/pfe-sass": "^1.0.0-prerelease.40",
     "@patternfly/pfe-styles": "^1.0.0-prerelease.40",
     "@patternfly/pfelement": "^1.0.0-prerelease.39",
-    "waypoints": "^4.0.1",
-    "webcomponentsjs": "^1.0.2"
+    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "waypoints": "^4.0.1"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.4",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-flatten": "^0.4.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",

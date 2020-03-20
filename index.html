@@ -51,23 +51,15 @@
     <link rel="stylesheet" href="/css/vendor/pfe-layouts.min.css" />
     <link rel="stylesheet" href="/css/vendor/pfelement.min.css" rel="stylesheet">
 
-    <!-- uncomment the es5-adapter if you're using the umd version -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-loader.js"></script>
-
-    <script src="/js/vendor/pfelement.umd.min.js"></script>
-    <script src="/js/vendor/pfe-band.umd.min.js"></script>
-    <script src="/js/vendor/pfe-card.umd.min.js"></script>
-    <link rel="stylesheet" href="/css/vendor/pfe-card--lightdom.min.css" rel="stylesheet">
-    <script src="/js/vendor/pfe-cta.umd.min.js"></script>
-    <link rel="stylesheet" href="/css/vendor/pfe-cta--lightdom.min.css" rel="stylesheet">
+    <script src="/js/vendor/custom-elements-es5-adapter.js"></script>
+    <script src="/js/vendor/webcomponents-loader.js"></script>
 </head>
 
-<body class="page-wrapper">
+<body unresolved class="page-wrapper">
 
     <div class="main" data-menu-state="closed">
         <div class="main-wrap">
-            <pfe-band data-band-background="transparent" data-padding="half">
+            <pfe-band pfe-color="lightest" data-padding="half">
                 <div class="band-container" data-layout="space-between" data-align="left">
                     <div slot="pfe-band--header">
                         <h2 class="header-title">[ Cassondra ]</h2>
@@ -87,7 +79,7 @@
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band data-band-background="transparent">
+            <pfe-band pfe-color="lightest">
                 <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-ux-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
@@ -99,10 +91,12 @@
                                     </h3>
                                     <p class="header-summary">DrupalCon, April 9-13, 2018 | Nashville, TN</p>
                                 </div>
-                                <pfe-cta data-align="center-center" data-cta-type="video-play">
-                                    <a class="cta-link" data-cta-type="video-play" data-popup="youtube"
-                                        href="https://www.youtube.com/watch?v=p3y0ljTr8YQ">Watch now</a>
-                                </pfe-cta>
+                                <div data-align="both">
+                                    <pfe-cta data-cta-type="video-play" style="font-size: 20px; padding-bottom: 2em;">
+                                        <a class="cta-link" data-popup="youtube"
+                                            href="https://www.youtube.com/watch?v=p3y0ljTr8YQ">Watch now</a>
+                                    </pfe-cta>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -110,7 +104,7 @@
             </pfe-band>
 
             <!-- About me -->
-            <pfe-band data-band-background="purple" data-padding="half">
+            <pfe-band pfe-color="accent" data-padding="half">
                 <div class="band-container">
                     <div class="image-embed" data-img-shape="custom">
                         <div class="image-embed-container">
@@ -133,9 +127,9 @@
             </pfe-band>
 
             <!-- More -->
-            <pfe-band data-band-background="transparent" data-padding="half" data-layout="angle">
-                <pfe-card data-justify="justify" data-type="custom">
-                    <div class="card-body">
+            <pfe-band pfe-color="lightest" data-padding="half" data-layout="angle" style="--pfe-band--Width: auto;">
+                <section data-layout="8 4" style="--pfe-theme--container-spacer: 0">
+                    <pfe-card pfe-color="accent" data-justify="justify" data-type="custom">
                         <blockquote class="quote">
                             <div class="quote-container">
                                 <p class="quote-quotation">You're not going to learn code by passively watching someone
@@ -148,32 +142,29 @@
                                 </span>
                             </p>
                         </blockquote>
+                    </pfe-card>
+                    <div class="group" data-layout="min-stacked" style="align-self: center;">
+                        <div class="header">
+                            <p class="header-summary"><b class="extra">Reduce, reuse, recycle: Modular
+                                    CSS</b><br />NCDevCon, September 17-18, 2016 | Raleigh, NC</p>
+                        </div>
+                        <pfe-cta data-cta-type="video-play">
+                            <a class="cta-link" data-size="sm" data-popup="youtube"
+                                href="https://www.youtube.com/watch?v=8Yyklb78S00">Watch now</a>
+                        </pfe-cta>
                     </div>
-                </pfe-card>
-                <div class="group" data-band-background="tundora" data-layout="min-stacked">
-                    <div class="header">
-                        <p class="header-summary"><b class="extra">Reduce, reuse, recycle: Modular
-                                CSS</b><br />NCDevCon, September 17-18, 2016 | Raleigh, NC</p>
-                    </div>
-                    <pfe-cta data-cta-type="video-play">
-                        <a class="cta-link" data-size="sm" data-popup="youtube"
-                            href="https://www.youtube.com/watch?v=8Yyklb78S00">Watch now</a>
-                    </pfe-cta>
-                </div>
+                </section>
             </pfe-band>
 
             <!-- Code -->
-            <pfe-band pfe-color="darker">
+            <pfe-band pfe-color="darkest">
                 <h2 slot="pfe-band--header" class="header-title">Coding projects</h2>
                 <div class="group" data-layout="4 4 4">
-                    <pfe-card data-justify="justify" data-padding="half"
-                        style="background-color: transparent; border: 1px solid white;">
-                        <div slot="pfe-card--header">
-                            <h3 class="card-header-title">Design system</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://github.com/patternfly/patternfly-elements"
-                                    title="Click to view project">PatternFly Elements</a></h4>
-                        </div>
+                    <pfe-card pfe-color="accent">
+                        <h3 slot="pfe-card--header" class="card-header-title">Design system</h3>
+                        <h4 slot="pfe-card--header" class="card-header-headline" style="font-size: 22px;"><a
+                                href="https://github.com/patternfly/patternfly-elements"
+                                title="Click to view project">PatternFly Elements</a></h4>
                         <div class="card-body">
                             <div class="content">
                                 <p>This is a web component-based design system which leverages the ShadowDOM and the
@@ -187,13 +178,11 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
-                            <h3 class="card-header-title">Preview tool</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://github.com/PatternBuilder/pattern-kit"
-                                    title="Click to view project">PatternKit</a></h4>
-                        </div>
+                    <pfe-card pfe-color="lightest">
+                        <h3 slot="pfe-card--header" class="card-header-title">Preview tool</h3>
+                        <h4 slot="pfe-card--header" class="card-header-headline" style="font-size: 22px;"><a
+                                href="https://github.com/PatternBuilder/pattern-kit"
+                                title="Click to view project">PatternKit</a></h4>
                         <div class="card-body">
                             <div class="content">
                                 <p>PatternKit is a preview tool for our internal design system. It utilizes Twig,
@@ -207,8 +196,8 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
+                    <pfe-card pfe-color="lightest">
+                        <div slot="pfe-card--header">
                             <h3 class="card-header-title">Build tool</h3>
                             <h4 class="card-header-headline" style="font-size: 22px;"><a
                                     href="https://github.com/castastrophe/gulp-custom-include"
@@ -227,8 +216,8 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
+                    <pfe-card pfe-color="lightest">
+                        <div slot="pfe-card--header">
                             <h3 class="card-header-title">Single page app</h3>
                             <h4 class="card-header-headline" style="font-size: 22px;"><a
                                     href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
@@ -248,8 +237,8 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card data-justify="justify" pfe-color="lightest" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
+                    <pfe-card pfe-color="lightest">
+                        <div slot="pfe-card--header">
                             <h3 class="card-header-title">Design system</h3>
                             <h4 class="card-header-headline" style="font-size: 22px;"><a
                                     href="https://github.com/casnroberts/slick"
@@ -270,11 +259,11 @@
             </pfe-band>
 
             <!-- Design -->
-            <pfe-band data-band-background="tundora">
+            <pfe-band pfe-color="lightest">
                 <h2 slot="pfe-band--header" class="header-title">Design portfolio</h2>
                 <div class="group" data-layout="6 6">
-                    <pfe-card data-theme="white" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
+                    <pfe-card pfe-color="lightest" style="--pfe-card--Border: 1px solid #ddd; --pfe-card__header--BackgroundColor: #ddd;">
+                        <div slot="pfe-card--header">
                             <h3 class="card-header-headline" style="margin-bottom: 5px;">PAGE | Red Hat Learning
                                 Subscription</h3>
                             <p class="card-header-summary">2016 July 24</p>
@@ -297,8 +286,8 @@
                                 source</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card data-theme="white" data-padding="half">
-                        <div slot="pfe-card--header" data-theme="white">
+                    <pfe-card pfe-color="lightest" style="--pfe-card--Border: 1px solid #ddd; --pfe-card__header--BackgroundColor: #ddd;">
+                        <div slot="pfe-card--header">
                             <h3 class="card-header-headline" style="margin-bottom: 5px;">MICROSITE | Red Hat Summit
                             </h3>
                             <p class="card-header-summary">2016 May 20</p>
@@ -323,7 +312,7 @@
             </pfe-band>
 
             <!-- Personality -->
-            <pfe-band data-band-background="purple">
+            <pfe-band pfe-color="accent">
                 <div class="group" data-layout="6 6">
                     <div class="group" data-layout="stacked">
                         <div class="content">
@@ -336,7 +325,7 @@
                                 title="Click to view more poetry" data-cta-type="secondary">More poetry</a>
                         </pfe-cta>
                     </div>
-                    <pfe-card data-theme="white" data-outline="border">
+                    <pfe-card pfe-color="lightest" data-outline="border">
                         <div class="image-embed">
                             <div class="image-embed-container">
                                 <img class="image-embed-img" src="/img/assets/2015-11_red-hat-team.gif">
@@ -347,7 +336,7 @@
             </pfe-band>
 
             <!-- Tools -->
-            <pfe-band data-band-background="transparent">
+            <pfe-band pfe-color="lightest">
                 <div slot="pfe-band--header">
                     <h3 class="header-title">Tools</h3>
                     <h4 class="header-headline">How the site was made</h4>
@@ -357,7 +346,7 @@
                     </p>
                 </div>
                 <section data-layout="gallery5">
-                    <pfe-cta pfe-priority="secondary">
+                    <pfe-cta pfe-priority="primary">
                         <a href="https://github.com/patternfly/patternfly-elements/">Web components</a>
                     </pfe-cta>
                     <pfe-cta pfe-priority="secondary">
@@ -385,12 +374,20 @@
                 </div>
             </pfe-band>
 
-        </div>
+        </pfe-band>
     </div>
 
     <footer>
 
         <!-- JS files -->
+
+        <script src="/js/vendor/pfelement.umd.min.js"></script>
+        <script src="/js/vendor/pfe-band.umd.min.js"></script>
+        <script src="/js/vendor/pfe-card.umd.js"></script>
+        <link rel="stylesheet" href="/css/vendor/pfe-card--lightdom.min.css" rel="stylesheet">
+        <script src="/js/vendor/pfe-cta.umd.min.js"></script>
+        <link rel="stylesheet" href="/css/vendor/pfe-cta--lightdom.min.css" rel="stylesheet">
+        
         <!-- <script src="/js/vendor/jquery.magnific-popup.min.js"></script> -->
         <!-- <script src="/js/home.min.js"></script> -->
 

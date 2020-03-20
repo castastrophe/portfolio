@@ -1,12 +1,13 @@
 'use strict';
  
 const { src, dest, watch, task, series, parallel } = require('gulp');
-const del = require('del');
-// const path = require('path');
-const rename = require('gulp-rename');
-const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
-const flatten = require('gulp-flatten');
+const del         = require('del');
+const path        = require('path');
+const rename      = require('gulp-rename');
+const sass        = require('gulp-sass');
+const postcss     = require('gulp-postcss')
+const sourcemaps  = require('gulp-sourcemaps');
+const flatten     = require('gulp-flatten');
 const browserSync = require('browser-sync').create();
 
 
@@ -14,11 +15,13 @@ sass.compiler = require('node-sass');
 
 let assets = {
     wc_js: '*.umd?(.min).js?(.map)',
-    wc_css: '*?(--noscript)?(.min).css?(.map)'
+    wc_css: '*?(--noscript)?(.min).css?(.map)',
+    wc_polyfill: '*.js?(.map)'
 };
 
 let source = {
     wc: './node_modules/@patternfly/**/',
+    wc_polyfill: './node_modules/@webcomponents/webcomponentsjs/',
     sass: './sass/**/'
 };
 
@@ -35,6 +38,9 @@ function compileSass() {
     })
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([ require('autoprefixer')({
+        grid: 'autoplace'
+    })]))
     .pipe(dest(destination.css))
     .pipe(sass.sync({
         outputStyle: 'compressed'
@@ -65,8 +71,11 @@ function cleanAssets() {
 }
  
 function copyAssetsJS() {
-    return src(assets.wc_js, {
-        cwd: source.wc
+    return src([
+        path.join(source.wc, assets.wc_js),
+        path.join(source.wc_polyfill, assets.wc_polyfill)
+    ], {
+        follow: true
     })
     .pipe(flatten())
     .pipe(dest(destination.vendor_js));
