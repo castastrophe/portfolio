@@ -748,11 +748,11 @@ pfe-card {
     }
 }
 
-[data-layout]::after {
-    clear: both;
-    content: "";
-    display: table;
-}
+// [data-layout]::after {
+//     clear: both;
+//     content: "";
+//     display: table;
+// }
 
 [data-layout="6 6"] {
     margin-top: -30px;
@@ -859,8 +859,7 @@ pfe-card {
     flex-flow: row wrap;
     display: grid;
     grid-gap: var(--pfe-theme--container-spacer, 16px);
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     pfe-cta > a {
         flex-grow: 1;
     }
