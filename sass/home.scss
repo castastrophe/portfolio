@@ -282,6 +282,10 @@ pfe-band {
     &[data-padding="quarter"] {
         --pfe-band--Padding: 15px 0;
     }
+    &[data-width="full"] {
+        --pfe-band--Width: auto;
+        --pfe-band--Padding--horizontal: 30px;
+    }
     &[data-layout="angle"] {
         --pfe-band--Border: none;
         @media (min-width: 992px) {
@@ -290,7 +294,7 @@ pfe-band {
                 --pfe-theme--container-spacer: 0;
             }
             pfe-card {
-                margin-top: calc(-1.15 * var(--pfe-band--PaddingTop));
+                margin-top: calc(-2.15 * var(--pfe-band--PaddingTop));
                 margin-bottom: calc(-2.15 * var(--pfe-band--PaddingBottom));
                 margin-left: calc(-1 * var(--pfe-band--Padding--horizontal))
             }
@@ -301,6 +305,7 @@ pfe-band {
 pfe-card {
     &[data-type="custom"] {
         @media (min-width: 0) and (max-width: 991px) {
+            overflow: visible;
             --pfe-card--BackgroundColor: white;
             --pfe-broadcasted--text: black;
         }
@@ -322,6 +327,9 @@ pfe-card {
         [data-theme~="dark"] & {
             --pfe-card--Border: 1px solid #fff;
         }
+    }
+    &[pfe-border] {
+        --pfe-card--Border: 1px solid var(--pfe-theme--color--ui-border, #bbb);
     }
 }
 
@@ -573,6 +581,9 @@ pfe-card {
             width: 100%;
             position: absolute;
         }
+        + h3 {
+            margin-top: 20px;
+        }
     }
 }
 
@@ -710,18 +721,24 @@ pfe-card {
         display: flex;
         flex-flow: row nowrap;
         padding: 0;
-        margin: 0;
+        margin: 0 0 0 2em;
         list-style: none;
         + pfe-cta {
             font-style: normal;
         }
-        @media (min-width: 768px) {
-            &:before {
-                content: open-quote;
-                margin-top: -0.4em;
+        &:before {
+            content: open-quote;
+            margin-top: -0.4em;
+            font-size: 6em;
+            height: 1em;
+            padding-right: .1em;
+            @media (max-width: 991px) {
+                color: var(--pfe-theme--color--ui-accent);
+                margin-left: -.6em;
+            }
+            @media (min-width: 992px) {
                 font-size: 9em;
-                color: #fff3;
-                height: 1em;
+                color: white;
             }
         }
     }
@@ -743,14 +760,15 @@ pfe-card {
     &-quotation {
         font-family: "Inconsolata", "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
         margin-top: 0;
-        line-height: 1.2;
+        line-height: 1.4;
         font-style: italic;
-        font-size: 1.1em;
+        font-size: 1.4em;
         margin: 0;
         @media (min-width: 768px) {
-            font-size: 1.8em;
+            font-size: 1.6em;
         }
         @media (min-width: 992px) {
+            font-size: 1.8em;
             [data-type="custom"] & {
                 margin-right: 3%;
             }
@@ -763,7 +781,19 @@ pfe-card {
         text-transform: uppercase;
     }
     pfe-card > & {
-        margin-left: var(--pfe-band--Padding--vertical);
+        @media (min-width: 992px) {
+            margin-left: var(--pfe-band--Padding--vertical);
+        }
+    }
+}
+
+.group {
+    [data-layout="angle"] & {
+        @media (max-width: 991px) {
+            text-align: right;
+            border-right: 4px solid var(--pfe-theme--color--ui-accent);
+            padding-right: 30px;
+        }
     }
 }
 
@@ -833,21 +863,49 @@ pfe-card {
 
 [data-layout="8 4"] {
     margin-top: -30px;
-    @media (min-width: 768px) {
-        display: flex;
-        flex-flow: row wrap;
-        @supports (display: grid) {
-            display: grid;
+    display: flex;
+    flex-flow: row wrap;
+    @supports (display: grid) {
+        display: grid;
+        grid-gap: 40px;
+        grid-template-columns: 1fr;
+        margin-top: 0;
+        @media (min-width: 992px) {
             grid-gap: var(--pfe-theme--container-spacer, 16px);
             grid-template-columns: 8fr 4fr;
         }
     }
     > * {
         width: 100%;
-        float: left;
         margin-left: 0;
         margin-right: 0;
         margin-top: 30px;
+        @supports (display: grid) {
+            margin-top: 0;
+        }
+    }
+}
+
+[data-layout="auto-grid"] {
+    margin-top: -30px;
+    @supports (display: grid) {
+        display: flex;
+        flex-flow: row wrap;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-row-gap: 20px;
+        grid-column-gap: 40px;
+        margin-top: 0;
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    }
+    > * {
+        width: 100%;
+        margin-top: 30px;
+        @supports (display: grid) {
+            margin-top: 0;
+        }
     }
 }
 
