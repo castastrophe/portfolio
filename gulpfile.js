@@ -14,13 +14,16 @@ const browserSync = require('browser-sync').create();
 sass.compiler = require('node-sass');
 
 let assets = {
-    wc_js: '*.umd?(.min).js?(.map)',
-    wc_css: '*?(--noscript)?(.min).css?(.map)',
+    libs_js: 'jquery?(.magnific-popup).min.js',
+    libs_css: 'magnific-popup.css',
+    wc_js: '*.umd.min.js?(.map)',
+    wc_css: '*?(--noscript).min.css?(.map)',
     wc_polyfill: '*.js?(.map)'
 };
 
 let source = {
-    wc: './node_modules/@patternfly/**/',
+    libs: './node_modules/magnific-popup/**/',
+    wc: './node_modules/@patternfly/**/dist/',
     wc_polyfill: './node_modules/@webcomponents/webcomponentsjs/',
     sass: './sass/**/'
 };
@@ -73,7 +76,8 @@ function cleanAssets() {
 function copyAssetsJS() {
     return src([
         path.join(source.wc, assets.wc_js),
-        path.join(source.wc_polyfill, assets.wc_polyfill)
+        path.join(source.wc_polyfill, assets.wc_polyfill),
+        path.join(source.libs, assets.libs_js)
     ], {
         follow: true
     })
@@ -82,9 +86,10 @@ function copyAssetsJS() {
 }
 
 function copyAssetsCSS() {
-    return src(assets.wc_css, {
-        cwd: source.wc
-    })
+    return src([
+        path.join(source.wc, assets.wc_css),
+        path.join(source.libs, assets.libs_css)
+    ])
     .pipe(flatten())
     .pipe(dest(destination.vendor_css));
 }

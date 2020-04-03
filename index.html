@@ -42,24 +42,36 @@
 
     <!-- Include CSS files -->
     <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
         integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="/css/vendor/magnific-popup.css" />
+
 
     <link rel="stylesheet" href="/css/vendor/pfe-base.min.css" />
     <link rel="stylesheet" href="/css/vendor/pfe-layouts.min.css" />
     <link rel="stylesheet" href="/css/vendor/pfelement.min.css" rel="stylesheet">
 
+    <!-- Web components -->
     <script src="/js/vendor/custom-elements-es5-adapter.js"></script>
     <script src="/js/vendor/webcomponents-loader.js"></script>
+
+    <script src="/js/vendor/pfelement.umd.min.js"></script>
+    <script src="/js/vendor/pfe-band.umd.min.js"></script>
+    <script src="/js/vendor/pfe-card.umd.min.js"></script>
+    <link rel="stylesheet" href="/css/vendor/pfe-card--lightdom.min.css" rel="stylesheet">
+    <script src="/js/vendor/pfe-cta.umd.min.js"></script>
+    <link rel="stylesheet" href="/css/vendor/pfe-cta--lightdom.min.css" rel="stylesheet">
 </head>
 
 <body unresolved class="page-wrapper">
 
     <div class="main" data-menu-state="closed">
         <div class="main-wrap">
-            <pfe-band pfe-color="lightest" data-padding="half">
+            <pfe-band pfe-color="lightest" data-padding="half" id="social">
                 <div class="band-container" data-layout="space-between" data-align="left">
                     <div slot="pfe-band--header">
                         <h2 class="header-title">[ Cassondra ]</h2>
@@ -79,7 +91,7 @@
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band pfe-color="lightest">
+            <pfe-band pfe-color="lightest" id="teaser">
                 <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-ux-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
@@ -104,7 +116,7 @@
             </pfe-band>
 
             <!-- About me -->
-            <pfe-band pfe-color="accent" data-padding="half">
+            <pfe-band pfe-color="accent" data-padding="half" id="about">
                 <div class="band-container">
                     <div class="image-embed" data-img-shape="custom">
                         <div class="image-embed-container">
@@ -127,7 +139,7 @@
             </pfe-band>
 
             <!-- More -->
-            <pfe-band pfe-color="lightest" data-padding="half" data-layout="angle">
+            <pfe-band pfe-color="lightest" data-padding="half" data-layout="angle" id="quote">
                 <section data-layout="8 4" style="--pfe-theme--container-spacer: 0">
                     <pfe-card pfe-color="accent" data-justify="justify" data-type="custom">
                         <blockquote class="quote">
@@ -157,7 +169,7 @@
             </pfe-band>
 
             <!-- Code -->
-            <pfe-band pfe-color="darkest" data-width="full">
+            <pfe-band pfe-color="darkest" data-width="full" id="coding">
                 <h2 slot="pfe-band--header" class="header-title">Coding projects</h2>
                 <div class="group" data-layout="auto-grid">
                     <pfe-card pfe-color="accent">
@@ -259,7 +271,7 @@
             </pfe-band>
 
             <!-- Design -->
-            <pfe-band pfe-color="lightest">
+            <pfe-band pfe-color="lightest" id="design">
                 <h2 slot="pfe-band--header" class="header-title">Design portfolio</h2>
                 <div class="group" data-layout="6 6">
                     <pfe-card pfe-color="lightest" style="--pfe-card--Border: 1px solid #ddd; --pfe-card__header--BackgroundColor: #ddd;">
@@ -312,7 +324,7 @@
             </pfe-band>
 
             <!-- Personality -->
-            <pfe-band pfe-color="accent">
+            <pfe-band pfe-color="accent" id="poetry">
                 <div class="group" data-layout="6 6">
                     <div class="group" data-layout="stacked">
                         <div class="content">
@@ -336,7 +348,7 @@
             </pfe-band>
 
             <!-- Recorded talks -->
-            <pfe-band pfe-color="lightest" data-width="full">
+            <pfe-band pfe-color="lightest" data-width="full" id="presentations">
                 <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
                 <div class="group" data-layout="auto-grid">
                     <pfe-card pfe-color="lightest" pfe-border>
@@ -393,7 +405,7 @@
             </pfe-band>
 
             <!-- Tools -->
-            <pfe-band pfe-color="darkest">
+            <pfe-band pfe-color="darkest" id="tools">
                 <div slot="pfe-band--header">
                     <h3 class="header-title">Tools</h3>
                     <h4 class="header-headline">How the site was made</h4>
@@ -409,15 +421,15 @@
                     <pfe-cta pfe-priority="secondary">
                         <a href="https://gulpjs.com/">Gulp</a>
                     </pfe-cta>
-                    <!-- <pfe-cta pfe-priority="secondary">
-                        <a href="https://jquery.com/">jQuery</a>
-                    </pfe-cta> -->
                     <pfe-cta pfe-priority="secondary">
                         <a href="https://sass-lang.com/">Sass</a>
                     </pfe-cta>
-                    <!-- <pfe-cta pfe-priority="secondary">
+                    <pfe-cta pfe-priority="secondary">
+                        <a href="https://jquery.com/">jQuery</a>
+                    </pfe-cta>
+                    <pfe-cta pfe-priority="secondary">
                         <a href="https://dimsemenov.com/plugins/magnific-popup">Magnific pop-up</a>
-                    </pfe-cta> -->
+                    </pfe-cta>
                 </section>
             </pfe-band>
 
@@ -436,17 +448,9 @@
 
     <footer>
 
-        <!-- JS files -->
-
-        <script src="/js/vendor/pfelement.umd.min.js"></script>
-        <script src="/js/vendor/pfe-band.umd.min.js"></script>
-        <script src="/js/vendor/pfe-card.umd.js"></script>
-        <link rel="stylesheet" href="/css/vendor/pfe-card--lightdom.min.css" rel="stylesheet">
-        <script src="/js/vendor/pfe-cta.umd.min.js"></script>
-        <link rel="stylesheet" href="/css/vendor/pfe-cta--lightdom.min.css" rel="stylesheet">
-        
-        <!-- <script src="/js/vendor/jquery.magnific-popup.min.js"></script> -->
-        <!-- <script src="/js/home.min.js"></script> -->
+        <script src="/js/vendor/jquery.min.js"></script>
+        <script src="/js/vendor/jquery.magnific-popup.min.js"></script>
+        <script src="/js/home.min.js"></script>
 
         <script>
             (function (i, s, o, g, r, a, m) {

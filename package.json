@@ -18,7 +18,7 @@
     "@patternfly/pfe-styles": "^1.0.0-prerelease.40",
     "@patternfly/pfelement": "^1.0.0-prerelease.39",
     "@webcomponents/webcomponentsjs": "^2.4.3",
-    "waypoints": "^4.0.1"
+    "magnific-popup": "^1.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.7.4",
@@ -35,6 +35,7 @@
   },
   "scripts": {
     "start": "gulp serve",
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
