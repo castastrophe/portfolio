@@ -331,6 +331,14 @@ pfe-card {
     &[pfe-border] {
         --pfe-card--Border: 1px solid var(--pfe-theme--color--ui-border, #bbb);
     }
+    &[tilt-on="hover"] {
+        transform: rotate(1deg);
+        transition: transform .1s ease-in;
+        &:hover {
+            transform: rotate(0deg);
+        }
+
+    }
 }
 
 .card-header {

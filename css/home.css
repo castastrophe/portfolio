@@ -364,6 +364,22 @@ pfe-card[data-outline="border"] {
 pfe-card[pfe-border] {
   --pfe-card--Border: 1px solid var(--pfe-theme--color--ui-border, #bbb); }
 
+pfe-card[tilt-on="hover"] {
+  -webkit-transform: rotate(1deg);
+     -moz-transform: rotate(1deg);
+      -ms-transform: rotate(1deg);
+          transform: rotate(1deg);
+  -webkit-transition: -webkit-transform .1s ease-in;
+  transition: -webkit-transform .1s ease-in;
+  -moz-transition: transform .1s ease-in, -moz-transform .1s ease-in;
+  transition: transform .1s ease-in;
+  transition: transform .1s ease-in, -webkit-transform .1s ease-in, -moz-transform .1s ease-in; }
+  pfe-card[tilt-on="hover"]:hover {
+    -webkit-transform: rotate(0deg);
+       -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+            transform: rotate(0deg); }
+
 .band-header-summary .extra,
 .header-summary .extra {
   font-size: 1.4em; }

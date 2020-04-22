@@ -172,7 +172,7 @@
             <pfe-band pfe-color="darkest" data-width="full" id="coding">
                 <h2 slot="pfe-band--header" class="header-title">Coding projects</h2>
                 <div class="group" data-layout="auto-grid">
-                    <pfe-card pfe-color="accent">
+                    <pfe-card pfe-color="accent" tilt-on="hover">
                         <h3 slot="pfe-card--header" class="card-header-title">Design system</h3>
                         <h4 slot="pfe-card--header" class="card-header-headline" style="font-size: 22px;"><a
                                 href="https://github.com/patternfly/patternfly-elements"
@@ -274,76 +274,63 @@
             <pfe-band pfe-color="lightest" id="design">
                 <h2 slot="pfe-band--header" class="header-title">Design portfolio</h2>
                 <div class="group" data-layout="6 6">
-                    <pfe-card pfe-color="lightest" style="--pfe-card--Border: 1px solid #ddd; --pfe-card__header--BackgroundColor: #ddd;">
-                        <div slot="pfe-card--header">
-                            <h3 class="card-header-headline" style="margin-bottom: 5px;">PAGE | Red Hat Learning
+                    <pfe-card pfe-color="lightest" style="--pfe-card__header--BackgroundColor: white;">
+                        <div class="image-embed" pfe-overflow="top">
+                            <div class="image-embed-container">
+                                <a href="./img/assets/2016-07-24_redhat_learning-subscription.png"
+                                    class="popup-link">
+                                    <img class="image-embed-img"
+                                        src="./img/assets/2016-07-24_redhat_learning-subscription_screenshot.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div slot="pfe-card--footer">
+                            <h3 class="card-header-headline" style="margin: 0 0 5px;">PAGE | Red Hat Learning
                                 Subscription</h3>
                             <p class="card-header-summary">2016 July 24</p>
+                            <pfe-cta>
+                                <a class="cta-link"
+                                    href="https://www.redhat.com/en/services/training/learning-subscription"
+                                    title="Click to view page at source">View the
+                                    source</a>
+                            </pfe-cta>
                         </div>
-                        <div class="card-body">
-                            <div class="image-embed">
-                                <div class="image-embed-container">
-                                    <a href="./img/assets/2016-07-24_redhat_learning-subscription.png"
-                                        class="popup-link">
-                                        <img class="image-embed-img"
-                                            src="./img/assets/2016-07-24_redhat_learning-subscription_screenshot.png">
-                                    </a>
-                                </div>
+                    </pfe-card>
+                    <pfe-card pfe-color="lightest" style="--pfe-card__header--BackgroundColor: white;">
+                        <div class="image-embed" pfe-overflow="top">
+                            <div class="image-embed-container">
+                                <a href="./img/assets/2016-05-20_redhat_summit.png" class="popup-link">
+                                    <img class="image-embed-img"
+                                        src="./img/assets/2016-05-20_redhat_summit_screenshot.png">
+                                </a>
                             </div>
                         </div>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://www.redhat.com/en/services/training/learning-subscription"
-                                title="Click to view page at source" data-cta-type="secondary">View the
-                                source</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card pfe-color="lightest" style="--pfe-card--Border: 1px solid #ddd; --pfe-card__header--BackgroundColor: #ddd;">
-                        <div slot="pfe-card--header">
-                            <h3 class="card-header-headline" style="margin-bottom: 5px;">MICROSITE | Red Hat Summit
+                        <div slot="pfe-card--footer">
+                            <h3 class="card-header-headline" style="margin: 0 0 5px;">MICROSITE | Red Hat Summit
                             </h3>
                             <p class="card-header-summary">2016 May 20</p>
+                            <pfe-cta>
+                                <a class="cta-link" href="https://www.redhat.com/en/summit"
+                                    title="Click to view site at source">View the
+                                    source</a>
+                            </pfe-cta>
                         </div>
-                        <div class="card-body">
-                            <div class="image-embed">
-                                <div class="image-embed-container">
-                                    <a href="./img/assets/2016-05-20_redhat_summit.png" class="popup-link">
-                                        <img class="image-embed-img"
-                                            src="./img/assets/2016-05-20_redhat_summit_screenshot.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link" href="https://www.redhat.com/en/summit"
-                                title="Click to view site at source" data-cta-type="secondary">View the
-                                source</a>
-                        </pfe-cta>
                     </pfe-card>
                 </div>
             </pfe-band>
 
             <!-- Personality -->
             <pfe-band pfe-color="accent" id="poetry">
-                <div class="group" data-layout="6 6">
-                    <div class="group" data-layout="stacked">
-                        <div class="content">
-                            <pre>push<br>to the remote repo.</pre>
-                            <pre>git pull<br>into the chaos of code,<br>ideas and dreams.</pre>
-                            <pre>make<br>things real that didn't exist<br>yesterday.</pre>
-                        </div>
-                        <pfe-cta>
-                            <a class="cta-link" href="https://github.com/casnroberts/poetry"
-                                title="Click to view more poetry" data-cta-type="secondary">More poetry</a>
-                        </pfe-cta>
+                <div class="group" data-layout="stacked">
+                    <div class="content" data-text-align="right">
+                        <pre>push<br>to the remote repo.</pre>
+                        <pre>git pull<br>into the chaos of code,<br>ideas and dreams.</pre>
+                        <pre>make<br>things real that didn't exist<br>yesterday.</pre>
                     </div>
-                    <pfe-card pfe-color="lightest" data-outline="border">
-                        <div class="image-embed">
-                            <div class="image-embed-container">
-                                <img class="image-embed-img" src="/img/assets/2015-11_red-hat-team.gif">
-                            </div>
-                        </div>
-                    </pfe-card>
+                    <pfe-cta style="float: right">
+                        <a class="cta-link" href="https://github.com/casnroberts/poetry"
+                            title="Click to view more poetry" data-cta-type="secondary">More poetry</a>
+                    </pfe-cta>
                 </div>
             </pfe-band>
 
