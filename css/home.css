@@ -1032,8 +1032,8 @@ pfe-cta {
       margin-bottom: 0; }
 
 [data-img-shape="custom"] {
-  min-width: 200px;
-  max-width: 350px; }
+  min-width: 150px;
+  max-width: 250px; }
   @media (min-width: 0) and (max-width: 991px) {
     [data-img-shape="custom"] {
       -webkit-border-radius: 50%;
@@ -1044,10 +1044,10 @@ pfe-cta {
       max-height: 350px; } }
   @media (min-width: 992px) {
     [data-img-shape="custom"] {
-      -webkit-clip-path: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-              clip-path: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-      -webkit-shape-outside: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-              shape-outside: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+      -webkit-clip-path: polygon(0% 0%, 100% 0%, 95% 85%, 85% 85%, 80% 100%, 70% 85%, 5% 85%);
+              clip-path: polygon(0% 0%, 100% 0%, 95% 85%, 85% 85%, 80% 100%, 70% 85%, 5% 85%);
+      -webkit-shape-outside: polygon(0% 0%, 100% 0%, 95% 85%, 85% 85%, 80% 100%, 70% 85%, 5% 85%);
+              shape-outside: polygon(0% 0%, 100% 0%, 95% 85%, 85% 85%, 80% 100%, 70% 85%, 5% 85%);
       -webkit-shape-margin: 5px;
               shape-margin: 5px;
       float: left;

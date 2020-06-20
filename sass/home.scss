@@ -277,8 +277,8 @@ button::-moz-focus-inner {
 
 pfe-band {
   &[data-padding="half"] {
-    --pfe-band--PaddingTop: 20px;
-    --pfe-band--PaddingBottom: 20px;
+    --pfe-band--PaddingTop: 30px;
+    --pfe-band--PaddingBottom: 30px;
   }
   &[data-padding="quarter"] {
     --pfe-band--Padding: 15px 0;
@@ -978,8 +978,8 @@ pfe-cta {
 }
 
 [data-img-shape="custom"] {
-  min-width: 200px;
-  max-width: 350px;
+  min-width: 150px;
+  max-width: 250px;
   @media (min-width: 0) and (max-width: 991px) {
     border-radius: 50%;
     overflow: hidden;
@@ -989,22 +989,22 @@ pfe-cta {
   }
   @media (min-width: 992px) {
     clip-path: polygon(
-      5% 5%,
+      0% 0%,
       100% 0%,
-      100% 75%,
-      75% 75%,
-      75% 100%,
-      50% 75%,
-      0% 75%
+      95% 85%,
+      85% 85%,
+      80% 100%,
+      70% 85%,
+      5% 85%
     );
     shape-outside: polygon(
-      5% 5%,
+      0% 0%,
       100% 0%,
-      100% 75%,
-      75% 75%,
-      75% 100%,
-      50% 75%,
-      0% 75%
+      95% 85%,
+      85% 85%,
+      80% 100%,
+      70% 85%,
+      5% 85%
     );
     shape-margin: 5px;
     float: left;
