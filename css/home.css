@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Inconsolata);
-@import url(https://fonts.googleapis.com/css?family=PT+Mono);
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+@import url("https://fonts.googleapis.com/css?family=PT+Mono");
 pfe-card .video-embed-media-container, [data-align="bleed"]:first-child .image-embed-container, .slider[data-align="bleed"] {
   margin-top: -30px;
   margin-left: -30px;
@@ -271,11 +271,12 @@ pfe-card .video-embed-media-container, [data-align="bleed"]:first-child .image-e
   --title-color: #fffa;
   --headline-color: #252527;
   --text--color: #4c4c4c;
-  --link--color: #062F4F;
-  --pfe-theme--color--ui-accent: rgb(176, 6, 82);
-  --pfe-theme--color--ui-accent--hover: rgb(149, 5, 70);
-  --pfe-theme--color--ui-accent--focus: rgb(149, 5, 70);
-  --pfe-theme--color--surface--accent: rgb(176, 6, 82);
+  --link--color: #062f4f;
+  --pfe-theme--color--ui-accent: rgb(31, 73, 112);
+  --pfe-theme--color--ui-accent--hover: rgb(49, 115, 176);
+  --pfe-theme--color--ui-accent--focus: rgb(49, 115, 176);
+  --pfe-theme--color--surface--accent: rgb(31, 73, 112);
+  --pfe-theme--color--surface--accent--theme: saturated;
   --pfe-theme--color--surface--darker: var(--secondary, #444);
   --pfe-theme--container-spacer: 16px; }
 
@@ -369,16 +370,21 @@ pfe-card[tilt-on="hover"] {
      -moz-transform: rotate(1deg);
       -ms-transform: rotate(1deg);
           transform: rotate(1deg);
-  -webkit-transition: -webkit-transform .1s ease-in;
-  transition: -webkit-transform .1s ease-in;
-  -moz-transition: transform .1s ease-in, -moz-transform .1s ease-in;
-  transition: transform .1s ease-in;
-  transition: transform .1s ease-in, -webkit-transform .1s ease-in, -moz-transform .1s ease-in; }
+  -webkit-transition: -webkit-transform 0.1s ease-in;
+  transition: -webkit-transform 0.1s ease-in;
+  -moz-transition: transform 0.1s ease-in, -moz-transform 0.1s ease-in;
+  transition: transform 0.1s ease-in;
+  transition: transform 0.1s ease-in, -webkit-transform 0.1s ease-in, -moz-transform 0.1s ease-in; }
   pfe-card[tilt-on="hover"]:hover {
     -webkit-transform: rotate(0deg);
        -moz-transform: rotate(0deg);
         -ms-transform: rotate(0deg);
             transform: rotate(0deg); }
+
+pfe-cta {
+  --pfe-theme--color--ui-accent: rgb(31, 73, 112);
+  --pfe-theme--color--ui-accent--hover: rgb(49, 115, 176);
+  --pfe-theme--color--ui-accent--focus: rgb(49, 115, 176); }
 
 .band-header-summary .extra,
 .header-summary .extra {
@@ -558,13 +564,13 @@ pfe-card[tilt-on="hover"] {
       opacity: 0;
       width: 100%; }
       .video-embed-details[data-state="visible"][data-state="hidden"][data-animation="video-play"] {
-        -webkit-animation: opacity .5s .2s forwards ease-in;
-           -moz-animation: opacity .5s .2s forwards ease-in;
-                animation: opacity .5s .2s forwards ease-in; }
+        -webkit-animation: opacity 0.5s 0.2s forwards ease-in;
+           -moz-animation: opacity 0.5s 0.2s forwards ease-in;
+                animation: opacity 0.5s 0.2s forwards ease-in; }
       .video-embed-details[data-state="visible"][data-state="hidden"][data-animation="video-close"] {
-        -webkit-animation: opacity .5s forwards ease-in;
-           -moz-animation: opacity .5s forwards ease-in;
-                animation: opacity .5s forwards ease-in; }
+        -webkit-animation: opacity 0.5s forwards ease-in;
+           -moz-animation: opacity 0.5s forwards ease-in;
+                animation: opacity 0.5s forwards ease-in; }
   .video-embed-media-container {
     margin-bottom: 1em; }
   .video-embed-iframe-container {
@@ -722,11 +728,11 @@ pfe-card[tilt-on="hover"] {
       margin-top: -0.4em;
       font-size: 6em;
       height: 1em;
-      padding-right: .1em; }
+      padding-right: 0.1em; }
       @media (max-width: 991px) {
         .quote-container:before {
           color: var(--pfe-theme--color--ui-accent);
-          margin-left: -.6em; } }
+          margin-left: -0.6em; } }
       @media (min-width: 992px) {
         .quote-container:before {
           font-size: 9em;
@@ -841,17 +847,17 @@ pfe-card[tilt-on="hover"] {
     margin-right: 0;
     margin-top: 30px; }
     @media (min-width: 768px) {
-      [data-layout="4 4 4"] > *:nth-child(3n+1) {
+      [data-layout="4 4 4"] > *:nth-child(3n + 1) {
         clear: both;
         width: 31.61984%;
         float: left;
         margin-right: 2.57023%; }
-      [data-layout="4 4 4"] > *:nth-child(3n+2) {
+      [data-layout="4 4 4"] > *:nth-child(3n + 2) {
         clear: both;
         width: 31.61984%;
         float: left;
         margin-right: 2.57023%; }
-      [data-layout="4 4 4"] > *:nth-child(3n+3) {
+      [data-layout="4 4 4"] > *:nth-child(3n + 3) {
         clear: both;
         width: 31.61984%;
         float: right;
@@ -1078,9 +1084,9 @@ pfe-card[tilt-on="hover"] {
   .slider-nav-item {
     cursor: pointer;
     list-style-type: none;
-    -webkit-transition-property: background .2s ease-in 0s;
-    -moz-transition-property: background .2s ease-in 0s;
-    transition-property: background .2s ease-in 0s; }
+    -webkit-transition-property: background 0.2s ease-in 0s;
+    -moz-transition-property: background 0.2s ease-in 0s;
+    transition-property: background 0.2s ease-in 0s; }
     [data-nav-style="text"] .slider-nav-item {
       padding: 5px 15px; }
       @media (min-width: 768px) {
@@ -1155,16 +1161,16 @@ pfe-card[tilt-on="hover"] {
             -ms-transform: rotate(-90deg);
                 transform: rotate(-90deg); }
   .slider-nav-link {
-    -webkit-transition-property: color .2s ease-in 0s;
-    -moz-transition-property: color .2s ease-in 0s;
-    transition-property: color .2s ease-in 0s; }
+    -webkit-transition-property: color 0.2s ease-in 0s;
+    -moz-transition-property: color 0.2s ease-in 0s;
+    transition-property: color 0.2s ease-in 0s; }
     [data-nav-style="text"] .slider-nav-link,
     [data-nav-style="circles"] .slider-nav-link {
       text-decoration: none;
       text-transform: uppercase;
       font-weight: 600;
       text-align: center;
-      font-size: .9em; }
+      font-size: 0.9em; }
       @media (min-width: 768px) {
         [data-nav-style="text"] .slider-nav-link,
         [data-nav-style="circles"] .slider-nav-link {
@@ -1382,7 +1388,7 @@ pfe-card[tilt-on="hover"] {
   display: none !important; }
 
 .mfp-preloader {
-  color: #CCC;
+  color: #ccc;
   position: absolute;
   top: 50%;
   width: auto;
@@ -1393,10 +1399,10 @@ pfe-card[tilt-on="hover"] {
   z-index: 1044; }
 
 .mfp-preloader a {
-  color: #CCC; }
+  color: #ccc; }
 
 .mfp-preloader a:hover {
-  color: #FFF; }
+  color: #fff; }
 
 .mfp-s-ready .mfp-preloader {
   display: none; }
@@ -1427,7 +1433,7 @@ pfe-card[tilt-on="hover"] {
   text-align: center;
   opacity: 0.65;
   padding: 0 0 18px 10px;
-  color: #FFF;
+  color: #fff;
   font-style: normal;
   font-size: 28px; }
 
@@ -1443,7 +1449,7 @@ pfe-card[tilt-on="hover"] {
 
 .mfp-image-holder .mfp-close,
 .mfp-iframe-holder .mfp-close {
-  color: #FFF;
+  color: #fff;
   right: -6px;
   text-align: right;
   padding-right: 6px;
@@ -1453,7 +1459,7 @@ pfe-card[tilt-on="hover"] {
   position: absolute;
   top: 0;
   right: 0;
-  color: #CCC;
+  color: #ccc;
   font-size: 12px;
   line-height: 18px;
   white-space: nowrap; }
@@ -1502,22 +1508,22 @@ pfe-card[tilt-on="hover"] {
   left: 0; }
 
 .mfp-arrow-left::after {
-  border-right: 17px solid #FFF;
+  border-right: 17px solid #fff;
   margin-left: 31px; }
 
 .mfp-arrow-left:before {
   margin-left: 25px;
-  border-right: 27px solid #3F3F3F; }
+  border-right: 27px solid #3f3f3f; }
 
 .mfp-arrow-right {
   right: 0; }
 
 .mfp-arrow-right::after {
-  border-left: 17px solid #FFF;
+  border-left: 17px solid #fff;
   margin-left: 39px; }
 
 .mfp-arrow-right:before {
-  border-left: 27px solid #3F3F3F; }
+  border-left: 27px solid #3f3f3f; }
 
 .mfp-iframe-holder {
   padding-top: 40px;
@@ -1562,7 +1568,7 @@ pfe-card[tilt-on="hover"] {
   background: #444; }
 
 .mfp-figure small {
-  color: #BDBDBD;
+  color: #bdbdbd;
   display: block;
   font-size: 12px;
   line-height: 14px; }
@@ -1584,7 +1590,7 @@ pfe-card[tilt-on="hover"] {
 .mfp-title {
   text-align: left;
   line-height: 18px;
-  color: #F3F3F3;
+  color: #f3f3f3;
   word-wrap: break-word;
   padding-right: 36px; }
 
