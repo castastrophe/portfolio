@@ -6,23 +6,36 @@
     "personal site"
   ],
   "main": "index.html",
+  "browserslist": [
+    "cover 99.5% in US"
+  ],
   "dependencies": {
-    "@patternfly/pfe-band": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-card": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-cta": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-icon": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-sass": "^1.0.0-prerelease.40",
-    "@patternfly/pfe-styles": "^1.0.0-prerelease.40",
-    "@patternfly/pfelement": "^1.0.0-prerelease.39",
-    "require.js": "^1.0.0",
-    "waypoints": "^4.0.1",
-    "webcomponentsjs": "^1.0.2"
+    "@patternfly/pfe-band": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-card": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-cta": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-icon": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-sass": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-styles": "^1.0.0-prerelease.49",
+    "@patternfly/pfelement": "^1.0.0-prerelease.49",
+    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "magnific-popup": "^1.1.0"
   },
   "devDependencies": {
-    "spandx": "^2.0.1"
+    "autoprefixer": "^9.8.1",
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-flatten": "^0.4.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-sass": "^4.14.1",
+    "path": "^0.12.7"
   },
   "scripts": {
-    "start": "spandx",
+    "start": "gulp serve",
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
