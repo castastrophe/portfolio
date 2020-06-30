@@ -385,8 +385,20 @@ pfe-cta {
   margin-bottom: 0;
 }
 
-.header-title[data-weight="thin"] {
-  font-weight: 100;
+.header-title {
+  &[data-weight="thin"] {
+    font-weight: 100;
+  }
+  &:hover > span {
+    transition: transform 0.2s linear;
+    display: inline-block;
+    &:first-of-type {
+      transform: translateX(-5px);
+    }
+    &:last-of-type {
+      transform: translateX(5px);
+    }
+  }
 }
 
 .content {
@@ -824,8 +836,10 @@ pfe-cta {
     flex-flow: row wrap;
     @supports (display: grid) {
       display: grid;
-      grid-gap: var(--pfe-theme--container-spacer);
+      grid-row-gap: var(--pfe-theme--container-spacer);
+      grid-column-gap: var(--pfe-theme--container-spacer);
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
     }
   }
   > * {
@@ -881,12 +895,16 @@ pfe-cta {
   flex-flow: row wrap;
   @supports (display: grid) {
     display: grid;
-    grid-gap: 40px;
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     margin-top: 0;
     @media (min-width: 992px) {
-      grid-gap: var(--pfe-theme--container-spacer, 16px);
+      grid-row-gap: var(--pfe-theme--container-spacer, 16px);
+      grid-column-gap: var(--pfe-theme--container-spacer, 16px);
       grid-template-columns: 8fr 4fr;
+      grid-template-rows: auto;
     }
   }
   > * {
@@ -907,11 +925,14 @@ pfe-cta {
     flex-flow: row wrap;
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     grid-row-gap: 20px;
     grid-column-gap: 40px;
     margin-top: 0;
     @media (min-width: 768px) {
+      grid-template-columns: repeat(4, minmax(300px, 1fr)); // IE11
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-rows: auto;
     }
   }
   > * {
@@ -949,8 +970,10 @@ pfe-cta {
   display: flex;
   flex-flow: row wrap;
   display: grid;
-  grid-gap: var(--pfe-theme--container-spacer, 16px);
+  grid-row-gap: var(--pfe-theme--container-spacer, 16px);
+  grid-column-gap: var(--pfe-theme--container-spacer, 16px);
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: auto;
   pfe-cta > a {
     flex-grow: 1;
   }
