@@ -74,7 +74,7 @@
             <pfe-band pfe-color="lightest" data-padding="half" id="social">
                 <div class="band-container" data-layout="space-between" data-align="left">
                     <div slot="pfe-band--header">
-                        <h2 class="header-title">[ Cassondra ]</h2>
+                        <h2 class="header-title"><span>[</span> Cassondra <span>]</span></h2>
                     </div>
                     <div slot="pfe-band--header">
                         <span class="header-title" data-weight="thin">Follow: </span>
@@ -337,143 +337,146 @@
             <!-- Recorded talks -->
             <pfe-band pfe-color="lightest" data-width="full" id="presentations">
                 <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
-                <div class="group" data-layout="auto-grid">
-                    <pfe-card pfe-color="lightest" pfe-border>
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                title="Click to view project">Unlocking design in a design system with custom
-                                properties</a></h4>
-                        <p>A deep-dive on how to leverage custom properties in a design system.</p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                title="Click to view project" data-cta-type="secondary">View the full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card pfe-color="lightest" pfe-border>
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                title="Click to view project">Make web development fun again, with web components!</a>
-                        </h4>
-                        <p>A joint presentation with Penn State on how web components can make development workflows fun
-                            and efficient.</p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                title="Click to view project" data-cta-type="secondary">View the full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card pfe-color="lightest" pfe-border>
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                title="Click to view project">One of these things is not like the other; identifying
-                                patterns in a mock-up</a></h4>
-                        <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
-                        </p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                title="Click to view project" data-cta-type="secondary">View the full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card pfe-color="lightest" pfe-border>
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">NCDevCon 2016</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;">Reduce, reuse, recycle: Modular CSS
-                        </h4>
-                        <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
-                            the size of your output.</p>
-                    </pfe-card>
-                </div>
-            </pfe-band>
-
-            <!-- Tools -->
-            <pfe-band pfe-color="darkest" id="tools">
-                <div slot="pfe-band--header">
-                    <h3 class="header-title">Tools</h3>
-                    <h4 class="header-headline">How the site was made</h4>
-                    <p class="header-summary">There are so many amazing tools out there which make building a site
-                        quick and easy. Preprocessors like Sass are invaluable ways to incorporate loops and logic
-                        into your styles and build tools like Gulp.js make producing production-ready code a snap.
-                    </p>
-                </div>
-                <section data-layout="gallery5">
-                    <pfe-cta pfe-priority="primary">
-                        <a href="https://github.com/patternfly/patternfly-elements/">Web components</a>
-                    </pfe-cta>
-                    <pfe-cta pfe-priority="secondary">
-                        <a href="https://gulpjs.com/">Gulp</a>
-                    </pfe-cta>
-                    <pfe-cta pfe-priority="secondary">
-                        <a href="https://sass-lang.com/">Sass</a>
-                    </pfe-cta>
-                    <pfe-cta pfe-priority="secondary">
-                        <a href="https://jquery.com/">jQuery</a>
-                    </pfe-cta>
-                    <pfe-cta pfe-priority="secondary">
-                        <a href="https://dimsemenov.com/plugins/magnific-popup">Magnific pop-up</a>
-                    </pfe-cta>
-                </section>
-            </pfe-band>
-
-            <!-- Copyright -->
-            <pfe-band pfe-color="darker" data-padding="quarter">
-                <div class="content" data-align="center">
-                    <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other
-                            countries. <a class="cta-link"
-                                href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn
-                                more about their trademark guidelines and policies.</a></small></p>
-                </div>
-            </pfe-band>
-
-            </pfe-band>
+                <pfe-tabs pfe-variant="wind">
+                    <pfe-tab slot="tab" role="heading">
+                        <h4>Unlocking design in a design system with custom properties</h4>
+                    </pfe-tab>
+                    <pfe-tab-panel slot="panel" role="region" <div class="video-embed-iframe-container"
+                        pfe-overflow="top right left">
+                        <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
         </div>
+        <h3 class="card-header-title">DrupalCon 2019</h3>
+        <h4 class="card-header-headline" style="font-size: 22px;"><a
+                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                title="Click to view project">Unlocking design in a design system with custom
+                properties</a></h4>
+        <p>A deep-dive on how to leverage custom properties in a design system.</p>
+        <pfe-cta slot="pfe-card--footer">
+            <a class="cta-link"
+                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                title="Click to view project" data-cta-type="secondary">View the full description</a>
+        </pfe-cta>
+        </pfe-tab>
+        <pfe-card pfe-color="lightest" pfe-border>
+            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <h3 class="card-header-title">DrupalCon 2019</h3>
+            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                    title="Click to view project">Make web development fun again, with web components!</a>
+            </h4>
+            <p>A joint presentation with Penn State on how web components can make development workflows fun
+                and efficient.</p>
+            <pfe-cta slot="pfe-card--footer">
+                <a class="cta-link"
+                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                    title="Click to view project" data-cta-type="secondary">View the full description</a>
+            </pfe-cta>
+        </pfe-card>
+        <pfe-card pfe-color="lightest" pfe-border>
+            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <h3 class="card-header-title">DrupalCon 2019</h3>
+            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                    title="Click to view project">One of these things is not like the other; identifying
+                    patterns in a mock-up</a></h4>
+            <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
+            </p>
+            <pfe-cta slot="pfe-card--footer">
+                <a class="cta-link"
+                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                    title="Click to view project" data-cta-type="secondary">View the full description</a>
+            </pfe-cta>
+        </pfe-card>
+        <pfe-card pfe-color="lightest" pfe-border>
+            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <h3 class="card-header-title">NCDevCon 2016</h3>
+            <h4 class="card-header-headline" style="font-size: 22px;">Reduce, reuse, recycle: Modular CSS
+            </h4>
+            <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
+                the size of your output.</p>
+        </pfe-card>
+        </pfe-tabs>
+        </pfe-band>
 
-        <footer>
+        <!-- Tools -->
+        <pfe-band pfe-color="darkest" id="tools">
+            <div slot="pfe-band--header">
+                <h3 class="header-title">Tools</h3>
+                <h4 class="header-headline">How the site was made</h4>
+                <p class="header-summary">There are so many amazing tools out there which make building a site
+                    quick and easy. Preprocessors like Sass are invaluable ways to incorporate loops and logic
+                    into your styles and build tools like Gulp.js make producing production-ready code a snap.
+                </p>
+            </div>
+            <section data-layout="gallery5">
+                <pfe-cta pfe-priority="primary">
+                    <a href="https://github.com/patternfly/patternfly-elements/">Web components</a>
+                </pfe-cta>
+                <pfe-cta pfe-priority="secondary">
+                    <a href="https://gulpjs.com/">Gulp</a>
+                </pfe-cta>
+                <pfe-cta pfe-priority="secondary">
+                    <a href="https://sass-lang.com/">Sass</a>
+                </pfe-cta>
+                <pfe-cta pfe-priority="secondary">
+                    <a href="https://jquery.com/">jQuery</a>
+                </pfe-cta>
+                <pfe-cta pfe-priority="secondary">
+                    <a href="https://dimsemenov.com/plugins/magnific-popup">Magnific pop-up</a>
+                </pfe-cta>
+            </section>
+        </pfe-band>
 
-            <script src="/js/vendor/jquery.min.js"></script>
-            <script src="/js/vendor/jquery.magnific-popup.min.js"></script>
-            <script src="/js/home.min.js"></script>
+        <!-- Copyright -->
+        <pfe-band pfe-color="darker" data-padding="quarter">
+            <div class="content" data-align="center">
+                <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other
+                        countries. <a class="cta-link"
+                            href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn
+                            more about their trademark guidelines and policies.</a></small></p>
+            </div>
+        </pfe-band>
 
-            <script>
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        </pfe-band>
+    </div>
 
-                ga('create', 'UA-49502366-1', 'castastrophe.com');
-                ga('send', 'pageview');
-            </script>
-        </footer>
+    <footer>
+
+        <script src="/js/vendor/jquery.min.js"></script>
+        <script src="/js/vendor/jquery.magnific-popup.min.js"></script>
+        <script src="/js/home.min.js"></script>
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-49502366-1', 'castastrophe.com');
+            ga('send', 'pageview');
+        </script>
+    </footer>
 </body>
 
 </html>

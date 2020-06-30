@@ -16,12 +16,13 @@
     "@patternfly/pfe-icon": "^1.0.0-prerelease.49",
     "@patternfly/pfe-sass": "^1.0.0-prerelease.49",
     "@patternfly/pfe-styles": "^1.0.0-prerelease.49",
+    "@patternfly/pfe-tabs": "^1.0.0-prerelease.49",
     "@patternfly/pfelement": "^1.0.0-prerelease.49",
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "magnific-popup": "^1.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.1",
+    "autoprefixer": "^9.8.2",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -31,7 +32,8 @@
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "node-sass": "^4.14.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "prettier": "^2.0.5"
   },
   "scripts": {
     "start": "gulp serve",
