@@ -49,3 +49,24 @@
         z-index: 1;
     }
 }
+
+.loading_cont {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+#loader {
+    display: inline-block;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.blobs {
+    filter: url("#goo");
+}
+
+.blob {
+    fill: #fff;
+}

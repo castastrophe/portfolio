@@ -68,7 +68,7 @@ function compileSass() {
         .pipe(postcss([require('autoprefixer')({
             grid: 'autoplace'
         })]))
-        .pipe(dest(destination.css))
+        .pipe(dest(path.join(destination.publish, destination.css)))
         .pipe(sass.sync({
             outputStyle: 'compressed'
         }).on('error', sass.logError))
@@ -88,6 +88,9 @@ function compileJS() {
         })
         .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
         .pipe(sourcemaps.write())
         .pipe(dest(path.join(destination.publish, destination.js)))
         .pipe(browserSync.stream());
@@ -145,7 +148,7 @@ function copyWCJS() {
         ], {
             base: './node_modules'
         }))
-        // .pipe(print(filepath => ` > ${filepath}`))
+        .pipe(print(filepath => ` > ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(concat('webcomponents.min.js'))
         .pipe(sourcemaps.write())
@@ -155,17 +158,18 @@ function copyWCJS() {
 
 function copyVendorJS() {
     return src([
-            path.join(`. / node_modules / $ {source.libs}`, assets.libs_js)
+            path.join(source.libs, assets.libs_js)
         ], {
+            cwd: './node_modules/',
             follow: true
         })
         .pipe(order([
-            '/website/third-party-libs/jquery.min.js',
-            '/dist/jquery.magnific-popup.min.js'
+            'magnific-popup/website/third-party-libs/jquery.min.js',
+            'magnific-popup/dist/jquery.magnific-popup.min.js'
         ], {
-            base: `. / node_modules / magnific - popup `
+            base: './node_modules'
         }))
-        // .pipe(print(filepath => ` > ${filepath}`))
+        .pipe(print(filepath => ` > ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(concat('vendor.min.js'))
         .pipe(sourcemaps.write())

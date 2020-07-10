@@ -179,23 +179,3 @@
         }
     }
 }
-
-%stacked {
-    >* {
-        margin-bottom: 30px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-}
-
-%min-stacked {
-    >* {
-        margin-bottom: 15px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-}

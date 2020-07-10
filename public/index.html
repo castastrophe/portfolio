@@ -41,8 +41,8 @@
     </noscript>
 
     <!-- Include CSS files -->
-    <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
     <link type="text/css" rel="stylesheet" href="/css/vendor.min.css" media="all">
+    <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
@@ -50,11 +50,31 @@
         integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
 
     <script src="/js/webcomponents.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 </head>
 
 <body unresolved class="page-wrapper">
 
-    <div class="main" data-menu-state="closed">
+    <div class="main">
+        <div class="loading_cont" style="z-index: 3">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" id="loader">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                            result="goo" />
+                        <feBlend in2="goo" in="SourceGraphic" result="mix" />
+                    </filter>
+                    <linearGradient id="MyGradient">
+                        <stop offset="5%" stop-color="transparent" />
+                        <stop offset="40%" stop-color="rgb(49, 115, 176, .4)" />
+                        <stop offset="100%" stop-color="transparent" />
+                    </linearGradient>
+                </defs>
+                <mask id="maska"></mask>
+                <rect x="0" y="0" mask="url(#maska)" fill="url(#MyGradient)" width="100%" height="100%">
+            </svg>
+        </div>
         <div class="main-wrap">
 
             <pfe-band data-padding="half" id="social" sticky>
@@ -62,22 +82,24 @@
                     <div slot="pfe-band--header">
                         <h2 class="header-title"><span>[</span> Cassondra <span>]</span></h2>
                     </div>
-                    <div slot="pfe-band--header">
-                        <span class="header-title" data-weight="thin">Follow: </span>
-                        <a class="social-icon" href="https://twitter.com/castastrophee"><span
-                                class="fab fa-twitter"></span></a>
-                        <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
-                                class="fab fa-linkedin-in"></span></a>
-                        <a class="social-icon" href="https://github.com/castastrophe"><span
-                                class="fab fa-github-alt"></span></a>
-                        <a class="social-icon" href="https://codepen.io/castastrophee/"><span
-                                class="fab fa-codepen"></span></a>
+                    <div slot="pfe-band--header" class="social">
+                        <span class="social-title" data-weight="thin">Follow: </span>
+                        <span class="social-icons">
+                            <a class="social-icon" href="https://twitter.com/castastrophee"><span
+                                    class="fab fa-twitter"></span></a>
+                            <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
+                                    class="fab fa-linkedin-in"></span></a>
+                            <a class="social-icon" href="https://github.com/castastrophe"><span
+                                    class="fab fa-github-alt"></span></a>
+                            <a class="social-icon" href="https://codepen.io/castastrophee/"><span
+                                    class="fab fa-codepen"></span></a>
+                        </span>
                     </div>
                 </div>
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band pfe-color="accent" id="teaser" data-padding="half" style="z-index: 3;">
+            <pfe-band pfe-color="accent" id="teaser" data-padding="half" style="z-index: 5;">
                 <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-ux-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
@@ -90,7 +112,7 @@
                                     <p class="header-summary">DrupalCon, April 9-13, 2018 | Nashville, TN</p>
                                 </div>
                                 <div data-align="both">
-                                    <pfe-cta data-cta-type="video-play" style="font-size: 20px; padding-bottom: 2em;">
+                                    <pfe-cta data-cta-type="video-play" style="font-size: 20px;">
                                         <a class="cta-link" data-popup="youtube"
                                             href="https://www.youtube.com/watch?v=p3y0ljTr8YQ">Watch now</a>
                                     </pfe-cta>
@@ -144,8 +166,9 @@
                         </blockquote>
                     </pfe-card>
                     <pfe-card pfe-border class="featured">
-                        <p class="header-headline">Reduce, reuse, recycle: Modular
-                            CSS</p>
+                        <p class="header-headline"><a class="cta-link" data-size="sm" data-popup="youtube"
+                                href="https://www.youtube.com/watch?v=8Yyklb78S00">Reduce, reuse, recycle: Modular
+                                CSS</a></p>
                         <p class="header-summary">NCDevCon, September 17-18, 2016 | Raleigh, NC</p>
                         <pfe-cta data-cta-type="video-play">
                             <a class="cta-link" data-size="sm" data-popup="youtube"
@@ -254,7 +277,7 @@
             <pfe-band id="design">
                 <h2 slot="pfe-band--header" class="header-title">Design portfolio</h2>
                 <div class="group" data-layout="6 6">
-                    <pfe-card style="--pfe-card__header--BackgroundColor: white;">
+                    <pfe-card style="--pfe-card--BackgroundColor: transparent">
                         <div class="image-embed" pfe-overflow="top">
                             <div class="image-embed-container">
                                 <a href="./img/2016-07-24_redhat_learning-subscription.png" class="popup-link">
@@ -275,7 +298,7 @@
                             </pfe-cta>
                         </div>
                     </pfe-card>
-                    <pfe-card style="--pfe-card__header--BackgroundColor: white;">
+                    <pfe-card style="--pfe-card__header--BackgroundColor: transparent">
                         <div class="image-embed" pfe-overflow="top">
                             <div class="image-embed-container">
                                 <a href="./img/2016-05-20_redhat_summit.png" class="popup-link">

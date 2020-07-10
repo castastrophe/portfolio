@@ -1,15 +1,14 @@
-.group {
-    [data-layout="angle"] & {
-        @media (max-width: 991px) {
-            text-align: right;
-            border-right: 4px solid var(--pfe-theme--color--ui-accent);
-            padding-right: 30px;
-        }
+@mixin stacked {
+    display: flex;
+    flex-flow: column nowrap;
+
+    >*:not(:last-child) {
+        margin-bottom: var(--spacing--vertical, 30px);
     }
 }
 
 [data-layout="6 6"] {
-    margin-top: -30px;
+    margin-top: calc(var(--spacing--vertical, 30px) * -1);
 
     @media (min-width: 768px) {
         display: flex;
@@ -29,7 +28,7 @@
         float: left;
         margin-left: 0;
         margin-right: 0;
-        margin-top: 30px;
+        margin-top: var(--spacing--vertical, 30px);
         display: flex;
         flex-flow: column wrap;
         justify-content: center;
@@ -37,7 +36,7 @@
 }
 
 [data-layout="4 4 4"] {
-    margin-top: -30px;
+    margin-top: calc(var(--spacing--vertical, 30px) * -1);
 
     @media (min-width: 768px) {
         display: flex;
@@ -49,7 +48,7 @@
         float: left;
         margin-left: 0;
         margin-right: 0;
-        margin-top: 30px;
+        margin-top: var(--spacing--vertical, 30px);
 
         @media (min-width: 768px) {
             &:nth-child(3n + 1) {
@@ -77,7 +76,7 @@
 }
 
 [data-layout="8 4"] {
-    margin-top: -30px;
+    margin-top: calc(var(--spacing--vertical, 30px) * -1);
     display: flex;
     flex-flow: row wrap;
 
@@ -101,7 +100,7 @@
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-        margin-top: 30px;
+        margin-top: var(--spacing--vertical, 30px);
 
         @supports (display: grid) {
             margin-top: 0;
@@ -110,7 +109,7 @@
 }
 
 [data-layout="auto-grid"] {
-    margin-top: -30px;
+    margin-top: calc(var(--spacing--vertical, 30px) * -1);
 
     @supports (display: grid) {
         display: flex;
@@ -131,7 +130,7 @@
 
     >* {
         width: 100%;
-        margin-top: 30px;
+        margin-top: var(--spacing--vertical, 30px);
 
         @supports (display: grid) {
             margin-top: 0;
@@ -140,11 +139,12 @@
 }
 
 [data-layout="stacked"] {
-    @extend %stacked;
+    @include stacked;
 }
 
 [data-layout="min-stacked"] {
-    @extend %min-stacked;
+    --spacing--vertical: 15px;
+    @include stacked;
 }
 
 [data-align="right"] {

@@ -9,10 +9,9 @@ pfe-card {
     }
 
     &.quote {
+        --pfe-card--BackgroundColor: transparent;
         --pfe-card--PaddingRight: 6px;
-        border-right: 6px solid var(--pfe-theme--color--ui-accent);
-        border-top: 6px solid #fff;
-        border-bottom: 6px solid #fff;
+        border-right: 8px solid var(--pfe-theme--color--ui-accent);
     }
 
     &.featured[pfe-border] {

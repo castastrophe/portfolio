@@ -5,15 +5,19 @@ pfe-band {
         --pfe-band--Padding: 15px 9px;
     }
 
+    &[pfe-color="base"] {
+        --pfe-band--BackgroundColor: transparent;
+    }
+
     &[data-width="full"] {
         --pfe-band--Width: auto;
         --pfe-band--Padding--horizontal: 30px;
         --pfe-band--Padding: 80px 15px;
-        z-index: 3;
+        z-index: 4;
+    }
 
-        &:not([pfe-color]) {
-            --pfe-band--BackgroundColor: transparent;
-        }
+    &[data-width="full"][pfe-color="accent"] {
+        z-index: 4;
     }
 
     &[sticky] {

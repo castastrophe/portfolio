@@ -256,7 +256,7 @@ button::-moz-focus-inner {
   }
 
   &-details {
-    @extend %stacked;
+    @include stacked;
 
     &[data-state="visible"] {
       opacity: 1;
@@ -415,35 +415,77 @@ button::-moz-focus-inner {
   }
 }
 
-.social-icon {
-  margin: 0 5px;
+#social {
+  z-index: 2;
 
-  &:last-child {
-    margin-right: 0;
+  @media screen and (max-width: 991px) {
+    z-index: 5;
+    border-bottom: 1px solid #eee;
   }
 
-  &:hover>* {
-    color: #55acee;
+  @media screen and (max-width: 991px) {
+    .header-title {
+      font-size: 1.5em;
+    }
+
+    .social-title {
+      font-size: 1.2em;
+      font-weight: 100;
+    }
+
+    .social-icon>* {
+      font-size: 1.2em;
+    }
   }
 
-  >* {
-    text-decoration: none;
-    font-size: 22px;
+  @media screen and (max-width: 1629px) {
+    --pfe-band--BackgroundColor: #fff;
+    --pfe-band--Padding: 5px 15vw;
+  }
+}
+
+.social {
+  @media screen and (min-width: 1630px) and (max-width: 1819px) {
+    --spacing--vertical: 5px;
+    @include stacked;
   }
 
-  >[name]:not([href]) {
-    color: inherit;
+  &-title {
+    @extend %title;
   }
 
-  > :visited {
-    text-decoration: line-through;
+  &-icon {
+    margin: 0 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover>* {
+      color: #55acee;
+    }
+
+    >* {
+      text-decoration: none;
+      font-size: 22px;
+    }
+
+    >[name]:not([href]) {
+      color: inherit;
+    }
+
+    > :visited {
+      text-decoration: line-through;
+    }
   }
 }
 
 .quote {
+  z-index: 1;
   quotes: "“""”""‘""’";
 
   &-container {
+    @extend %text-alignment;
     display: flex;
     flex-flow: row nowrap;
     padding: 0;
@@ -452,18 +494,6 @@ button::-moz-focus-inner {
 
     +pfe-cta {
       font-style: normal;
-    }
-
-    &[data-text-align="left"] {
-      text-align: left;
-    }
-
-    &[data-text-align="right"] {
-      text-align: right;
-    }
-
-    &[data-text-align="center"] {
-      text-align: center;
     }
   }
 
@@ -506,33 +536,20 @@ button::-moz-focus-inner {
 }
 
 [data-img-shape="custom"] {
-  min-width: 150px;
-  max-width: 250px;
+  border-top-right-radius: #{random(60) + 30%} #{random(20) + 5px};
+  border-bottom-right-radius: #{random(60) + 30%} #{random(20) + 5px};
+  border-bottom-left-radius: #{random(20) + 5px} #{random(60) + 30%};
+  overflow: hidden;
+  width: clamp(150px, 100%, 250px);
+  min-height: 200px;
+  height: 100%;
 
   @media (min-width: 0) and (max-width: 991px) {
-    border-radius: 50%;
-    overflow: hidden;
     margin: 0 auto 15px;
-    min-height: 200px;
     max-height: 350px;
   }
 
   @media (min-width: 992px) {
-    clip-path: polygon(0% 0%,
-        100% 0%,
-        95% 85%,
-        85% 85%,
-        80% 100%,
-        70% 85%,
-        5% 85%);
-    shape-outside: polygon(0% 0%,
-        100% 0%,
-        95% 85%,
-        85% 85%,
-        80% 100%,
-        70% 85%,
-        5% 85%);
-    shape-margin: 5px;
     float: left;
     margin: 0 15px 15px 0;
   }
