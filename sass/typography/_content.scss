@@ -1,0 +1,154 @@
+.content {
+    &[data-text-align="left"] {
+        text-align: left;
+    }
+
+    &[data-text-align="right"] {
+        text-align: right;
+    }
+
+    &[data-text-align="center"] {
+        text-align: center;
+    }
+
+    img,
+    embed,
+    object,
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+
+    dt,
+    th {
+        color: var(--pfe-broadcasted--text, --headline-color);
+    }
+
+    p,
+    pre,
+    li,
+    dd,
+    td {
+        color: var(--pfe-broadcasted--text, --text-color);
+    }
+
+    p {
+        display: block;
+        font-size: 1em;
+        font-weight: normal;
+        line-height: 1.44;
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: 1em;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: 400;
+        color: var(--pfe-broadcasted--link, --link--color);
+
+        &:hover {
+            text-decoration: underline;
+            color: var(--pfe-broadcasted--link--hover, #002f3b);
+        }
+
+        &:focus {
+            text-decoration: underline;
+            color: var(--pfe-broadcasted--link--focus, #002f3b);
+        }
+
+        &:visited {
+            text-decoration: line-through;
+            color: var(--pfe-broadcasted--link--visited, #002f3b);
+        }
+
+        &[name]:not([href]) {
+            color: inherit;
+        }
+    }
+
+    @for $n from 1 through 6 {
+        h#{$n} {
+            @extend %headline-#{$n};
+            color: var(--pfe-broadcasted--text, --headline-color);
+        }
+    }
+
+    pre {
+        font-family: "PT Mono", monospace;
+        display: block;
+        font-size: 1em;
+        font-weight: normal;
+        line-height: 1.44;
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: 1em;
+        }
+    }
+
+    ul,
+    ol {
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: 1.5em;
+        }
+    }
+
+    li {
+        font-size: 1em;
+        margin: 0;
+        line-height: 1.44;
+    }
+
+    dl {
+        line-height: 1.2;
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: 1.5em;
+        }
+    }
+
+    dt {
+        margin-top: 0;
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    dd {
+        margin: 0 0 1em 0;
+        font-size: 1em;
+    }
+
+    th,
+    td {
+        font-size: 1em;
+        padding: 10px 20px 10px 0;
+        border-collapse: collapse;
+        border: 0;
+    }
+
+    td {
+        border-bottom: 1px solid;
+    }
+
+    b,
+    strong {
+        font-size: 1.2em;
+        font-weight: 400;
+    }
+
+    .extra {
+        font-size: 1.4em;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    >*:last-child {
+        margin-bottom: 0;
+    }
+}
