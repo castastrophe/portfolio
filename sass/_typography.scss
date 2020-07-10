@@ -1,0 +1,41 @@
+.header-title {
+    @extend %text-alignment;
+    @extend %title;
+}
+
+.header-headline {
+    @extend %text-alignment;
+    @extend %headline;
+}
+
+.header-summary {
+    @extend %text-alignment;
+    @extend %summary;
+
+    .extra {
+        font-size: 1.4em;
+    }
+}
+
+.header>*:last-child {
+    margin-bottom: 0;
+}
+
+.header-title {
+    &[data-weight="thin"] {
+        font-weight: 100;
+    }
+
+    &:hover>span {
+        transition: transform 0.2s linear;
+        display: inline-block;
+
+        &:first-of-type {
+            transform: translateX(-5px);
+        }
+
+        &:last-of-type {
+            transform: translateX(5px);
+        }
+    }
+}

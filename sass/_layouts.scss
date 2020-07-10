@@ -1,0 +1,198 @@
+.group {
+    [data-layout="angle"] & {
+        @media (max-width: 991px) {
+            text-align: right;
+            border-right: 4px solid var(--pfe-theme--color--ui-accent);
+            padding-right: 30px;
+        }
+    }
+}
+
+[data-layout="6 6"] {
+    margin-top: -30px;
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-flow: row wrap;
+
+        @supports (display: grid) {
+            display: grid;
+            grid-row-gap: var(--pfe-theme--container-spacer);
+            grid-column-gap: var(--pfe-theme--container-spacer);
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto;
+        }
+    }
+
+    >* {
+        width: 100%;
+        float: left;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 30px;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+    }
+}
+
+[data-layout="4 4 4"] {
+    margin-top: -30px;
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    >* {
+        width: 100%;
+        float: left;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 30px;
+
+        @media (min-width: 768px) {
+            &:nth-child(3n + 1) {
+                clear: both;
+                width: 31.61984%;
+                float: left;
+                margin-right: 2.57023%;
+            }
+
+            &:nth-child(3n + 2) {
+                clear: both;
+                width: 31.61984%;
+                float: left;
+                margin-right: 2.57023%;
+            }
+
+            &:nth-child(3n + 3) {
+                clear: both;
+                width: 31.61984%;
+                float: right;
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+[data-layout="8 4"] {
+    margin-top: -30px;
+    display: flex;
+    flex-flow: row wrap;
+
+    @supports (display: grid) {
+        display: grid;
+        grid-row-gap: var(--pfe-theme--container-spacer, 16px);
+        grid-column-gap: var(--pfe-theme--container-spacer, 16px);
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        margin-top: 0;
+
+        @media (min-width: 992px) {
+            grid-row-gap: 40px;
+            grid-column-gap: 80px;
+            grid-template-columns: 8fr 4fr;
+            grid-template-rows: auto;
+        }
+    }
+
+    >* {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 30px;
+
+        @supports (display: grid) {
+            margin-top: 0;
+        }
+    }
+}
+
+[data-layout="auto-grid"] {
+    margin-top: -30px;
+
+    @supports (display: grid) {
+        display: flex;
+        flex-flow: row wrap;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-row-gap: 20px;
+        grid-column-gap: 40px;
+        margin-top: 0;
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(4, minmax(300px, 1fr)); // IE11
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-rows: auto;
+        }
+    }
+
+    >* {
+        width: 100%;
+        margin-top: 30px;
+
+        @supports (display: grid) {
+            margin-top: 0;
+        }
+    }
+}
+
+[data-layout="stacked"] {
+    @extend %stacked;
+}
+
+[data-layout="min-stacked"] {
+    @extend %min-stacked;
+}
+
+[data-align="right"] {
+    justify-content: flex-end;
+}
+
+[data-align="center"] {
+    justify-content: center;
+}
+
+[data-align="both"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-layout="gallery5"] {
+    display: flex;
+    flex-flow: row wrap;
+    display: grid;
+    grid-row-gap: var(--pfe-theme--container-spacer, 16px);
+    grid-column-gap: var(--pfe-theme--container-spacer, 16px);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: auto;
+
+    pfe-cta>a {
+        flex-grow: 1;
+    }
+}
+
+[data-layout="space-between"] {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-bottom: -10px;
+
+    @media (min-width: 768px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+
+    >* {
+        margin-bottom: 10px;
+
+        @media (min-width: 768px) {
+            &:first-child {
+                flex-grow: 1;
+            }
+        }
+    }
+}
