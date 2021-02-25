@@ -1,6 +1,6 @@
 pfe-cta {
     a {
-        font-family: "Patrick Hand", cursive;
+        font-family: var(--pfe-theme--font-family--heading);
         font-size: 1.5em;
     }
 
@@ -29,7 +29,7 @@ pfe-cta {
 }
 
 pfe-cta.small a {
-    font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    font-family: var(--pfe-theme--font-family);
     font-size: 1em;
     font-weight: 100;
 }

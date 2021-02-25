@@ -1,20 +1,29 @@
 pfe-card {
-    @for $n from 1 through 10 {
-        &:nth-child(#{$n}n) {
-            border-top-left-radius: #{random(60) + 30%} #{random(20) + 5px};
-            border-top-right-radius: #{random(20) + 5px} #{random(60) + 30%};
-            border-bottom-right-radius: #{random(60) + 30%} #{random(20) + 5px};
-            border-bottom-left-radius: #{random(20) + 5px} #{random(60) + 30%};
+    body:not(.cv) & {
+        @for $n from 1 through 10 {
+            &:nth-child(#{$n}n) {
+                border-top-left-radius: #{random(60) + 30%} #{random(20) + 5px};
+                border-top-right-radius: #{random(20) + 5px} #{random(60) + 30%};
+                border-bottom-right-radius: #{random(60) + 30%} #{random(20) + 5px};
+                border-bottom-left-radius: #{random(20) + 5px} #{random(60) + 30%};
+            }
         }
     }
 
     &.quote {
-        --pfe-card--BackgroundColor: transparent;
-        --pfe-card--PaddingRight: 6px;
-        border-right: 8px solid var(--pfe-theme--color--ui-accent);
+        body:not(.cv) & {
+            --pfe-card--BackgroundColor: transparent;
+            --pfe-card--PaddingRight: 6px;
+            border-right: 8px solid var(--pfe-theme--color--ui-accent);
+        }
+        body.cv & {
+            --pfe-card--Padding: 0 10px;
+            border-left: 4px solid rgb(31, 73, 112);
+            height: fit-content;
+        }
     }
 
-    &.featured[pfe-border] {
+    &.featured[border] {
         --pfe-card--BorderWidth: 4px;
         --pfe-card--BorderColor: var(--pfe-theme--color--ui-accent);
     }
@@ -50,11 +59,13 @@ pfe-card {
     }
 
     &[tilt-on="hover"] {
-        transform: rotate(1deg);
-        transition: transform 0.1s ease-in;
+        body:not(.cv) & {
+            transform: rotate(1deg);
+            transition: transform 0.1s ease-in;
 
-        &:hover {
-            transform: rotate(0deg);
+            &:hover {
+                transform: rotate(0deg);
+            }
         }
     }
     &[color="transparent"] {

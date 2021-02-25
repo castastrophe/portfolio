@@ -67,7 +67,7 @@
     </script>
 </head>
 
-<body unresolved class="page-wrapper">
+<body unresolved class="page-wrapper cv">
 
     <div class="main">
         <div class="main-wrap">
@@ -90,6 +90,11 @@
                                     class="fab fa-codepen"></span></a>
                         </span>
                     </div>
+                    <label class="switch" style="margin-left: 60px;">
+                        <input type="checkbox" checked onclick="document.body.classList.toggle('cv')"/>
+                        <span class="switch--toggle"></span>
+                        <span>CV</span>
+                      </label>
                 </div>
             </pfe-band>
 
@@ -97,13 +102,14 @@
             <pfe-band id="about">
                 <div class="band-container">
                     <div class="group" data-layout="min-stacked">
-                        <div class="header" data-text-align="left--right">
+                        <div class="header">
                             <div class="image-embed" data-type="profile">
                                 <div class="image-embed-container">
                                     <img class="image-embed-img" src="./img/profile.jpg">
                                 </div>
                             </div>
-                            <h2 class="header-headline accent">About castastrophe</h2>
+                            <h2 class="header-headline accent shown-text">About castastrophe</h2>
+                            <h2 class="header-headline accent hidden-text">Cassondra Roberts</h2>
                             <p class="header-summary">I am a <b>passionate</b> front-end architect &amp; technical
                                 lead at <a href="https://www.redhat.com/en/about/company">Red&nbsp;Hat</a> on the
                                 Digital Marketing Strategy &amp; Design team, where we build the design system that
@@ -112,6 +118,7 @@
                             <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
                                     technologies and implementing highly-optimized, clean solutions to complex
                                     problems.</b></p>
+                            <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b> and these values guide the code that I produce and influence. One of the most enjoyable aspects of my job is open source community management; engaging with and connecting the contributors to many of Red Hat's open initiatives.</p>
                         </div>
                     </div>
                 </div>
@@ -134,7 +141,7 @@
                             </p>
                         </blockquote>
                     </pfe-card>
-                    <pfe-card pfe-color="accent" tilt-on="hover">
+                    <pfe-card color="accent" tilt-on="hover">
                         <h3 class="card-header-title">Design system</h3>
                         <h4 class="card-header-headline" style="font-size: 22px;"><a
                                 href="https://github.com/patternfly/patternfly-elements"
@@ -156,7 +163,7 @@
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band pfe-color="accent" id="teaser" data-padding="half" style="z-index: 5;">
+            <pfe-band color="accent" id="teaser" data-padding="half" style="z-index: 5;">
                 <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
@@ -292,8 +299,8 @@
             </pfe-band>
 
             <!-- Recorded talks -->
-            <pfe-band pfe-color="accent" data-width="full" style="margin-bottom: 60px" id="presentations">
-                <h2 slot="pfe-band--header" class="header-title" style="padding-left: 30px">Presentations</h2>
+            <pfe-band color="accent" data-width="full" style="margin-bottom: 60px" id="presentations">
+                <h2 slot="pfe-band--header" class="header-title" style="padding-left: 30px; margin-bottom: 0;">Presentations</h2>
                 <div data-width="overflow">
                     <div class="group" data-layout="overflow-grid">
                         <pfe-card color="transparent">

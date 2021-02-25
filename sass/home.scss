@@ -23,6 +23,9 @@
   --pfe-theme--color--surface--darker: var(--secondary, #444);
 
   --pfe-theme--container-spacer: 16px;
+
+  --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+  --pfe-theme--font-family--heading: "Patrick Hand", cursive;
 }
 
 *,
@@ -39,7 +42,31 @@ body {
   margin: 0;
   font-size: 18px;
   line-height: 1.444;
-  font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+  font-family: var(--pfe-theme--font-family);
+  &.cv {
+  --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+  --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+  }
+}
+
+.hidden-text {
+  display: none;
+}
+
+.cv {
+  --pfe-theme--color--ui-accent: #fff;
+  --pfe-theme--color--ui-accent--context: light;
+  .hidden-text {
+    display: inline-block;
+  }
+
+  .shown-text {
+    display: none;
+  }
+
+  #teaser {
+    display: none;
+  }
 }
 
 button::-moz-focus-inner {
@@ -54,6 +81,7 @@ button::-moz-focus-inner {
 @import "components/cta";
 @import "components/video";
 @import "components/image";
+@import "components/toggle";
 
 #social {
   z-index: 2;
@@ -80,12 +108,14 @@ button::-moz-focus-inner {
 
   @media screen and (max-width: 1629px) {
     --pfe-band--BackgroundColor: #fff;
-    --pfe-band--Padding: 5px 15vw;
+    // --pfe-band--Padding: 5px 15vw;
+    --pfe-band--PaddingTop: 5px;
+    --pfe-band--PaddingBottom: 5px;
   }
 }
 
-#about {
-  min-height: 90vh;
+body:not(.cv) #about {
+  min-height: 80vh;
   display: grid;
   place-items: center;
 }
@@ -127,61 +157,6 @@ button::-moz-focus-inner {
     > :visited {
       text-decoration: line-through;
     }
-  }
-}
-
-.quote {
-  z-index: 1;
-  quotes: "“""”""‘""’";
-
-  &-container {
-    @extend %text-alignment;
-    display: flex;
-    flex-flow: row nowrap;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-
-    +pfe-cta {
-      font-style: normal;
-    }
-  }
-
-  &-attribution {
-    font-weight: bold;
-    text-align: right;
-
-    a {
-      color: inherit;
-
-      &:hover {
-        color: #fffa;
-      }
-    }
-  }
-
-  &-quotation {
-    font-family: "Patrick Hand", cursive;
-    margin-top: 0;
-    padding-bottom: 1em;
-    line-height: 1.4;
-    font-style: italic;
-    font-size: 1.4em;
-
-    @media (min-width: 768px) {
-      font-size: 1.6em;
-    }
-
-    @media (min-width: 992px) {
-      font-size: 1.8em;
-    }
-  }
-
-  &-reference {
-    font-size: pem(14);
-    line-height: 1.142;
-    margin: 0;
-    text-transform: uppercase;
   }
 }
 

@@ -24,7 +24,7 @@
 %title {
     @extend %headline-link;
     font-size: 22px;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: 800;
@@ -34,7 +34,7 @@
 
 %card-title {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 14px;
     margin-bottom: 10px;
     text-transform: uppercase;
@@ -45,7 +45,7 @@
 
 %headline {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 32px;
     margin-bottom: 10px;
     font-weight: 100;
@@ -71,7 +71,7 @@
 
 %headline-1 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 24px;
     font-weight: 800;
     margin-top: 0;
@@ -81,7 +81,7 @@
 
 %headline-2 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 22px;
     font-weight: 800;
     margin-top: 0;
@@ -91,7 +91,7 @@
 
 %headline-3 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 20px;
     font-weight: 800;
     margin-top: 0;
@@ -101,7 +101,7 @@
 
 %headline-4 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 18px;
     font-weight: 600;
     margin-top: 0;
@@ -111,7 +111,7 @@
 
 %headline-5 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 16px;
     font-weight: 600;
     margin-top: 0;
@@ -121,7 +121,7 @@
 
 %headline-6 {
     @extend %headline-link;
-    font-family: "Patrick Hand", cursive;
+    font-family: var(--pfe-theme--font-family--heading);
     font-size: 14px;
     font-weight: 600;
     margin-top: 0;

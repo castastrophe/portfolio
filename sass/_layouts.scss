@@ -212,7 +212,7 @@
     margin-top: calc(var(--spacing--vertical, 30px) * -1);
 
     @media (min-width: 768px) {
-        width: calc((#{$width} * 4) + 18px + (10px * 3));
+        width: calc((#{$width} * 4));
     }
 
     @supports (display: grid) {
@@ -230,6 +230,9 @@
     }
 
     > * {
+        --pfe-card--PaddingTop: 0;
+        --pfe-card--PaddingBottom: 0;
+
         width: 100%;
         margin-top: var(--spacing--vertical, 30px);
 

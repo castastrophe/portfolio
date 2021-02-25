@@ -12,8 +12,12 @@
     @extend %text-alignment;
     @extend %summary;
 
-    .extra {
+    body:not(.cv) & .extra {
         font-size: 1.4em;
+    }
+
+    body.cv & b {
+        font-weight: normal;
     }
 }
 
