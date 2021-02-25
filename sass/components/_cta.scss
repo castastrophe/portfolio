@@ -1,4 +1,7 @@
 pfe-cta {
+    body.cv & {
+        display: none;
+    }
     a {
         font-family: var(--pfe-theme--font-family--heading);
         font-size: 1.5em;

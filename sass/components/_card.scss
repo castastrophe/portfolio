@@ -67,6 +67,9 @@ pfe-card {
                 transform: rotate(0deg);
             }
         }
+        body.cv & {
+            margin-top: -40px;
+        }
     }
     &[color="transparent"] {
         background-color: transparent;
@@ -76,7 +79,6 @@ pfe-card {
 
 
 .card-header {
-
     &-title,
     &-headline {
         @extend %text-alignment-simple;
