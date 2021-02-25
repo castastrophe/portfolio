@@ -12,17 +12,6 @@
 @import "layouts";
 
 :root {
-  --primary: #252527;
-  --secondary: #444;
-
-  --background-color: var(--primary);
-  --theme: dark;
-
-  --title-color: #fffa;
-  --headline-color: #252527;
-  --text--color: #4c4c4c;
-  --link--color: #062f4f;
-
   --pfe-theme--color--ui-accent: rgb(31, 73, 112);
   --pfe-theme--color--ui-accent--hover: rgb(49, 115, 176);
   --pfe-theme--color--ui-accent--focus: rgb(49, 115, 176);
@@ -93,6 +82,12 @@ button::-moz-focus-inner {
     --pfe-band--BackgroundColor: #fff;
     --pfe-band--Padding: 5px 15vw;
   }
+}
+
+#about {
+  min-height: 90vh;
+  display: grid;
+  place-items: center;
 }
 
 #coding pfe-card {

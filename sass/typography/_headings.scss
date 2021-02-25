@@ -17,6 +17,12 @@
     }
 }
 
+.promo-headline {
+    @extend %text-alignment;
+    @extend %headline;
+    font-size: 30px;
+}
+
 .header>*:last-child {
     margin-bottom: 0;
 }

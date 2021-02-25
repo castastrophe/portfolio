@@ -5,6 +5,10 @@ pfe-band {
         --pfe-band--Padding: 15px 9px;
     }
 
+    &[data-padding="half-top"] {
+        --pfe-band--Padding: 15px 9px 60px;
+    }
+
     &[pfe-color="base"] {
         --pfe-band--BackgroundColor: transparent;
     }
@@ -12,7 +16,7 @@ pfe-band {
     &[data-width="full"] {
         --pfe-band--Width: auto;
         --pfe-band--Padding--horizontal: 30px;
-        --pfe-band--Padding: 80px 15px;
+        // --pfe-band--Padding: 80px 15px;
         z-index: 4;
     }
 

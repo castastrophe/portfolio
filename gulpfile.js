@@ -39,7 +39,7 @@ let assets = {
 let source = {
     libs: 'magnific-popup/**/',
     wc: '@patternfly/**/dist/',
-    wc_polyfill: '@webcomponents/webcomponentsjs/{custom-elements-es5-adapter,webcomponents-loader}.js',
+    wc_polyfill: '@webcomponents/webcomponentsjs/webcomponents-loader.js',
     sass: './sass/**/',
     demo: './demo',
     img: './img',
@@ -142,22 +142,13 @@ function copyAssetsDemo() {
 function copyWCJS() {
     return src([
             source.wc_polyfill,
-            path.join(source.wc, '*.umd.min.js')
+            path.join(source.wc, '*.min.js')
         ], {
             cwd: './node_modules/',
             follow: true
         })
-        .pipe(order([
-            '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js',
-            '@webcomponents/webcomponentsjs/webcomponents-loader.js',
-            '@patternfly/**/dist/pfelement.umd.min.js',
-            '@patternfly/**/dist/pfe-*.umd.min.js',
-        ], {
-            base: './node_modules'
-        }))
         .pipe(print(filepath => ` > ${filepath}`))
         .pipe(sourcemaps.init())
-        .pipe(concat('webcomponents.min.js'))
         .pipe(sourcemaps.write())
         .pipe(dest(path.join(destination.publish, destination.js)))
         .pipe(browserSync.stream());

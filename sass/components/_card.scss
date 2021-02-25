@@ -57,6 +57,10 @@ pfe-card {
             transform: rotate(0deg);
         }
     }
+    &[color="transparent"] {
+        background-color: transparent;
+        --context: saturated;
+    }
 }
 
 
@@ -72,6 +76,10 @@ pfe-card {
     }
 
     &-headline {
-        @extend %headline-4;
+        @extend %headline-2;
+
+        &.accent {
+            color: rgb(240, 134, 29);
+        }
     }
 }

@@ -48,12 +48,16 @@
     font-family: "Patrick Hand", cursive;
     font-size: 32px;
     margin-bottom: 10px;
-    font-weight: 800;
+    font-weight: 100;
     margin-top: 0;
     line-height: 1.1;
 
     .featured & {
         color: var(--pfe-theme--color--ui-accent);
+    }
+
+    &.accent {
+        color: rgb(240, 134, 29);
     }
 
     @media (min-width: 992px) {
