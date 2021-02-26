@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     customElements.whenDefined("pfe-accordion"),
     customElements.whenDefined("pfe-tabs")
   ]).then(function() {
-    document.querySelectorAll("pfe-accordion").forEach(function(accordion, count) {
+    document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
       accordion.disclosure = "true";
       if (count === 0) accordion.expand(0);
 
-      accordion.querySelectorAll("pfe-accordion-header").forEach(function(header, idx) {
-        var button = header.shadowRoot.querySelector("button");
+      accordion.querySelectorAll("pfe-accordion-header").forEach(header => {
+        const button = header.shadowRoot.querySelector("button");
         if (button) {
           button.style.borderRightWidth = "0";
           button.style.boxShadow = "none";
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
       });
     });
 
-    var tabs = document.querySelector("pfe-tabs");
+    const tabs = document.querySelector("pfe-tabs");
     if (tabs) {
-      var shadowTabs = tabs.shadowRoot.querySelector(".tabs");
+      const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
       tabs.style.alignItems = "flex-start";
       if (shadowTabs) {
         shadowTabs.style.position = "sticky";
@@ -54,20 +54,20 @@ document.addEventListener('DOMContentLoaded', function(event) {
 });
 
 // pfe-tab:shown-tab
-document.addEventListener("pfe-tabs:shown-tab", function (evt) {
+document.addEventListener("pfe-tabs:shown-tab", evt => {
   if (evt && evt.detail && evt.detail.tab) {
-    var tab = evt.detail.tab;
-    var panel = tab.nextElementSibling;
+    const tab = evt.detail.tab;
+    const panel = tab.nextElementSibling;
     // Activate the first accordion
-    var accordion = panel.querySelector("pfe-accordion");
+    const accordion = panel.querySelector("pfe-accordion");
     if (accordion) setTimeout(accordion.expand(0), 500);
   }
 });
 
-document.querySelectorAll(".read-more").forEach(function(link) {
+document.querySelectorAll(".read-more").forEach(link => {
   link.addEventListener("click", function (evt) {
-    var el = evt.target;
-    var sibling = el.parentElement.nextElementSibling;
+    const el = evt.target;
+    const sibling = el.parentElement.nextElementSibling;
     if (sibling && sibling.hasAttribute("hidden")) {
       sibling.removeAttribute("hidden");
       el.textContent = "Hide details";
@@ -77,3 +77,12 @@ document.querySelectorAll(".read-more").forEach(function(link) {
     }
   });
 });
+
+const toggleCV = () => {
+  document.body.classList.toggle("animating");
+  document.body.classList.toggle("cv");
+  document.querySelectorAll("pfe-band,pfe-card").forEach(component => component.resetContext());
+  setTimeout(() => {
+    document.body.classList.toggle("animating");
+  }, 300);
+}

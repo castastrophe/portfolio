@@ -60,7 +60,7 @@
     }
 
     &.accent {
-        color: rgb(240, 134, 29);
+        color: var(--headline--accent);
     }
 
     @media (min-width: 992px) {

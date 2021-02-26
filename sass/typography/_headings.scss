@@ -1,4 +1,5 @@
-.header-title {
+.header-title,
+.masthead {
     @extend %text-alignment;
     @extend %title;
 }
@@ -35,7 +36,9 @@
     &[data-weight="thin"] {
         font-weight: 100;
     }
+}
 
+.masthead {
     &:hover>span {
         transition: transform 0.2s linear;
         display: inline-block;

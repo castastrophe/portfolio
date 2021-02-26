@@ -11,6 +11,8 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
     "@patternfly/pfe-band": "^1.3.0",
     "@patternfly/pfe-card": "^1.3.0",
     "@patternfly/pfe-content-set": "^1.3.0",
@@ -25,6 +27,7 @@
     "browser-sync": "^2.26.14",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-flatten": "^0.4.0",
     "gulp-order": "^1.2.0",

@@ -1,8 +1,8 @@
 pfe-band {
     --pfe-band--Padding: 60px 9px;
-    body.cv & {
-        --pfe-band--Padding: 15px 9px;
-    }
+    // body.cv & {
+    //     --pfe-band--Padding: 30px 9px;
+    // }
 
     &[data-padding="half"] {
         --pfe-band--Padding: 15px 9px;
@@ -14,6 +14,7 @@ pfe-band {
 
     &[color="base"] {
         --pfe-band--BackgroundColor: transparent;
+        --pfe-band--context: light;
     }
 
     &[data-width="full"] {
@@ -21,9 +22,6 @@ pfe-band {
             --pfe-band--Width: auto;
             z-index: 4;
         }
-        // --pfe-band--Padding--horizontal: 30px;
-        // --pfe-band--Padding: 80px 15px;
-        // z-index: 4;
     }
 
     &[color="accent"] {
@@ -49,6 +47,7 @@ pfe-band {
 
         @media (min-width: 992px) {
             --pfe-band--BackgroundColor: transparent;
+            --pfe-band--context: light;
             --pfe-band--Padding: 15px 5vw;
 
             &[data-padding="half"] {

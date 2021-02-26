@@ -12,6 +12,7 @@ const del = require('del');
 const path = require('path');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
+const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const sass = require('gulp-sass');
 const print = require('gulp-print').default;
@@ -94,6 +95,9 @@ function compileJS() {
             follow: true
         })
         .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['@babel/env']
+          }))
         .pipe(uglify())
         .pipe(rename({
             extname: '.min.js'
