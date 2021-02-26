@@ -158,6 +158,13 @@
 .quote {
     z-index: 1;
     quotes: "“""”""‘""’";
+    body.cv & {
+        margin-bottom: 10px;
+        @media (min-width: 992px) {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+    }
   
     &-container {
       @extend %text-alignment;
@@ -214,6 +221,17 @@
       margin: 0;
       text-transform: uppercase;
     }
+  }
+
+  dt {
+    @extend %headline-3;
+  }
+
+  dd {
+      margin-left: 0;
+      &:first-child {
+          margin-bottom: 1em;
+      }
   }
 
   

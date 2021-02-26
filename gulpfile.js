@@ -142,7 +142,7 @@ function copyAssetsDemo() {
 function copyWCJS() {
     return src([
             source.wc_polyfill,
-            path.join(source.wc, '*.min.js')
+            path.join(source.wc, '*.min.js*')
         ], {
             cwd: './node_modules/',
             follow: true
