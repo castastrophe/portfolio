@@ -56,6 +56,50 @@ button::-moz-focus-inner {
 @import "components/slider";
 @import "components/switcher";
 
+@mixin resume-mode {
+  --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+  --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+
+  .hidden-text {
+    display: inline;
+  }
+
+  .hidden {
+    display: block;
+  }
+
+  .shown-text,
+  .shown {
+    display: none;
+  }
+
+  .header-title {
+    color: var(--pfe-theme--color--ui-accent);
+    
+    border-bottom: 1px solid #ddd;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    max-width: 70%;
+  }
+
+  #teaser,
+  .video-embed-iframe-container {
+    display: none;
+  }
+
+  pfe-accordion {
+    z-index: 1;
+  }
+
+  pfe-accordion-header,
+  pfe-accordion-panel {
+    --pfe-accordion--BorderColor--accent: transparent;
+    --pfe-accordion--BorderRightWidth: 0;
+    --pfe-accordion--accent: transparent;
+    --pfe-accordion--BoxShadow: none;
+  }
+}
+
 body {
   margin: 0;
   font-size: 18px;
@@ -70,56 +114,60 @@ body {
     }
   }
 
-  .hidden {
+  .hidden,
+  .hidden-text {
     display: none;
   }
 
   &.cv {
-    --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-    --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    @include resume-mode;
+  }
+}
 
-    .hidden-text {
-      display: inline;
-    }
+.print-only {
+  display: none;
+}
 
-    .hidden {
-      display: block;
-    }
-
-    .shown-text,
-    .shown {
-      display: none;
-    }
-
-    .header-title {
-      color: var(--pfe-theme--color--ui-accent);
-      
-      border-bottom: 1px solid #ddd;
-      margin-top: 1px;
-      margin-bottom: 10px;
-      max-width: 70%;
-    }
-
-    #teaser,
-    .video-embed-iframe-container {
-      display: none;
-    }
-
-    pfe-accordion {
-      z-index: 1;
-    }
-
-    pfe-accordion-header,
-    pfe-accordion-panel {
-      --pfe-accordion--BorderColor--accent: transparent;
-      --pfe-accordion--BorderRightWidth: 0;
-      --pfe-accordion--accent: transparent;
-      --pfe-accordion--BoxShadow: none;
-    }
+@media print {
+  body {
+    font-size: 14px;
   }
 
-  .hidden-text {
+  @include resume-mode;
+
+  pfe-band {
+    border: none;
+    padding: 20px 0;
+  }
+
+  pfe-card:not(.featured) {
+    border: none;
+  }
+
+  #social {
     display: none;
+  }
+
+  #about .image-embed-img {
+    max-width: 150px;
+  }
+
+  #coding {
+    margin-top: 150px;
+  }
+
+  #design,
+  #presentations {
+    padding-top: 0;
+  }
+
+  .print-hidden {
+    display: none;
+  }
+
+  .print-only {
+    display: block;
+    @include stacked;
   }
 }
 
