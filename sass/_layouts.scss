@@ -211,7 +211,7 @@
     display: flex;
     flex-flow: row wrap;
     // align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     margin-bottom: -10px;
 
     @media (min-width: 768px) {
@@ -304,11 +304,21 @@
 
 [data-layout="flex-centered"] {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    body.cv & {
+        justify-content: center;
+    }
 
     body:not(.cv) & {
         margin-top: 60px;
+    }
+
+    > * {
+        flex-grow: 1;
+        width: calc(max(45%, 300px));
     }
 }

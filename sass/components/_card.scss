@@ -15,7 +15,6 @@ pfe-card {
         border-left: 4px solid var(--pfe-theme--color--surface--accent);
         height: fit-content;
         font-size: .8em;
-        min-width: calc(max(40%, 300px));
     }
 
     &.featured {
