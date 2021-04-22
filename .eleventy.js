@@ -1,13 +1,14 @@
 const compress = require("compression");
-// const markdownIt = require("markdown-it");
-// const markdownItAnchor = require("markdown-it-anchor");
-// const markdownItContainer = require("markdown-it-container");
+const markdownIt = require("markdown-it");
+const markdownItAnchor = require("markdown-it-anchor");
+const markdownItContainer = require("markdown-it-container");
 const pluginSass = require("eleventy-plugin-sass");
 const pluginBabel = require('eleventy-plugin-babel');
 const addWebComponentDefinitions = require('eleventy-plugin-add-web-component-definitions')
 
 module.exports = function (eleventyConfig) {
     // eleventyConfig.setQuietMode(process.env.npm_config_quiet);
+    eleventyConfig.setQuietMode(false);
     eleventyConfig.setWatchThrottleWaitTime(500);
 
     eleventyConfig.addPlugin(pluginSass, {
@@ -50,13 +51,9 @@ module.exports = function (eleventyConfig) {
         "./_temp/js": "js"
     });
 
-    eleventyConfig.addPassthroughCopy({
-        "./demo": "examples",
-        "./pages": "/"
-    });
-
-    // './node_modules/magnific-popup/website/third-party-libs/jquery.min.js': "js/",
-    // './node_modules/magnific-popup/dist/jquery.magnific-popup.min.js': "js/"
+    // eleventyConfig.addPassthroughCopy({
+    //     "./demo": "examples"
+    // });
 
     eleventyConfig.addFilter('dump', obj => {
         const getCircularReplacer = () => {
@@ -75,17 +72,68 @@ module.exports = function (eleventyConfig) {
         return JSON.stringify(obj, getCircularReplacer(), 4);
     });
 
-    // let options = {
-    //     html: true
-    // };
+    let options = {
+        html: true
+    };
 
-    // let markdownLib = markdownIt(options);
-    // markdownLib.use(markdownItAnchor);
-    // markdownLib.use(markdownItContainer, "section", {
+    const parseTokens = (tokens, idx) => {
+        let id = "", attrs = [], classes = [];
+      let m = tokens[idx].info.trim().match(/^band+(.*)$/);
+      let config = m && m[1].trim().split(" ");
+      if (config && config.length > 0) {
+          config.forEach(item => {
+              // Look for IDs
+              let find = item.match(/^#([\w|-]+)/);
+              if (find && find.length > 0) id = find[1];
+              // Look for classes
+              find = item.match(/^\.([\S]+)/);
+              if (find && find.length > 0) classes.push(find[1]);
+              // Look for attributes
+              find = item.match(/^\|([\S]+)/);
+              if (find && find.length > 0) attrs.push(find[1]);
+          });
+      }
+      return { id, attrs, classes };
+    };
+
+    let markdownLib = markdownIt(options);
+    markdownLib.use(markdownItAnchor);
+    markdownLib.use(markdownItContainer, "band", {
+      validate: params => {
+        return params.trim().match(/^band+(.*)$/);
+      },
+      render: (tokens, idx) => {
+        let { id, attrs, classes } = parseTokens(tokens, idx);
+        if (tokens[idx].nesting === 1) {
+          return `<pfe-band${id ? ` id="${id}"` : ""}${classes.length > 0 ? ` class="${classes.join(" ")}"` : ""}${attrs.length > 0 ? ` ${attrs.join(" ")}` : ""}>`
+        } else {
+          return `</pfe-band>\n`;
+        }
+      }
+    });
+
+    markdownLib.use(markdownItContainer, "section", {
+      validate: params => {
+        return params.trim().match(/^section+(.*)$/);
+      },
+      render: (tokens, idx) => {
+        let { id, attrs, classes } = parseTokens(tokens, idx);
+        if (tokens[idx].nesting === 1) {
+          return `<section${id ? ` id="${id}"` : ""}${classes.length > 0 ? ` class="${classes.join(" ")}"` : ""}${attrs.length > 0 ? ` ${attrs.join(" ")}` : ""}>`
+        } else {
+          return `</section>\n`;
+        }
+      },
+      marker: ";"
+    });
+
+    // markdownLib.use(markdownItContainer, "pfe-*", {
     //   validate: params => {
-    //     return params.trim().match(/^section+(.*)$/);
+    //     return params.trim().match(/^pfe-(.*)$/);
     //   },
     //   render: (tokens, idx) => {
+    //       console.log(tokens);
+          
     //     let m = tokens[idx].info.trim().match(/^section+(.*)$/);
     //     let color = m && m[1].trim() === "header" ? "" : "lightest";
     //     let size = m && m[1].trim() === "header" ? "" : "small";
@@ -99,12 +147,14 @@ module.exports = function (eleventyConfig) {
     //   }
     // });
 
-    // eleventyConfig.setLibrary("md", markdownLib);
+    eleventyConfig.setLibrary("md", markdownLib);
 
     return {
         dir: {
-            input: "./docs",
-            output: "./public"
+            input: "./pages",
+            output: "./public",
+            includes: "_includes",
+            layouts: "_layouts"
         },
         setBrowserSyncConfig: {
             open: true,
