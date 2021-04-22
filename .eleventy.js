@@ -12,7 +12,7 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.addPlugin(pluginSass, {
         watch: ['./sass/*.scss', '!node_modules/**'],
-        outputDir: './_site/css',
+        outputDir: './public/css',
         outputStyle: 'compressed',
         uglify: true,
         sourcemaps: true,
@@ -21,7 +21,7 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.addPlugin(pluginBabel, {
         watch: ['./js/*.js', '!node_modules/**'],
-        outputDir: './_site/js/',
+        outputDir: './public/js/',
         uglify: true,
         sourcemaps: true,
         babel: { presets: ['@babel/env'] }

@@ -263,6 +263,8 @@ body:not(.cv) #about {
     > :visited {
       text-decoration: line-through;
     }
+  }
+}
 
 #presentations {
   body:not(.cv) & .header-title {
@@ -310,5 +312,3 @@ body:not(.cv) #about {
 }
 
 @import "vendor";
-
-/*# sourceMappingURL=home.css.map */

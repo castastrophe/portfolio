@@ -64,7 +64,7 @@ function copyVendorJS() {
         .pipe(dest(path.join(destination.temp, destination.js)));
 }
 
-function copyAssetsDemo() {
+function copyAssetsCSS() {
     return src([
             path.join(source.wc, '*.min.css'),
             path.join(source.libs, assets.libs_css),
