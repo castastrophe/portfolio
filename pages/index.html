@@ -45,7 +45,7 @@
 
     <!-- Include CSS files -->
     <link type="text/css" rel="stylesheet" href="/css/vendor.min.css" media="all">
-    <link type="text/css" rel="stylesheet" href="/css/home.css" media="all">
+    <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
 
     <!-- <link rel="stylesheet" href="../../pfe-styles/dist/pfe-base.css" /> -->
 
@@ -53,12 +53,25 @@
 
     <!-- <script src="/examples/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script> -->
     <!-- <script src="/js/webcomponents-loader.js"></script> -->
+
+    <script type="module">
+        import "/js/pfelement/dist/pfelement.min.js";
+        import "/js/pfe-card/dist/pfe-card.min.js";
+        import "/js/pfe-band/dist/pfe-band.min.js";
+        import "/js/pfe-cta/dist/pfe-cta.min.js";
+        import "/js/pfe-tabs/dist/pfe-tabs.min.js";
+        import "/js/pfe-accordion/dist/pfe-accordion.min.js";
+    </script>
 </head>
 
 <body unresolved class="page-wrapper">
 
     <div class="main">
         <div class="main-wrap">
+<<<<<<< HEAD
+=======
+
+>>>>>>> a890dc3590707c088053d116dc58a396818176eb
             <pfe-band data-padding="half" id="social" sticky>
                 <div class="band-container" data-layout="space-between" data-align="left">
                     <div>
@@ -68,6 +81,7 @@
                         <span class="social-title shown-text" data-weight="thin">Follow: </span>
                         <span class="social-title hidden-text" data-weight="thin">More: </span>
                         <span class="social-icons">
+<<<<<<< HEAD
                             <a class="social-icon" href="https://twitter.com/castastrophee">
                                 <pfe-icon icon="fab-twitter"></pfe-icon>
                             </a>
@@ -80,6 +94,16 @@
                             <a class="social-icon" href="https://codepen.io/castastrophee/">
                                 <pfe-icon icon="fab-codepen"></pfe-icon>
                             </a>
+=======
+                            <a class="social-icon" href="https://twitter.com/castastrophee"><span
+                                    class="fab fa-twitter"></span></a>
+                            <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
+                                    class="fab fa-linkedin-in"></span></a>
+                            <a class="social-icon" href="https://github.com/castastrophe"><span
+                                    class="fab fa-github-alt"></span></a>
+                            <a class="social-icon" href="https://codepen.io/castastrophee/"><span
+                                    class="fab fa-codepen"></span></a>
+>>>>>>> a890dc3590707c088053d116dc58a396818176eb
                         </span>
                     </div>
                     <label class="switch">
@@ -1066,7 +1090,11 @@
 
     <footer>
         <script src="/js/vendor.min.js"></script>
+<<<<<<< HEAD
         <script src="/js/home.js"></script>
+=======
+        <script src="/js/home.min.js"></script>
+>>>>>>> a890dc3590707c088053d116dc58a396818176eb
         <script>
             if (!navigator.doNotTrack) {
                 (function (i, s, o, g, r, a, m) {
