@@ -1,27 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
-  $('[data-popup="youtube"]').magnificPopup({
-    disableOn: 600,
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
-    fixedContentPos: false
-  });
+// document.addEventListener("DOMContentLoaded", function () {
+//   $('[data-popup="youtube"]').magnificPopup({
+//     disableOn: 600,
+//     type: 'iframe',
+//     mainClass: 'mfp-fade',
+//     removalDelay: 160,
+//     preloader: false,
+//     fixedContentPos: false
+//   });
 
-  $('.popup-link').magnificPopup({
-    disableOn: 600,
-    type: 'image',
-    closeOnContentClick: 'true',
-    zoom: {
-      enabled: true,
-      duration: 300,
-      ease: "ease-in-out",
-      opener: function (openerElement) {
-        return openerElement.is('img') ? openerElement : openerElement.find('img');
-      }
-    }
-  });
-});
+//   $('.popup-link').magnificPopup({
+//     disableOn: 600,
+//     type: 'image',
+//     closeOnContentClick: 'true',
+//     zoom: {
+//       enabled: true,
+//       duration: 300,
+//       ease: "ease-in-out",
+//       opener: function (openerElement) {
+//         return openerElement.is('img') ? openerElement : openerElement.find('img');
+//       }
+//     }
+//   });
+// });
 
 const getNavHeight = () => {
   let navHeight = 0;
@@ -33,8 +33,31 @@ const getNavHeight = () => {
 document.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     customElements.whenDefined("pfe-accordion"),
-    customElements.whenDefined("pfe-tabs")
-  ]).then(function () {
+    customElements.whenDefined("pfe-tabs"),
+    customElements.whenDefined("pfe-icon")
+  ]).then(() => {
+    const PfeIcon = customElements.get('pfe-icon');
+     //https://unpkg.com/@fortawesome/fontawesome-free@5.15.3/svgs/solid/address-card.svg
+    PfeIcon.addIconSet(
+      "fa",
+      "https://unpkg.com/@fortawesome/fontawesome-free/svgs/solid/",
+      (name, iconSetName, iconSetPath) => {
+        const regex = new RegExp(`^${iconSetName}-(.*?)$`);
+        console.log({name, iconSetName, iconSetPath, match})
+        return iconSetPath + match[1] + ".svg"
+      }
+    );
+
+    PfeIcon.addIconSet(
+      "fab",
+      "https://unpkg.com/@fortawesome/fontawesome-free/svgs/brands/",
+      (name, iconSetName, iconSetPath) => {
+        const regex = new RegExp(`^${iconSetName}-(.*?)$`);
+        const match = regex.exec(name);
+        return iconSetPath + match[1] + ".svg"
+      }
+    );
+
     document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
       accordion.disclosure = "true";
       if (count === 0) accordion.expand(0);

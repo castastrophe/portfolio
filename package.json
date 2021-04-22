@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Personal portfolio site",
   "keywords": [
-    "personal site"
+    "personal site",
+    "portfolio",
+    "web components"
   ],
   "main": "index.html",
   "browserslist": [
@@ -11,6 +13,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@11ty/eleventy": "^0.12.1",
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.5",
     "@patternfly/pfe-band": "^1.3.0",
@@ -22,20 +25,16 @@
     "@patternfly/pfe-styles": "^1.3.0",
     "@patternfly/pfe-tabs": "^1.3.0",
     "@patternfly/pfelement": "^1.3.0",
-    "@webcomponents/webcomponentsjs": "^2.4.4",
     "autoprefixer": "^10.2.4",
-    "browser-sync": "^2.26.14",
+    "compression": "^1.7.4",
     "del": "^6.0.0",
+    "eleventy-plugin-add-web-component-definitions": "^2.0.2",
+    "eleventy-plugin-babel": "^1.0.1",
+    "eleventy-plugin-sass": "^1.2.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-flatten": "^0.4.0",
     "gulp-order": "^1.2.0",
-    "gulp-postcss": "^9.0.0",
     "gulp-print": "^5.0.2",
-    "gulp-rename": "^2.0.0",
-    "gulp-s3": "^0.11.0",
-    "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "magnific-popup": "^1.1.0",
@@ -45,19 +44,24 @@
     "prettier": "^2.2.1"
   },
   "scripts": {
-    "start": "gulp serve",
-    "build": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "gulp",
+    "build": "eleventy",
+    "watch": "eleventy --watch",
+    "preserve": "gulp",
+    "serve": "eleventy --serve",
+    "start": "npm run serve",
+    "debug": "DEBUG=* eleventy"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/castastrophe/personal-site.git"
+    "url": "git+https://github.com/castastrophe/portfolio.git"
   },
   "author": "castastrophe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/castastrophe/personal-site/issues"
+    "url": "https://github.com/castastrophe/portfolio/issues"
   },
-  "homepage": "https://github.com/castastrophe/personal-site#readme",
+  "homepage": "https://castastrophe.netlify.app",
   "private": true
 }
