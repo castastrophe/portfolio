@@ -182,6 +182,14 @@ body {
     z-index: 99;
   }
 
+  .masthead a {
+    text-decoration: none !important;
+  }
+
+  .social-title + .social-icons {
+    margin-left: 10px;
+  }
+
   @media screen and (max-width: 991px) {
     z-index: 5;
     border-bottom: 1px solid #eee;
@@ -216,17 +224,29 @@ body:not(.cv) #about {
   place-items: center;
 }
 
-#coding pfe-card {
-  body:not(.cv) & {
-    z-index: 3;
-  }
-  body.cv & {
-    --pfe-card--Padding: 0;
-    --pfe-card--BorderColor: transparent;
+#coding {
+  display: none;
+  
+  pfe-card {
+    body:not(.cv) & {
+      z-index: 3;
+    }
+    body.cv & {
+      --pfe-card--Padding: 0;
+      --pfe-card--BorderColor: transparent;
+    }
   }
 }
 
 .social {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+
+  > * {
+    margin-bottom: 0;
+  }
+
   @media screen and (min-width: 1630px) and (max-width: 1819px) {
     --spacing--vertical: 5px;
     @include stacked;

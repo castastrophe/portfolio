@@ -1,7 +1,7 @@
 <pfe-band data-padding="half" id="social" sticky>
     <div class="band-container" data-layout="space-between" data-align="left">
         <div>
-            <h2 class="masthead"><span>[</span> Cassondra <span>]</span></h2>
+            <h2 class="masthead"><a href="/"><span>[</span> Cassondra <span>]</span></a></h2>
         </div>
         <div class="social">
             <span class="social-title shown-text" data-weight="thin">Follow: </span>
@@ -21,10 +21,13 @@
                 </a>
             </span>
         </div>
-        <label class="switch">
-            <input type="checkbox" onclick="toggleCV()" id="cvToggle"/>
-            <span class="switch--toggle"></span>
-            <span>CV</span>
-        </label>
+        <div class="social">
+            <a class="social-title" data-weight="thin" href="/blog">Blog</a>
+            <label class="switch">
+                <input type="checkbox" onclick="toggleCV()" id="cvToggle"/>
+                <span class="switch--toggle"></span>
+                <span>CV</span>
+            </label>
+        </div>
     </div>
 </pfe-band>

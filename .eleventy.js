@@ -29,26 +29,42 @@ module.exports = function (eleventyConfig) {
     });
 
     eleventyConfig.addPlugin(addWebComponentDefinitions, {
-        path: (tag) => `js/${tag}/dist/${tag}.min.js`,
+        path: (tag) => {
+          if ([
+            "pfe-tab",
+            "pfe-tab-panel",
+            "pfe-accordion-header",
+            "pfe-accordion-panel"
+          ].includes(tag)) return;
+          return `/js/${tag}/dist/${tag}.min.js`;
+        },
         verbose: true
     });
 
     eleventyConfig.addPassthroughCopy("./img");
 
     eleventyConfig.addPassthroughCopy({
-        "./node_modules/@patternfly/pfe-accordion/dist/*.min.js*": "js/pfe-accordion/dist/",
-        "./node_modules/@patternfly/pfe-band/dist/*.min.js*": "js/pfe-band/dist/",
-        "./node_modules/@patternfly/pfe-card/dist/*.min.js*": "js/pfe-card/dist/",
-        "./node_modules/@patternfly/pfe-content-set/dist/*.min.js*": "js/pfe-content-set/dist/",
-        "./node_modules/@patternfly/pfe-cta/dist/*.min.js*": "js/pfe-cta/dist/",
-        "./node_modules/@patternfly/pfe-icon/dist/*.min.js*": "js/pfe-icon/dist/",
-        "./node_modules/@patternfly/pfe-tabs/dist/*.min.js*": "js/pfe-tabs/dist/",
-        "./node_modules/@patternfly/pfelement/dist/*.min.js*": "js/pfelement/dist/"
+      "./node_modules/magnific-popup/website/third-party-libs/jquery.min.js": "js/vendor/",
+      "./node_modules/magnific-popup/dist/jquery.magnific-popup.min.js": "js/vendor/",
     });
 
     eleventyConfig.addPassthroughCopy({
-        "./_temp/css": "css",
-        "./_temp/js": "js"
+        "./node_modules/@patternfly/pfe-accordion/dist/*.min.js*": "js/pfe-accordion/dist/",
+        "./node_modules/@patternfly/pfe-accordion/dist/*.min.css*": "css/pfe-accordion/dist/",
+        "./node_modules/@patternfly/pfe-band/dist/*.min.js*": "js/pfe-band/dist/",
+        "./node_modules/@patternfly/pfe-band/dist/*.min.css*": "css/pfe-band/dist/",
+        "./node_modules/@patternfly/pfe-card/dist/*.min.js*": "js/pfe-card/dist/",
+        "./node_modules/@patternfly/pfe-card/dist/*.min.css*": "css/pfe-card/dist/",
+        "./node_modules/@patternfly/pfe-content-set/dist/*.min.js*": "js/pfe-content-set/dist/",
+        "./node_modules/@patternfly/pfe-content-set/dist/*.min.css*": "css/pfe-content-set/dist/",
+        "./node_modules/@patternfly/pfe-cta/dist/*.min.js*": "js/pfe-cta/dist/",
+        "./node_modules/@patternfly/pfe-cta/dist/*.min.css*": "css/pfe-cta/dist/",
+        "./node_modules/@patternfly/pfe-icon/dist/*.min.js*": "js/pfe-icon/dist/",
+        "./node_modules/@patternfly/pfe-icon/dist/*.min.css*": "css/pfe-icon/dist/",
+        "./node_modules/@patternfly/pfe-tabs/dist/*.min.js*": "js/pfe-tabs/dist/",
+        "./node_modules/@patternfly/pfe-tabs/dist/*.min.css*": "css/pfe-tabs/dist/",
+        "./node_modules/@patternfly/pfelement/dist/*.min.js*": "js/pfelement/dist/",
+        "./node_modules/@patternfly/pfelement/dist/*.min.css*": "css/pfelement/dist/",
     });
 
     // eleventyConfig.addPassthroughCopy({
