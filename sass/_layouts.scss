@@ -264,7 +264,7 @@
             grid-template-columns: 1fr;
             grid-template-rows: auto;
             grid-row-gap: 10px;
-            grid-column-gap: 0;
+            grid-column-gap: var(--pfe-theme--container-spacer);
             margin-top: 0;
 
             @media (min-width: 768px) {

@@ -776,13 +776,10 @@ layout: general.html
 
 ::: band #design
 <h2 slot="pfe-band--header" class="header-title">Design</h2>
-<p slot="pfe-band--header" class="header-summary">I've moved away from full-page design in the last few
-    years to focus on systems architecture. When I was involved in these design projects though, I loved
-    working with stakeholders to get at the heart of what they needed from their page; asking the right
-    kinds of questions to solve the real problem and make something of which we both could be proud.</p>
+<p slot="pfe-band--header" class="header-summary">I've moved away from full-page design in the last few years to focus on systems architecture. When I was involved in these design projects though, I loved working with stakeholders to get at the heart of what they needed from their page; asking the right questions to get to the real problem and make something of which we both could be proud.</p>
 <div class="group" data-layout="6 6">
     <pfe-card>
-        <div class="image-embed shown" pfe-overflow="top">
+        <div class="image-embed shown" overflow="top">
             <div class="image-embed-container">
                 <a href="./img/2016-07-24_redhat_learning-subscription.png" class="popup-link">
                     <img class="image-embed-img" src="./img/2016-07-24_redhat_learning-subscription_screenshot.png">
@@ -793,20 +790,16 @@ layout: general.html
             <div class="image-embed hidden">
                 <div class="image-embed-container">
                     <a href="./img/2016-07-24_redhat_learning-subscription.png" class="popup-link">
-                        <img class="image-embed-img"
-                            src="./img/2016-07-24_redhat_learning-subscription_screenshot.png">
+                        <img class="image-embed-img" src="./img/2016-07-24_redhat_learning-subscription_screenshot.png">
                     </a>
                     <p class="image-embed-caption">Click to zoom</p>
                 </div>
             </div>
             <div>
-                <h3 class="card-header-headline" style="margin: 0 0 5px;">PAGE | Red Hat Learning
-                    Subscription</h3>
+                <h3 class="card-header-headline" style="margin: 0 0 5px;">PAGE | Red Hat Learning Subscription</h3>
                 <p class="card-header-summary">2016 July 24</p>
                 <pfe-cta>
-                    <a href="https://www.redhat.com/en/services/training/learning-subscription"
-                        title="Click to view page at source">View the
-                        source</a>
+                    <a href="https://www.redhat.com/en/services/training/learning-subscription" title="Click to view page at source">View the source</a>
                 </pfe-cta>
             </div>
         </div>
@@ -848,22 +841,15 @@ layout: general.html
     <div class="group" data-layout="overflow-grid">
         <pfe-card color="transparent">
             <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <h3 class="card-header-title">DrupalCon 2019</h3>
-            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                    title="Click to read more about this presentation">Unlocking design in a design system
-                    with custom
-                    properties</a></h4>
+            <h4 class="card-header-headline" style="font-size: 22px;">
+                <a href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties" title="Click to read more about this presentation">Unlocking design in a design system with custom properties</a>
+            </h4>
             <p>A deep-dive on how to leverage custom properties in a design system.</p>
             <pfe-cta slot="pfe-card--footer">
-                <a class="cta-link"
-                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                    title="Click to read more about this presentation" data-cta-type="secondary">View the
-                    full description</a>
+                <a class="cta-link" href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties" title="Click to read more about this presentation" data-cta-type="secondary">View the full description</a>
             </pfe-cta>
         </pfe-card>
         <pfe-card color="transparent">
@@ -953,9 +939,6 @@ layout: general.html
 
 ::: band |data-padding=half .shown
 <div class="content" data-align="center">
-    <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other
-            countries. <a class="cta-link"
-                href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn
-                more about their trademark guidelines and policies.</a></small></p>
+    <p><small>Red Hat is a registered trademark of Red Hat, Inc. in the United States and other countries. <a class="cta-link" href="https://www.redhat.com/en/about/trademark-guidelines-and-policies">Learn more about their trademark guidelines and policies.</a></small></p>
 </div>
 :::

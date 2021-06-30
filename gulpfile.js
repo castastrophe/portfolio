@@ -7,7 +7,6 @@ const {
     series,
     parallel
 } = require('gulp');
-const del = require('del');
 const path = require('path');
 const concat = require('gulp-concat');
 const print = require('gulp-print').default;
@@ -37,12 +36,7 @@ let destination = {
     js: 'js'
 }
 
-/* Compilation and clean-up */
-const clean = () => del([
-    destination.temp
-]);
-
-task('clean', clean);
+/* Compilation */
 
 function copyVendorJS() {
     return src([
@@ -93,5 +87,5 @@ task('concat:css', parallel(copyAssetsCSS, copyNoscriptCSS));
 
 task('concat', parallel('concat:js', 'concat:css'));
 
-task('build', series('clean', 'concat'));
-task('default', series('clean', 'concat'));
+task('build', series('concat'));
+task('default', series('concat'));
