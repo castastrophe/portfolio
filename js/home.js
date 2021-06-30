@@ -141,6 +141,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Temporary fix: https://github.com/patternfly/patternfly-elements/pull/1697
+  // Promise.all([
+  //   customElements.whenDefined("pfe-band"),
+  // ]).then(() => {
+  //   document.querySelectorAll("pfe-band").forEach(band => {
+  //     const body = band.shadowRoot.querySelector(".pfe-band__body");
+  //     if (!body) return;
+  //     body.style.maxWidth = "inherit";
+  //   })
+  // });
+
   // Check for query param in the URL
   const urlParams = new URLSearchParams(window.location.search);
   let displayMode = urlParams.get("format");

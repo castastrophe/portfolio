@@ -123,8 +123,16 @@ body {
     display: none;
   }
 
-  &.cv {
+  &.cv,
+  &.post {
     @include resume-mode;
+  }
+
+  &.post {
+    --pfe-theme--content-spacer--body--sm: 1rem;
+    ul {
+      --pfe-theme--content-spacer--body--sm: 0;
+    }
   }
 }
 

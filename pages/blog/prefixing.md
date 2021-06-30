@@ -35,7 +35,7 @@ Design systems are my bread and butter so my first example comes from our webrh 
 </code></pre>
 </pfe-codeblock>
 
-<caption>Example of rh-prefixed classes inside the webrh call-to-action component.</caption>
+<caption><small>Example of rh-prefixed classes inside the webrh call-to-action component.</small></caption>
 
 In webrh, we prefix all our classes with rh. This was one of the early design systems at Red Hat, so we were able to corner the rh namespace, but normally I wouldn't recommend going quite so generic because you're likely to run into conflicts with other projects choosing the same prefix. Prefixing becomes a lot less useful if all our codebases pick the same prefix!
 
@@ -51,7 +51,7 @@ If you poke around pages on dotcom, you'll see a lot of rh prefixed classes: rh-
 </code></pre>
 </pfe-codeblock>
 
-<caption>Example of nested prefixing.</caption>
+<figcaption>Example of nested prefixing.</figcaption>
 
 Inside our rh-generic--component class we see two rc-cta-secondary elements. The rh-generic--component is the webrh design system's wrapper class for the CMS WYSIWYG. Inside the WYSIWYG, Drupal offers a way to inject custom styles via a drop-down interface and those custom styles live inside the WYSIWYG module. Most of our rc prefixed classes on dotcom originate from Drupal. Now when we're debugging styles, if we see an issue with an rc prefixed call-to-action on the site, we know to go to our Drupal codebase rather than our design system, even though visually, they might look the same to the end-user.
 This scales beautifully too. We have pages on dotcom featuring patterns with WYSIWYG content layered next to shared nodes and raw custom bands with styles originating from our internal studio team or even external agencies. These prefixes make it easy for even non-developers to triage where bug reports should be routed.

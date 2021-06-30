@@ -1,11 +1,13 @@
 ---
 layout: base.html
+classes:
+  - post
 ---
 <main class="main">
     {% include _nav.html %}
     <pfe-band>
-        <h1 slot="pfe-band--header">{{ title }}</h1>
-        <article>
+        <h1 class="pfe-title--6xl" slot="pfe-band--header">{{ title }}</h1>
+        <article class="pfe-c-content">
             {{ content | safe }}
         </article>
     </pfe-band>
