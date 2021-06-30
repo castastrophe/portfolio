@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.14.7",
     "@patternfly/pfe-band": "^1.9.3",
     "@patternfly/pfe-card": "^1.9.3",
+    "@patternfly/pfe-codeblock": "^1.9.3",
     "@patternfly/pfe-content-set": "^1.9.3",
     "@patternfly/pfe-cta": "^1.9.3",
     "@patternfly/pfe-icon": "^1.9.3",
@@ -34,6 +35,7 @@
     "markdown-it-anchor": "^8.0.4",
     "markdown-it-container": "^3.0.0",
     "node-sass": "^6.0.1",
+    "nunjucks": "^3.2.3",
     "path": "^0.12.7",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2"

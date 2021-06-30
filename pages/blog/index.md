@@ -1,4 +1,0 @@
----
-layout: general.html
----
-

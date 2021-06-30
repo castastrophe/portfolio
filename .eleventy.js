@@ -1,12 +1,20 @@
 const compress = require("compression");
+
+
+const nunjucks = require("nunjucks");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItContainer = require("markdown-it-container");
+
 const pluginSass = require("eleventy-plugin-sass");
 const pluginBabel = require('eleventy-plugin-babel');
 const addWebComponentDefinitions = require('eleventy-plugin-add-web-component-definitions')
 
 module.exports = function (eleventyConfig) {
+  let nunjucksEnvironment = new nunjucks.Environment(
+    new nunjucks.FileSystemLoader("_includes")
+  );
+
     // eleventyConfig.setQuietMode(process.env.npm_config_quiet);
     eleventyConfig.setQuietMode(false);
     eleventyConfig.setWatchThrottleWaitTime(500);
@@ -37,9 +45,10 @@ module.exports = function (eleventyConfig) {
             "pfe-accordion-panel"
           ].includes(tag)) return;
           return `/js/${tag}/dist/${tag}.min.js`;
-        },
-        verbose: true
+        }
     });
+
+    eleventyConfig.addCollection("posts");
 
     eleventyConfig.addPassthroughCopy("./img");
 
@@ -55,6 +64,8 @@ module.exports = function (eleventyConfig) {
         "./node_modules/@patternfly/pfe-band/dist/*.min.css*": "css/pfe-band/dist/",
         "./node_modules/@patternfly/pfe-card/dist/*.min.js*": "js/pfe-card/dist/",
         "./node_modules/@patternfly/pfe-card/dist/*.min.css*": "css/pfe-card/dist/",
+        "./node_modules/@patternfly/pfe-codeblock/dist/*.min.js*": "js/pfe-codeblock/dist/",
+        "./node_modules/@patternfly/pfe-codeblock/dist/*.min.css*": "css/pfe-codeblock/dist/",
         "./node_modules/@patternfly/pfe-content-set/dist/*.min.js*": "js/pfe-content-set/dist/",
         "./node_modules/@patternfly/pfe-content-set/dist/*.min.css*": "css/pfe-content-set/dist/",
         "./node_modules/@patternfly/pfe-cta/dist/*.min.js*": "js/pfe-cta/dist/",
@@ -164,6 +175,7 @@ module.exports = function (eleventyConfig) {
     // });
 
     eleventyConfig.setLibrary("md", markdownLib);
+    eleventyConfig.setLibrary("html", nunjucksEnvironment);
 
     return {
         dir: {

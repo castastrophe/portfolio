@@ -1,0 +1,13 @@
+---
+layout: base.html
+---
+<main class="main">
+    {% include _nav.html %}
+    <pfe-band>
+        <h1 slot="pfe-band--header">{{ title }}</h1>
+        <article>
+            {{ content | safe }}
+        </article>
+    </pfe-band>
+</main>
+{% include _footer.html %}

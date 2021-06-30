@@ -20,6 +20,62 @@ window.PfeConfig = {
   ]
 };
 
+const getNavHeight = () => {
+  let navHeight = 0;
+  const nav = document.querySelector("#social");
+  if (nav) navHeight = nav.getBoundingClientRect().height;
+  return navHeight;
+};
+
+const updateQuery = (params, add = true) => {
+  const url = new URL(window.location);
+  params.map(param => {
+    if (add) {
+      url.searchParams.set(param.key, param.value);
+      if (typeof(Storage) !== "undefined") {
+        window.localStorage.setItem(param.key, param.value);
+      }
+    }
+    else {
+      url.searchParams.delete(param.key);
+      if (typeof(Storage) !== "undefined") {
+        window.localStorage.removeItem(param.key);
+      }
+    }
+  });
+
+  // Update the URL history
+  window.history.replaceState({}, '', url);
+}
+
+const toggleCV = (state = "toggle") => {
+  document.body.classList.toggle("animating");
+  // Toggle the CV class on the body
+  document.body.classList[state]("cv");
+
+  // Apply the CV query string
+  if (document.body.classList.contains("cv")) {
+    updateQuery([{
+      key: "format",
+      value: "cv"
+    }]);
+  } else {
+    updateQuery([{
+      key: "format"
+    }], false);
+  }
+
+  // Reset the context on bands and cards
+  document.querySelectorAll("pfe-band,pfe-card").forEach(component => component.resetContext());
+
+  // Close the open accordions
+  document.querySelectorAll("pfe-accordion").forEach(accordion => accordion.collapseAll());
+
+  setTimeout(() => {
+    document.body.classList.toggle("animating");
+  }, 300);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   try {
     $('[data-popup="youtube"]').magnificPopup({
@@ -44,20 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
-  } catch (err) {}
-});
-
-const getNavHeight = () => {
-  let navHeight = 0;
-  const nav = document.querySelector("#social");
-  if (nav) navHeight = nav.getBoundingClientRect().height;
-  return navHeight;
-};
-
-document.addEventListener('DOMContentLoaded', () => {
+  } catch (err) {
+    console.log("Magnific pop-up is not loading.")
+  }
+  
   Promise.all([
-    customElements.whenDefined("pfe-accordion"),
-    customElements.whenDefined("pfe-tabs"),
+    customElements.whenDefined("pfe-accordion")
   ]).then(() => {
     document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
       accordion.disclosure = "true";
@@ -71,7 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+  });
 
+  Promise.all([
+    customElements.whenDefined("pfe-tabs"),
+  ]).then(() => {
     let navHeight = getNavHeight();
     const tabs = document.querySelector("pfe-tabs");
     if (tabs) {
@@ -79,16 +131,25 @@ document.addEventListener('DOMContentLoaded', () => {
       tabs.style.alignItems = "flex-start";
       if (shadowTabs) {
         shadowTabs.style.position = "sticky";
-        shadowTabs.style.top = `var(--navigation-height, ${navHeight}px)`;
+
+        if (navHeight) shadowTabs.style.top = `var(--navigation-height, ${navHeight}px)`;
+        else  shadowTabs.style.top = `var(--navigation-height)`;
+
         shadowTabs.style.backgroundColor = "#fff";
         shadowTabs.style.zIndex = "98";
       }
     }
   });
 
-  // Check for query param
+  // Check for query param in the URL
   const urlParams = new URLSearchParams(window.location.search);
-  const displayMode = urlParams.get("format");
+  let displayMode = urlParams.get("format");
+  
+  // If the param was not found, try local storage
+  if (displayMode !== "cv" && typeof(Storage) !== "undefined") {
+    displayMode = window.localStorage.getItem("format");
+  }
+
   if (displayMode === "cv") {
     toggleCV("add");
     document.querySelector("#cvToggle").checked = true;
@@ -102,6 +163,16 @@ window.addEventListener("resize", () => {
   if (tabs) {
     const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
     if (shadowTabs) document.body.style.setProperty("--navigation-height", `${navHeight}px`);
+  }
+});
+
+// If the document is scrolled past the bottom of the masthead, add the isStuck attribute 
+const masthead = document.getElementById("social");
+window.addEventListener("scroll", () => {
+  if (document.documentElement.getBoundingClientRect().top < -1 * masthead.getBoundingClientRect().height) {
+    masthead.setAttribute("isStuck", "");
+  } else {
+    masthead.removeAttribute("isStuck");
   }
 });
 
@@ -145,40 +216,3 @@ document.querySelectorAll(".read-more").forEach(link => {
     }
   });
 });
-
-const updateQuery = (params, add = true) => {
-  const url = new URL(window.location);
-  params.map(param => {
-    if (add) url.searchParams.set(param.key, param.value);
-    else url.searchParams.delete(param.key);
-  });
-  window.history.pushState({}, '', url);
-}
-
-const toggleCV = (state = "toggle") => {
-  document.body.classList.toggle("animating");
-  // Toggle the CV class on the body
-  document.body.classList[state]("cv");
-
-  // Apply the CV query string
-  if (document.body.classList.contains("cv")) {
-    updateQuery([{
-      key: "format",
-      value: "cv"
-    }]);
-  } else {
-    updateQuery([{
-      key: "format"
-    }], false);
-  }
-
-  // Reset the context on bands and cards
-  document.querySelectorAll("pfe-band,pfe-card").forEach(component => component.resetContext());
-
-  // Close the open accordions
-  document.querySelectorAll("pfe-accordion").forEach(accordion => accordion.collapseAll());
-
-  setTimeout(() => {
-    document.body.classList.toggle("animating");
-  }, 300);
-}
