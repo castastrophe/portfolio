@@ -1,7 +1,5 @@
 const nunjucks = require("nunjucks");
-const markdownIt = require("markdown-it");
-const markdownItAnchor = require("markdown-it-anchor");
-const markdownItContainer = require("markdown-it-container");
+const moment = require("moment");
 
 const compress = require("compression");
 const pluginSass = require("eleventy-plugin-sass");
@@ -75,6 +73,17 @@ module.exports = function (eleventyConfig) {
     "./node_modules/@patternfly/pfe-styles/dist/*.min.css*": "css/pfe-styles/dist/",
   });
 
+  eleventyConfig.addLayoutAlias('post', 'post.njk');
+  eleventyConfig.addLayoutAlias('general', 'general.njk');
+  eleventyConfig.addLayoutAlias('base', 'base.njk');
+
+  let nunjucksEnvironment = new nunjucks.Environment(
+    new nunjucks.FileSystemLoader("_includes")
+  );
+
+  eleventyConfig.setLibrary("md", nunjucksEnvironment);
+  eleventyConfig.setLibrary("njk", nunjucksEnvironment);
+
   eleventyConfig.addFilter('dump', obj => {
     const getCircularReplacer = () => {
       const seen = new WeakSet();
@@ -92,82 +101,8 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(obj, getCircularReplacer(), 4);
   });
 
-  let options = {
-    html: true
-  };
-
-  const parseTokens = (tokens, idx) => {
-    let id = "",
-      attrs = [],
-      classes = [];
-    let m = tokens[idx].info.trim().match(/^band+(.*)$/);
-    let config = m && m[1].trim().split(" ");
-    if (config && config.length > 0) {
-      config.forEach(item => {
-        // Look for IDs
-        let find = item.match(/^#([\w|-]+)/);
-        if (find && find.length > 0) id = find[1];
-        // Look for classes
-        find = item.match(/^\.([\S]+)/);
-        if (find && find.length > 0) classes.push(find[1]);
-        // Look for attributes
-        find = item.match(/^\|([\S]+)/);
-        if (find && find.length > 0) attrs.push(find[1]);
-      });
-    }
-    return {
-      id,
-      attrs,
-      classes
-    };
-  };
-
-  let nunjucksEnvironment = new nunjucks.Environment(
-    new nunjucks.FileSystemLoader("_includes")
-  );
-
-  let markdownLib = markdownIt(options);
-  markdownLib.use(markdownItAnchor);
-  markdownLib.use(markdownItContainer, "band", {
-    validate: params => {
-      return params.trim().match(/^band+(.*)$/);
-    },
-    render: (tokens, idx) => {
-      let {
-        id,
-        attrs,
-        classes
-      } = parseTokens(tokens, idx);
-      if (tokens[idx].nesting === 1) {
-        return `<pfe-band${id ? ` id="${id}"` : ""}${classes.length > 0 ? ` class="${classes.join(" ")}"` : ""}${attrs.length > 0 ? ` ${attrs.join(" ")}` : ""}>`
-      } else {
-        return `</pfe-band>\n`;
-      }
-    }
-  });
-
-  markdownLib.use(markdownItContainer, "section", {
-    validate: params => {
-      return params.trim().match(/^section+(.*)$/);
-    },
-    render: (tokens, idx) => {
-      let {
-        id,
-        attrs,
-        classes
-      } = parseTokens(tokens, idx);
-      if (tokens[idx].nesting === 1) {
-        return `<section${id ? ` id="${id}"` : ""}${classes.length > 0 ? ` class="${classes.join(" ")}"` : ""}${attrs.length > 0 ? ` ${attrs.join(" ")}` : ""}>`
-      } else {
-        return `</section>\n`;
-      }
-    },
-    marker: ";"
-  });
-
-
-  eleventyConfig.setLibrary("md", markdownLib);
-  eleventyConfig.setLibrary("html", nunjucksEnvironment);
+  eleventyConfig.addFilter("date", (UTC) => moment(UTC).format("YYYY MMM D"));
+  eleventyConfig.addFilter("id", (string) => string.replace(" ", ""));
 
   return {
     dir: {

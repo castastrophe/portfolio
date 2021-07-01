@@ -1,0 +1,61 @@
+{% if companies.length %}
+<pfe-tabs vertical tab-history variant="wind" style="--pfe-tabs__panel--Padding:0" class="print-hidden"
+    id="job-history">
+{% for company in companies %}
+    <pfe-tab role="heading" slot="tab" id="{{ company | id }}">{{ company }}</pfe-tab>
+    <pfe-tab-panel role="region" slot="panel">
+        <pfe-accordion disclosure="true">
+        {% for role in company.roles %}
+            <pfe-accordion-header>
+                <h3>{{ role.title }}</h3>
+            </pfe-accordion-header>
+            <pfe-accordion-panel>
+                <dl>
+                    <dd>{{ role.date }}</dd>
+                    {% if role.summary -%}
+                    <dd>{{ role.summary }} <a class="read-more">Hide details</a></dd>
+                    {%- endif %}
+                    <dd{% if role.summary %} hidden{% endif %}>
+                        <ul>
+                        {% for task in role.responsibilities %}
+                            <li>{{ task }}</li>
+                        {% endfor %}
+                        </ul>
+                    </dd>
+                </dl>
+            </pfe-accordion-panel>
+        {% endfor %}
+        </pfe-accordion>
+    </pfe-tab-panel>
+{% endfor %}
+</pfe-tabs>
+
+<div class="print-only">
+{% for company in companies %}
+    <div>
+        <h3>{{ company.name }}</h3>
+        <pfe-accordion disclosure="true">
+        {% for role in company.roles %}
+            <pfe-accordion-header>
+                <h3>{{ role.title }}</h3>
+            </pfe-accordion-header>
+            <pfe-accordion-panel>
+                <dl>
+                    <dd>{{ role.date }}</dd>
+                    {% if role.summary -%}
+                    <dd>{{ role.summary }} <a class="read-more">Hide details</a></dd>
+                    {%- endif %}
+                    <dd{% if role.summary %} hidden{% endif %}>
+                        <ul>
+                        {% for task in role.responsibilities %}
+                            <li>{{ task }}</li>
+                        {% endfor %}
+                        </ul>
+                    </dd>
+                </dl>
+            </pfe-accordion-panel>
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>
+{% endif %}

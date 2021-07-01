@@ -1,0 +1,131 @@
+{
+    "companies": [{
+        "name": "Red Hat",
+        "roles": [{
+            "title": "Principal front-end architect, User Experience Team, Digital Marketing",
+            "date": "Apr 2020&mdash;Now",
+            "responsibilities": [
+                "Open source community leader for PatternFly Elements and several repositories under the Red Hat Official organization; this involves responding to issues, code review, facilitating contribution through documentation, encouraging a healthy, positive community, building out project roadmaps, and getting stakeholder buy-in to fund dedicated developers.",
+                "Research and engage with the web component community around accessibility standards and approaches to theming components in distributed architectures.",
+                "Heavily engaged in the CSS Working Group and on GitHub for web component standards.",
+                "Engage designers, developers, and stakeholders in prioritization for building out a varied and robust set of design system components.",
+                "Cross-organization collaboration with development and design teams, both internal to Red Hat and with other large organizations such as Google, Fidelity, Penn State, and IBM."
+            ]
+        }, {
+            "title": "Senior front-end architect, Digital Marketing Strategy & Design",
+            "date": "Dec 2017&mdash;Apr 2020",
+            "responsibilities": [
+                "Co-founder of PatternFly Elements.",
+                "Technical lead for the redhat.com pattern library, which is used across multiple web assets within Red Hat; said library includes semantic markup, JavaScript interactions, JSON schemas for CMS consumption and JSON data for testing framework, and JavaScript (Mocha/Chai) for front-end visual regression testing.",
+                "Primarily responsible for code review and providing guidance, training, and feedback to pattern system contributors and front-end developers for redhat.com; organize cross-team training.",
+                "Expert-level Sass developer; optimizing CSS and making the system easy to use and update.",
+                "Manage requirements, hours, testing, and deliverables via Rally, a project management tool, helping teammates with efficient timekeeping and working across our larger team to build templates and improve the efficiency of our reporting.",
+                "Agile team structure allows us to iterate on patterns quickly and provide continual improvements to our system.",
+                "Cross-browser testing, using site analytics to determine support levels.",
+                "Manage the build server including debugging any build issues, package and upgrade management.",
+                "Present our team's approaches, methodologies, and theories at technical conferences and bring back shared knowledge for implementation in our system.",
+                "Mentor fellow developers and students on technical and professional skillsets."
+            ]
+        }, {
+            "title": "Front-end developer, UX Development tech lead",
+            "date": "May 2016&mdash;Dec 2017",
+            "responsibilities": [
+                "Lead, advocate, architect, and developed for a new component-driven design system; advanced Twig templating, Grunt tasks and logic, WebdriverIO for visual regression testing, advanced Sass functions and mixins.",
+                "Manage the build server including debugging any build issues, package and upgrade management.",
+                "Owner of front-end JavaScript for the web team; set and documented coding standards and built large library of include-able snippets for modular UI development.",
+                "Advocate and early adopter of flexible templating system for Drupal (utilizes the paragraph module); tech lead writing schemas which drive the admin interface, twig templates, and styles for this system.",
+                "Consult for other divisions concerning front-end user experience and design, including providing CSS styling, helping create mobile-friendly applications, and improve customer engagement."
+            ]
+        }, {
+            "title": "User experience web developer/designer",
+            "date": "Jan 2014&mdash;May 2016",
+            "responsibilities": [
+                "Lead developer for Red Hat Summit's Drupal templates in PHP, outputs logic-based mark-up based on an API feed from Lanyon.",
+                "Design and build microsites advertising products and services - using thorough knowledge of HTML, Sass (and by-proxy, CSS), JavaScript.",
+                "Web lead for the web design and organization of the Training and About sections for redhat.com.",
+                "Building pages for major site redesign project in Drupal using Sass, HTML (with some HTML5 components) and advanced Javascript tools to create clean, efficient, modular design with sustainable code (development tools used: Compass, Jekyll, Gitlab).",
+                "Expertly managed the ticket queue for redhat.com main page and microsites, resolving web issues for customers and communicating with colleagues to maintain tight SLAs with excellent customer service, received several service awards for this work.",
+                "Managed content using CVS, then transitioned the team to git; took the lead in creating documentation and workflows, provided hands-on training to the team; wrote a few bash wrapper scripts to standardize process and workflows.",
+                "Consult for other divisions concerning front-end user experience and design, including providing CSS styling, helping create mobile-friendly applications, and improve customer engagement.",
+                "Business Analyst for Red Hat's online product store (and previously, Customer Portal)."
+            ]
+        }]
+    }, {
+        "name": "SAS",
+        "roles": [{
+            "title": "Associate Technical Consultant",
+            "date": "Feb 2013&mdash;Jan 2014",
+            "responsibilities": [
+                "Consult customers using SAS with a third-party database, SQL optimization expertise.",
+                "Demo SAS products to customers, explaining different methods of creating a cohesive framework for data collection and management.",
+                "Experience with the full range of SAS Software - including Visual Analytics, DataFlux, Data Integration Studio, and related business tools.",
+                "Database optimization via DBMS and SAS code.",
+                "In-Database, In-Memory, High Performance Analytics - Teradata, Hadoop.",
+                "Oracle Database Administrator consult for large-scale, long-term project.",
+                "Research emerging technologies, internally and externally, to develop Best Practice and training documentation."
+            ]
+        }, {
+            "title": "Associate Development Tester",
+            "date": "Jan 2012&mdash;Nov 2012",
+            "responsibilities": [
+                "Maintain physical & virtual Windows, Linux, HP images used in regression tests, includes maintaining software updates & installing testing tools.",
+                "Write, implement, & trouble-shoot regression tests, client & server-side.",
+                "Develop & monitor testing plans.",
+                "Perform, document deployment for embedded processing on the following databases: Aster, DB2 on AIX, DB2 on Linux, Greenplum, Netezza, Teradata, Hadoop, Oracle.",
+                "Manage MLE, macro, and international test suites for model processing in-database, about 300 tests, with bash script reporting results.",
+                "Design advanced web reporting tools using heavy PHP, CSS framework, Perl script backend that queries status & details across multiple server platforms based on information collected with an internal web crawler.",
+                "Upgrade & maintain a myriad of databases assigned to my testing group.",
+                "Programmed tests using SAS language, macros, & SQL."
+            ]
+        }, {
+            "title": "R&D Technical Student on In-Database Products",
+            "date": "May 2010&mdash;Jan 2012",
+            "responsibilities": [
+                "Develop automated reporting tools on the status of various database platforms.",
+                "Develop Linux scripting tools to increase efficiency of common/repetitive tasks.",
+                "Regular installs on test environments for testing teams, both client & server side.",
+                "Testing & documenting install process for Linux & PC hosts.",
+                "Programmed tests using SAS language, macros, & SQL.",
+                "Improve online reporting tools & documentation, introduced PHP reporting to the group.",
+                "Designed advanced training programs for international resources."
+            ]
+        }]
+    }, {
+        "name": "Other",
+        "roles": [{
+            "title": "Publishing | Journals Production Editor, Oxford University Press",
+            "date": "Sep 2007&mdash;Jul 2009",
+            "summary": "This position changed the course of my career. After completing a summer internship, I accepted a full-time position with this group; pausing my progress on an English degree from NC State for a chance to get real professional experience. Instead, what I learned was that publishing is 80% project management and only 20% actual editing; more than that, I enjoyed it! When the group rolled out a new software for tracking publications, I threw myself into detailed product testing and realized my love of computers could be a career. That led me back to college at Meredith to complete a Bachelors of Science in Computer Science by 2012.",
+            "responsibilities": [
+                "Contributed to cohesive team structure and was highly efficient on independent tasks.",
+                "Heavily involved in regression testing and improving Journal management software, taking a leadership role in both tasks and mining information from US and UK offices to make the program more efficient and effective.",
+                "Created and monitored schedules and turnaround times, ensuring tight deadlines are met.",
+                "Created and monitored budgets up to $605,500/journal, effectively cutting costs while working to improve the physical quality of publication.",
+                "Generated weekly, monthly, and year-end reporting on the overall status of each journal.",
+                "Liaised between editors, authors, and other departments within Oxford UP to provide excellent customer service and facilitate the smooth development of publication."
+            ]
+        }, {
+            "title": "Startup | Jr Web Developer, FlipKey",
+            "date": "Nov 2012&mdash;Jan 2013",
+            "summary": "This role taught me a lot about web development and was my first experience professionally writing PHP. I got to experience the energy and innovation of a startup with the benefits of working right in downtown Boston, MA; still one of my favorite cities to this day.",
+            "responsibilities": [
+                "CakePHP environment, PHP5.",
+                "Write and debug HTML5 and SCSS front-end.",
+                "Documenting processes by compiling information from key resources on the development team.",
+                "Grep log files to fix errors or insert additional logging.",
+                "Install and configure Linux-based test and development environment, including: MySQL, Sphinx, Redis, Mercurial VCS, Coffeescript, Compass, Couchbase.",
+                "Light Python scripting to configure and populate memcache buckets in Couchbase and to deploy development to test and production environment."
+            ]
+        }, {
+            "title": "Family-owned | Web Content Manager, Inside-Out Sports",
+            "date": "Aug 2009&mdash;Jul 2010",
+            "summary": "This was a great experience working for a small, family-owned, local company helping them to realize the possibilities of hosting their content on the web.",
+            "responsibilities": [
+                "Create and update product images and descriptions for the Online Store.",
+                "Research and implement new tools for online shopping, including JavaScript applets.",
+                "Unify appearance of products using HTML.",
+                "Managed one employee which involved training, reviewing, and personnel issues."
+            ]
+        }]
+    }]
+}

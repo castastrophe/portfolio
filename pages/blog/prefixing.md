@@ -1,9 +1,10 @@
 ---
-layout: post.html
+layout: post
 tags: 
     - post
 title: "Prefixing: the eternal question"
-date: 2016-06-30
+summary: In the world of design systems, prefixing has become the norm; and with good reason. Prefixing offers a way to quickly identify from which codebase a particular style or element derives so we can easily debug environments with multiple sources.
+date: Created
 ---
 
 In the world of design systems, prefixing has become the norm; and with good reason. Prefixing offers a way to quickly identify from which codebase a particular style or element derives so we can easily debug environments with multiple sources. I've seen this advantage win out time and time again on redhat.com, where we have pages built from Drupal templates, pattern systems, web components, and a smattering of code from custom libraries.

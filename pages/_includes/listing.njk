@@ -1,0 +1,13 @@
+<pfe-band>
+    <ul data-layout="auto-grid">
+    {%- for item in collections[collectionName] -%}
+        <li style="display: contents;">
+            <pfe-card>
+                <h4><a href="{{ item.url }}">{{ item.title }}</a></h4>
+                <p>{{ item.date }}</p>
+                <p>{{ item.summary }}</p>
+            </pfe-card>
+        </li>
+    {%- endfor -%}
+    </ul>
+</pfe-band>
