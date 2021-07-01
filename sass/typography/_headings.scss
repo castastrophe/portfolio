@@ -39,7 +39,7 @@
 }
 
 .masthead {
-    &:hover>span {
+    &:hover span {
         transition: transform 0.2s linear;
         display: inline-block;
 

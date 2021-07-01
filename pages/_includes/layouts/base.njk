@@ -1,0 +1,15 @@
+---
+classes:
+  - page-wrapper
+---
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="local no-js" lang="en">
+<!--<![endif]-->
+    {% include 'header.njk' %}
+    <body unresolved class="{{ classes | join }}">
+    {{ content | safe }}
+    </body>
+</html>
