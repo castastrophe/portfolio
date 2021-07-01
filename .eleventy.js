@@ -73,17 +73,6 @@ module.exports = function (eleventyConfig) {
     "./node_modules/@patternfly/pfe-styles/dist/*.min.css*": "css/pfe-styles/dist/",
   });
 
-  eleventyConfig.addLayoutAlias('post', 'post.njk');
-  eleventyConfig.addLayoutAlias('general', 'general.njk');
-  eleventyConfig.addLayoutAlias('base', 'base.njk');
-
-  let nunjucksEnvironment = new nunjucks.Environment(
-    new nunjucks.FileSystemLoader("_includes")
-  );
-
-  eleventyConfig.setLibrary("md", nunjucksEnvironment);
-  eleventyConfig.setLibrary("njk", nunjucksEnvironment);
-
   eleventyConfig.addFilter('dump', obj => {
     const getCircularReplacer = () => {
       const seen = new WeakSet();
@@ -104,12 +93,23 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("date", (UTC) => moment(UTC).format("YYYY MMM D"));
   eleventyConfig.addFilter("id", (string) => string.replace(" ", ""));
 
+  eleventyConfig.addLayoutAlias('base', 'layouts/base.njk');
+  eleventyConfig.addLayoutAlias('general', 'layouts/general.njk');
+  eleventyConfig.addLayoutAlias('post', 'layouts/post.njk');
+
+  let nunjucksEnvironment = new nunjucks.Environment(
+    new nunjucks.FileSystemLoader("_includes")
+  );
+
+  // eleventyConfig.setLibrary("md", nunjucksEnvironment);
+  eleventyConfig.setLibrary("njk", nunjucksEnvironment);
+
   return {
     dir: {
       input: "./pages",
       output: "./public",
       includes: "_includes",
-      layouts: "_layouts"
+      // layouts: "_layouts"
     },
     setBrowserSyncConfig: {
       open: true,
@@ -119,8 +119,7 @@ module.exports = function (eleventyConfig) {
       }
     },
     templateFormats: [
-      "html",
-      "md",
+      "njk",
       "css",
       "js",
       "svg",

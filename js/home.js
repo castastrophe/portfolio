@@ -205,10 +205,6 @@ document.addEventListener("pfe-tabs:shown-tab", evt => {
         top: elementPosition - navHeight,
         behavior: "smooth"
       });
-
-      setTimeout(() => {
-        accordion.expand(0);
-      }, 500);
       // else accordion.collapseAll();
     }
   }

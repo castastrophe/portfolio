@@ -2,63 +2,7 @@
 layout: general
 ---
 
-<pfe-band id="about" use-grid>
-    <div class="header">
-        <div class="image-embed" data-type="profile">
-            <div class="image-embed-container">
-                <img class="image-embed-img" src="./img/profile.jpg">
-            </div>
-        </div>
-        <h2 class="header-headline accent shown-text">About castastrophe</h2>
-        <h2 class="header-headline accent hidden-text">Cassondra Roberts</h2>
-        <p class="header-summary">I am a <b>passionate</b> front-end architect &amp; technical lead at <a
-                href="https://www.redhat.com/en/about/company">Red&nbsp;Hat</a> on the Digital Marketing Strategy &amp;
-            Design team, where we build the design system that powers many of Red&nbsp;Hat's web assets.</p>
-        <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new technologies and
-                implementing
-                highly-optimized, clean solutions to complex problems.</b></p>
-        <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b> and these
-            values
-            guide the code that I produce and influence. One of the most enjoyable aspects of my job is open source
-            community management; engaging with and connecting the contributors to many of Red Hat's open initiatives.
-        </p>
-    </div>
-    <section data-layout="flex-centered">
-        <pfe-card class="quote shown">
-            <blockquote id="quote">
-                <div class="quote-container" data-text-align="right">
-                    <p class="quote-quotation">You're not going to learn code by passively watching someone
-                        else write it. You have to get into it, get really tangled up in it, and ask how you
-                        could make it better.</p>
-                </div>
-                <p class="quote-attribution">Collaborative Problem Solver<br>
-                    <span>
-                        <a href="https://www.meredith.edu/goingstrong/cas-roberts">Meredith Magazine</a>
-                    </span>
-                </p>
-            </blockquote>
-        </pfe-card>
-        <pfe-card color="accent" tilt-on="hover" class="featured">
-            <h3 class="card-header-title">Design system</h3>
-            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                    href="https://github.com/patternfly/patternfly-elements" title="Click to view project">PatternFly
-                    Elements</a></h4>
-            <div class="card-body">
-                <div class="content">
-                    <p>This is a web component implementation of the Red Hat design system. It leverages the
-                        encapsulation of ShadowDOM and the
-                        power of custom properties to create well-scoped elements that are still
-                        designer-friendly. Elements are accessible, context-aware, and framework-friendly!
-                    </p>
-                </div>
-            </div>
-            <pfe-cta slot="pfe-card--footer">
-                <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
-                    title="Click to view project" data-cta-type="secondary">View the source code</a>
-            </pfe-cta>
-        </pfe-card>
-    </section>
-</pfe-band>
+{% include "about.njk" %}
 
 <pfe-band id="teaser" color="accent" data-padding="half">
     <div class="video-embed" data-text-align="center">

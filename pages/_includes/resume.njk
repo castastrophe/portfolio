@@ -4,7 +4,7 @@
 {% for company in companies %}
     <pfe-tab role="heading" slot="tab" id="{{ company | id }}">{{ company }}</pfe-tab>
     <pfe-tab-panel role="region" slot="panel">
-        <pfe-accordion disclosure="true">
+        <pfe-accordion disclosure="true" expanded-index="1">
         {% for role in company.roles %}
             <pfe-accordion-header>
                 <h3>{{ role.title }}</h3>

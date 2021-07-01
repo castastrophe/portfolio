@@ -1,0 +1,17 @@
+[{
+    "profile": "./img/profile.jpg",
+    "handle": "castastrophe",
+    "name": "Cassondra Roberts",
+    "job": {
+        "company": "Red&nbsp;Hat",
+        "url": "https://www.redhat.com/en/about/company",
+        "role": "front-end architect &amp; technical lead",
+        "team": "Digital Marketing Strategy &amp; Design"
+    },
+    "quote": {
+        "quotation": "You're not going to learn code by passively watching someone else write it. You have to get into it, get really tangled up in it, and ask how you could make it better.",
+        "attribution": "Collaborative Problem Solver",
+        "url": "https://www.meredith.edu/goingstrong/cas-roberts",
+        "publication": "Meredith Magazine"
+    }
+}]
