@@ -210,31 +210,12 @@
 [data-layout="space-between"] {
     display: flex;
     flex-flow: row wrap;
-    // align-items: center;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: -10px;
-
-    @media (min-width: 768px) {
-        flex-flow: row nowrap;
-        justify-content: space-between;
-    }
 
     >* {
         margin-bottom: 10px;
-
-        &:first-child {
-            text-align: center;
-            @media (max-width: 767px) {
-                flex-basis: 100%;
-            }
-        }
-        
-        &:last-child {
-            align-self: flex-end;
-        }
-
-        @media (min-width: 768px) {
-        }
     }
 }
 
