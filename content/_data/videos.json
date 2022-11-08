@@ -1,7 +1,6 @@
 {
     "conferences": [
         {
-            "featured": true,
             "tags": ["DrupalCon"],
             "date": "2019",
             "title": "Unlocking design in a design system with custom properties",

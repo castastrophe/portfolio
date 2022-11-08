@@ -10,17 +10,20 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const htmlmin = require("html-minifier");
 const embedYouTube = require("eleventy-plugin-youtube-embed");
 
+const PostCSSPlugin = require("eleventy-plugin-postcss");
+
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
-  eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy({
-    "./node_modules/@shoelace-style/shoelace/dist/themes/*.css": "css"
-  });
-  eleventyConfig.addPassthroughCopy({
-    "./node_modules/@shoelace-style/shoelace/dist": "js/shoelace"
+    "./node_modules/@shoelace-style/shoelace/dist/themes/*.css": "css",
+    "./node_modules/@shoelace-style/shoelace/dist/shoelace.js": "js/shoelace/shoelace.js",
+    "./node_modules/@shoelace-style/shoelace/dist/components": "js/shoelace/components",
+    "./node_modules/@shoelace-style/shoelace/dist/chunks/*.js": "js/shoelace/chunks",
+    "./node_modules/@shoelace-style/shoelace/dist/assets": "js/shoelace/assets"
   });
   
-  // Add plugins
+  eleventyConfig.addWatchTarget("./content/css/**/*.scss");
+
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
   eleventyConfig.addPlugin(embedYouTube, {
@@ -134,7 +137,7 @@ module.exports = function(eleventyConfig) {
     templateFormats: [
       "md",
       "njk",
-      "html"
+      "html",
     ],
 
     // Pre-process *.md files with: (default: `liquid`)

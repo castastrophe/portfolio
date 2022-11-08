@@ -1,15 +1,10 @@
 {% if items.length %}
-{% if label %}<h2 class="title center accent light{% if simple %} title{% endif %}">{{ label }}</h2>{% endif %}
+{% if label %}<h2 slot="summary" class="title center{% if simple %} simple{% endif %}">{{ label }}</h2>{% endif %}
 <div class="{{ type }} list">
   {% set color = cycler("accent1", "accent2", "accent3", "accent4") %}
   {% for item in items %}
     <sl-card size="small" class="list-item {{ color.next() }}{% if item.featured or item.active %} featured{% endif %}">
       {% if item.video %}<div slot="image"><p>{{ item.video }}</p></div>{% endif %}
-      <span slot="header" class="tag-list">
-        {% for tag in item.tags | filterTagList %}
-          <sl-button variant="text" size="small" href="/tags/{{ tag | slugify }}/">#{{ tag }}</sl-button>
-        {% endfor %}
-      </span>
       {% if item.title -%}
         <h3 class="list-title">
           {%- if item.url or item.source %}<a href="{{ item.url or item.source }}">{% endif %}{{ item.title | safe }}{% if item.url or item.source %}</a>{% endif -%}
@@ -18,6 +13,7 @@
       {% if item.date %}
         <time class="list-date" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
       {% endif %}
+      {% if item.tags %}<p class="list-preview">{% for tag in item.tags | filterTagList %}<sl-badge pill>{{ tag }}</sl-badge>{% endfor %}</p>{% endif %}
       {% if item.summary -%}
         <p class="list-preview">{{ item.summary | safe }}</p>
       {%- endif %}

@@ -26,10 +26,3 @@ a[href].post-tag:focus {
 .post .list-item > .post-tag {
     align-self: center;
 }
-.tag-list {
-    --sl-input-height-small: 2em;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    gap: .1em;
-}

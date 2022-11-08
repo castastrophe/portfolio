@@ -10,7 +10,7 @@ eleventyNavigation:
   <article>
     <h2 class="heading">Consulting</h2>
     <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-    <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at the enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
+    <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
   </article>
 
   {% if projects.featured.length %}
@@ -23,13 +23,13 @@ eleventyNavigation:
   {% endif %}
 
   {% if projects.tooling.length %}
-    <article class="wide narrow">
-      {% set label = "" %}
+      {% set label = "Projects" %}
       {% set items = projects.tooling %}
       {% set simple = true %}
-      {% include "list.njk" ignore missing %}
+      <sl-details>
+        {% include "list.njk" ignore missing %}
+      </sl-details>
       {% set simple = false %}
-    </article>
   {% endif %}
 
   {% if videos.conferences.length %}

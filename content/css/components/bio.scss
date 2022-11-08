@@ -1,0 +1,16 @@
+.bio {
+    sl-avatar {
+        --size: 6em;
+    }
+    &-image {
+        float: right;
+
+        @media screen and (max-width: 650px) {
+            float: none;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

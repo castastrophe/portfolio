@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "_utilities" as core;
+
+:root {
+    $primary-hue: #{list.nth(core.$hue, 1)};
+    @include core.palette($primary-hue, 85%);
+
+    --background-color: var(--sl-color-neutral-50);
+    --text-color: var(--sl-color-neutral-700);
+    
+    @media (prefers-color-scheme: dark) {
+        @include core.palette($primary-hue, 70%, .8, true);
+        
+        --background-color: var(--sl-color-neutral-100);
+        --text-color: var(--sl-color-neutral-950);
+    }
+}

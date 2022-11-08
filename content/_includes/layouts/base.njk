@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/light.css" />
     <link rel="stylesheet" type="text/css" href="/css/dark.css" />
-    <link rel="stylesheet" type="text/css" href="{{ '/css/index.css' | url }}">
+    <link rel="stylesheet" href="/css/index.css">
 
     <script type="module" data-shoelace="/js/shoelace/">
       import "/js/shoelace/components/avatar/avatar.js";
@@ -52,6 +52,24 @@
       import "/js/shoelace/components/tab-panel/tab-panel.js";
       import "/js/shoelace/components/tooltip/tooltip.js";
     </script>
+
+    <script type="module">
+        const darkModeQuery = window.matchMedia('prefers-color-scheme: dark');
+        function handleOrientationChange(evt) {
+          console.log(evt);
+          if(evt.matches) {
+            document.body.classList.add('sl-theme-dark');
+          } else {
+            document.body.classList.remove('sl-theme-dark');
+          }
+        }
+
+        darkModeQuery.addEventListener('change', handleOrientationChange);
+
+      window.addEventListener('DOMContentLoaded', () => {
+        handleOrientationChange(darkModeQuery);
+      });
+    </script>
   </head>
   <body class="{% if darkMode %}sl-theme-dark{% endif %} {{ context }}">
     {% include "nav.njk" %}
@@ -59,10 +77,6 @@
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
       {{ content | safe }}
     </main>
-
-    <footer>
-      {% include "pagination.njk" %}
-    </footer>
 
     <!-- Current page: {{ page.url | url }} -->
   </body>

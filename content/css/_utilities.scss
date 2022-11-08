@@ -1,0 +1,36 @@
+@use "sass:math";
+@use "sass:list";
+
+$hue: 350 50 250 130;
+$palette_sizes: 50 100 200 300 400 500 600 700 800 900 950;
+
+@mixin palette($hue, $saturation, $opacity: 1, $reverse: false) {
+    @each $size in $palette_sizes {
+        $s: $size;
+        @if $reverse {
+            $s: list.nth($palette_sizes, list.length($palette_sizes) - index($palette_sizes, $size) + 1);
+        }
+        @include paletteVar($hue, $size, $saturation, $opacity, $s);
+    }
+}
+
+@mixin paletteVar($hue, $shade, $saturation, $opacity: 1, $size: $shade) {
+    $lightness: 100% - math.div($size, 10);
+    --sl-color-primary-#{$shade}: hsla(#{$hue} #{$saturation} #{$lightness} / #{$opacity});
+}
+
+@mixin accent-modifiers ($opacity: 1) {
+    @for $i from 2 through list.length($hue) {
+        .accent#{$i} {
+            $primary-hue: #{list.nth($hue, $i)};
+            @include palette($primary-hue, 85%, $opacity);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .accent#{$i} {
+                $primary-hue: #{list.nth($hue, $i)};
+                @include palette($primary-hue, 85%, $opacity, true);
+            }
+        }
+    }
+}
