@@ -1,0 +1,46 @@
+---
+layout: layouts/home.njk
+permalink: /about/
+eleventyNavigation:
+  key: About
+  order: 2
+---
+
+<div class="bio">
+  <div class="bio-content">
+    <h2 class="header-headline accent shown-text">castastrophe</h2>
+    <h2 class="header-headline accent hidden-text">Cassondra Roberts</h2>
+    <div class="bio-image">
+      <sl-avatar shape="rounded" image="/images/profile_full.jpeg"></sl-avatar>
+      <div class="mobile-only">
+        {% include "social.njk" %}
+      </div>
+    </div>
+    <p>I am a passionate front-end architect with a proven expertise in building massively scalable design systems. What allows them to rapidly scale? The super-power of any codified design system is a thriving open and/or inner source community that feels engaged and empowered.</p>
+    
+    <p><b class="extra">Nothing makes me happier than exploring new technologies and implementing highly-optimized, clean solutions to complex problems.</b></p>
+    <p>Developer experience and accessibility are deeply important to me and these values guide the code I produce and influence. One of the most enjoyable aspects
+        of my work is community management; engaging with and connecting contributors to how they can best solve the problems they face.</p>
+  </div>
+</div>
+
+<div style="margin-inline: 15vw;">
+  {% set type = "project" %}
+  {% set label = "Top projects" %}
+  {% set items = metadata.projects | reverse %}
+  {% include "list.njk" ignore missing %}
+</div>
+
+{% if metadata.videos.length %}
+  {% set label = "Recent presentations" %}
+  {% set type = "video" %}
+  {% set items = metadata.videos | reverse %}
+  {% include "list.njk" ignore missing %}
+{% endif %}
+
+{% if collections.posts.length %}
+  {% set label = "Posts" %}
+  {% set type = "post" %}
+  {% set items = collections.posts | reverse %}
+  {% include "list.njk" ignore missing %}
+{% endif %}

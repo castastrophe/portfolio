@@ -1,0 +1,27 @@
+---
+layout: layouts/home.njk
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+
+<div style="margin-inline: 15vw;">
+  {% set type = "project" %}
+  {% set label = "" %}
+  {% set items = metadata.projects | reverse %}
+  {% include "list.njk" ignore missing %}
+</div>
+
+{% if metadata.videos.length %}
+  {% set label = "Presentations" %}
+  {% set type = "video" %}
+  {% set items = metadata.videos | reverse %}
+  {% include "list.njk" ignore missing %}
+{% endif %}
+
+{% if collections.posts.length %}
+  {% set label = "Posts" %}
+  {% set type = "post" %}
+  {% set items = collections.posts | reverse %}
+  {% include "list.njk" ignore missing %}
+{% endif %}

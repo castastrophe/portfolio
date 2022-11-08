@@ -1,0 +1,26 @@
+
+{% if items.length %}
+{% if label %}<h2 class="center accent light">{{ label }}</h2>{% endif %}
+<div class="{{ type }} list">
+  {% for item in items %}
+    <sl-card size="small" class="list-item{% if item.featured %} accent{% endif %}">
+      {% if item.video %}<iframe slot="image" src="{{ item.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%"></iframe>{% endif %}
+      {% for tag in item.tags | filterTagList %}
+        {% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+        <sl-badge slot="header" variant="primary" pill size="small" href="{{ tagUrl }}">#{{ tag }}</sl-badge>
+      {% endfor %}
+      {% if item.title -%}
+        <h3 class="list-title">
+          {%- if item.url or item.source %}<a href="{{ item.url or item.source }}">{% endif %}{{ item.title | safe }}{% if item.url or item.source %}</a>{% endif -%}
+        </h3>
+      {%- endif %}
+      {% if item.date %}
+        <time class="list-date" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+      {% endif %}
+      {% if item.summary -%}
+        <div class="list-preview">{{ item.summary | truncate(200) | safe }}</div>
+      {%- endif %}
+    </sl-card>
+  {% endfor %}
+</div>
+{% endif %}

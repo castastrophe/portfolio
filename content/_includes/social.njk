@@ -1,0 +1,10 @@
+<div class="social">
+    <span class="social-title shown-text" data-weight="thin">Follow: </span>
+    <span class="social-icons">
+        {% for account in metadata.social %}
+            <sl-tooltip content="Follow on {{ account.name }}" placement="bottom">
+                <sl-icon-button {% if account.icon_name %}name="{{ account.icon_name }}"{% elseif account.icon_src %}src="{{ account.icon_src }}"{% endif %} href="{{ account.url }}"></sl-icon-button>
+            </sl-tooltip>
+        {% endfor %}
+    </span>
+</div>

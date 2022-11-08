@@ -1,0 +1,20 @@
+{%- if collections.posts %}
+    {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+    {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+    {%- if nextPost or previousPost %}
+    <nav class="post-nav">
+        {%- if previousPost %}
+        <sl-button variant="text" size="small" href="{{ previousPost.url | url }}">
+            <sl-icon slot="prefix" name="arrow-bar-left"></sl-icon>
+            Previous: {{ previousPost.data.title }}
+        </sl-button>
+        {% endif %}
+        {%- if nextPost %}
+        <sl-button variant="text" variant="primary" size="small" href="{{ nextPost.url | url }}">
+            <sl-icon slot="suffix" name="arrow-bar-right"></sl-icon>
+            Next: {{ nextPost.data.title }}
+        </sl-button>
+        {% endif %}
+    </nav>
+    {%- endif %}
+{%- endif %}

@@ -1,0 +1,12 @@
+<ol reversed class="post list simple">
+{% for post in items | reverse %}
+    <li class="list-item">
+        <a class="list-title" href="{{ post.url | url }}">{% if post.data.title %}{{ post.data.title | safe }}{% else %}untitled{% endif %}</a>
+        <time class="list-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+        {% for tag in post.data.tags | filterTagList %}
+        {% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+        <a href="{{ tagUrl | url }}" class="post-tag">#{{ tag }}</a>
+        {% endfor %}
+    </li>
+{% endfor %}
+</ol>

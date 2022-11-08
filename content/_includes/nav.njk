@@ -1,0 +1,20 @@
+<header>
+    <div class="brand">
+        <a  href="{{ '/' | url }}"><sl-avatar image="{{ metadata.logo }}" label="Avatar of the author"></sl-avatar></a>
+        <div>
+            <h1 class="company"><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
+            <span class="owner">{{ metadata.author.name }}</span>
+        </div>
+    </div>
+
+    {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+    <ul class="nav">
+        {%- for entry in collections.all | eleventyNavigation %}
+            <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+        {%- endfor %}
+    </ul>
+    
+    <div class="desktop-only">
+        {% include "social.njk" %}
+    </div>
+</header>
