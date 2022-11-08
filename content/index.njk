@@ -1,27 +1,43 @@
 ---
 layout: layouts/home.njk
+title: Home
 eleventyNavigation:
   key: Home
   order: 1
 ---
 
-<div style="margin-inline: 15vw;">
-  {% set type = "project" %}
-  {% set label = "" %}
-  {% set items = metadata.projects | reverse %}
-  {% include "list.njk" ignore missing %}
-</div>
+<section>
+  <article>
+    <h2 class="heading">Consulting</h2>
+    <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
+    <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at the enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
+  </article>
 
-{% if metadata.videos.length %}
-  {% set label = "Presentations" %}
-  {% set type = "video" %}
-  {% set items = metadata.videos | reverse %}
-  {% include "list.njk" ignore missing %}
-{% endif %}
+  {% if projects.featured.length %}
+    <article>
+      {% set type = "project" %}
+      {% set label = "Featured projects" %}
+      {% set items = projects.featured %}
+      {% include "list.njk" ignore missing %}
+  </article>
+  {% endif %}
 
-{% if collections.posts.length %}
-  {% set label = "Posts" %}
-  {% set type = "post" %}
-  {% set items = collections.posts | reverse %}
-  {% include "list.njk" ignore missing %}
-{% endif %}
+  {% if projects.tooling.length %}
+    <article class="wide narrow">
+      {% set label = "" %}
+      {% set items = projects.tooling %}
+      {% set simple = true %}
+      {% include "list.njk" ignore missing %}
+      {% set simple = false %}
+    </article>
+  {% endif %}
+
+  {% if videos.conferences.length %}
+    <article class="wide">
+      {% set label = "Presentations" %}
+      {% set type = "video" %}
+      {% set items = videos.conferences | reverse %}
+      {% include "list.njk" ignore missing %}
+    </article>
+  {% endif %}
+</section>

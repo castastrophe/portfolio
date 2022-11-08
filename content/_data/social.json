@@ -1,0 +1,29 @@
+{
+    "accounts": [
+        {
+            "name": "Mastodon",
+            "icon_name": "mastodon",
+            "url": "https://front-end.social/web/castastrophe"
+        },
+        {
+            "name": "Twitter",
+            "icon_name": "twitter",
+            "url": "https://twitter.com/castastrophee"
+        },
+        {
+            "name": "LinkedIn",
+            "icon_name": "linkedin",
+            "url": "https://www.linkedin.com/in/castastrophe"
+        },
+        {
+            "name": "GitHub",
+            "icon_name": "github",
+            "url": "https://github.com/castastrophe"
+        },
+        {
+            "name": "CodePen",
+            "icon_src": "/images/codepen.svg",
+            "url": "https://codepen.io/castastrophee"
+        }
+    ]
+}

@@ -1,14 +1,15 @@
-
 {% if items.length %}
-{% if label %}<h2 class="center accent light">{{ label }}</h2>{% endif %}
+{% if label %}<h2 class="title center accent light{% if simple %} title{% endif %}">{{ label }}</h2>{% endif %}
 <div class="{{ type }} list">
+  {% set color = cycler("accent1", "accent2", "accent3", "accent4") %}
   {% for item in items %}
-    <sl-card size="small" class="list-item{% if item.featured %} accent{% endif %}">
-      {% if item.video %}<iframe slot="image" src="{{ item.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%"></iframe>{% endif %}
-      {% for tag in item.tags | filterTagList %}
-        {% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-        <sl-badge slot="header" variant="primary" pill size="small" href="{{ tagUrl }}">#{{ tag }}</sl-badge>
-      {% endfor %}
+    <sl-card size="small" class="list-item {{ color.next() }}{% if item.featured or item.active %} featured{% endif %}">
+      {% if item.video %}<div slot="image"><p>{{ item.video }}</p></div>{% endif %}
+      <span slot="header" class="tag-list">
+        {% for tag in item.tags | filterTagList %}
+          <sl-button variant="text" size="small" href="/tags/{{ tag | slugify }}/">#{{ tag }}</sl-button>
+        {% endfor %}
+      </span>
       {% if item.title -%}
         <h3 class="list-title">
           {%- if item.url or item.source %}<a href="{{ item.url or item.source }}">{% endif %}{{ item.title | safe }}{% if item.url or item.source %}</a>{% endif -%}
@@ -18,8 +19,9 @@
         <time class="list-date" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
       {% endif %}
       {% if item.summary -%}
-        <div class="list-preview">{{ item.summary | truncate(200) | safe }}</div>
+        <p class="list-preview">{{ item.summary | safe }}</p>
       {%- endif %}
+      {%- if (item.url or item.source) and not simple %}<sl-button slot="footer" variant="text" href="{{ item.url or item.source }}">Read more.</sl-button>{% endif -%}
     </sl-card>
   {% endfor %}
 </div>

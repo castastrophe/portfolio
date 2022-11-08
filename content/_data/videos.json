@@ -1,0 +1,36 @@
+{
+    "conferences": [
+        {
+            "featured": true,
+            "tags": ["DrupalCon"],
+            "date": "2019",
+            "title": "Unlocking design in a design system with custom properties",
+            "summary": "A deep-dive on how to leverage custom properties in a design system.",
+            "video": "https://youtu.be/xH2MmVNuSe4",
+            "url": "https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+        },
+        {
+            "tags": ["DrupalCon"],
+            "date": "2019",
+            "title": "Make web development fun again, with web components!",
+            "summary": "A joint presentation with Penn State on how web components can make development workflows fun and efficient.",
+            "video": "https://youtu.be/Akn6keIYZ3k",
+            "url": "https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+        },
+        {
+            "tags": ["DrupalCon"],
+            "date": "2018",
+            "title": "One of these things is not like the other; identifying patterns in a mock-up",
+            "summary": "An example-rich talk about how to break out mock-ups into patterns for maximum reusability.",
+            "video": "https://youtu.be/p3y0ljTr8YQ",
+            "url": "https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+        },
+        {
+            "tags": ["NCDevCon"],
+            "date": "2016",
+            "title": "Reduce, reuse, recycle: Modular CSS",
+            "summary": "Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing the size of your output.",
+            "video": "https://youtu.be/8Yyklb78S00"
+        }
+    ]
+}

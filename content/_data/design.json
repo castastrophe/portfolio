@@ -1,0 +1,16 @@
+{
+    "summary": "I've moved away from full-page design in the last few years to focus on systems architecture. When I was involved in these design projects though, I loved working with stakeholders to get at the heart of what they needed from their page; asking the right kinds of questions to solve the real problem and make something of which we both could be proud.",
+    "examples": [{
+        "preview": "2016-07-24_redhat_learning-subscription_screenshot.png",
+        "full": "2016-07-24_redhat_learning-subscription.png",
+        "type": "Page",
+        "title": "Red Hat Learning Subscription",
+        "date": "2016-07-24"
+    }, {
+        "preview": "2016-05-20_redhat_summit_screenshot.png",
+        "full": "2016-05-20_redhat_summit.png",
+        "type": "Microsite",
+        "title": "Red Hat Summit",
+        "date": "2016-05-20"
+    }]
+}

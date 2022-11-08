@@ -1,0 +1,45 @@
+{
+    "featured": [
+        {
+            "featured": true,
+            "title": "Spectrum Web Components",
+            "url": "",
+            "source": "https://github.com/adobe/spectrum-web-components",
+            "summary": "This is a web component implementation of the Adobe design system, Spectrum.",
+            "tags": ["web components", "enterprise", "adobe"]
+        },
+        {
+            "featured": true,
+            "title": "Spectrum CSS",
+            "url": "",
+            "source": "https://github.com/adobe/spectrum-css",
+            "summary": "This is the CSS assets for the Spectrum design system.",
+            "tags": ["css", "enterprise", "adobe"]
+        },
+        {
+            "featured": true,
+            "title": "PatternFly Elements",
+            "url": "https://patternflyelements.org",
+            "source": "https://github.com/patternfly/patternfly-elements",
+            "summary": "This is a web component implementation of the Red Hat design system.",
+            "tags": ["css", "web components", "enterprise", "redhat"]
+        }
+    ],
+    "tooling": [{
+        "title": "PatternKit",
+        "source": "https://github.com/PatternBuilder/pattern-kit",
+        "summary": "PatternKit is a preview tool for design systems in code. It utilizes Twig, Sass, JavaScript and JSON schemas to create a suite of components. The tool let's you preview the component and edit the test data in the schema for a live preview.",
+        "tags": ["tooling", "twig", "sass", "javascript", "json"]
+    }, {
+        "title": "gulp-custom-include",
+        "source": "https://github.com/castastrophe/gulp-custom-include",
+        "summary": "A gulp plugin for custom includes; written because the existing plugins for Gulp didn't have the necessary flexibility for formatting the include statements. Especially helpful if you have an existing library that already has it's own include syntax.",
+        "tags": ["tooling", "gulp", "javascript"]
+    }, {
+        "title": "Red Hat on GitHub",
+        "url": "https://redhatofficial.github.io",
+        "source": "https://github.com/RedHatOfficial/RedHatOfficial.github.io",
+        "summary": "The official GitHub page for Red Hat open source projects on GitHub. Lead developer in the construction of this page in conjunction with a team of designers and developers at Red Hat. Community liason for this and several other open source projects by Red Hat.",
+        "tags": ["tooling", "javascript", "css", "html", "redhat", "single page app"]
+    }]
+}

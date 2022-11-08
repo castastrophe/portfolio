@@ -1,0 +1,25 @@
+---
+layout: layouts/home.njk
+permalink: 404.html
+eleventyExcludeFromCollections: true
+---
+
+<section>
+    <article>
+        <h1 class="sting heading">Is anyone out there?</h1>
+        <p>Dang. We seem to have lost that page. Head over to the home page or check out one of the links below.</p>
+    </article>
+
+    <article>
+        <ul class="site-listing">
+            {% for item in collections.all %}
+                {% set item_url %}{{ item.url | url | absoluteUrl(metadata.url) }}{% endset %}
+                {% set item_title %}{{ item.title or item.data.title or item_url }}{% endset %}
+                <li>
+                    <span><a href="{{ item_url }}">{{ item_title }}</a></span><br/>
+                    <time>{{ item.date | htmlDateString }}</time>
+                </li>
+            {% endfor %}
+        </ul>
+    </article>
+</section>

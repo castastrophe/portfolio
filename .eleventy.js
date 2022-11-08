@@ -7,14 +7,44 @@ const markdownItAnchor = require("markdown-it-anchor");
 
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginNavigation = require("@11ty/eleventy-navigation");
+const htmlmin = require("html-minifier");
+const embedYouTube = require("eleventy-plugin-youtube-embed");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("css");
+  eleventyConfig.addPassthroughCopy({
+    "./node_modules/@shoelace-style/shoelace/dist/themes/*.css": "css"
+  });
+  eleventyConfig.addPassthroughCopy({
+    "./node_modules/@shoelace-style/shoelace/dist": "js/shoelace"
+  });
   
   // Add plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
+  eleventyConfig.addPlugin(embedYouTube, {
+    // allowAttrs: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+    // allowAutoplay: true,
+    allowFullScreen: true,
+    lazy: true,
+    modestBranding: true,
+    recommendSelfOnly: true,
+  });
+  
+  eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
+    // Eleventy 1.0+: use this.inputPath and this.outputPath instead
+    if( outputPath && outputPath.endsWith(".html") ) {
+      let minified = htmlmin.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true
+      });
+      return minified;
+    }
+
+    return content;
+  });
 
   eleventyConfig.addFilter("readableDate", dateObj => {
     if (dateObj instanceof Date) {

@@ -1,0 +1,63 @@
+@media screen and (max-width: 991px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+@media screen and (min-width: 992px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+.cv-only {
+    display: none;
+}
+
+.wide {
+    max-width: 95vw;
+}
+
+.mobile-only {
+    text-align: right;
+    font-size: 1.5em;
+}
+
+.heading {
+    font-size: 1.3em;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-block-start: 0;
+}
+
+.sting {
+    font-size: 4em;
+    margin-block-end: 0;
+}
+
+.title {
+    font-size: 1.6em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-block-start: 0;
+    line-height: 1.4;
+}
+
+.accent {
+    color: var(--sl-color-primary-600);
+}
+.center {
+    text-align: center;
+    margin-inline: auto;
+}
+.narrow {
+    margin-block: 0;
+}
+article + .narrow {
+    margin-block-start: -1.5em;
+}
+.light {
+    font-weight: 100;
+}
+.hidden-text {
+    display: none;
+}

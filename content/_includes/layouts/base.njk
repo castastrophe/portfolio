@@ -30,15 +30,30 @@
     <meta property="og:description" content="{{ description or metadata.description }}">
     <meta property="og:site_name" content="{{ title or metadata.title }}">
     <!-- meta property="fb:admins" content="Facebook numeric ID" /-->
-
-    <link rel="stylesheet" href="{{ '/css/index.css' | url }}">
     <link rel="alternate" href="{{ metadata.feed.path | url }}" type="application/atom+xml" title="{{ metadata.title }}">
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.83/dist/themes/light.css" />
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.83/dist/shoelace.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/light.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dark.css" />
+    <link rel="stylesheet" type="text/css" href="{{ '/css/index.css' | url }}">
+
+    <script type="module" data-shoelace="/js/shoelace/">
+      import "/js/shoelace/components/avatar/avatar.js";
+      import "/js/shoelace/components/badge/badge.js";
+      import "/js/shoelace/components/button/button.js";
+      import "/js/shoelace/components/button-group/button-group.js";
+      import "/js/shoelace/components/card/card.js";
+      import "/js/shoelace/components/details/details.js";
+      import "/js/shoelace/components/icon/icon.js";
+      import "/js/shoelace/components/icon-button/icon-button.js";
+      import "/js/shoelace/components/tag/tag.js";
+      import "/js/shoelace/components/tab/tab.js";
+      import "/js/shoelace/components/tab-group/tab-group.js";
+      import "/js/shoelace/components/tab-panel/tab-panel.js";
+      import "/js/shoelace/components/tooltip/tooltip.js";
+    </script>
   </head>
-  <body>
+  <body class="{% if darkMode %}sl-theme-dark{% endif %} {{ context }}">
     {% include "nav.njk" %}
 
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>

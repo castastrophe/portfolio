@@ -1,0 +1,56 @@
+body {
+    --background-color: var(--sl-color-neutral-0);
+
+    --accent-hue1: 350;
+    --accent-hue2: 50;
+    --accent-hue3: 250;
+    --accent-hue4: 130;
+}
+
+.accent1 {
+    --primary-hue: var(--accent-hue1);
+}
+.accent2 {
+    --primary-hue: var(--accent-hue2);
+}
+.accent3 {
+    --primary-hue: var(--accent-hue3);
+}
+.accent4 {
+    --primary-hue: var(--accent-hue4);
+}
+
+.featured {
+    --border-color: var(--sl-color-primary-500);
+    --sl-panel-background-color: var(--sl-color-primary-50);
+}
+
+body * {
+    --sl-color-primary-50: hsl(var(--primary-hue), 85%, 95%);
+    --sl-color-primary-100: hsl(var(--primary-hue), 85%, 90%);
+    --sl-color-primary-200: hsl(var(--primary-hue), 85%, 85%);
+    --sl-color-primary-300: hsl(var(--primary-hue), 85%, 80%);
+    --sl-color-primary-400: hsl(var(--primary-hue), 85%, 75%);
+    --sl-color-primary-500: hsl(var(--primary-hue), 85%, 70%);
+    --sl-color-primary-600: hsl(var(--primary-hue), 85%, 65%);
+    --sl-color-primary-700: hsl(var(--primary-hue), 85%, 60%);
+    --sl-color-primary-800: hsl(var(--primary-hue), 85%, 55%);
+    --sl-color-primary-900: hsl(var(--primary-hue), 85%, 50%);
+    --sl-color-primary-950: hsl(var(--primary-hue), 85%, 40%);
+}
+
+@media (prefers-color-scheme: dark) {
+    body * {
+        --sl-color-primary-50: hsl(var(--primary-hue), 85%, 5%);
+        --sl-color-primary-100: hsl(var(--primary-hue), 85%, 10%);
+        --sl-color-primary-200: hsl(var(--primary-hue), 85%, 20%);
+        --sl-color-primary-300: hsl(var(--primary-hue), 85%, 30%);
+        --sl-color-primary-400: hsl(var(--primary-hue), 85%, 40%);
+        --sl-color-primary-500: hsl(var(--primary-hue), 85%, 50%);
+        --sl-color-primary-600: hsl(var(--primary-hue), 85%, 60%);
+        --sl-color-primary-700: hsl(var(--primary-hue), 85%, 70%);
+        --sl-color-primary-800: hsl(var(--primary-hue), 85%, 80%);
+        --sl-color-primary-900: hsl(var(--primary-hue), 85%, 90%);
+        --sl-color-primary-950: hsl(var(--primary-hue), 85%, 95%);
+    }
+}

@@ -1,46 +1,53 @@
 ---
 layout: layouts/home.njk
+title: About
 permalink: /about/
 eleventyNavigation:
   key: About
   order: 2
 ---
 
-<div class="bio">
-  <div class="bio-content">
-    <h2 class="header-headline accent shown-text">castastrophe</h2>
-    <h2 class="header-headline accent hidden-text">Cassondra Roberts</h2>
+<section>
+  <article class="bio">
     <div class="bio-image">
       <sl-avatar shape="rounded" image="/images/profile_full.jpeg"></sl-avatar>
       <div class="mobile-only">
+        {% set social_context = "mobile" %}
         {% include "social.njk" %}
       </div>
     </div>
+    <h2 class="title accent">castastrophe</h2>
+    <h2 class="title accent cv-only">Cassondra Roberts</h2>
     <p>I am a passionate front-end architect with a proven expertise in building massively scalable design systems. What allows them to rapidly scale? The super-power of any codified design system is a thriving open and/or inner source community that feels engaged and empowered.</p>
     
     <p><b class="extra">Nothing makes me happier than exploring new technologies and implementing highly-optimized, clean solutions to complex problems.</b></p>
     <p>Developer experience and accessibility are deeply important to me and these values guide the code I produce and influence. One of the most enjoyable aspects
         of my work is community management; engaging with and connecting contributors to how they can best solve the problems they face.</p>
-  </div>
-</div>
+  </article>
 
-<div style="margin-inline: 15vw;">
-  {% set type = "project" %}
-  {% set label = "Top projects" %}
-  {% set items = metadata.projects | reverse %}
-  {% include "list.njk" ignore missing %}
-</div>
+  <article style="margin-inline: 15vw;">
+    {% set type = "project" %}
+    {% set label = "Top projects" %}
+    {% set items = projects.featured | reverse %}
+    {% include "list.njk" ignore missing %}
+  </article>
 
-{% if metadata.videos.length %}
-  {% set label = "Recent presentations" %}
-  {% set type = "video" %}
-  {% set items = metadata.videos | reverse %}
-  {% include "list.njk" ignore missing %}
+{% if videos.conferences.length %}
+  <article>
+    {% set label = "Recent presentations" %}
+    {% set type = "video" %}
+    {% set items = videos.conferences | reverse %}
+    {% include "list.njk" ignore missing %}
+  </article>
 {% endif %}
 
 {% if collections.posts.length %}
-  {% set label = "Posts" %}
-  {% set type = "post" %}
-  {% set items = collections.posts | reverse %}
-  {% include "list.njk" ignore missing %}
+  <article>
+    {% set label = "Posts" %}
+    {% set type = "post" %}
+    {% set items = collections.posts | reverse %}
+    {% include "list.njk" ignore missing %}
+  </article>
 {% endif %}
+
+</section>

@@ -20,33 +20,6 @@
         "email": "castastrophe@users.noreply.github.com",
         "url": "https://allons-y.llc"
     },
-    "social": [
-        {
-            "name": "Mastodon",
-            "icon_name": "mastodon",
-            "url": "https://front-end.social/web/castastrophe"
-        },
-        {
-            "name": "Twitter",
-            "icon_name": "twitter",
-            "url": "https://twitter.com/castastrophee"
-        },
-        {
-            "name": "LinkedIn",
-            "icon_name": "linkedin",
-            "url": "https://www.linkedin.com/in/castastrophe"
-        },
-        {
-            "name": "GitHub",
-            "icon_name": "github",
-            "url": "https://github.com/castastrophe"
-        },
-        {
-            "name": "CodePen",
-            "icon_src": "/images/codepen.svg",
-            "url": "https://codepen.io/castastrophee"
-        }
-    ],
     "publications": [
         {
             "featured": true,
@@ -54,63 +27,6 @@
             "title": "Collaborative Problem Solver",
             "url": "https://www.meredith.edu/goingstrong/cas-roberts",
             "source": "Meredith Magazine"
-        }
-    ],
-    "projects": [
-        {
-            "title": "Spectrum Web Components",
-            "url": "",
-            "source": "https://github.com/adobe/spectrum-web-components",
-            "summary": "This is a web component implementation of the Adobe design system, Spectrum.",
-            "tags": ["web components", "enterprise", "adobe"]
-        },
-        {
-            "featured": true,
-            "title": "Spectrum CSS",
-            "url": "",
-            "source": "https://github.com/adobe/spectrum-css",
-            "summary": "This is the CSS assets for the Spectrum design system.",
-            "tags": ["css", "enterprise", "adobe"]
-        },
-        {
-            "title": "PatternFly Elements",
-            "url": "https://patternflyelements.org",
-            "source": "https://github.com/patternfly/patternfly-elements",
-            "summary": "This is a web component implementation of the Red Hat design system.",
-            "tags": ["css", "web components", "enterprise", "redhat"]
-        }
-    ],
-    "videos": [
-        {
-            "tags": ["DrupalCon"],
-            "date": "2019",
-            "title": "Unlocking design in a design system with custom properties",
-            "summary": "A deep-dive on how to leverage custom properties in a design system.",
-            "video": "https://www.youtube.com/embed/xH2MmVNuSe4",
-            "url": "https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-        },
-        {
-            "tags": ["DrupalCon"],
-            "date": "2019",
-            "title": "Make web development fun again, with web components!",
-            "summary": "A joint presentation with Penn State on how web components can make development workflows fun and efficient.",
-            "video": "https://www.youtube.com/embed/Akn6keIYZ3k",
-            "url": "https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-        },
-        {
-            "tags": ["DrupalCon"],
-            "date": "2018",
-            "title": "One of these things is not like the other; identifying patterns in a mock-up",
-            "summary": "An example-rich talk about how to break out mock-ups into patterns for maximum reusability.",
-            "video": "https://www.youtube.com/embed/p3y0ljTr8YQ",
-            "url": "https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-        },
-        {
-            "tags": ["NCDevCon"],
-            "date": "2016",
-            "title": "Reduce, reuse, recycle: Modular CSS",
-            "summary": "Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing the size of your output.",
-            "video": "https://www.youtube.com/embed/8Yyklb78S00"
         }
     ]
 }

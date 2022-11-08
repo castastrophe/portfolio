@@ -1,0 +1,23 @@
+.quote {
+    margin-inline: 15vw;
+    margin-block: 2em;
+    text-align: right;
+}
+
+.quote-attribution {
+    font-weight: normal;
+    margin-inline-start: auto;
+}
+
+.quote-quotation {
+    margin-top: 0;
+    line-height: 1.4;
+    font-style: italic;
+    font-size: 1.8em;
+}
+
+.quote-reference {
+    font-size: 0.8rem;
+    margin: 0;
+    text-transform: uppercase;
+}

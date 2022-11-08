@@ -2,17 +2,22 @@
     <div class="brand">
         <a  href="{{ '/' | url }}"><sl-avatar image="{{ metadata.logo }}" label="Avatar of the author"></sl-avatar></a>
         <div>
-            <h1 class="company"><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
-            <span class="owner">{{ metadata.author.name }}</span>
+            <h1 class="brand-company"><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
+            <span class="brand-owner">{{ metadata.author.name }}</span>
         </div>
     </div>
 
     {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-    <ul class="nav">
+    <div class="nav">
         {%- for entry in collections.all | eleventyNavigation %}
-            <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+            <sl-button
+                {% if entry.url == page.url %}variant="primary"
+                {% else %}variant="text"{% endif %}
+                href="{{ entry.url | url }}">
+                {{ entry.title }}
+            </sl-button>
         {%- endfor %}
-    </ul>
+    </div>
     
     <div class="desktop-only">
         {% include "social.njk" %}

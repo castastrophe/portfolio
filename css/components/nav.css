@@ -1,0 +1,45 @@
+.nav {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.nav-item {
+    display: inline-block;
+    margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+    text-decoration: none;
+}
+.nav-item[active] {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.pagination {
+    margin-inline: 1rem;
+}
+
+.brand {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.brand sl-avatar {
+    --size: 3rem;
+}
+
+.brand > div {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: space-between;
+    justify-content: center;
+    margin-inline-start: 1rem;
+}
+.brand-company {
+    margin-block-start: 0;
+    margin-block-end: 0.1rem;
+    font-size: 1em; /* 16px /16 */
+}
+.brand-company :link:not(:hover) {
+    text-decoration: none;
+}
