@@ -14,6 +14,7 @@ pfe-card {
         --pfe-card--Padding: 2em;
         border-color: transparent;
         border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+        border-image-slice: 1;
         border-left: 8px solid;
         height: fit-content;
         font-size: .8em;
