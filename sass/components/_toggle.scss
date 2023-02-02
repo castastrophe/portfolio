@@ -22,7 +22,7 @@ $radius: 5px;
         font-weight: normal;
         text-rendering: auto;
     }
-    
+
     &--toggle {
         width: $width;
         height: $height;
@@ -58,7 +58,7 @@ $radius: 5px;
             box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
         }
         &:checked + .switch--toggle {
-            background: #FF980F;
+            background: var(--pfe-theme--color--ui-accent);
             &:after {
                 left: $offset;
             }

@@ -127,7 +127,7 @@
                     </pfe-card>
                 </section>
                 <section data-layout="flex-centered" style="gap: max(10px, 5vw)">
-                    <pfe-card  pfe-border tilt-on="hover">
+                    <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Web components</h3>
                         <h4 class="card-header-headline accent" style="font-size: 22px;"><a
                                 href="https://github.com/patternfly/patternfly-elements"
@@ -166,7 +166,7 @@
 
             <!-- Featured video -->
             <pfe-band id="teaser" color="accent" data-padding="half" style="z-index: 5;">
-                <div class="band-container" data-layout="stacked" style="max-width: min(90vw, 900px); align-items:center;">
+                <div class="band-container" data-layout="stacked">
                     <div class="group" data-layout="flex" style="justify-content:space-evenly;--spacing--vertical: 0;">
                         <div class="header" data-text-align="sm-md--center">
                             <h3 class="promo-headline"><a
@@ -883,7 +883,7 @@
             <pfe-band data-width="full" id="coding">
                 <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Coding projects</h2>
                 <div class="group" data-layout="auto-grid">
-                    <pfe-card pfe-border>
+                    <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Single page app</h3>
                         <h4 class="card-header-headline accent" style="font-size: 22px;"><a
                                 href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
@@ -902,7 +902,7 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card pfe-border>
+                    <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Preview tool</h3>
                         <h4 class="card-header-headline accent" style="font-size: 22px;"><a
                                 href="https://github.com/PatternBuilder/pattern-kit"
@@ -920,7 +920,7 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card pfe-border>
+                    <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Build tool</h3>
                         <h4 class="card-header-headline accent" style="font-size: 22px;"><a
                                 href="https://github.com/castastrophe/gulp-custom-include"
@@ -943,7 +943,7 @@
 
             <!-- Recorded talks -->
             <pfe-band data-width="full" id="presentations">
-                <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
+                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Presentations</h2>
                 <div data-width="overflow">
                     <div class="group" data-layout="overflow-grid">
                         <pfe-card>
@@ -1028,14 +1028,12 @@
 
             <!-- Contact -->
             <pfe-band id="contact" color="accent" data-padding="half">
-                <div class="band-container" data-layout="stacked" style="max-width: min(90vw, 900px); align-items:center;">
-                    <div class="group" data-layout="flex" style="justify-content:space-evenly;--spacing--vertical: 0;">
-                        <div class="header" data-text-align="sm-md--center">
-                            <h3 class="header-title extra">Contact</h3>
-                            <p class="header-summary">I'm always happy to chat about web development, design,
-                    or anything else.</p>
-                </div>
-                <div data-align="both">
+                <div class="band-container" data-layout="stacked">
+                    <div class="header" data-text-align="center">
+                        <h3 class="header-title extra">Contact</h3>
+                        <p class="header-summary">I'm always happy to chat about web development, design,
+                or anything else.</p>
+                    </div>
                     <pfe-cta class="featured" style="font-size: 20px;">
                         <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
                             front-end.social</a>

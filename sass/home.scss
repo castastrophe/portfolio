@@ -13,12 +13,12 @@
 
 :root {
   --pfe-theme--color--ui-accent: rgb(176, 48, 148);
-  --pfe-theme--color--ui-accent--hover: rgb(176, 48, 148);
-  --pfe-theme--color--ui-accent--focus: rgb(176, 48, 148);
+  --pfe-theme--color--ui-accent--hover: var(--pfe-theme--color--ui-accent);
+  --pfe-theme--color--ui-accent--focus: var(--pfe-theme--color--ui-accent);
 
   --pfe-theme--color--surface--base: #fff;
   --pfe-theme--color--surface--base--theme: light;
-  --pfe-theme--color--surface--accent: rgb(176, 48, 148);
+  --pfe-theme--color--surface--accent: var(--pfe-theme--color--ui-accent);
   --pfe-theme--color--surface--accent--theme: saturated;
   --pfe-theme--color--surface--darker:  #444;
 
@@ -28,6 +28,7 @@
   --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
 
   --headline--accent: rgb(221, 24, 179);
+  --pfe-broadcasted--link--visited: var(--pfe-theme--color--ui-accent);
 }
 
 *,
