@@ -111,7 +111,7 @@
                         of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
                 </div>
                 <section data-layout="flex-centered">
-                    <pfe-card class="quote shown">
+                    <pfe-card class="quote shown" style="width: clamp(400px, 90vw)">
                         <blockquote id="quote">
                             <div class="quote-container" data-text-align="right">
                                 <p class="quote-quotation">You're not going to learn code by passively watching someone
@@ -125,7 +125,9 @@
                             </p>
                         </blockquote>
                     </pfe-card>
-                    <pfe-card color="accent" tilt-on="hover" class="featured">
+                </section>
+                <section data-layout="flex-centered">
+                    <pfe-card  pfe-border tilt-on="hover">
                         <h3 class="card-header-title">Design system</h3>
                         <h4 class="card-header-headline" style="font-size: 22px;"><a
                                 href="https://github.com/patternfly/patternfly-elements"
@@ -141,6 +143,21 @@
                         </div>
                         <pfe-cta slot="pfe-card--footer">
                             <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
+                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card color="accent" tilt-on="hover" class="featured">
+                        <h3 class="card-header-title">Design system</h3>
+                        <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                href="https://github.com/adobe/spectrum-css"
+                                title="Click to view project">Spectrum CSS</a></h4>
+                        <div class="card-body">
+                            <div class="content">
+                                <p>This is a CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
+                            </div>
+                        </div>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link" href="https://github.com/adobe/spectrum-css"
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>

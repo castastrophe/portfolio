@@ -12,6 +12,7 @@ pfe-card {
 
     &.quote {
         --pfe-card--Padding: 0 10px;
+        border-color: transparent;
         border-left: 4px solid var(--pfe-theme--color--surface--accent);
         height: fit-content;
         font-size: .8em;
