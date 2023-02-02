@@ -110,7 +110,7 @@
                         and these values guide the code that I produce and influence. One of the most enjoyable aspects
                         of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
                 </div>
-                <section data-layout="flex-centered" style="justify-content: center">
+                <section data-layout="flex-centered" style="justify-content: center; margin-top: 0;">
                     <pfe-card class="quote shown" style="max-width: min(90vw, 850px)">
                         <blockquote id="quote">
                             <div class="quote-container" data-text-align="right">
@@ -185,7 +185,7 @@
             </pfe-band>
 
             <pfe-band id="resume">
-                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Experience & passion</h2>
+                <h2 slot="pfe-band--header" class="header-title accent">Experience & passion</h2>
                 <p slot="pfe-band--header" class="header-summary">For 8 years at Red Hat I built
                     design systems and their associated tooling to serve designers, developers, content writers, and users alike. <b>My most
                         valuable tool in this endeavor has always been active listening.</b> I ask a lot of questions
@@ -881,7 +881,9 @@
 
             <!-- Code -->
             <pfe-band data-width="full" id="coding">
-                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Coding projects</h2>
+                <div class="header" data-text-align="center" slot="pfe-band--header">
+                    <h2 class="header-title accent">Coding projects</h2>
+                </div>
                 <div class="group" data-layout="auto-grid">
                     <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Single page app</h3>
@@ -943,7 +945,9 @@
 
             <!-- Recorded talks -->
             <pfe-band data-width="full" id="presentations">
-                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Presentations</h2>
+                <div class="header" data-text-align="center" slot="pfe-band--header">
+                    <h2 class="header-title accent">Presentations</h2>
+                </div>
                 <div data-width="overflow">
                     <div class="group" data-layout="overflow-grid">
                         <pfe-card>
