@@ -21,14 +21,6 @@ const postcss = require('gulp-postcss')
 const sourcemaps = require('gulp-sourcemaps');
 const flatten = require('gulp-flatten');
 const browserSync = require('browser-sync').create();
-const s3 = require('gulp-s3');
-
-const AWS = {
-    "key": process.env.AWS_ACCESS_KEY_ID,
-    "secret": process.env.AWS_SECRET_ACCESS_KEY,
-    "bucket": "castastrophe.com",
-    "region": "eu-west-1"
-}
 
 sass.compiler = require('node-sass');
 
@@ -256,7 +248,3 @@ task('watch:assets', () => {
 task('watcher', parallel('watch:sass', 'watch:assets', 'watch:js'));
 
 task('serve', series('build', parallel('server', 'watcher')));
-
-task('deploy', () => {
-    src('./public/**').pipe(s3(AWS));
-});

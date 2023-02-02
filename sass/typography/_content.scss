@@ -165,7 +165,11 @@
             margin-bottom: 20px;
         }
     }
-  
+
+    #quote {
+        margin: 0;
+    }
+
     &-container {
       @extend %text-alignment;
       display: flex;
@@ -173,27 +177,24 @@
       padding: 0;
       margin: 0;
       list-style: none;
-  
+
       +pfe-cta {
         font-style: normal;
       }
     }
-  
+
     &-attribution {
       font-weight: normal;
-      body:not(.cv) & {
-        text-align: right;
-      }
-  
+
       a {
         color: inherit;
-  
+
         &:hover {
           color: var(--pfe-broadcasted--link);
         }
       }
     }
-  
+
     &-quotation {
       font-family: var(--pfe-theme--font-family--heading);
       margin-top: 0;
@@ -201,11 +202,11 @@
       line-height: 1.4;
       font-style: italic;
       font-size: 1.4em;
-  
+
       @media (min-width: 768px) {
         font-size: 1.6em;
       }
-  
+
       @media (min-width: 992px) {
         font-size: 1.8em;
       }
@@ -214,7 +215,7 @@
           font-size: 1.2em;
       }
     }
-  
+
     &-reference {
       font-size: pem(14);
       line-height: 1.142;
@@ -233,5 +234,3 @@
           margin-bottom: 1em;
       }
   }
-
-  
