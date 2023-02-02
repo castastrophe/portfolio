@@ -153,18 +153,15 @@
     }
 }
 
+  .social-icon>* {
+    font-size: 1.2em;
+  }
+
 
 
 .quote {
     z-index: 1;
     quotes: "“""”""‘""’";
-    body.cv & {
-        margin-bottom: 10px;
-        @media (min-width: 992px) {
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-    }
 
     #quote {
         margin: 0;

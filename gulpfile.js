@@ -14,15 +14,13 @@ const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('node-sass'));
 const print = require('gulp-print').default;
 const order = require('gulp-order');
 const postcss = require('gulp-postcss')
 const sourcemaps = require('gulp-sourcemaps');
 const flatten = require('gulp-flatten');
 const browserSync = require('browser-sync').create();
-
-sass.compiler = require('node-sass');
 
 let assets = {
     libs_js: 'jquery?(.magnific-popup).min.js',
@@ -65,9 +63,9 @@ function compileSass() {
         .pipe(print(filepath => ` > compiling ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(postcss([require('autoprefixer')({
-            grid: 'autoplace'
-        })]))
+        .pipe(postcss([
+            require('autoprefixer')(['> 0.5%', 'last 2 versions', 'not dead'])
+        ]))
         .pipe(dest(path.join(destination.publish, destination.css)))
         .pipe(sass.sync({
             outputStyle: 'compressed'

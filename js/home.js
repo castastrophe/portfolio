@@ -21,31 +21,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-});
 
-const getNavHeight = () => {
-  let navHeight = 0;
-  const nav = document.querySelector("#social");
-  if (nav) navHeight = nav.getBoundingClientRect().height;
-  return navHeight;
-};
-
-document.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     customElements.whenDefined("pfe-accordion"),
     customElements.whenDefined("pfe-tabs")
   ]).then(function () {
     document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
       accordion.disclosure = "true";
-      if (count === 0) accordion.expand(0);
-
-      accordion.querySelectorAll("pfe-accordion-header").forEach(header => {
-        const button = header.shadowRoot.querySelector("button");
-        if (button) {
-          button.style.borderRightWidth = "0";
-          button.style.boxShadow = "none";
-        }
-      });
+      if (count === 0) {
+        setTimeout(() => {
+          accordion.expand(0);
+        }, 100);
+      }
     });
 
     let navHeight = getNavHeight();
@@ -58,55 +45,62 @@ document.addEventListener('DOMContentLoaded', () => {
         shadowTabs.style.top = `var(--navigation-height, ${navHeight}px)`;
         shadowTabs.style.backgroundColor = "#fff";
         shadowTabs.style.zIndex = "98";
+        shadowTabs.style.overflowX = "auto";
       }
     }
-  });
 
-  // Check for query param
-  const urlParams = new URLSearchParams(window.location.search);
-  const displayMode = urlParams.get("format");
-  if (displayMode === "cv") {
-    toggleCV("add");
-    document.querySelector("#cvToggle").checked = true;
-  }
-});
+    // pfe-tab:shown-tab
+    document.addEventListener("pfe-tabs:shown-tab", evt => {
+      if (!evt || !evt.detail || !evt.detail.tab) return;
 
-// Update height on resize
-window.addEventListener('resize', () => {
-  let navHeight = getNavHeight();
-  const tabs = document.querySelector("pfe-tabs");
-  if (tabs) {
-    const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
-    if (shadowTabs) document.body.style.setProperty("--navigation-height", `${navHeight}px`);
-  }
-});
+      const tab = evt.detail.tab;
+      const panel = tab.nextElementSibling;
+      if (panel.tagName.toLowerCase() !== "pfe-tab-panel") return;
 
+      let navHeight = getNavHeight();
+      const mq = window.matchMedia("(min-width: 992px)");
+      if (!mq.matches) navHeight = navHeight + tab.getBoundingClientRect().height;
 
-// pfe-tab:shown-tab
-document.addEventListener("pfe-tabs:shown-tab", evt => {
-  const mq = window.matchMedia("(min-width: 992px)");
-  if (evt && evt.detail && evt.detail.tab) {
-    const tab = evt.detail.tab;
-    const panel = tab.nextElementSibling;
-    // Activate the first accordion
-    const accordion = panel.querySelector("pfe-accordion");
-    let navHeight = getNavHeight();
-    // Scroll into view
-    var elementPosition = accordion.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    if (!mq.matches) navHeight = navHeight + tab.getBoundingClientRect().height;
-    if (accordion) {
+      // Activate the first accordion
+      const accordion = panel.querySelector("pfe-accordion");
+      if (!accordion) return;
+
+      // Scroll into view
+      const elementPosition = accordion.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
       window.scrollTo({
         top: elementPosition - navHeight,
         behavior: "smooth"
       });
 
-      setTimeout(() => {
-        accordion.expand(0);
-      }, 500);
-      // else accordion.collapseAll();
+      setTimeout(() => accordion.expand(0), 200);
+    });
+
+    // Check for query param
+    const urlParams = new URLSearchParams(window.location.search);
+    const displayMode = urlParams.get("format");
+    if (displayMode === "cv") {
+      toggleCV("add");
+      document.querySelector("#cvToggle").checked = true;
     }
-  }
+  });
+
+  // Update height on resize
+  window.addEventListener('resize', () => {
+    let navHeight = getNavHeight();
+    const tabs = document.querySelector("pfe-tabs");
+    if (tabs) {
+      const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
+      if (shadowTabs) document.body.style.setProperty("--navigation-height", `${navHeight}px`);
+    }
+  });
 });
+
+const getNavHeight = () => {
+  let navHeight = 0;
+  const nav = document.querySelector("#social");
+  if (nav) navHeight = nav.getBoundingClientRect().height;
+  return navHeight;
+};
 
 document.querySelectorAll(".read-more").forEach(link => {
   link.addEventListener("click", function (evt) {
@@ -148,13 +142,24 @@ const toggleCV = (state = "toggle") => {
     }], false);
   }
 
-  // Reset the context on bands and cards
-  document.querySelectorAll("pfe-band,pfe-card").forEach(component => component.resetContext());
+  document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
 
   // Close the open accordions
-  document.querySelectorAll("pfe-accordion").forEach(accordion => accordion.collapseAll());
+  document.querySelectorAll("pfe-accordion").forEach(accordion => {
+    setTimeout(() => {
+      accordion.collapseAll();
+    }, 100);
+  });
 
   setTimeout(() => {
     document.body.classList.toggle("animating");
   }, 300);
 }
+
+window.addEventListener("scroll", function () {
+  const nav = document.querySelector("#social");
+  if (nav) {
+    if (window.scrollY > 0) nav.setAttribute("color", "base");
+    else nav.setAttribute("color", "transparent");
+  }
+});

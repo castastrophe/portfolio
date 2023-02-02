@@ -36,7 +36,10 @@
     }
 
     &-details {
-        @include stacked;
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: var(--spacing--vertical, 1em);
+        column-gap: var(--spacing--horizontal, 2em);
 
         &[data-state="visible"] {
             opacity: 1;

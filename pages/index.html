@@ -64,14 +64,12 @@
     <div class="main">
         <div class="main-wrap">
 
-            <pfe-band data-padding="half" id="social" sticky>
-                <div class="band-container" data-layout="space-between" data-align="left">
+            <pfe-band data-padding="half" color="transparent" id="social" sticky>
+                <div class="band-container" data-layout="flex space-between" data-align="left">
                     <div>
                         <h2 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h2>
                     </div>
                     <div class="social">
-                        <span class="social-title shown-text" data-weight="thin">Follow: </span>
-                        <span class="social-title hidden-text" data-weight="thin">More: </span>
                         <span class="social-icons">
                             <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
                                     class="fab fa-mastodon"></span></a>
@@ -92,26 +90,26 @@
             </pfe-band>
 
             <!-- About me -->
-            <pfe-band id="about" use-grid>
-                <div class="header">
+            <pfe-band id="about" color="transparent" data-padding="double">
+                <div class="band-container" data-layout="flex centered">
                     <div class="image-embed" data-type="profile">
                         <div class="image-embed-container">
                             <img class="image-embed-img" src="/img/profile.png">
                         </div>
+                        <div class="social">
+                            <span class="social-icons">
+                                <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
+                                        class="fab fa-mastodon"></span></a>
+                                <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
+                                        class="fab fa-linkedin-in"></span></a>
+                                <a class="social-icon" href="https://github.com/castastrophe"><span
+                                        class="fab fa-github-alt"></span></a>
+                                <a class="social-icon" href="https://codepen.io/castastrophee/"><span
+                                        class="fab fa-codepen"></span></a>
+                            </span>
+                        </div>
                     </div>
-                    <h2 class="header-headline accent">Consulting</h2>
-                    <br>
-                    <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-                    <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
-                    <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
-                            technologies and implementing highly-optimized, clean solutions to complex
-                            problems.</b></p>
-                    <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b>
-                        and these values guide the code that I produce and influence. One of the most enjoyable aspects
-                        of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
-                </div>
-                <section data-layout="flex-centered" style="justify-content: center; margin-top: 0;">
-                    <pfe-card class="quote shown" style="max-width: min(90vw, 850px)">
+                    <pfe-card class="quote" color="transparent">
                         <blockquote id="quote">
                             <div class="quote-container" data-text-align="right">
                                 <p class="quote-quotation">You're not going to learn code by passively watching someone
@@ -125,11 +123,23 @@
                             </p>
                         </blockquote>
                     </pfe-card>
-                </section>
-                <section data-layout="flex-centered" style="gap: max(10px, 5vw)">
-                    <pfe-card tilt-on="hover">
+                </div>
+            </pfe-band>
+
+            <pfe-band id="consulting">
+                <h2 slot="pfe-band--header" class="header-headline accent">Consulting</h2>
+                <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
+                <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
+                <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
+                        technologies and implementing highly-optimized, clean solutions to complex
+                        problems.</b></p>
+                <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b>
+                    and these values guide the code that I produce and influence. One of the most enjoyable aspects
+                    of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
+                <article data-layout="auto-grid">
+                    <pfe-card>
                         <h3 class="card-header-title">Web components</h3>
-                        <h4 class="card-header-headline accent" style="font-size: 22px;"><a
+                        <h4 class="card-header-headline accent"><a
                                 href="https://github.com/patternfly/patternfly-elements"
                                 title="Click to view project">PatternFly Elements</a></h4>
                         <div class="card-body">
@@ -146,9 +156,9 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card color="accent" tilt-on="hover" class="featured">
+                    <pfe-card color="accent" class="featured">
                         <h3 class="card-header-title">Design system</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
+                        <h4 class="card-header-headline"><a
                                 href="https://github.com/adobe/spectrum-css"
                                 title="Click to view project">Spectrum CSS</a></h4>
                         <div class="card-body">
@@ -161,21 +171,27 @@
                                 title="Click to view project" data-cta-type="secondary">View the source code</a>
                         </pfe-cta>
                     </pfe-card>
-                </section>
+                </article>
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band id="teaser" color="darker" data-padding="half" style="z-index: 5;">
+            <pfe-band id="teaser" color="transparent" data-padding="half">
                 <div class="band-container" data-layout="stacked">
-                    <div class="group" data-layout="flex" style="justify-content:space-evenly;--spacing--vertical: 0;">
-                        <div class="header" data-text-align="sm-md--center">
-                            <h3 class="promo-headline"><a
-                                    href="https://www.youtube.com/embed/7n3PHEx_xvg">Web Components in Space</a>
-                            </h3>
-                            <p class="header-summary">S01E04.3 | 2022</p>
-                        </div>
-                        <div data-align="both">
-                            <pfe-cta data-cta-type="video-play" style="font-size: 20px;">
+                    <div class="group" data-layout="flex space-evenly">
+                        <div></div>
+                        <div class="header">
+                            <svg class="fab" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path d="M493.7 .9L299.4 75.6l2.3-29.3c1-12.8-12.8-21.5-24-15.1L101.3 133.4C38.6 169.7 0 236.6 0 309C0 421.1 90.9 512 203 512c72.4 0 139.4-38.6 175.7-101.3L480.8 234.3c6.5-11.1-2.2-25-15.1-24l-29.3 2.3L511.1 18.3c.6-1.5 .9-3.2 .9-4.8C512 6 506 0 498.5 0c-1.7 0-3.3 .3-4.8 .9zM192 448c-70.7 0-128-57.3-128-128s57.3-128 128-128s128 57.3 128 128s-57.3 128-128 128zm0-160c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm16 96c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16z"/>
+                            </svg>
+                            <div>
+                                <h3 class="promo-headline"><a
+                                        href="https://www.youtube.com/embed/7n3PHEx_xvg">Web Components in Space</a>
+                                </h3>
+                                <p class="header-summary">S01E04.3 | 2022</p>
+                            </div>
+                            <span></span>
+                            <pfe-cta data-cta-type="video-play">
                                 <a class="cta-link" data-popup="youtube"
                                     href="https://www.youtube.com/embed/7n3PHEx_xvg">Watch now</a>
                             </pfe-cta>
@@ -185,7 +201,7 @@
             </pfe-band>
 
             <pfe-band id="resume">
-                <h2 slot="pfe-band--header" class="header-title accent" style="margin-bottom: 1.5em">Experience & passion</h2>
+                <h2 slot="pfe-band--header" class="header-title accent">Experience & passion</h2>
                 <p slot="pfe-band--header" class="header-summary">For 8 years at Red Hat I built
                     design systems and their associated tooling to serve designers, developers, content writers, and users alike. <b>My most
                         valuable tool in this endeavor has always been active listening.</b> I ask a lot of questions
@@ -194,14 +210,14 @@
                     build an obvious choice over the option to "reinvent the wheel". If I do my job right, I let
                     developers and designers work on cutting-edge work instead of having to construct the building
                     blocks from stratch.</p>
-                <pfe-tabs vertical tab-history variant="wind" style="--pfe-tabs__panel--Padding:0" class="print-hidden" id="job-history">
+                <pfe-tabs vertical tab-history variant="wind" class="print-hidden" id="job-history">
                     <pfe-tab role="heading" slot="tab" id="Adobe">Adobe</pfe-tab>
                     <pfe-tab-panel role="region" slot="panel">
-                        <pfe-accordion disclosure="true">
+                        <pfe-accordion>
                             <pfe-accordion-header>
                                 <h3>Senior design engineer, Spectrum Design</h3>
                             </pfe-accordion-header>
-                            <pfe-accordion-panel expanded>
+                            <pfe-accordion-panel>
                                 <dl>
                                     <dd>Jan 2023&mdash;present</dd>
                                     <dd>
@@ -228,7 +244,7 @@
                     </pfe-tab-panel>
                     <pfe-tab role="heading" slot="tab" id="RedHat">Red Hat</pfe-tab>
                     <pfe-tab-panel role="region" slot="panel">
-                        <pfe-accordion disclosure="true">
+                        <pfe-accordion>
                             <pfe-accordion-header>
                                 <h3>Principal front-end architect, User Experience Team, Digital Marketing</h3>
                             </pfe-accordion-header>
@@ -539,7 +555,7 @@
                 <div class="print-only">
                     <div>
                         <h3>Adobe</h3>
-                        <pfe-accordion disclosure="true">
+                        <pfe-accordion>
                             <pfe-accordion-header>
                                 <h3>Senior design engineer, Spectrum Design</h3>
                             </pfe-accordion-header>
@@ -570,7 +586,7 @@
                     </div>
                     <div>
                         <h3>Red Hat</h3>
-                        <pfe-accordion disclosure="true">
+                        <pfe-accordion>
                             <pfe-accordion-header>
                                 <h3>Principal front-end architect, User Experience Team, Digital Marketing</h3>
                             </pfe-accordion-header>
@@ -880,14 +896,14 @@
             </pfe-band>
 
             <!-- Code -->
-            <pfe-band data-width="full" id="coding">
+            <pfe-band data-width="full" id="coding" color="transparent">
                 <div class="header" data-text-align="center" slot="pfe-band--header">
-                    <h2 class="header-title accent">Coding projects</h2>
+                    <h2 class="header-title">Coding projects</h2>
                 </div>
                 <div class="group" data-layout="auto-grid">
                     <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Single page app</h3>
-                        <h4 class="card-header-headline accent" style="font-size: 22px;"><a
+                        <h4 class="card-header-headline accent"><a
                                 href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
                                 title="Click to view project">Red Hat on GitHub</a></h4>
                         <div class="card-body">
@@ -906,7 +922,7 @@
                     </pfe-card>
                     <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Preview tool</h3>
-                        <h4 class="card-header-headline accent" style="font-size: 22px;"><a
+                        <h4 class="card-header-headline accent"><a
                                 href="https://github.com/PatternBuilder/pattern-kit"
                                 title="Click to view project">PatternKit</a></h4>
                         <div class="card-body">
@@ -924,7 +940,7 @@
                     </pfe-card>
                     <pfe-card tilt-on="hover">
                         <h3 class="card-header-title">Build tool</h3>
-                        <h4 class="card-header-headline accent" style="font-size: 22px;"><a
+                        <h4 class="card-header-headline accent"><a
                                 href="https://github.com/castastrophe/gulp-custom-include"
                                 title="Click to view project">gulp-custom-include</a></h4>
                         <div class="card-body">
@@ -946,99 +962,97 @@
             <!-- Recorded talks -->
             <pfe-band data-width="full" id="presentations">
                 <div class="header" data-text-align="center" slot="pfe-band--header">
-                    <h2 class="header-title accent" style="margin-bottom: 1.5em">Presentations</h2>
+                    <h2 class="header-title">Presentations</h2>
                 </div>
-                <div data-width="overflow">
-                    <div class="group" data-layout="overflow-grid">
-                        <pfe-card>
-                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                                <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <h3 class="card-header-title">DrupalCon 2019</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                    title="Click to read more about this presentation">Unlocking design in a design system
-                                    with custom
-                                    properties</a></h4>
-                            <p>A deep-dive on how to leverage custom properties in a design system.</p>
-                            <pfe-cta slot="pfe-card--footer">
-                                <a class="cta-link"
-                                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                    full description</a>
-                            </pfe-cta>
-                        </pfe-card>
-                        <pfe-card>
-                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                                <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <h3 class="card-header-title">DrupalCon 2019</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                    title="Click to read more about this presentation">Make web development fun again, with
-                                    web components!</a>
-                            </h4>
-                            <p>A joint presentation with Penn State on how web components can make development workflows fun
-                                and efficient.</p>
-                            <pfe-cta slot="pfe-card--footer">
-                                <a class="cta-link"
-                                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                    full description</a>
-                            </pfe-cta>
-                        </pfe-card>
-                        <pfe-card>
-                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                                <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <h3 class="card-header-title">DrupalCon 2019</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                    title="Click to read more about this presentation">One of these things is not like the
-                                    other; identifying
-                                    patterns in a mock-up</a></h4>
-                            <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
-                            </p>
-                            <pfe-cta slot="pfe-card--footer">
-                                <a class="cta-link"
-                                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                    full description</a>
-                            </pfe-cta>
-                        </pfe-card>
-                        <pfe-card>
-                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                                <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <h3 class="card-header-title">NCDevCon 2016</h3>
-                            <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                    href="https://www.youtube.com/embed/8Yyklb78S00"
-                                    title="Click to watch the presentation">Reduce, reuse, recycle: Modular CSS
-                                </a></h4>
-                            <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
-                                the size of your output.</p>
-                        </pfe-card>
-                    </div>
+                <div class="body" data-layout="overflow">
+                    <pfe-card>
+                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                            <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <h3 class="card-header-title">DrupalCon 2019</h3>
+                        <h4 class="card-header-headline"><a
+                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                                title="Click to read more about this presentation">Unlocking design in a design system
+                                with custom
+                                properties</a></h4>
+                        <p>A deep-dive on how to leverage custom properties in a design system.</p>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link"
+                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                                title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                full description</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card>
+                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                            <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <h3 class="card-header-title">DrupalCon 2019</h3>
+                        <h4 class="card-header-headline"><a
+                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                                title="Click to read more about this presentation">Make web development fun again, with
+                                web components!</a>
+                        </h4>
+                        <p>A joint presentation with Penn State on how web components can make development workflows fun
+                            and efficient.</p>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link"
+                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                                title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                full description</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card>
+                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                            <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <h3 class="card-header-title">DrupalCon 2019</h3>
+                        <h4 class="card-header-headline"><a
+                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                                title="Click to read more about this presentation">One of these things is not like the
+                                other; identifying
+                                patterns in a mock-up</a></h4>
+                        <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
+                        </p>
+                        <pfe-cta slot="pfe-card--footer">
+                            <a class="cta-link"
+                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                                title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                full description</a>
+                        </pfe-cta>
+                    </pfe-card>
+                    <pfe-card>
+                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                            <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <h3 class="card-header-title">NCDevCon 2016</h3>
+                        <h4 class="card-header-headline"><a
+                                href="https://www.youtube.com/embed/8Yyklb78S00"
+                                title="Click to watch the presentation">Reduce, reuse, recycle: Modular CSS
+                            </a></h4>
+                        <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
+                            the size of your output.</p>
+                    </pfe-card>
                 </div>
             </pfe-band>
 
             <!-- Contact -->
-            <pfe-band id="contact" color="accent">
-                <div class="band-container" data-layout="stacked" style="align-items: center;">
+            <pfe-band id="contact" color="transparent">
+                <div class="band-container" data-layout="stacked">
                     <div class="header" data-text-align="center">
                         <h3 class="header-title extra">Contact</h3>
                         <p class="header-summary">I'm always happy to chat about web development, design,
                 or anything else.</p>
                     </div>
-                    <pfe-cta class="featured" style="font-size: 20px;">
+                    <pfe-cta class="featured">
                         <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
                             front-end.social</a>
                     </pfe-cta>

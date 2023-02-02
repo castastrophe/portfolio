@@ -1,32 +1,13 @@
 pfe-card {
-    body:not(.cv) &:not(.quote) {
+    --pfe-card--Padding: Clamp(1em, .2vw, 3em);
+    font-size: Clamp(1em, 1vw, 1.3em);
+    width: Clamp(300px, 100%, 80ch);
+
+    body:not(.cv) & {
         border-radius: 1em;
     }
 
-    // body:not(.cv) &:not(.quote) {
-    //     @for $n from 1 through 10 {
-    //         &:nth-child(#{$n}n) {
-    //             border-top-left-radius: #{random(60) + 30%} #{random(20) + 5px};
-    //             border-top-right-radius: #{random(20) + 5px} #{random(60) + 30%};
-    //             border-bottom-right-radius: #{random(60) + 30%} #{random(20) + 5px};
-    //             border-bottom-left-radius: #{random(20) + 5px} #{random(60) + 30%};
-    //         }
-    //     }
-    // }
-
-    &.quote {
-        --pfe-card--Padding: 2em;
-        border-color: transparent;
-        border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-        border-image-slice: 1;
-        border-left: 8px solid;
-        height: fit-content;
-        font-size: .8em;
-    }
-
     &.featured {
-        min-width: calc(max(45%, 300px));
-        max-width: 700px;
         body.cv & {
             --pfe-card--BackgroundColor: #fff;
             --pfe-card--context: light;
@@ -36,42 +17,6 @@ pfe-card {
             .card-header-headline {
                 color: var(--pfe-theme--color--ui-accent);
             }
-        }
-
-        &[border]:not([color="accent"]) {
-            --pfe-card--BorderWidth: 4px;
-            --pfe-card--BorderColor: var(--pfe-theme--color--ui-accent);
-        }
-    }
-
-    &[data-type="custom"] {
-        @media (min-width: 0) and (max-width: 991px) {
-            overflow: visible;
-            --pfe-card--BackgroundColor: white;
-            --pfe-card--context: light;
-            --pfe-broadcasted--text: black;
-        }
-
-        @media (min-width: 992px) {
-            --pfe-card--BorderRadius: 0;
-            margin-top: calc(-1 * var(--pfe-band--PaddingTop, 30px));
-            margin-bottom: calc(-1 * var(--pfe-band--PaddingBottom, 30px));
-            clip-path: polygon(100% 0, 100% 0, 72% 100%, 0% 100%, 0 53%, 0% 0%);
-            shape-outside: polygon(100% 0, 100% 0, 72% 100%, 0% 100%, 0 53%, 0% 0%);
-            shape-margin: 10px;
-            padding-right: 100px;
-        }
-    }
-
-    &[data-padding="half"] {
-        --pfe-card--Padding: 15px;
-    }
-
-    &[data-outline="border"] {
-        --pfe-card--Border: 1px solid #252527;
-
-        [data-theme~="dark"] & {
-            --pfe-card--Border: 1px solid #fff;
         }
     }
 
@@ -89,12 +34,10 @@ pfe-card {
             }
         }
     }
+
     &[color="transparent"] {
-        background-color: transparent;
-        --context: saturated;
-        body.cv & {
-            --context: light;
-        }
+        --pfe-card--BackgroundColor: transparent;
+        --pfe-card--context: var(--context);
     }
 }
 

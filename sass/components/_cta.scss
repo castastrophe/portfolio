@@ -1,59 +1,21 @@
 pfe-cta {
-    --pfe-broadcasted--link: var(--pfe-theme--color--ui-accent);
-
     body.cv &:not(.featured) {
         display: none;
     }
+
     a {
         font-family: var(--pfe-theme--font-family--heading);
         font-size: 1em;
     }
 
-    @each $state in (default, hover, focus) {
-        @if $state==default {
-            --pfe-theme--color--ui-accent: rgb(190, 44, 158);
-            --pfe-theme--color--link: var(--pfe-theme--color--ui-accent);
-        }
-
-        @else {
-            --pfe-theme--color--ui-accent--#{$state}: var(--pfe-theme--color--ui-accent);
-            --pfe-theme--color--link--#{$state}: var(--pfe-theme--color--ui-accent--hover);
-        }
+    &.small a {
+        font-family: var(--pfe-theme--font-family);
+        font-size: 1em;
+        font-weight: 100;
     }
-}
-
-.drawn {
-    @for $n from 1 through 10 {
-        &:nth-child(#{$n}n) {
-            border-top-left-radius: #{random(60) + 30%} #{random(20) + 5px};
-            border-top-right-radius: #{random(20) + 5px} #{random(60) + 30%};
-            border-bottom-right-radius: #{random(60) + 30%} #{random(20) + 5px};
-            border-bottom-left-radius: #{random(20) + 5px} #{random(60) + 30%};
-        }
-    }
-}
-
-pfe-cta.small a {
-    font-family: var(--pfe-theme--font-family);
-    font-size: 1em;
-    font-weight: 100;
 }
 
 .cta-link {
-    &[data-hover="special"] {
-        position: relative;
-        display: inline-block;
-        outline: none;
-        vertical-align: bottom;
-        padding: 0 0.25em;
-        color: #d04c3f;
-        text-decoration: none;
-
-        &:hover {
-            color: #d04c3faa;
-        }
-    }
-
     [data-cta-type="video-play"] & {
         // font-size: 1em;
         text-transform: uppercase;

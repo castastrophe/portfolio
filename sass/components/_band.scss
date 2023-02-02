@@ -1,71 +1,62 @@
 pfe-band {
-    --pfe-band--Padding: 60px 9px;
-    // body.cv & {
-    //     --pfe-band--Padding: 30px 9px;
-    // }
+    --pfe-band--Padding--vertical: 4em;
+    --pfe-band--Padding--horizontal: .4em;
+    transition: background-color 0.3s ease-in;
+    scroll-margin: 10px;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+
+    @media screen and (min-width: 992px) {
+        --pfe-band--Padding--vertical: 6em;
+        --pfe-band--Padding--horizontal: .8em;
+    }
+
+    body.cv & {
+        --pfe-band--Padding--vertical: 2em;
+    }
+
+    &[data-padding="double"] {
+        padding: 15vh var(--pfe-band--Padding--horizontal) 2em;
+        @media screen and (min-width: 992px) {
+            --pfe-band--Padding--vertical: 25vh;
+        }
+    }
 
     &[data-padding="half"] {
-        --pfe-band--Padding: 15px 9px;
+        --pfe-band--Padding--vertical: 1em;
     }
 
-    &[data-padding="half-top"] {
-        --pfe-band--Padding: 15px 9px 60px;
-    }
-
-    &[color="base"] {
+    &[color="transparent"] {
         --pfe-band--BackgroundColor: transparent;
-        --pfe-band--context: light;
-    }
-
-    &[data-width="full"] {
-        body:not(.cv) & {
-            --pfe-band--Width: auto;
-            z-index: 4;
-        }
-    }
-
-    &[color="accent"] {
-        body:not(.cv) & {
-            background: linear-gradient(to bottom, rgb(212, 90, 186) 0%, #{lighten(rgb(116, 6, 92), 10%)} 100%);
-            --context: saturated;
-        }
-        body.cv & {
-            background-color: transparent;
-            --context: light;
-        }
-
-        #teaser {
-            background: rgb(48, 34, 68);
-            border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-            border-image-slice: 1;
-            border-block: 8px solid;
-            border-inline: 0;
-        }
-    }
-
-    body:not(.cv) &[data-width="full"][color="accent"] {
-        z-index: 4;
+        --pfe-band--context: var(--context);
     }
 
     &[sticky] {
-        position: sticky;
-        z-index: 2;
+        width: 100%;
+        position: fixed;
         top: 0;
-        --pfe-band--Width: auto;
+        z-index: 2;
+
+        body.cv & {
+          z-index: 99;
+        }
+
+        /* &[data-padding="half"] {
+            --pfe-band--Padding--vertical: 1em;
+        }
 
         @media (min-width: 992px) {
-            --pfe-band--BackgroundColor: transparent;
-            --pfe-band--context: light;
             --pfe-band--Padding: 15px 5vw;
 
             &[data-padding="half"] {
                 --pfe-band--Padding: 15px 5vw;
             }
-        }
+        } */
+    }
 
-        &[data-padding="half"] {
-            --pfe-band--Padding--vertical: 10px;
-        }
+    body:not(.cv) &[data-width="full"] {
+        --pfe-band--Width: auto;
+        z-index: 4;
     }
 }
 
