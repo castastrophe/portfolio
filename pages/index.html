@@ -946,7 +946,7 @@
                 <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
                 <div data-width="overflow">
                     <div class="group" data-layout="overflow-grid">
-                        <pfe-card color="transparent">
+                        <pfe-card>
                             <div class="video-embed-iframe-container" pfe-overflow="top right left">
                                 <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -966,7 +966,7 @@
                                     full description</a>
                             </pfe-cta>
                         </pfe-card>
-                        <pfe-card color="transparent">
+                        <pfe-card>
                             <div class="video-embed-iframe-container" pfe-overflow="top right left">
                                 <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -987,7 +987,7 @@
                                     full description</a>
                             </pfe-cta>
                         </pfe-card>
-                        <pfe-card color="transparent">
+                        <pfe-card>
                             <div class="video-embed-iframe-container" pfe-overflow="top right left">
                                 <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -1008,7 +1008,7 @@
                                     full description</a>
                             </pfe-cta>
                         </pfe-card>
-                        <pfe-card color="transparent">
+                        <pfe-card>
                             <div class="video-embed-iframe-container" pfe-overflow="top right left">
                                 <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -1027,12 +1027,16 @@
             </pfe-band>
 
             <!-- Contact -->
-            <pfe-band id="contact" color="accent">
-                <h2 slot="pfe-band--header" class="header-title extra">Contact</h2>
-                <p slot="pfe-band--header" class="header-summary">I'm always happy to chat about web development, design,
+            <pfe-band id="contact" color="accent" data-padding="half">
+                <div class="band-container" data-layout="stacked" style="max-width: min(90vw, 900px); align-items:center;">
+                    <div class="group" data-layout="flex" style="justify-content:space-evenly;--spacing--vertical: 0;">
+                        <div class="header" data-text-align="sm-md--center">
+                            <h3 class="header-title extra">Contact</h3>
+                            <p class="header-summary">I'm always happy to chat about web development, design,
                     or anything else.</p>
-                <div class="group" data-layout="auto-layout">
-                    <pfe-cta class="featured">
+                </div>
+                <div data-align="both">
+                    <pfe-cta class="featured" style="font-size: 20px;">
                         <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
                             front-end.social</a>
                     </pfe-cta>
