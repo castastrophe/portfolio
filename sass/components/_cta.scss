@@ -1,4 +1,6 @@
 pfe-cta {
+    --pfe-broadcasted--link: var(--pfe-theme--color--ui-accent);
+
     body.cv &:not(.featured) {
         display: none;
     }
