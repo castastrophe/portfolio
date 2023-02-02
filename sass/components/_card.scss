@@ -1,5 +1,5 @@
 pfe-card {
-    &:not(.quote) {
+    body:not(.cv) &:not(.quote) {
         border-radius: 1em;
     }
 
