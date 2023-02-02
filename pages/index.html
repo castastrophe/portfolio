@@ -126,7 +126,7 @@
                         </blockquote>
                     </pfe-card>
                 </section>
-                <section data-layout="flex-centered">
+                <section data-layout="flex-centered" style="gap: max(10px, 5vw)">
                     <pfe-card  pfe-border tilt-on="hover">
                         <h3 class="card-header-title">Web components</h3>
                         <h4 class="card-header-headline accent" style="font-size: 22px;"><a
@@ -170,23 +170,22 @@
                     <div class="group" data-layout="8 4" style="max-width: min(90vw, 900px)">
                         <div class="header" data-text-align="sm-md--center">
                             <h3 class="promo-headline accent"><a
-                                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties">Unlocking
-                                    design in a design system with custom properties</a>
+                                    href="https://www.youtube.com/embed/7n3PHEx_xvg">Web Components in Space</a>
                             </h3>
-                            <p class="header-summary">DrupalCon 2019 | Seattle, WA</p>
+                            <p class="header-summary">S01E04.3 | 2022</p>
                         </div>
                         <div data-align="both">
                             <pfe-cta data-cta-type="video-play" style="font-size: 20px;">
                                 <a class="cta-link" data-popup="youtube"
-                                    href="https://www.youtube.com/embed/xH2MmVNuSe4">Watch now</a>
+                                    href="https://www.youtube.com/embed/7n3PHEx_xvg">Watch now</a>
                             </pfe-cta>
                         </div>
                     </div>
                 </div>
             </pfe-band>
 
-            <pfe-band>
-                <h2 slot="pfe-band--header" class="header-title accent">Experience & passion</h2>
+            <pfe-band id="resume">
+                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Experience & passion</h2>
                 <p slot="pfe-band--header" class="header-summary">For 8 years at Red Hat I built
                     design systems and their associated tooling to serve designers, developers, content writers, and users alike. <b>My most
                         valuable tool in this endeavor has always been active listening.</b> I ask a lot of questions
@@ -199,7 +198,7 @@
                     <pfe-tab role="heading" slot="tab" id="Adobe">Adobe</pfe-tab>
                     <pfe-tab-panel role="region" slot="panel">
                         <pfe-accordion disclosure="true">
-                            <pfe-accordion-header>
+                            <pfe-accordion-header expanded>
                                 <h3>Senior design engineer, Spectrum Design</h3>
                             </pfe-accordion-header>
                             <pfe-accordion-panel expanded>
@@ -215,7 +214,7 @@
                             <pfe-accordion-header>
                                 <h3>Senior web developer, Digital Imaging and Web Innovation</h3>
                             </pfe-accordion-header>
-                            <pfe-accordion-panel expanded>
+                            <pfe-accordion-panel>
                                 <dl>
                                     <dd>Jan 2023&mdash;present</dd>
                                     <dd>
@@ -882,7 +881,7 @@
 
             <!-- Code -->
             <pfe-band data-width="full" id="coding">
-                <h2 slot="pfe-band--header" class="header-title" data-text-align="center">Coding projects</h2>
+                <h2 slot="pfe-band--header" class="header-title accent" data-text-align="center">Coding projects</h2>
                 <div class="group" data-layout="auto-grid">
                     <pfe-card pfe-border>
                         <h3 class="card-header-title">Single page app</h3>
@@ -1029,13 +1028,13 @@
 
             <!-- Contact -->
             <pfe-band id="contact" color="accent">
-                <h2 slot="pfe-band--header" class="header-title">Contact</h2>
+                <h2 slot="pfe-band--header" class="header-title extra">Contact</h2>
                 <p slot="pfe-band--header" class="header-summary">I'm always happy to chat about web development, design,
-                    or anything else. Feel free to reach out to me on any of the platforms below.</p>
+                    or anything else.</p>
                 <div class="group" data-layout="auto-layout">
-                    <pfe-cta>
-                        <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Follow me on
-                            social</a>
+                    <pfe-cta class="featured">
+                        <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
+                            front-end.social</a>
                     </pfe-cta>
                 </div>
             </pfe-band>
