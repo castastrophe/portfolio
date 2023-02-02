@@ -20,6 +20,10 @@
     body.cv & b {
         font-weight: normal;
     }
+
+    body.cv &[data-text-align="center"] {
+        text-align: left;
+    }
 }
 
 .promo-headline {

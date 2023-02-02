@@ -77,10 +77,10 @@ button::-moz-focus-inner {
   .header-title {
     color: var(--pfe-theme--color--ui-accent);
 
+    text-align: left !important;
     border-bottom: 1px solid #ddd;
     margin-top: 1px;
     margin-bottom: 10px;
-    max-width: 70%;
   }
 
   #teaser,
