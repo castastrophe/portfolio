@@ -10,7 +10,7 @@
 [data-layout="flex"] {
     display: flex;
     flex-flow: row wrap;
-    gap: 10px;
+    gap: 1em;
     margin-top: var(--spacing--vertical, 30px);
 }
 
@@ -228,7 +228,7 @@
                 flex-basis: 100%;
             }
         }
-        
+
         &:last-child {
             align-self: flex-end;
         }
@@ -252,7 +252,7 @@
 
     body:not(.cv) & {
         $width: clamp(350px, 30vw, 700px);
-        
+
         margin-top: calc(var(--spacing--vertical, 30px) * -1);
 
         @media (min-width: 768px) {
@@ -291,7 +291,7 @@
     body:not(.cv) & {
         max-width: calc(100vw - (9px * 2));
         overflow: scroll;
-        
+
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
 

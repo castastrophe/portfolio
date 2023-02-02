@@ -33,6 +33,14 @@ pfe-band {
             background-color: transparent;
             --context: light;
         }
+
+        #teaser {
+            background: rgb(48, 34, 68);
+            border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+            border-image-slice: 1;
+            border-block: 8px solid;
+            border-inline: 0;
+        }
     }
 
     body:not(.cv) &[data-width="full"][color="accent"] {

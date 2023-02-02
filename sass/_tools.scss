@@ -33,6 +33,14 @@
     font-weight: 800;
     margin-top: 0;
     line-height: 1.4;
+
+    .featured & {
+        color: var(--pfe-theme--color--ui-accent);
+    }
+
+    &.accent {
+        color: var(--headline--accent);
+    }
 }
 
 %card-title {
@@ -44,6 +52,14 @@
     font-weight: 800;
     margin-top: 0;
     line-height: 1.4;
+
+    .featured & {
+        color: var(--pfe-theme--color--ui-accent);
+    }
+
+    &.accent {
+        color: var(--headline--accent);
+    }
 }
 
 %headline {
@@ -176,6 +192,11 @@
         @media (min-width: 768px) {
             text-align: right;
         }
+    }
+
+    [data-text-align="center"] & {
+        text-align: center;
+        margin-bottom: 1.2em
     }
 
     [data-text-align="sm-md--center"] & {
