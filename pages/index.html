@@ -110,8 +110,8 @@
                         and these values guide the code that I produce and influence. One of the most enjoyable aspects
                         of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
                 </div>
-                <section data-layout="flex-centered">
-                    <pfe-card class="quote shown" style="width: clamp(400px, 90vw)">
+                <section data-layout="flex-centered" style="justify-content: center">
+                    <pfe-card class="quote shown" style="max-width: min(90vw, 800px)">
                         <blockquote id="quote">
                             <div class="quote-container" data-text-align="right">
                                 <p class="quote-quotation">You're not going to learn code by passively watching someone
@@ -128,8 +128,8 @@
                 </section>
                 <section data-layout="flex-centered">
                     <pfe-card  pfe-border tilt-on="hover">
-                        <h3 class="card-header-title">Design system</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
+                        <h3 class="card-header-title">Web components</h3>
+                        <h4 class="card-header-headline accent" style="font-size: 22px;"><a
                                 href="https://github.com/patternfly/patternfly-elements"
                                 title="Click to view project">PatternFly Elements</a></h4>
                         <div class="card-body">
@@ -165,13 +165,13 @@
             </pfe-band>
 
             <!-- Featured video -->
-            <pfe-band color="accent" id="teaser" data-padding="half" style="z-index: 5;">
+            <pfe-band id="teaser" data-padding="half" style="z-index: 5;">
                 <div class="band-container" data-layout="stacked">
                     <div class="video-embed" data-text-align="center">
                         <div class="video-embed-details" data-ux-state="visible">
                             <div class="group" data-layout="8 4">
                                 <div class="header" data-text-align="sm-md--center">
-                                    <h3 class="promo-headline"><a
+                                    <h3 class="promo-headline accent"><a
                                             href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties">Unlocking
                                             design in a design system with custom properties</a>
                                     </h3>
@@ -189,8 +189,8 @@
                 </div>
             </pfe-band>
 
-            <pfe-band class="hidden">
-                <h2 slot="pfe-band--header" class="header-title">Experience & passion</h2>
+            <pfe-band>
+                <h2 slot="pfe-band--header" class="header-title accent">Experience & passion</h2>
                 <p slot="pfe-band--header" class="header-summary">For 8 years at Red Hat I built
                     design systems and their associated tooling to serve designers, developers, content writers, and users alike. <b>My most
                         valuable tool in this endeavor has always been active listening.</b> I ask a lot of questions
@@ -206,7 +206,7 @@
                             <pfe-accordion-header>
                                 <h3>Senior design engineer, Spectrum Design</h3>
                             </pfe-accordion-header>
-                            <pfe-accordion-panel>
+                            <pfe-accordion-panel expanded>
                                 <dl>
                                     <dd>Jan 2023&mdash;present</dd>
                                     <dd>
@@ -219,7 +219,7 @@
                             <pfe-accordion-header>
                                 <h3>Senior web developer, Digital Imaging and Web Innovation</h3>
                             </pfe-accordion-header>
-                            <pfe-accordion-panel>
+                            <pfe-accordion-panel expanded>
                                 <dl>
                                     <dd>Jan 2023&mdash;present</dd>
                                     <dd>
@@ -944,166 +944,106 @@
                         </pfe-cta>
                     </pfe-card>
                 </div>
-        </div>
-        </pfe-band>
+            </pfe-band>
 
-        <!-- Design -->
-        <pfe-band id="design">
-            <h2 slot="pfe-band--header" class="header-title">Design</h2>
-            <p slot="pfe-band--header" class="header-summary">I've moved away from full-page design in the last few
-                years to focus on systems architecture. When I was involved in these design projects though, I loved
-                working with stakeholders to get at the heart of what they needed from their page; asking the right
-                kinds of questions to solve the real problem and make something of which we both could be proud.</p>
-            <div class="group" data-layout="6 6">
-                <pfe-card>
-                    <div class="image-embed shown" pfe-overflow="top">
-                        <div class="image-embed-container">
-                            <a href="./img/2016-07-24_redhat_learning-subscription.png" class="popup-link">
-                                <img class="image-embed-img"
-                                    src="./img/2016-07-24_redhat_learning-subscription_screenshot.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portfolio-details">
-                        <div class="image-embed hidden">
-                            <div class="image-embed-container">
-                                <a href="./img/2016-07-24_redhat_learning-subscription.png" class="popup-link">
-                                    <img class="image-embed-img"
-                                        src="./img/2016-07-24_redhat_learning-subscription_screenshot.png">
-                                </a>
-                                <p class="image-embed-caption">Click to zoom</p>
+            <!-- Recorded talks -->
+            <pfe-band color="accent" data-width="full" style="margin-bottom: 60px" id="presentations">
+                <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
+                <div data-width="overflow">
+                    <div class="group" data-layout="overflow-grid">
+                        <pfe-card color="transparent">
+                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                                <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                             </div>
-                        </div>
-                        <div>
-                            <h3 class="card-header-headline" style="margin: 0 0 5px;">PAGE | Red Hat Learning
-                                Subscription</h3>
-                            <p class="card-header-summary">2016 July 24</p>
-                            <pfe-cta>
-                                <a href="https://www.redhat.com/en/services/training/learning-subscription"
-                                    title="Click to view page at source">View the
-                                    source</a>
+                            <h3 class="card-header-title">DrupalCon 2019</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                                    title="Click to read more about this presentation">Unlocking design in a design system
+                                    with custom
+                                    properties</a></h4>
+                            <p>A deep-dive on how to leverage custom properties in a design system.</p>
+                            <pfe-cta slot="pfe-card--footer">
+                                <a class="cta-link"
+                                    href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
+                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                    full description</a>
                             </pfe-cta>
-                        </div>
-                    </div>
-                </pfe-card>
-                <pfe-card>
-                    <div class="image-embed shown" pfe-overflow="top">
-                        <div class="image-embed-container">
-                            <a href="./img/2016-05-20_redhat_summit.png" class="popup-link">
-                                <img class="image-embed-img" src="./img/2016-05-20_redhat_summit_screenshot.png">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portfolio-details">
-                        <div class="image-embed hidden">
-                            <div class="image-embed-container">
-                                <a href="./img/2016-05-20_redhat_summit.png" class="popup-link">
-                                    <img class="image-embed-img" src="./img/2016-05-20_redhat_summit_screenshot.png">
-                                </a>
-                                <p class="image-embed-caption">Click to zoom</p>
+                        </pfe-card>
+                        <pfe-card color="transparent">
+                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                                <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                             </div>
-                        </div>
-                        <div>
-                            <h3 class="card-header-headline" style="margin: 0 0 5px;">MICROSITE | Red Hat Summit
-                            </h3>
-                            <p class="card-header-summary">2016 May 20</p>
-                            <pfe-cta>
-                                <a href="https://www.redhat.com/en/summit" title="Click to view site at source">View the
-                                    source</a>
+                            <h3 class="card-header-title">DrupalCon 2019</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                                    title="Click to read more about this presentation">Make web development fun again, with
+                                    web components!</a>
+                            </h4>
+                            <p>A joint presentation with Penn State on how web components can make development workflows fun
+                                and efficient.</p>
+                            <pfe-cta slot="pfe-card--footer">
+                                <a class="cta-link"
+                                    href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
+                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                    full description</a>
                             </pfe-cta>
-                        </div>
+                        </pfe-card>
+                        <pfe-card color="transparent">
+                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                                <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <h3 class="card-header-title">DrupalCon 2019</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                                    title="Click to read more about this presentation">One of these things is not like the
+                                    other; identifying
+                                    patterns in a mock-up</a></h4>
+                            <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
+                            </p>
+                            <pfe-cta slot="pfe-card--footer">
+                                <a class="cta-link"
+                                    href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
+                                    title="Click to read more about this presentation" data-cta-type="secondary">View the
+                                    full description</a>
+                            </pfe-cta>
+                        </pfe-card>
+                        <pfe-card color="transparent">
+                            <div class="video-embed-iframe-container" pfe-overflow="top right left">
+                                <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <h3 class="card-header-title">NCDevCon 2016</h3>
+                            <h4 class="card-header-headline" style="font-size: 22px;"><a
+                                    href="https://www.youtube.com/embed/8Yyklb78S00"
+                                    title="Click to watch the presentation">Reduce, reuse, recycle: Modular CSS
+                                </a></h4>
+                            <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
+                                the size of your output.</p>
+                        </pfe-card>
                     </div>
-                </pfe-card>
-            </div>
-        </pfe-band>
-
-        <!-- Recorded talks -->
-        <pfe-band color="accent" data-width="full" style="margin-bottom: 60px" id="presentations">
-            <h2 slot="pfe-band--header" class="header-title">Presentations</h2>
-            <div data-width="overflow">
-                <div class="group" data-layout="overflow-grid">
-                    <pfe-card color="transparent">
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                title="Click to read more about this presentation">Unlocking design in a design system
-                                with custom
-                                properties</a></h4>
-                        <p>A deep-dive on how to leverage custom properties in a design system.</p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/seattle2019/sessions/unlocking-design-design-system-custom-properties"
-                                title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card color="transparent">
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                title="Click to read more about this presentation">Make web development fun again, with
-                                web components!</a>
-                        </h4>
-                        <p>A joint presentation with Penn State on how web components can make development workflows fun
-                            and efficient.</p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                                title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card color="transparent">
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">DrupalCon 2019</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                title="Click to read more about this presentation">One of these things is not like the
-                                other; identifying
-                                patterns in a mock-up</a></h4>
-                        <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
-                        </p>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link"
-                                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                                title="Click to read more about this presentation" data-cta-type="secondary">View the
-                                full description</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card color="transparent">
-                        <div class="video-embed-iframe-container" pfe-overflow="top right left">
-                            <iframe src="https://www.youtube.com/embed/8Yyklb78S00" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <h3 class="card-header-title">NCDevCon 2016</h3>
-                        <h4 class="card-header-headline" style="font-size: 22px;"><a
-                                href="https://www.youtube.com/embed/8Yyklb78S00"
-                                title="Click to watch the presentation">Reduce, reuse, recycle: Modular CSS
-                            </a></h4>
-                        <p>Creating highly-optimized patterns by increasing reusability in your codebase, thus reducing
-                            the size of your output.</p>
-                    </pfe-card>
                 </div>
-            </div>
-        </pfe-band>
+            </pfe-band>
 
-        </pfe-band>
-    </div>
+            <!-- Contact -->
+            <pfe-band id="contact" color="accent">
+                <h2 slot="pfe-band--header" class="header-title">Contact</h2>
+                <p slot="pfe-band--header" class="header-summary">I'm always happy to chat about web development, design,
+                    or anything else. Feel free to reach out to me on any of the platforms below.</p>
+                <div class="group" data-layout="auto-layout">
+                    <pfe-cta>
+                        <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Follow me on
+                            social</a>
+                    </pfe-cta>
+                </div>
+            </pfe-band>
+        </main>
 
     <footer>
         <script src="/js/vendor.min.js"></script>

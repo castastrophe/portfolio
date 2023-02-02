@@ -4,17 +4,17 @@ pfe-cta {
     }
     a {
         font-family: var(--pfe-theme--font-family--heading);
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     @each $state in (default, hover, focus) {
         @if $state==default {
-            --pfe-theme--color--ui-accent: rgb(31, 73, 112);
+            --pfe-theme--color--ui-accent: rgb(190, 44, 158);
             --pfe-theme--color--link: var(--pfe-theme--color--ui-accent);
         }
 
         @else {
-            --pfe-theme--color--ui-accent--#{$state}: rgb(49, 115, 176);
+            --pfe-theme--color--ui-accent--#{$state}: var(--pfe-theme--color--ui-accent);
             --pfe-theme--color--link--#{$state}: var(--pfe-theme--color--ui-accent--hover);
         }
     }
