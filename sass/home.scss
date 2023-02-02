@@ -12,13 +12,13 @@
 @import "layouts";
 
 :root {
-  --pfe-theme--color--ui-accent: rgb(31, 73, 112);
-  --pfe-theme--color--ui-accent--hover: rgb(49, 115, 176);
-  --pfe-theme--color--ui-accent--focus: rgb(49, 115, 176);
+  --pfe-theme--color--ui-accent: rgb(176, 48, 148);
+  --pfe-theme--color--ui-accent--hover: rgb(176, 48, 148);
+  --pfe-theme--color--ui-accent--focus: rgb(176, 48, 148);
 
   --pfe-theme--color--surface--base: #fff;
   --pfe-theme--color--surface--base--theme: light;
-  --pfe-theme--color--surface--accent: rgb(31, 73, 112);
+  --pfe-theme--color--surface--accent: rgb(176, 48, 148);
   --pfe-theme--color--surface--accent--theme: saturated;
   --pfe-theme--color--surface--darker:  #444;
 
@@ -27,7 +27,7 @@
   --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
   --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
 
-  --headline--accent: rgb(240, 134, 29);
+  --headline--accent: rgb(118, 6, 93);
 }
 
 *,
