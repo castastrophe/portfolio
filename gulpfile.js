@@ -1,26 +1,23 @@
 'use strict';
 
-const {
-    src,
-    dest,
-    watch,
-    task,
-    series,
-    parallel
-} = require('gulp');
-const del = require('del');
-const path = require('path');
-const rename = require('gulp-rename');
-const concat = require('gulp-concat');
-const babel = require('gulp-babel');
-const uglify = require('gulp-uglify');
-const sass = require('gulp-sass')(require('node-sass'));
-const print = require('gulp-print').default;
-const order = require('gulp-order');
-const postcss = require('gulp-postcss')
-const sourcemaps = require('gulp-sourcemaps');
-const flatten = require('gulp-flatten');
-const browserSync = require('browser-sync').create();
+const path = require ('path');
+
+const gulp = require ('gulp');
+const del = require ('del');
+
+const rename = require ('gulp-rename');
+const concat = require ('gulp-concat');
+const babel = require ('gulp-babel');
+const uglify = require ('gulp-uglify');
+const sass = require ('gulp-sass')(require ('node-sass'));
+// const print = require ('gulp-print');
+const order = require ('gulp-order');
+const postcss = require ('gulp-postcss');
+const sourcemaps = require ('gulp-sourcemaps');
+const flatten = require ('gulp-flatten');
+const browserSync = require ('browser-sync');
+
+browserSync.create();
 
 let assets = {
     libs_js: 'jquery?(.magnific-popup).min.js',
@@ -51,22 +48,20 @@ const clean = () => del([
     destination.publish
 ]);
 
-task('clean', clean);
-
 function compileSass() {
-    return src([
+    return gulp.src([
             '*.scss',
             '!_*.scss',
         ], {
             cwd: source.sass
         })
-        .pipe(print(filepath => ` > compiling ${filepath}`))
+        // .pipe(print(filepath => ` > compiling ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([
             require('autoprefixer')(['> 0.5%', 'last 2 versions', 'not dead'])
         ]))
-        .pipe(dest(path.join(destination.publish, destination.css)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.css)))
         .pipe(sass.sync({
             outputStyle: 'compressed'
         }).on('error', sass.logError))
@@ -74,12 +69,12 @@ function compileSass() {
             extname: '.min.css'
         }))
         .pipe(sourcemaps.write('./'))
-        .pipe(dest(path.join(destination.publish, destination.css)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.css)))
         .pipe(browserSync.stream());
 }
 
 function compileJS() {
-    return src([
+    return gulp.src([
             path.join(source.js, '*.js')
         ], {
             follow: true
@@ -93,63 +88,59 @@ function compileJS() {
             extname: '.min.js'
         }))
         .pipe(sourcemaps.write())
-        .pipe(dest(path.join(destination.publish, destination.js)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.js)))
         .pipe(browserSync.stream());
 }
 
-task('compile:sass', compileSass);
-task('compile:js', compileJS);
-task('compile', series('clean', parallel('compile:sass', 'compile:js')));
-
 function copyAssetsPages() {
-    return src([
+    return gulp.src([
             path.join(source.pages, '*.html')
         ], {
             follow: true
         })
         .pipe(flatten())
-        .pipe(dest(destination.publish))
+        .pipe(gulp.dest(destination.publish))
         .pipe(browserSync.stream());
 }
 
 function copyAssetsImages() {
-    return src([
+    return gulp.src([
             path.join(source.img, '*.{jpg,png,svg,ico}')
         ], {
             follow: true
         })
         .pipe(flatten())
-        .pipe(dest(path.join(destination.publish, destination.img)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.img)))
         .pipe(browserSync.stream());
 }
 
 function copyAssetsDemo() {
-    return src([
+    return gulp.src([
             path.join(source.demo, '*')
         ], {
             follow: true
         })
-        .pipe(dest(path.join(destination.publish, destination.demo)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.demo)))
         .pipe(browserSync.stream());
 }
 
 function copyWCJS() {
-    return src([
+    return gulp.src([
             source.wc_polyfill,
             path.join(source.wc, '*.min.js*')
         ], {
             cwd: './node_modules/',
             follow: true
         })
-        .pipe(print(filepath => ` > ${filepath}`))
+        // .pipe(print(filepath => ` > ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(sourcemaps.write())
-        .pipe(dest(path.join(destination.publish, destination.js)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.js)))
         .pipe(browserSync.stream());
 }
 
 function copyVendorJS() {
-    return src([
+    return gulp.src([
             path.join(source.libs, assets.libs_js)
         ], {
             cwd: './node_modules/',
@@ -161,16 +152,16 @@ function copyVendorJS() {
         ], {
             base: './node_modules'
         }))
-        .pipe(print(filepath => ` > ${filepath}`))
+        // .pipe(print(filepath => ` > ${filepath}`))
         .pipe(sourcemaps.init())
         .pipe(concat('vendor.min.js'))
         .pipe(sourcemaps.write())
-        .pipe(dest(path.join(destination.publish, destination.js)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.js)))
         .pipe(browserSync.stream());
 }
 
 function copyAssetsCSS() {
-    return src([
+    return gulp.src([
             path.join(source.wc, '*.min.css'),
             path.join(source.libs, assets.libs_css),
             `!$ {path.join(source.wc, '*--noscript.min.css')}`
@@ -179,32 +170,21 @@ function copyAssetsCSS() {
         })
         // .pipe(print(filepath => ` > ${filepath}`))
         .pipe(concat('vendor.min.css'))
-        .pipe(dest(path.join(destination.publish, destination.css)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.css)))
         .pipe(browserSync.stream());
 }
 
 function copyNoscriptCSS() {
-    return src([
+    return gulp.src([
             path.join(source.wc, '*--noscript.min.css')
         ], {
             cwd: './node_modules'
         })
-        .pipe(print(filepath => ` > ${filepath}`))
+        // .pipe(print(filepath => ` > ${filepath}`))
         .pipe(concat('noscript.min.css'))
-        .pipe(dest(path.join(destination.publish, destination.css)))
+        .pipe(gulp.dest(path.join(destination.publish, destination.css)))
         .pipe(browserSync.stream());
 }
-
-task('copy:assets:pages', copyAssetsPages);
-task('copy:assets:images', copyAssetsImages);
-task('copy:assets:demo', copyAssetsDemo);
-task('copy:assets:js', parallel(copyWCJS, copyVendorJS));
-task('copy:assets:css', parallel(copyAssetsCSS, copyNoscriptCSS));
-
-task('copy', parallel('copy:assets:js', 'copy:assets:css', 'copy:assets:images', 'copy:assets:pages', 'copy:assets:demo'));
-
-task('build', series('clean', parallel('copy', 'compile')));
-task('default', series('clean', parallel('copy', 'compile')));
 
 /* Server + watch events */
 function server() {
@@ -213,36 +193,39 @@ function server() {
     });
 }
 
-task('server', server);
+const copy = gulp.parallel(
+    gulp.parallel(copyWCJS, copyVendorJS),
+    gulp.parallel(copyAssetsCSS, copyNoscriptCSS),
+    copyAssetsImages,
+    copyAssetsPages,
+    copyAssetsDemo
+);
 
-// function updateAsset() {
-//     if (filepath.indexOf(source.pages)) {
-//         return copyAssetsPages();
-//     }
+const compile = gulp.series(
+    clean,
+    gulp.parallel(compileSass, compileJS)
+);
 
-//     if (filepath.indexOf(source.img)) {
-//         return copyAssetsImages();
-//     }
+const build = gulp.series(
+    clean,
+    gulp.parallel(copy, compile)
+);
 
-//     if (filepath.indexOf(source.demo)) {
-//         return copyAssetsDemo();
-//     }
-// }
-
-task('watch:sass', () => {
-    watch(path.join(source.sass, '*'), compileSass);
-});
-task('watch:js', () => {
-    watch(path.join(source.js, '*'), compileJS);
-});
-task('watch:assets', () => {
-    watch([
+const watcher = () => gulp.parallel(
+    gulp.watch(path.join(source.sass, '*'), compileSass),
+    gulp.watch([
         path.join(source.demo, '*'),
         path.join(source.img, '*'),
         path.join(source.pages, '*')
-    ], series('copy'));
-});
+    ], copy),
+    gulp.watch(path.join(source.js, '*'), compileJS),
+);
 
-task('watcher', parallel('watch:sass', 'watch:assets', 'watch:js'));
-
-task('serve', series('build', parallel('server', 'watcher')));
+exports.clean = clean;
+exports.compile = compile;
+exports.copy = copy;
+exports.build = build;
+exports.server = server;
+exports.default = gulp.series(clean, gulp.parallel(copy, compile));
+exports.watcher = watcher;
+exports.serve = gulp.series(build, gulp.parallel(server, watcher));
