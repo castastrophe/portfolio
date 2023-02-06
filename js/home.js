@@ -1,56 +1,103 @@
-document.addEventListener("DOMContentLoaded", function () {
-  $('[data-popup="youtube"]').magnificPopup({
-    disableOn: 600,
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
-    fixedContentPos: false
+import "@webcomponents/webcomponentsjs/webcomponents-loader.js";
+
+import "@patternfly/pfe-card/dist/pfe-card.min.js";
+import "@patternfly/pfe-band/dist/pfe-band.min.js";
+import "@patternfly/pfe-cta/dist/pfe-cta.min.js";
+import "@patternfly/pfe-tabs/dist/pfe-tabs.min.js";
+import "@patternfly/pfe-accordion/dist/pfe-accordion.min.js";
+
+import "@shoelace-style/shoelace/dist/components/switch/switch.js";
+
+const updateQuery = (params, add = true) => {
+  const url = new URL(window.location);
+  params.map(param => {
+    if (add) url.searchParams.set(param.key, param.value);
+    else url.searchParams.delete(param.key);
+  });
+  window.history.pushState({}, '', url);
+};
+
+const getNavHeight = () => {
+  let navHeight = 0;
+  const nav = document.querySelector("#nav");
+  if (nav) navHeight = nav.getBoundingClientRect().height;
+  return navHeight;
+};
+
+// Check for query param
+const urlParams = new URLSearchParams(window.location.search);
+const displayMode = urlParams.get("format");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  for (const link of document.querySelectorAll(".read-more")) {
+    link.addEventListener("click", (evt) => {
+      const el = evt.target;
+      const sibling = el.parentElement.nextElementSibling;
+      if (sibling && sibling.hasAttribute("hidden")) {
+        sibling.removeAttribute("hidden");
+        el.textContent = "Hide details";
+      } else if (sibling) {
+        sibling.setAttribute("hidden", "");
+        el.textContent = "Read more";
+      }
+    });
+  }
+
+  await Promise.all([
+    customElements.whenDefined("pfe-accordion"),
+    customElements.whenDefined("pfe-tabs"),
+    customElements.whenDefined("sl-switch")
+  ]);
+
+  const slSwitch = document.querySelector("sl-switch");
+  if (displayMode === "cv") {
+    slSwitch.setAttribute("checked", "");
+    document.body.classList.add("cv");
+  } else {
+    slSwitch.removeAttribute("checked");
+    document.body.classList.remove("cv");
+  }
+
+  slSwitch.addEventListener("sl-change", () => {
+    // Toggle the CV class on the body
+    document.body.classList.toggle("cv");
+
+    // Apply the CV query string
+    if (document.body.classList.contains("cv")) updateQuery([{
+      key: "format",
+      value: "cv"
+    }]);
+    else updateQuery([{
+      key: "format",
+    }], false);
+
+    document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
   });
 
-  $('.popup-link').magnificPopup({
-    disableOn: 600,
-    type: 'image',
-    closeOnContentClick: 'true',
-    zoom: {
-      enabled: true,
-      duration: 300,
-      ease: "ease-in-out",
-      opener: function (openerElement) {
-        return openerElement.is('img') ? openerElement : openerElement.find('img');
-      }
+  document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
+    accordion.disclosure = "true";
+    if (count === 0) {
+      setTimeout(() => {
+        accordion.expand(0);
+      }, 100);
     }
   });
 
-  Promise.all([
-    customElements.whenDefined("pfe-accordion"),
-    customElements.whenDefined("pfe-tabs")
-  ]).then(function () {
-    document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
-      accordion.disclosure = "true";
-      if (count === 0) {
-        setTimeout(() => {
-          accordion.expand(0);
-        }, 100);
-      }
-    });
+  const tabs = document.querySelector("pfe-tabs");
+  if (tabs) {
+    const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
+    tabs.style.alignItems = "flex-start";
 
-    let navHeight = getNavHeight();
-    const tabs = document.querySelector("pfe-tabs");
-    if (tabs) {
-      const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
-      tabs.style.alignItems = "flex-start";
-      if (shadowTabs) {
-        shadowTabs.style.position = "sticky";
-        shadowTabs.style.top = `var(--navigation-height, ${navHeight}px)`;
-        shadowTabs.style.backgroundColor = "#fff";
-        shadowTabs.style.zIndex = "98";
-        shadowTabs.style.overflowX = "auto";
-      }
+    if (shadowTabs) {
+      shadowTabs.style.position = "sticky";
+      shadowTabs.style.top = `var(--navigation-height, ${getNavHeight()}px)`;
+      shadowTabs.style.backgroundColor = "#fff";
+      shadowTabs.style.zIndex = "98";
+      shadowTabs.style.overflowX = "auto";
     }
 
     // pfe-tab:shown-tab
-    document.addEventListener("pfe-tabs:shown-tab", evt => {
+    document.addEventListener("pfe-tabs:shown-tab", (evt) => {
       if (!evt || !evt.detail || !evt.detail.tab) return;
 
       const tab = evt.detail.tab;
@@ -74,90 +121,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
       setTimeout(() => accordion.expand(0), 200);
     });
-
-    // Check for query param
-    const urlParams = new URLSearchParams(window.location.search);
-    const displayMode = urlParams.get("format");
-    if (displayMode === "cv") {
-      toggleCV("add");
-      document.querySelector("#cvToggle").checked = true;
-    }
-  });
+  }
 
   // Update height on resize
   window.addEventListener('resize', () => {
-    let navHeight = getNavHeight();
     const tabs = document.querySelector("pfe-tabs");
     if (tabs) {
       const shadowTabs = tabs.shadowRoot.querySelector(".tabs");
-      if (shadowTabs) document.body.style.setProperty("--navigation-height", `${navHeight}px`);
+      if (shadowTabs) document.body.style.setProperty("--navigation-height", `${getNavHeight()}px`);
     }
   });
 });
-
-const getNavHeight = () => {
-  let navHeight = 0;
-  const nav = document.querySelector("#social");
-  if (nav) navHeight = nav.getBoundingClientRect().height;
-  return navHeight;
-};
-
-document.querySelectorAll(".read-more").forEach(link => {
-  link.addEventListener("click", function (evt) {
-    const el = evt.target;
-    const sibling = el.parentElement.nextElementSibling;
-    if (sibling && sibling.hasAttribute("hidden")) {
-      sibling.removeAttribute("hidden");
-      el.textContent = "Hide details";
-    } else if (sibling) {
-      sibling.setAttribute("hidden", "");
-      el.textContent = "Read more";
-    }
-  });
-});
-
-const updateQuery = (params, add = true) => {
-  const url = new URL(window.location);
-  params.map(param => {
-    if (add) url.searchParams.set(param.key, param.value);
-    else url.searchParams.delete(param.key);
-  });
-  window.history.pushState({}, '', url);
-}
-
-const toggleCV = (state = "toggle") => {
-  document.body.classList.toggle("animating");
-  // Toggle the CV class on the body
-  document.body.classList[state]("cv");
-
-  // Apply the CV query string
-  if (document.body.classList.contains("cv")) {
-    updateQuery([{
-      key: "format",
-      value: "cv"
-    }]);
-  } else {
-    updateQuery([{
-      key: "format"
-    }], false);
-  }
-
-  document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
-
-  // Close the open accordions
-  document.querySelectorAll("pfe-accordion").forEach(accordion => {
-    setTimeout(() => {
-      accordion.collapseAll();
-    }, 100);
-  });
-
-  setTimeout(() => {
-    document.body.classList.toggle("animating");
-  }, 300);
-}
 
 window.addEventListener("scroll", function () {
-  const nav = document.querySelector("#social");
+  const nav = document.querySelector("#nav");
   if (nav) {
     if (window.scrollY > 0) nav.setAttribute("color", "base");
     else nav.setAttribute("color", "transparent");

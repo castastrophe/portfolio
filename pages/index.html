@@ -23,40 +23,13 @@
     <!--meta property="og:image" content="http://allons-y.llc/img/logo/casoncode-logo.jpg"-->
     <meta property="og:description" content="Allons-y Consulting, LLC is a small consulting shop that specializes in building scalable design systems in code.">
     <meta property="og:site_name" content="Allons-y Consulting">
-    <!-- meta property="fb:admins" content="Facebook numeric ID" /-->
 
-    <!-- If JS is not loaded -->
-    <noscript>
-        <link rel="stylesheet" href="/css/noscript.min.css" rel="stylesheet">
-        <!-- <link href="../../pfelement/dist/pfelement--noscript.min.css" rel="stylesheet"> -->
-    </noscript>
-
-    <!-- <link href="../../pfelement/dist/pfelement.min.css" rel="stylesheet"> -->
-
-    <!-- Include CSS files -->
-    <link type="text/css" rel="stylesheet" href="/css/vendor.min.css" media="all">
-    <link type="text/css" rel="stylesheet" href="/css/home.min.css" media="all">
-
-    <!-- <link rel="stylesheet" href="../../pfe-styles/dist/pfe-base.css" /> -->
+    <link type="text/css" rel="stylesheet" href="/css/home.css" media="all">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
         integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
-
-    <!-- <script src="/js/webcomponents.min.js"></script> -->
-
-    <!-- <script src="/examples/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script> -->
-    <script src="/js/webcomponents-loader.js"></script>
-
-    <script type="module">
-        import "/js/pfelement/dist/pfelement.min.js";
-        import "/js/pfe-card/dist/pfe-card.min.js";
-        import "/js/pfe-band/dist/pfe-band.min.js";
-        import "/js/pfe-cta/dist/pfe-cta.min.js";
-        import "/js/pfe-tabs/dist/pfe-tabs.min.js";
-        import "/js/pfe-accordion/dist/pfe-accordion.min.js";
-    </script>
 </head>
 
 <body unresolved class="page-wrapper">
@@ -64,7 +37,7 @@
     <div class="main">
         <div class="main-wrap">
 
-            <pfe-band data-padding="half" color="transparent" id="social" sticky>
+            <pfe-band data-padding="half" color="transparent" id="nav" sticky>
                 <div class="band-container" data-layout="flex space-between" data-align="left">
                     <div>
                         <h2 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h2>
@@ -81,11 +54,9 @@
                                     class="fab fa-codepen"></span></a>
                         </span>
                     </div>
-                    <label class="switch">
-                        <input type="checkbox" onclick="toggleCV()" id="cvToggle"/>
-                        <span class="switch--toggle"></span>
-                        <span>CV</span>
-                    </label>
+                    <form>
+                        <sl-switch large>CV</sl-switch>
+                    </form>
                 </div>
             </pfe-band>
 
@@ -1061,8 +1032,7 @@
         </main>
 
     <footer>
-        <script src="/js/vendor.min.js"></script>
-        <script src="/js/home.min.js"></script>
+        <script src="/js/home.min.js" type="module"></script>
         <script>
             if (!navigator.doNotTrack) {
                 (function (i, s, o, g, r, a, m) {

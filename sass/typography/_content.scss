@@ -69,13 +69,6 @@
         }
     }
 
-    @for $n from 1 through 6 {
-        h#{$n} {
-            @extend %headline-#{$n};
-            color: var(--pfe-broadcasted--text, --headline-color);
-        }
-    }
-
     pre {
         font-family: "PT Mono", monospace;
         display: block;

@@ -11,7 +11,12 @@ pfe-band {
         --pfe-band--Padding--horizontal: .8em;
     }
 
-    body.cv & {
+    @media print {
+        border: none;
+        padding: 20px 0;
+    }
+
+    body.cv &:not([sticky]) {
         --pfe-band--Padding--vertical: 2em;
     }
 
@@ -40,18 +45,6 @@ pfe-band {
         body.cv & {
           z-index: 99;
         }
-
-        /* &[data-padding="half"] {
-            --pfe-band--Padding--vertical: 1em;
-        }
-
-        @media (min-width: 992px) {
-            --pfe-band--Padding: 15px 5vw;
-
-            &[data-padding="half"] {
-                --pfe-band--Padding: 15px 5vw;
-            }
-        } */
     }
 
     body:not(.cv) &[data-width="full"] {
