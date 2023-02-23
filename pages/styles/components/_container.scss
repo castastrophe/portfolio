@@ -1,0 +1,56 @@
+.container {
+    padding-block: var(--container--padding-block, 4em);
+    padding-inline: var(--container--padding-inline, .4em);
+    transition: background 0.3s ease-in;
+    scroll-margin: 10px;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    background: var(--container--background, transparent);
+    color: var(--container--color, inherit);
+    width: var(--container-width, 100%);
+
+    > * {
+        max-width: 90vw;
+        margin-inline: auto;
+    }
+
+    body:not(.cv) & {
+        &[padding="double"] {
+            --container--padding-block: 15vh 2em;
+            --container--padding-inline: 1rem;
+
+            @media screen and (min-width: 992px) {
+                --container--padding-block: 25vh;
+            }
+        }
+
+        &[padding="half"] {
+            --container--padding-block: 1em;
+        }
+
+        &[color="accent"] {
+            --accent: rgb(255, 255, 255);
+            --container--background: var(--accent--surface);
+            --container--color: #fff;
+        }
+
+        &[color="white"] {
+            --container--background: var(--surface--base);
+            --container--color: #444;
+        }
+
+        &[color="gray"] {
+            --container--background: var(--surface--darker);
+            --container--color: #fff;
+        }
+
+        &[data-width="full"] {
+            --container-width: auto;
+            z-index: 4;
+        }
+    }
+
+    body.cv &:not([sticky]) {
+        --container--padding-block: 2em;
+    }
+}

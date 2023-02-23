@@ -1,0 +1,229 @@
+---
+layout: layouts/base.njk
+title: Slider demo
+eleventyNavigation:
+  key: Slider
+  parent: Demo
+---
+
+{% set settings = { color: "white" } %}
+{% section "default-demo" settings %}
+    <div class="group" layout="grid" style="--columns: 2fr 8fr 2fr">
+        <div class="slider arrows">
+            <div class="slider-nav" data-slide-id="demo-carousel">
+                <div class="slider-nav-item" data-slide-to="0" data-direction="prev"></div>
+            </div>
+        </div>
+        <div class="switcher">
+            <div class="switcher-body" data-slide-id="demo-carousel" data-height="variable">
+                <article class="switcher-slide" data-state="current" id="0">
+                    <div class="group">
+                        <h3 class="title">Demo</h3>
+                        <h4 class="headline">Carousel: Slide #1</h4>
+                        <div class="group" layout="auto-grid">
+                            <sl-card class="sl-theme-dark">
+                                <h2 slot="header" class="card-headline">This is a header</h2>
+                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                                <sl-button slot="footer" variant="text" size="large" href="#">Call to action</sl-button>
+                            </sl-card>
+                            <sl-card class="sl-theme-dark">
+                                <h2 slot="header" class="card-headline">This is a header</h2>
+                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                                <sl-button slot="footer" variant="text" size="large" href="#">Call to action</sl-button>
+                            </sl-card>
+                            <sl-card class="sl-theme-dark">
+                                <h2 slot="header" class="card-headline">This is a header</h2>
+                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                                <sl-button slot="footer" variant="text" size="large" href="#">Call to action</sl-button>
+                            </sl-card>
+                        </div>
+                    </div>
+                </article>
+                <article class="switcher-slide" data-state="next" id="1">
+                    <div class="group">
+                        <h3 class="title">Demo</h3>
+                        <h4 class="headline">Carousel: Slide #2</h4>
+                        <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa
+                            id deserunt, nam incididunt efflorescere ea quem commodo cernantur est
+                            ubi an dolor deserunt, culpa admodum ut possumus non ubi iudicem
+                            graviterque. Qui iis amet minim fugiat, litteris legam te doctrina
+                            fidelissimae. Quo quem officia ex noster singulis e nostrud qui lorem si
+                            ubi dolore mandaremus sed arbitror ut culpa offendit et ab est
+                            consectetur ab cupidatat quorum ut consequat distinguantur nam quae
+                            ullamco ubi deserunt, iis esse sempiternum.</p>
+                        <p>Ingeniis nam fugiat laborum. Aliqua exercitation laborum quorum
+                            incididunt. Nam do tractavissent e hic amet lorem ubi proident, ita iis
+                            coniunctione, duis nostrud possumus, duis pariatur nescius a amet qui
+                            mandaremus et culpa ullamco an familiaritatem si.</p>
+                        <sl-button size="large" href="#">Learn more</sl-button>
+                    </div>
+                </article>
+                <article class="switcher-slide" data-state="next" id="2">
+                    <div class="group" layout="grid" style="--columns: 7fr 5fr">
+                        <div class="group">
+                            <h3 class="title">Demo</h3>
+                            <h4 class="headline">Carousel: Slide #3</h4>
+                            <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore
+                                culpa id
+                                deserunt, nam incididunt efflorescere ea quem commodo cernantur est
+                                ubi an dolor
+                                deserunt, culpa admodum ut possumus non ubi iudicem graviterque. Qui
+                                iis amet
+                                minim fugiat, litteris legam te doctrina fidelissimae.</p>
+                            <sl-button size="large" href="#">Learn more</sl-button>
+                        </div>
+                        <sl-card class="sl-theme-dark" layout="justify">
+                            <!-- <div class="video-embed" slot="image"> -->
+                            <iframe slot="image" frameborder="0" height="315" width="560" src="//www.youtube.com/embed/ACi_dRUKE2Y"></iframe>
+                            <!-- </div> -->
+                            <h3 slot="header">Illum nostrud se anim</h3>
+                            <p>Tempor tamen quae nam nisi an quibusdam dolore nostrud, eu sed
+                                praetermissum.</p>
+                        </sl-card>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+        <div class="slider arrows">
+            <div class="slider-nav" data-slide-id="demo-carousel">
+                <div class="slider-nav-item" data-slide-to="1" data-direction="next" active>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div align="center">
+        <p><small>Source: Citation goes here.</small></p>
+    </div>
+    <footer class="slider circles">
+        <ul class="slider-nav" data-slide-id="demo-carousel">
+            <li class="slider-nav-item" data-slide-to="0" active>
+                <a class="slider-nav-link" title="View 1">1</a>
+            </li>
+            <li class="slider-nav-item" data-slide-to="1" active="false">
+                <a class="slider-nav-link" title="View 2">2</a>
+            </li>
+            <li class="slider-nav-item" data-slide-to="2">
+                <a class="slider-nav-link" title="View 3">3</a>
+            </li>
+        </ul>
+    </footer>
+{% endsection %}
+
+{% set settings = { color: "dark", layout: "grid", style: "--columns: 8fr 4fr" } %}
+{% section "card-demo" settings %}
+    <div class="group">
+        <header class="band-header">
+            <h3 class="title">Demo</h3>
+            <h4 class="headline">Card Slider</h4>
+        </header>
+        <div class="band-body" layout="grid" style="--columns: 8fr 4fr">
+            <div class="group">
+                <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa id
+                    deserunt, nam incididunt efflorescere ea quem commodo cernantur est ubi an
+                    dolor deserunt, culpa admodum ut possumus non ubi iudicem graviterque. Qui
+                    iis amet minim fugiat, litteris legam te doctrina fidelissimae.</p>
+                <sl-button size="large" href="#">Learn more</sl-button>
+            </div>
+        </div>
+    </div>
+    <sl-card class="card" layout="justify">
+        <div class="switcher">
+            <div class="switcher-body" data-slide-id="demo-card" data-height="variable">
+                <article class="switcher-slide" data-state="current" id="0" layout="stacked">
+                    <h2 class="headline">Slide #1</h2>
+                    <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                    <sl-button size="large" variant="text" href="">Call to action</sl-button>
+                </article>
+                <article class="switcher-slide" data-state="next" id="1" layout="stacked">
+                    <h2 class="headline">Slide #2</h2>
+                    <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                    <sl-button size="large" variant="text" href="">Call to action</sl-button>
+                </article>
+                <article class="switcher-slide" data-state="next" id="2" layout="stacked">
+                    <h2 class="headline">Slide #3</h2>
+                    <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute occaecat.</p>
+                    <sl-button size="large" variant="text" href="">Call to action</sl-button>
+                </article>
+            </div>
+        </div>
+        <footer slot="footer" class="slider circles">
+            <ul class="slider-nav" data-slide-id="demo-card">
+                <li class="slider-nav-item" data-slide-to="0" active>
+                    <a class="slider-nav-item-link" title="View 1"></a>
+                </li>
+                <li class="slider-nav-item" data-slide-to="1" active="false">
+                    <a class="slider-nav-item-link" title="View 2"></a>
+                </li>
+                <li class="slider-nav-item" data-slide-to="2">
+                    <a class="slider-nav-item-link" title="View 3"></a>
+                </li>
+            </ul>
+        </footer>
+    </sl-card>
+{% endsection %}
+
+{% set settings = { color: "gray" } %}
+{% section "text-demo" settings %}
+    <header class="slider text">
+        <ul class="slider-nav" data-slide-id="demo-text">
+            <li class="slider-nav-item" data-slide-to="slide1" active>
+                <a class="slider-nav-link" title="Content 1">Option 1</a>
+            </li>
+            <li class="slider-nav-item" data-slide-to="slide2" active="false">
+                <a class="slider-nav-link" title="Content 2">Option 2</a>
+            </li>
+            <li class="slider-nav-item" data-slide-to="slide3">
+                <a class="slider-nav-link" title="Content 3">Option 3</a>
+            </li>
+        </ul>
+    </header>
+    <div class="switcher">
+        <div class="switcher-body" data-slide-id="demo-text">
+            <article class="switcher-slide" data-state="current" id="slide1">
+                <div class="group" data-theme="gray">
+                    <h3 class="title">Demo</h3>
+                    <h4 class="headline">Text slider: Slide #1</h4>
+                    <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa id
+                        deserunt, nam incididunt efflorescere ea quem commodo cernantur est ubi an
+                        dolor deserunt, culpa admodum ut possumus non ubi iudicem graviterque. Qui
+                        iis amet minim fugiat, litteris legam te doctrina fidelissimae. Quo quem
+                        officia ex noster singulis e nostrud qui lorem si ubi dolore mandaremus sed
+                        arbitror ut culpa offendit et ab est consectetur ab cupidatat quorum ut
+                        consequat distinguantur nam quae ullamco ubi deserunt, iis esse sempiternum.
+                    </p>
+                    <sl-button size="large" href="#">Learn more</sl-button>
+                </div>
+            </article>
+            <article class="switcher-slide" data-state="next" id="slide2">
+                <div class="group" data-theme="gray">
+                    <h3 class="title">Demo</h3>
+                    <h4 class="headline">Text slider: Slide #2</h4>
+                    <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa id
+                        deserunt, nam incididunt efflorescere ea quem commodo cernantur est ubi an
+                        dolor deserunt, culpa admodum ut possumus non ubi iudicem graviterque. Qui
+                        iis amet minim fugiat, litteris legam te doctrina fidelissimae. Quo quem
+                        officia ex noster singulis e nostrud qui lorem si ubi dolore mandaremus sed
+                        arbitror ut culpa offendit et ab distinguantur nam quae ullamco ubi
+                        deserunt, iis esse sempiternum.</p>
+                    <sl-button size="large" href="#">Learn more</sl-button>
+                </div>
+            </article>
+            <article class="switcher-slide" data-state="next" id="slide3">
+                <div class="group" data-theme="gray">
+                    <h3 class="title">Demo</h3>
+                    <h4 class="headline">Text slider: Slide #3</h4>
+                    <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa id
+                        deserunt, nam incididunt efflorescere ea quem commodo cernantur est ubi an
+                        dolor deserunt, culpa admodum ut possumus non ubi iudicem graviterque. Qui
+                        iis amet minim fugiat, litteris legam te doctrina fidelissimae. Quo quem
+                        officia ex noster singulis e nostrud qui lorem si ubi dolore mandaremus sed
+                        arbitror ut culpa offendit et ab distinguantur nam quae ullamco ubi
+                        deserunt, iis esse sempiternum.</p>
+                    <sl-button size="large" href="#">Learn more</sl-button>
+                </div>
+            </article>
+
+        </div>
+    </div>
+{% endsection %}

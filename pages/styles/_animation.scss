@@ -1,0 +1,61 @@
+@keyframes growBand {
+  0% {
+    opacity: 1;
+    z-index: 1;
+    min-height: 0;
+  }
+
+  50% {
+    opacity: 0;
+    z-index: 1;
+    min-height: 550px;
+  }
+
+  100% {
+    opacity: 0;
+    z-index: -1;
+    min-height: 550px;
+  }
+}
+
+@keyframes shrinkBand {
+  0% {
+    opacity: 1;
+    z-index: 1;
+    max-height: 550px;
+  }
+
+  50% {
+    opacity: 0;
+    z-index: -1;
+    max-height: 550px;
+  }
+
+  100% {
+    opacity: 0;
+    z-index: -1;
+    max-height: 50px;
+  }
+}
+
+@keyframes opacity {
+  50% {
+    opacity: 0;
+    z-index: -1;
+  }
+
+  100% {
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
+}

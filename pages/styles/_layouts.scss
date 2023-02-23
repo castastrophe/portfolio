@@ -1,0 +1,111 @@
+.group:not([layout]),
+[layout~="grid"],
+[layout="overflow"],
+[layout*="stacked"] {
+    display: grid;
+    row-gap: var(--spacing--vertical);
+    column-gap: var(--spacing--horizontal);
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    @media (min-width: 768px) {
+        --spacing--vertical: calc(var(--sl-spacing-medium) * 1.6);
+        --spacing--horizontal: calc(var(--sl-spacing-medium) * 2.22);
+
+        grid-template-columns: var(--columns, 1fr);
+        grid-template-rows: var(--rows, auto);
+    }
+
+    @media (min-width: 992px) {
+        --spacing--vertical: calc(var(--sl-spacing-medium) * 2.2);
+        --spacing--horizontal: calc(var(--sl-spacing-medium) * 4.44);
+
+        body.cv & {
+            --spacing--horizontal: calc(var(--sl-spacing-medium) * 1.6);
+        }
+    }
+}
+
+[layout="auto-grid"] {
+    --min-grid-item: 300px;
+    overflow: clip;
+
+    @media (min-width: 768px) {
+        --columns: repeat(auto-fit, minmax(var(--min-grid-item), 1fr));
+    }
+
+    body:not(.cv) & {
+        --spacing--vertical: max(10px, 5vw);
+    }
+}
+
+[layout="min-stacked"] {
+    --spacing--vertical: .5em;
+    --spacing--horizontal: 1em;
+}
+
+[layout*="flex"] {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: var(--spacing--vertical, 1em);
+    column-gap: var(--spacing--horizontal, 2em);
+
+    &[layout*="right"] {
+        justify-content: flex-end;
+    }
+
+    &[layout*="left"] {
+        justify-content: flex-start;
+    }
+
+    &[layout*="center"] {
+        justify-content: center;
+    }
+
+    &[layout*="both"] {
+        align-items: center;
+        justify-content: center;
+    }
+
+    &[layout*="space-evenly"] {
+        justify-content: space-evenly;
+    }
+
+    &[layout*="space-between"] {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    [layout*="centered"] {
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+[layout="overflow"] {
+    --min-grid-item: 400px;
+    --spacing--vertical: 0;
+    --spacing--horizontal: 0;
+
+    body:not(.cv) & {
+        --spacing--vertical: 2em;
+        --spacing--horizontal: 2em;
+        --columns: repeat(auto-fit, minmax(var(--min-grid-item), 1fr));
+        --rows: 1fr;
+
+        overflow-x: scroll;
+        overflow-y: hidden;
+        max-width: 100vw;
+        padding-inline: 2em;
+
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-color: var(--accent-surface) transparent;
+        scrollbar-width: 2em;
+        padding-block-end: env(scrollbar-inline-size, 2em);
+    }
+
+    > * {
+        scroll-snap-align: start;
+    }
+}

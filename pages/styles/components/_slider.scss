@@ -1,0 +1,117 @@
+.slider {
+    &-nav {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+
+        .arrows & {
+            height: 100%;
+        }
+
+        &-item {
+            cursor: pointer;
+            list-style-type: none;
+            transition-property: background 0.2s ease-in 0s;
+
+            .text & {
+                padding: 5px 15px;
+
+                @media (min-width: 768px) {
+                    padding: 9px 40px;
+                }
+            }
+
+            .circles & {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                padding: 9px;
+                height: 1.6em;
+                width: 1.6em;
+
+                sl-card & {
+                    height: 1.2em;
+                    width: 1.2em;
+                }
+            }
+
+            .text &,
+            .circles & {
+                background: transparent;
+                border: 1px solid #252527;
+                margin-right: 30px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &[active],
+                &:not([active]):hover {
+                    background-color: #252527;
+                    border: 0;
+
+                    .sl-theme-dark & {
+                        background-color: white;
+                    }
+                }
+
+                .sl-theme-dark & {
+                    border-color: white;
+                }
+            }
+
+            .arrows &[active] {
+                border-radius: 5px;
+                color: #252527;
+
+                .sl-theme-dark & {
+                    border-color: white;
+                }
+
+                &[data-direction="prev"] {
+                    border-style: solid;
+                    border-width: 20px 20px 0;
+                    border-color: transparent;
+                    border-top-color: inherit;
+                    transform: rotate(90deg);
+                }
+
+                &[data-direction="next"] {
+                    border-style: solid;
+                    border-width: 20px 20px 0;
+                    border-color: transparent;
+                    border-top-color: inherit;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+
+        &-link {
+            transition-property: color 0.2s ease-in 0s;
+
+            .text &,
+            .circles & {
+                text-decoration: none;
+                text-transform: uppercase;
+                font-weight: 600;
+                text-align: center;
+                font-size: 0.9em;
+
+                @media (min-width: 768px) {
+                    font-size: 1em;
+                }
+            }
+
+            [active] &,
+            :not([active]) & {
+                color: white;
+
+                .sl-theme-dark & {
+                    color: #252527;
+                }
+            }
+        }
+    }
+}

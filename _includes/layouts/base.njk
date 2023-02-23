@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="local no-js" lang="{{ metadata.language }}">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+        <title>{{ title or metadata.title }}</title>
+        <meta name="description" content="{{ description or metadata.description }}">
+        <meta name="keywords" content="{{ keywords or metadata.keywords }}">
+        <meta name="author" content="{{ author.name or metadata.author.name }}">
+        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="Allons-y Consulting">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://allons-y.llc/">
+        <meta property="og:description" content="Allons-y Consulting, LLC is a small consulting shop that specializes in building scalable design systems in code.">
+        <meta property="og:site_name" content="Allons-y Consulting">
+
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}"/>
+		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}"/>
+        <link rel="alternate" href="/feed/feed.json" type="application/feed+json" title="{{ metadata.title }}"/>
+
+		<meta name="generator" content="{{ eleventy.generator }}">
+
+		{# https://github.com/11ty/eleventy-plugin-bundle #}
+		{%- css "themes" %}
+            {% include "node_modules/@shoelace-style/shoelace/dist/themes/light.css" %}
+            {# {% include "node_modules/@shoelace-style/shoelace/dist/themes/dark.css" %} #}
+        {% endcss -%}
+
+		{%- css %}{% renderFile "pages/styles/home.scss" %}{% endcss %}
+
+        {%- js %}
+            {% include "pages/js/home.js" %}
+        {% endjs %}
+
+		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
+		<style>{% getBundle "css" %}</style>
+
+        <link rel="stylesheet" href="{% getBundleFileUrl 'css', 'themes' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous"/>
+
+	    <!-- Deferred non-critical styles -->
+	    {# <link rel="stylesheet" href="{% getBundleFileUrl 'css', 'defer' %}" media="print" onload="this.media='all'"> #}
+	</head>
+	<body class="{{ rootClasses }}">
+		<a href="#skip" class="skip-to-content-link">Skip to main content</a>
+
+        {% set social %}{% include "social.njk" %}{% endset %}
+        {% section id="banner", padding="half", color="transparent", isSticky=true, layout="flex space-between", align="left" %}
+            <h2 class="brand">
+                <a href="{{ metadata.url }}">
+                    <span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span>
+                </a>
+            </h2>
+            {% if metadata.social %}{{ social | safe }}{% endif %}
+            <sl-switch size="large">CV</sl-switch>
+        {% endsection %}
+
+		<main id="skip">
+			{{ content | safe }}
+		</main>
+
+		<footer>
+            <script type="module" src="{% getBundleFileUrl 'js' %}"></script>
+            {# <script type="module" src="{% getBundleFileUrl 'js', 'components' %}"></script> #}
+
+            <script type="module" src="shoelace.js"></script>
+        </footer>
+		<!-- Current page: {{ page.url }} -->
+	</body>
+</html>

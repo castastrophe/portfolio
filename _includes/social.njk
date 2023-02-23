@@ -1,0 +1,13 @@
+<div class="social">
+    <span class="social-icons">
+    {%- for icon, socialURL in metadata.social %}
+        <a class="social-icon" rel="me" href="{{ socialURL }}">
+            {%- if icon | startsWith("fa") -%}
+                <span class="fab fa-{{ icon }}" aria-label="Social link to {{ icon }}"></span>
+            {%- else -%}
+                <sl-icon name="{{ icon }}" aria-label="Social link to {{ icon }}"></sl-icon>
+            {%- endif -%}
+        </a>
+    {%- endfor %}
+    </span>
+</div>

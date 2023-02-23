@@ -1,0 +1,147 @@
+.title,
+.brand {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+[class*="title"],
+[class*="headline"] {
+    margin-block-start: 0;
+    margin-block-end: 1em;
+
+    body.cv & {
+        font-size: 1.6rem;
+        font-weight: 100;
+        text-align: left !important;
+        border-bottom: 1px solid #ddd;
+        margin-block-start: 1px;
+        margin-block-end: 1em;
+
+        .featured &,
+        &.accent {
+            color: var(--accent--text);
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        body.cv & {
+            text-decoration: underline;
+        }
+
+        @each $state in (hover, focus) {
+            &:#{$state} {
+                color: var(--link--#{$state});
+            }
+        }
+
+        &:visited {
+            color: inherit;
+        }
+    }
+
+    @media print {
+        font-size: 1.6rem;
+        font-weight: 100;
+        text-align: left !important;
+        border-bottom: 1px solid #ddd;
+        margin-block-start: 1px;
+        margin-block-end: 1em;
+
+        .featured &,
+        &.accent {
+            color: var(--accent--text);
+        }
+    }
+}
+
+.brand {
+    font-size: 1.5em;
+
+    &:hover > span {
+        transition: transform 0.2s linear;
+        display: inline-block;
+
+        &:first-of-type {
+            transform: translateX(-5px);
+        }
+
+        &:last-of-type {
+            transform: translateX(5px);
+        }
+    }
+}
+
+.headline {
+    font-size: 1.7rem;
+    font-weight: 100;
+    line-height: 1.1;
+
+    @media (min-width: 992px) {
+        font-size: 2.16rem;
+    }
+
+    @media (min-width: 1200px) {
+        font-size: 2.3rem;
+    }
+}
+
+.summary {
+    font-size: 1.2em;
+    line-height: 1.38;
+    margin-block-start: 0;
+
+    body:not(.cv) & .extra {
+        font-size: 1.4em;
+    }
+
+    body.cv & b,
+    body.cv & strong {
+        font-weight: normal;
+    }
+}
+
+.promo {
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 100;
+    margin-top: 0;
+    line-height: 1.1;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        body.cv & {
+            text-decoration: underline;
+        }
+
+        @each $state in (hover, focus) {
+            &:#{$state} {
+                color: var(--link--#{$state});
+            }
+        }
+
+        &:visited {
+            color: inherit;
+        }
+    }
+
+    .featured & {
+        color: var(--accent--text);
+    }
+
+    &.accent {
+        color: var(--accent--text);
+    }
+
+    @media (min-width: 992px) {
+        font-size: 39px;
+    }
+
+    @media (min-width: 1200px) {
+        font-size: 42px;
+    }
+}
