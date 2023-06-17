@@ -50,29 +50,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   ]);
 
   const slSwitch = document.querySelector("sl-switch");
-  if (displayMode === "cv") {
-    slSwitch.setAttribute("checked", "");
-    document.body.classList.add("cv");
-  } else {
-    slSwitch.removeAttribute("checked");
-    document.body.classList.remove("cv");
+  if (slSwitch) {
+    if (displayMode === "cv") {
+      slSwitch.setAttribute("checked", "");
+      document.body.classList.add("cv");
+    } else {
+      slSwitch.removeAttribute("checked");
+      document.body.classList.remove("cv");
+    }
+
+    slSwitch.addEventListener("sl-change", () => {
+      // Toggle the CV class on the body
+      document.body.classList.toggle("cv");
+
+      // Apply the CV query string
+      if (document.body.classList.contains("cv")) updateQuery([{
+        key: "format",
+        value: "cv"
+      }]);
+      else updateQuery([{
+        key: "format",
+      }], false);
+
+      document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
+    });
   }
-
-  slSwitch.addEventListener("sl-change", () => {
-    // Toggle the CV class on the body
-    document.body.classList.toggle("cv");
-
-    // Apply the CV query string
-    if (document.body.classList.contains("cv")) updateQuery([{
-      key: "format",
-      value: "cv"
-    }]);
-    else updateQuery([{
-      key: "format",
-    }], false);
-
-    document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
-  });
 
   document.querySelectorAll("pfe-accordion").forEach((accordion, count) => {
     accordion.disclosure = "true";
@@ -135,8 +137,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 window.addEventListener("scroll", function () {
   const nav = document.querySelector("#nav");
-  if (nav) {
-    if (window.scrollY > 0) nav.setAttribute("color", "base");
-    else nav.setAttribute("color", "transparent");
-  }
+  if (!nav) return;
+
+  if (window.scrollY <= 10) nav.setAttribute("color", "transparent");
+  else nav.setAttribute("color", "base");
 });

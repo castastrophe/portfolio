@@ -1,13 +1,4 @@
 .image-embed {
-    &[data-type="profile"] {
-        width: 100%;
-        max-width: 300px;
-
-        @media (min-width: 768px) {
-            width: Clamp(300px, 20vw, 90vw);
-        }
-    }
-
     &-container {
         width: 100%;
         overflow: hidden;

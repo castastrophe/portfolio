@@ -8,6 +8,7 @@
     a {
         text-decoration: none;
         color: inherit;
+
         body.cv & {
             text-decoration: underline;
         }
@@ -127,58 +128,72 @@
 }
 
 @mixin resume-mode {
-  :root {
-    --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-    --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-  }
-
-  .header-title,
-  .header-headline {
-    font-size: 1.6em;
-    font-weight: 100;
-    text-transform: uppercase;
-    color: var(--pfe-theme--color--ui-accent);
-
-    text-align: left !important;
-    border-bottom: 1px solid #ddd;
-    margin-top: 1px;
-    margin-bottom: 10px;
-  }
-
-  #teaser,
-  .video-embed-iframe-container {
-    display: none;
-  }
-
-  #teaser {
-    z-index: 5;
-    background-color: rgba(0,0,0,.7);
-    --context: darker;
-
-    .group {
-      --spacing--vertical: 0;
+    :root {
+        --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+        --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
     }
 
-    .header {
-      display: grid;
-      grid-template-columns: 2.5em 1fr;
-      grid-gap: 1em;
+    #about {
+        img[data-type="profile"] {
+            max-width: 400px;
+            max-height: 90%;
+            bottom: -70px;
+            right: 5vw;
+            z-index: 0;
+
+            @media (min-width: 768px) {
+                width: 40vw;
+            }
+        }
     }
 
-    pfe-cta {
-      font-size: 1.3em;
+    .header-title,
+    .header-headline {
+        font-size: 1.6em;
+        font-weight: 100;
+        text-transform: uppercase;
+        color: var(--pfe-theme--color--ui-accent);
+
+        text-align: left !important;
+        border-bottom: 1px solid #ddd;
+        margin-top: 1px;
+        margin-bottom: 10px;
     }
-  }
 
-  pfe-accordion {
-    z-index: 1;
-  }
+    #teaser,
+    .video-embed-iframe-container {
+        display: none;
+    }
 
-  pfe-accordion-header,
-  pfe-accordion-panel {
-    --pfe-accordion--BorderColor--accent: transparent;
-    --pfe-accordion--BorderRightWidth: 0;
-    --pfe-accordion--accent: transparent;
-    --pfe-accordion--BoxShadow: none;
-  }
+    #teaser {
+        z-index: 5;
+        background-color: rgba(0, 0, 0, .7);
+        --context: darker;
+
+        .group {
+            --spacing--vertical: 0;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: 2.5em 1fr;
+            grid-gap: 1em;
+        }
+
+        pfe-cta {
+            font-size: 1.3em;
+        }
+    }
+
+    pfe-accordion {
+        z-index: 1;
+    }
+
+    pfe-accordion-header,
+    pfe-accordion-panel {
+        --pfe-accordion--BorderColor--accent: transparent;
+        --pfe-accordion--BorderRightWidth: 0;
+        --pfe-accordion--accent: transparent;
+        --pfe-accordion--BoxShadow: none;
+    }
 }

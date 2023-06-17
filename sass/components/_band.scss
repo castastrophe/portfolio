@@ -1,7 +1,6 @@
 pfe-band {
     --pfe-band--Padding--vertical: 4em;
     --pfe-band--Padding--horizontal: .4em;
-    transition: background-color 0.3s ease-in;
     scroll-margin: 10px;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
@@ -22,6 +21,7 @@ pfe-band {
 
     &[data-padding="double"] {
         padding: 15vh var(--pfe-band--Padding--horizontal) 2em;
+
         @media screen and (min-width: 992px) {
             --pfe-band--Padding--vertical: 25vh;
         }
@@ -36,6 +36,11 @@ pfe-band {
         --pfe-band--context: var(--context);
     }
 
+    &[color="light"] {
+        --pfe-band--BackgroundColor: white;
+        --pfe-band--context: var(--context);
+    }
+
     &[sticky] {
         width: 100%;
         position: fixed;
@@ -43,7 +48,7 @@ pfe-band {
         z-index: 2;
 
         body.cv & {
-          z-index: 99;
+            z-index: 99;
         }
     }
 
