@@ -6,12 +6,13 @@
 
 .masthead {
     font-size: 1.5em;
-  }
+    margin-bottom: 0;
+}
 
-  .social-title {
-      font-size: 1.2em;
-      font-weight: 100;
-  }
+.social-title {
+    font-size: 1.2em;
+    font-weight: 100;
+}
 
 .header-headline {
     @extend %text-alignment;
