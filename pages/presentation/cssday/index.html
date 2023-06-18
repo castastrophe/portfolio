@@ -28,56 +28,53 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
         integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
     <style>
-        @media (prefers-reduced-motion: no-preference) {
-            .main-wrap {
-                background-image: var(--rainbow-gradient);
-                background-size: 100% 1100%;
-                animation: rotate 40s linear infinite alternate;
-            }
+        body {
+            background-image: none !important;
+        }
+
+        .main {
+            min-height: 100vh;
         }
     </style>
 </head>
 
 <body unresolved class="page-wrapper">
-    <div class="main">
-        <div class="main-wrap">
+    <div class="main" data-layout="stacked" style="--spacing--vertical: 0">
+        <pfe-band data-padding="half" color="light" id="nav">
+            <div class="band-container" data-layout="flex center">
+                <h2 class="masthead"><a href="/"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></a></h2>
+            </div>
+        </pfe-band>
+        <article id="body" data-layout="expand">
+            <div id="stageArea">
+                <div id="stage" class="stage"></div>
+                <div id="hyperlinkPlane" class="stage"></div>
+            </div>
+            <div id="slideshowNavigator"></div>
+            <div id="slideNumberControl"></div>
+            <div id="slideNumberDisplay"></div>
+            <div id="helpPlacard"></div>
+            <div id="waitingIndicator">
+                <div id="waitingSpinner"></div>
+            </div>
+        </article>
 
-            <pfe-band data-padding="half" color="light" id="nav" sticky>
-                <div class="band-container" data-layout="flex center">
-                    <h2 class="masthead"><a href="/"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></a></h2>
+        <pfe-band data-padding="half" color="light" id="footer">
+            <div class="band-container" data-layout="flex center">
+                <div class="social">
+                    <span class="social-icons">
+                        <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
+                                class="fab fa-mastodon"></span></a>
+                        <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
+                                class="fab fa-linkedin-in"></span></a>
+                        <a class="social-icon" href="https://github.com/castastrophe"><span
+                                class="fab fa-github-alt"></span></a>
+                        <a class="social-icon" href="https://codepen.io/castastrophee/"><span
+                                class="fab fa-codepen"></span></a>
+                    </span>
                 </div>
-            </pfe-band>
-            <article id="body" bgcolor="black">
-                <div id="stageArea">
-                    <div id="stage" class="stage"></div>
-                    <div id="hyperlinkPlane" class="stage"></div>
-                </div>
-                <div id="slideshowNavigator"></div>
-                <div id="slideNumberControl"></div>
-                <div id="slideNumberDisplay"></div>
-                <div id="helpPlacard"></div>
-                <div id="waitingIndicator">
-                    <div id="waitingSpinner"></div>
-                </div>
-            </article>
-
-            <pfe-band data-padding="half" color="light" id="footer" sticky style="bottom: 0;">
-                <div class="band-container" data-layout="flex center">
-                    <div class="social">
-                        <span class="social-icons">
-                            <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
-                                    class="fab fa-mastodon"></span></a>
-                            <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
-                                    class="fab fa-linkedin-in"></span></a>
-                            <a class="social-icon" href="https://github.com/castastrophe"><span
-                                    class="fab fa-github-alt"></span></a>
-                            <a class="social-icon" href="https://codepen.io/castastrophee/"><span
-                                    class="fab fa-codepen"></span></a>
-                        </span>
-                    </div>
-                </div>
-            </pfe-band>
-        </div>
+            </div>
+        </pfe-band>
     </div>
 
     <footer>

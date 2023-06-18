@@ -13,14 +13,14 @@
             text-decoration: underline;
         }
 
+        &:visited {
+            color: inherit;
+        }
+
         @each $state in (hover, focus) {
             &:#{$state} {
                 color: var(--pfe-broadcasted--link--#{$state});
             }
-        }
-
-        &:visited {
-            color: inherit;
         }
     }
 }

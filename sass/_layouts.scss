@@ -121,9 +121,13 @@
     flex-flow: column nowrap;
     row-gap: var(--spacing--vertical, 1em);
     column-gap: var(--spacing--horizontal, 2em);
+
+    >[data-layout*="expand"] {
+        flex-grow: 1;
+    }
 }
 
-[data-layout="min-stacked"] {
+[data-layout*="min-stacked"] {
     --spacing--vertical: .5em;
     --spacing--horizontal: 1em;
 }
@@ -177,6 +181,10 @@
     [data-layout*="centered"] {
         align-items: center;
         justify-content: space-between;
+    }
+
+    >[data-layout*="expand"] {
+        flex-grow: 1;
     }
 }
 

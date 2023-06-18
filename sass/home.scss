@@ -313,6 +313,8 @@ p {
 }
 
 .social {
+  @extend %headline-link;
+
   @media screen and (min-width: 1630px) and (max-width: 1819px) {
     display: flex;
     flex-flow: column nowrap;
@@ -325,21 +327,14 @@ p {
   }
 
   &-icon {
-    margin: 0 5px;
+    margin: 0 1em;
+
 
     &:last-child {
       margin-right: 0;
     }
 
-    >* {
-      text-decoration: none;
-      font-size: 22px;
-    }
-
-    >[name]:not([href]) {
-      color: inherit;
-    }
-
+    &:visited,
     > :visited {
       text-decoration: line-through;
     }

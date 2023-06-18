@@ -44,8 +44,15 @@ pfe-band {
     &[sticky] {
         width: 100%;
         position: fixed;
-        top: 0;
         z-index: 2;
+
+        &:not(#footer) {
+            top: 0;
+        }
+
+        &#footer {
+            bottom: 0;
+        }
 
         body.cv & {
             z-index: 99;
