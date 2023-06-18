@@ -128,8 +128,8 @@
             <!-- Featured video -->
             <pfe-band id="teaser" color="transparent" data-padding="half">
                 <div class="band-container" data-layout="stacked">
-                    <div class="group" data-layout="flex right" style="flex-flow: row nowrap; --spacing--horizontal: 1em">
-                        <div style="display:block; width: 100%;"></div>
+                    <div class="group" data-layout="flex space-between" style="flex-flow: row nowrap; --spacing--horizontal: 1em">
+                        <img src="/img/2023_cssday_speaking.png"/>
                         <svg xmlns="http://www.w3.org/2000/svg" width="614" height="383" viewBox="0 0 614 383" style="height: 4em; width: auto; align-self: start; padding-top: .5em;">
                             <g>
                                 <rect x="0" y="0" width="184" height="46" rx="7" ry="7"/>
@@ -883,64 +883,36 @@
             </pfe-band>
 
             <!-- Code -->
-            <pfe-band data-width="full" id="coding" color="transparent">
-                <div class="header" data-text-align="center" slot="pfe-band--header">
-                    <h2 class="header-title">Coding projects</h2>
-                </div>
-                <div class="group" data-layout="auto-grid">
-                    <pfe-card tilt-on="hover">
-                        <h3 class="card-header-title">Single page app</h3>
+            <pfe-band id="coding" color="transparent">
+                <div class="group" data-layout="flex space-evenly">
+                    <pfe-card class="bordered">
+                        <h3 class="card-header-title">Plugins</h3>
                         <h4 class="card-header-headline accent"><a
-                                href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
-                                title="Click to view project">Red Hat on GitHub</a></h4>
+                                href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                                title="Click to view project listing">PostCSS Plugins</a></h4>
                         <div class="card-body">
                             <div class="content">
-                                <p>This is the official GitHub page for Red Hat open source projects on GitHub. I
-                                    served as the lead developer in the construction of this page in conjunction
-                                    with a team of designers and developers at Red Hat. I continue to serve as the
-                                    community liason for this and several other open source projects by Red Hat. You can
-                                    preview this page <a href="https://redhatofficial.github.io/#!/main">here</a>.</p>
+                                <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in diverse framework ecosystems.</p>
                             </div>
                         </div>
                         <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link" href="https://github.com/RedHatOfficial/RedHatOfficial.github.io"
-                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                            <a class="cta-link" href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                                title="Click to view projects" data-cta-type="secondary">View the respositories</a>
                         </pfe-cta>
                     </pfe-card>
-                    <pfe-card tilt-on="hover">
-                        <h3 class="card-header-title">Preview tool</h3>
+                    <pfe-card class="bordered">
+                        <h3 class="card-header-title">Automation</h3>
                         <h4 class="card-header-headline accent"><a
-                                href="https://github.com/PatternBuilder/pattern-kit"
-                                title="Click to view project">PatternKit</a></h4>
+                                href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                                title="Click to view projects">GitHub Actions</a></h4>
                         <div class="card-body">
                             <div class="content">
-                                <p>PatternKit is a preview tool for our internal design system. It utilizes Twig,
-                                    Sass, JavaScript and JSON schemas to create a suite of components. The tool
-                                    let's you preview the component and edit the test data in the schema for a live
-                                    preview.</p>
+                                <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable tool for automatically updating open pull requests.</p>
                             </div>
                         </div>
                         <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link" href="https://github.com/PatternBuilder/pattern-kit"
-                                title="Click to view project" data-cta-type="secondary">View the source code</a>
-                        </pfe-cta>
-                    </pfe-card>
-                    <pfe-card tilt-on="hover">
-                        <h3 class="card-header-title">Build tool</h3>
-                        <h4 class="card-header-headline accent"><a
-                                href="https://github.com/castastrophe/gulp-custom-include"
-                                title="Click to view project">gulp-custom-include</a></h4>
-                        <div class="card-body">
-                            <div class="content">
-                                <p>I wrote this plugin because the existing include plugins for Gulp didn't have
-                                    quite the flexibility I wanted in the formatting of the include statements.
-                                    Especially helpful if you have an existing library that already has it's own
-                                    include syntax.</p>
-                            </div>
-                        </div>
-                        <pfe-cta slot="pfe-card--footer">
-                            <a class="cta-link" href="https://github.com/castastrophe/gulp-custom-include"
-                                title="Click to view project" data-cta-type="secondary">View the source code</a>
+                            <a class="cta-link" href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                                title="Click to view projects" data-cta-type="secondary">View the repositories</a>
                         </pfe-cta>
                     </pfe-card>
                 </div>
@@ -1050,16 +1022,19 @@
 
             <!-- Contact -->
             <pfe-band id="contact" color="transparent">
-                <div class="band-container" data-layout="stacked">
-                    <div class="header" data-text-align="center">
-                        <h3 class="header-title extra">Contact</h3>
-                        <p class="header-summary">I'm always happy to chat about web development, design,
-                or anything else.</p>
+                <div class="band-container" data-layout="flex space-evenly" style="--spacing--horizontal: 2em; flex-wrap: nowrap;">
+                    <img src="/img/90s-sitcom.png" data-type="rounded"/>
+                    <div data-layout="stacked">
+                        <div class="header">
+                            <h3 class="header-title extra">Contact</h3>
+                            <p class="header-summary">I'm always happy to chat about web development, design, 90s pop culture references,
+                    or anything else.</p>
+                        </div>
+                        <pfe-cta class="featured">
+                            <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
+                                front-end.social</a>
+                        </pfe-cta>
                     </div>
-                    <pfe-cta class="featured">
-                        <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media">Say hello on
-                            front-end.social</a>
-                    </pfe-cta>
                 </div>
             </pfe-band>
         </div>

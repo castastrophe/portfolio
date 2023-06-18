@@ -1,4 +1,9 @@
 pfe-card {
+    body.cv & {
+        --pfe-theme--color--ui-accent: #444;
+        --pfe-broadcasted--text: #444;
+    }
+
     --pfe-card--Padding: Clamp(1em, .2vw, 3em);
     font-size: Clamp(1em, 1vw, 1.3em);
     width: Clamp(300px, 100%, 80ch);
@@ -8,15 +13,32 @@ pfe-card {
     }
 
     &.featured {
-        body.cv & {
-            --pfe-card--BackgroundColor: #fff;
-            --pfe-card--context: light;
-            --pfe-card--BorderWidth: 4px;
-            --pfe-card--BorderColor: var(--pfe-theme--color--ui-accent);
+        --pfe-card--BackgroundColor: #fff;
+        --pfe-card--context: light;
+        --pfe-card--BorderWidth: 4px;
+        --pfe-card--BorderColor: var(--pfe-theme--color--ui-accent);
 
-            .card-header-headline {
-                color: var(--pfe-theme--color--ui-accent);
-            }
+        .card-header-headline {
+            color: var(--pfe-theme--color--ui-accent);
+        }
+
+        body.cv & {
+            --pfe-card--BorderWidth: 1px;
+        }
+    }
+
+    &.bordered {
+        --pfe-card--BackgroundColor: #fff;
+        --pfe-card--context: light;
+        --pfe-card--BorderWidth: 4px;
+        --pfe-card--BorderColor: #444;
+
+        body.cv & {
+            --pfe-card--BorderWidth: 1px;
+        }
+
+        .card-header-headline {
+            color: var(--pfe-theme--color--ui-accent);
         }
     }
 
@@ -49,6 +71,7 @@ pfe-card {
 
 
 .card-header {
+
     &-title,
     &-headline {
         [data-text-align="left"] & {

@@ -284,26 +284,63 @@ p {
     font-size: 2.2em;
   }
 
-  article {
+  body:not(.cv) & article {
     border-top: 2px solid var(--pfe-theme--color--ui-accent);
     margin-top: 3em;
     padding-top: 3em;
   }
 }
 
+#teaser {
+  body:not(.cv) & .group {
+    border-bottom: 2px solid #444;
+
+    @media screen and (max-width: 991px) {
+      border-bottom: none;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    padding-block: 3em;
+    padding-inline: 2em;
+  }
+
+  img {
+    max-height: 18em;
+    margin-bottom: 0;
+    opacity: 0.8;
+
+    @media screen and (max-width: 991px) {
+      display: none;
+    }
+  }
+
+  svg {
+    display: none;
+  }
+}
+
 #coding {
-  .card-header-headline {
-    font-size: 1.3em;
+  body:not(.cv) & {
+    margin-top: -2em;
+  }
+
+  @media screen and (max-width: 991px) {
+    padding-block: 3em;
+    padding-inline: 2em;
   }
 
   pfe-card {
-    body:not(.cv) & {
-      z-index: 3;
+    width: 40ch;
+    max-width: 60ch;
+    border-radius: unset;
+
+    @media screen and (max-width: 991px) {
+      flex-grow: 1;
     }
 
-    body.cv & {
-      --pfe-card--Padding: 0;
-      --pfe-card--BorderColor: transparent;
+    body:not(.cv) & {
+      z-index: 3;
     }
   }
 
@@ -341,6 +378,10 @@ p {
   }
 }
 
+#resume {
+  display: none;
+}
+
 #presentations {
   overflow: hidden;
   padding-bottom: 0;
@@ -359,6 +400,16 @@ p {
 
   .featured {
     font-size: 1em;
+  }
+
+  img[data-type="rounded"] {
+    max-width: 400px;
+    border-radius: 1em;
+    transform: rotate(-5deg);
+
+    @media screen and (max-width: 991px) {
+      max-width: 200px;
+    }
   }
 
   >* {
