@@ -42,10 +42,8 @@
     <div class="main">
         <div class="main-wrap">
             <pfe-band data-padding="half" color="transparent" id="nav" sticky>
-                <div class="band-container" data-layout="flex space-between" data-align="left">
-                    <div>
-                        <h2 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h2>
-                    </div>
+                <div class="band-container" data-layout="flex">
+                    <h2 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h2>
                     <div class="social">
                         <span class="social-icons">
                             <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
@@ -66,18 +64,20 @@
 
             <!-- About me -->
             <pfe-band id="about" color="transparent" data-padding="double">
-                <div class="band-container">
-                    <img src="/img/profile.png" data-type="profile"/>
-                    <blockquote id="quote">
-                        <p class="quote-quotation">You're not going to learn code by passively watching someone
-                            else write it. You have to get into it, get really tangled up in it, and ask how you
-                            could make it better.</p>
-                        <p class="quote-attribution">Collaborative Problem Solver<br>
-                            <span>
-                                <a href="https://www.meredith.edu/goingstrong/cas-roberts">Meredith Magazine</a>
-                            </span>
-                        </p>
-                    </blockquote>
+                <div class="band-container" data-layout="flex">
+                    <div class="group">
+                        <img src="/img/profile.png"/>
+                        <blockquote>
+                            <p class="summary">You're not going to learn code by passively watching someone
+                                else write it. You have to get into it, get really tangled up in it, and ask how you
+                                could make it better.</p>
+                            <p class="quote-attribution">Collaborative Problem Solver<br>
+                                <span>
+                                    <a href="https://www.meredith.edu/goingstrong/cas-roberts">Meredith Magazine</a>
+                                </span>
+                            </p>
+                        </blockquote>
+                    </div>
                 </div>
             </pfe-band>
 
@@ -131,61 +131,56 @@
 
             <!-- Featured video -->
             <pfe-band id="teaser" color="transparent" data-padding="half">
-                <div class="band-container" data-layout="stacked">
-                    <div class="group" data-layout="flex space-between" style="flex-flow: row nowrap; --spacing--horizontal: 1em">
-                        <img src="/img/2023_cssday_speaking.png"/>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="614" height="383" viewBox="0 0 614 383" style="height: 4em; width: auto; align-self: start; padding-top: .5em;">
-                            <g>
-                                <rect x="0" y="0" width="184" height="46" rx="7" ry="7"/>
-                                <rect x="0" y="55" width="46" height="122" rx="7" ry="7"/>
-                                <rect x="57" y="131" width="127" height="46" rx="7" ry="7"/>
-                            </g>
-                            <g>
-                                <rect x="215" y="0" width="46" height="110" rx="7" ry="7"/>
-                                <rect x="271" y="0" width="128" height="46" rx="7" ry="7"/>
-                                <rect x="275" y="65" width="64" height="46" rx="7" ry="7"/>
-                                <rect x="353" y="65" width="46" height="112" rx="7" ry="7"/>
-                                <rect x="215" y="131" width="128" height="46" rx="7" ry="7"/>
-                            </g>
-                            <g>
-                                <rect x="430" y="0" width="46" height="110" rx="7" ry="7"/>
-                                <rect x="486" y="0" width="128" height="46" rx="7" ry="7"/>
-                                <rect x="490" y="65" width="64" height="46" rx="7" ry="7"/>
-                                <rect x="568" y="65" width="46" height="112" rx="7" ry="7"/>
-                                <rect x="430" y="131" width="128" height="46" rx="7" ry="7"/>
-                            </g>
-                            <g>
-                                <rect x="0" y="206" width="127" height="46" rx="7" ry="7"/>
-                                <rect x="138" y="206" width="46" height="122" rx="7" ry="7"/>
-                                <rect x="0" y="261" width="46" height="122" rx="7" ry="7"/>
-                                <rect x="57" y="337" width="127" height="46" rx="7" ry="7"/>
-                            </g>
-                            <g>
-                                <rect x="215" y="206" width="128" height="46" rx="7" ry="7"/>
-                                <rect x="353" y="206" width="46" height="177" rx="7" ry="7"/>
-                                <rect x="215" y="261" width="46" height="122" rx="7" ry="7"/>
-                                <rect x="278" y="280" width="64" height="46" rx="7" ry="7"/>
-                            </g>
-                            <g>
-                                <rect x="430" y="206" width="46" height="110" rx="7" ry="7"/>
-                                <rect x="568" y="206" width="46" height="177" rx="7" ry="7"/>
-                                <rect x="494" y="270" width="64" height="46" rx="7" ry="7"/>
-                                <rect x="451" y="337" width="107" height="46" rx="7" ry="7"/>
-                            </g>
-                        </svg>
-                        <div class="header">
-                            <div>
-                                <h3 class="promo-headline"><a
-                                        href="https://www.youtube.com/watch?v=67bSCEEdaH8">Shining Light on the Shadow DOM</a>
-                                </h3>
-                                <p class="header-summary">CSS Day | 2023</p>
-                            </div>
-                            <span></span>
-                            <pfe-cta data-cta-type="video-play">
-                                <a class="cta-link" data-popup="youtube"
-                                    href="/presentation/cssday/">Slide deck</a>
-                            </pfe-cta>
-                        </div>
+                <div class="band-container" data-layout="flex">
+                    <img src="/img/2023_cssday_speaking.png"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="614" height="383" viewBox="0 0 614 383">
+                        <g>
+                            <rect x="0" y="0" width="184" height="46" rx="7" ry="7"/>
+                            <rect x="0" y="55" width="46" height="122" rx="7" ry="7"/>
+                            <rect x="57" y="131" width="127" height="46" rx="7" ry="7"/>
+                        </g>
+                        <g>
+                            <rect x="215" y="0" width="46" height="110" rx="7" ry="7"/>
+                            <rect x="271" y="0" width="128" height="46" rx="7" ry="7"/>
+                            <rect x="275" y="65" width="64" height="46" rx="7" ry="7"/>
+                            <rect x="353" y="65" width="46" height="112" rx="7" ry="7"/>
+                            <rect x="215" y="131" width="128" height="46" rx="7" ry="7"/>
+                        </g>
+                        <g>
+                            <rect x="430" y="0" width="46" height="110" rx="7" ry="7"/>
+                            <rect x="486" y="0" width="128" height="46" rx="7" ry="7"/>
+                            <rect x="490" y="65" width="64" height="46" rx="7" ry="7"/>
+                            <rect x="568" y="65" width="46" height="112" rx="7" ry="7"/>
+                            <rect x="430" y="131" width="128" height="46" rx="7" ry="7"/>
+                        </g>
+                        <g>
+                            <rect x="0" y="206" width="127" height="46" rx="7" ry="7"/>
+                            <rect x="138" y="206" width="46" height="122" rx="7" ry="7"/>
+                            <rect x="0" y="261" width="46" height="122" rx="7" ry="7"/>
+                            <rect x="57" y="337" width="127" height="46" rx="7" ry="7"/>
+                        </g>
+                        <g>
+                            <rect x="215" y="206" width="128" height="46" rx="7" ry="7"/>
+                            <rect x="353" y="206" width="46" height="177" rx="7" ry="7"/>
+                            <rect x="215" y="261" width="46" height="122" rx="7" ry="7"/>
+                            <rect x="278" y="280" width="64" height="46" rx="7" ry="7"/>
+                        </g>
+                        <g>
+                            <rect x="430" y="206" width="46" height="110" rx="7" ry="7"/>
+                            <rect x="568" y="206" width="46" height="177" rx="7" ry="7"/>
+                            <rect x="494" y="270" width="64" height="46" rx="7" ry="7"/>
+                            <rect x="451" y="337" width="107" height="46" rx="7" ry="7"/>
+                        </g>
+                    </svg>
+                    <div class="group">
+                        <h3 class="promo headline"><a
+                                href="https://www.youtube.com/watch?v=67bSCEEdaH8">Shining Light on the Shadow DOM</a>
+                        </h3>
+                        <p>CSS Day | Amsterdam | 2023</p>
+                        <pfe-cta data-cta-type="video-play">
+                            <a class="cta-link" data-popup="youtube"
+                                href="/presentation/cssday/">Slide deck</a>
+                        </pfe-cta>
                     </div>
                 </div>
             </pfe-band>
@@ -888,7 +883,7 @@
 
             <!-- Code -->
             <pfe-band id="coding" color="transparent">
-                <div class="group" data-layout="flex space-evenly">
+                <div class="group" data-layout="flex">
                     <pfe-card class="bordered">
                         <h3 class="card-header-title">Plugins</h3>
                         <h4 class="card-header-headline accent"><a
@@ -924,7 +919,7 @@
 
             <!-- Recorded talks -->
             <pfe-band data-width="full" id="presentations">
-                <div class="header" data-text-align="center" slot="pfe-band--header">
+                <div class="header"slot="pfe-band--header">
                     <h2 class="header-title">Presentations</h2>
                 </div>
                 <div class="body" data-layout="overflow">
@@ -1026,8 +1021,8 @@
 
             <!-- Contact -->
             <pfe-band id="contact" color="transparent">
-                <div class="band-container" data-layout="flex space-evenly" style="--spacing--horizontal: 2em; flex-wrap: nowrap;">
-                    <img src="/img/90s-sitcom.png" data-type="rounded"/>
+                <div class="band-container" data-layout="flex">
+                    <img src="/img/90s-sitcom.png" class="rounded"/>
                     <div data-layout="stacked">
                         <div class="header">
                             <h3 class="header-title extra">Contact</h3>

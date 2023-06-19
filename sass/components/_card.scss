@@ -8,10 +8,6 @@ pfe-card {
     font-size: Clamp(1em, 1vw, 1.3em);
     width: Clamp(300px, 100%, 80ch);
 
-    body:not(.cv) & {
-        border-radius: 1em;
-    }
-
     &.featured {
         --pfe-card--BackgroundColor: #fff;
         --pfe-card--context: light;
@@ -88,13 +84,12 @@ pfe-card {
     }
 
     &-title {
-        @extend %headline-link;
         font-family: var(--pfe-theme--font-family--heading);
         font-size: 14px;
-        margin-bottom: 10px;
+        margin-block-end: 10px;
         text-transform: uppercase;
         font-weight: 800;
-        margin-top: 0;
+        margin-block-start: 0;
         line-height: 1.4;
 
         .featured & {
@@ -108,20 +103,47 @@ pfe-card {
         body.cv & {
             font-weight: 400;
         }
+
+        a &,
+        a {
+            --link-decoration: none;
+            --link-color: inherit;
+
+            body.cv & {
+                --link-decoration: underline;
+            }
+
+            &:visited {
+                --link-color: inherit;
+            }
+        }
     }
 
     &-headline {
-        @extend %headline-link;
         font-family: var(--pfe-theme--font-family--heading);
         font-size: 22px;
         font-weight: 800;
-        margin-top: 0;
-        margin-bottom: 20px;
+        margin-block-start: 0;
+        margin-block-end: 20px;
         line-height: 1.18;
 
         body:not(.cv) & {
             &.accent {
                 color: var(--headline--accent);
+            }
+        }
+
+        a &,
+        a {
+            --link-decoration: none;
+            --link-color: inherit;
+
+            body.cv & {
+                --link-decoration: underline;
+            }
+
+            &:visited {
+                --link-color: inherit;
             }
         }
     }

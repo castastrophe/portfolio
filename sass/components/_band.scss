@@ -1,6 +1,9 @@
 pfe-band {
     --pfe-band--Padding--vertical: 4em;
     --pfe-band--Padding--horizontal: .4em;
+
+    position: relative;
+
     scroll-margin: 10px;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
@@ -20,7 +23,7 @@ pfe-band {
     }
 
     &[data-padding="double"] {
-        padding: 15vh var(--pfe-band--Padding--horizontal) 2em;
+        --pfe-band--Padding--vertical: 15vh 2em;
 
         @media screen and (min-width: 992px) {
             --pfe-band--Padding--vertical: 25vh;
@@ -66,20 +69,39 @@ pfe-band {
 }
 
 .band-header-title {
-    @extend %text-alignment;
-    @extend %title;
-}
+    --headline-transform: uppercase;
+    --headline-size: 1.2em;
+    --headline-weight: 800;
+    --headline-line-height: 1.4;
 
-.band-header-headline {
-    @extend %text-alignment;
-    @extend %headline;
+    text-align: var(--text-align, left);
+
+    [data-text-align="right"] &,
+    &[data-text-align="right"] {
+        --text-align: right;
+    }
+
+    [data-text-align="center"] &,
+    &[data-text-align="center"] {
+        --text-align: center;
+    }
 }
 
 .band-header-summary {
-    @extend %text-alignment;
-    @extend %summary;
+    --text-size: 1.2em;
+    text-align: var(--text-align, left);
+
+    [data-text-align="right"] &,
+    &[data-text-align="right"] {
+        --text-align: right;
+    }
+
+    [data-text-align="center"] &,
+    &[data-text-align="center"] {
+        --text-align: center;
+    }
 
     body:not(.cv) & .extra {
-        font-size: 1.4em;
+        --text-size: 1.4em;
     }
 }

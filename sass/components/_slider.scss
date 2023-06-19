@@ -1,6 +1,8 @@
 .slider {
     &[data-align="bleed"] {
-        @extend %counter-margin;
+        margin-block-start: -30px;
+        margin-inline-start: -30px;
+        margin-inline-end: -30px;
         width: auto;
     }
 
@@ -46,10 +48,10 @@
             [data-nav-style="circles"] & {
                 background: transparent;
                 border: 1px solid #252527;
-                margin-right: 30px;
+                margin-inline-end: 30px;
 
                 &:last-child {
-                    margin-right: 0;
+                    margin-inline-end: 0;
                 }
 
                 &[data-active="true"],

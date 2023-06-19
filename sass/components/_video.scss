@@ -2,7 +2,9 @@
     position: relative;
 
     &-title {
-        @extend %headline-3;
+        --headline-size: 1.2em;
+        --headline-weight: 800;
+        --headline-line-height: 1.2;
     }
 
     &-summary {
@@ -13,7 +15,7 @@
         margin: 0;
 
         &:not(:last-child) {
-            margin-bottom: 1em;
+            margin-block-end: 1em;
         }
 
         &-link {
@@ -73,10 +75,12 @@
     }
 
     &-media-container {
-        margin-bottom: 1em;
+        margin-block-end: 1em;
 
         pfe-card & {
-            @extend %counter-margin;
+            margin-block-start: -30px;
+            margin-inline-start: -30px;
+            margin-inline-end: -30px;
         }
     }
 
@@ -100,7 +104,7 @@
         }
 
         +h3 {
-            margin-top: 20px;
+            margin-block-start: 20px;
         }
     }
 }
