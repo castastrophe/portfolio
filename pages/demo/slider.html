@@ -61,8 +61,8 @@
     <div class="main" data-menu-state="closed">
         <div class="main-wrap">
             <section class="band" data-band-background="white">
-                <div class="band-container" data-layout="stacked">
-                    <div class="group" data-layout="2 8 2 nobreak">
+                <div class="band-container" layout="stacked">
+                    <div class="group" layout="2 8 2 nobreak">
                         <div class="slider" data-nav-style="arrows">
                             <div class="slider-nav" data-slide-id="demo-carousel">
                                 <div class="slider-nav-item" data-slide-to="0" data-direction="prev"
@@ -72,68 +72,44 @@
                         <div class="switcher">
                             <div class="switcher-body" data-slide-id="demo-carousel" data-height="variable">
                                 <article class="switcher-slide" data-state="current" id="0">
-                                    <div class="group" data-layout="stacked">
+                                    <div class="group" layout="stacked">
                                         <header class="band-header" data-theme="white">
                                             <h3 class="band-header-title">Demo</h3>
                                             <h4 class="band-header-headline">Carousel: Slide #1</h4>
                                         </header>
-                                        <div class="group" data-layout="4 4 4">
-                                            <div class="card" data-theme="dark">
-                                                <header class="card-header">
-                                                    <h2 class="card-header-headline">This is a Header</h2>
-                                                </header>
-                                                <div class="card-body">
-                                                    <div class="content">
-                                                        <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
-                                                            occaecat.</p>
-                                                    </div>
+                                        <div class="group" layout="auto-grid">
+                                            <sl-card class="sl-theme-dark">
+                                                <h2 class="headline" slot="header">This is a Header</h2>
+                                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
+                                                    occaecat.</p>
+                                                <div class="cta" slot="footer">
+                                                    <a class="cta-link" data-cta-type="secondary" href="">Call to
+                                                        action</a>
                                                 </div>
-                                                <footer class="card-footer">
-                                                    <div class="cta">
-                                                        <a class="cta-link" data-cta-type="secondary" href="">Call to
-                                                            action</a>
-                                                    </div>
-                                                </footer>
-                                            </div>
-                                            <div class="card" data-theme="dark">
-                                                <header class="card-header">
-                                                    <h2 class="card-header-headline">This is a Header</h2>
-                                                </header>
-                                                <div class="card-body">
-                                                    <div class="content">
-                                                        <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
-                                                            occaecat.</p>
-                                                    </div>
+                                            </sl-card>
+                                            <sl-card class="sl-theme-dark">
+                                                <h2 class="headline" slot="header">This is a Header</h2>
+                                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
+                                                    occaecat.</p>
+                                                <div class="cta" slot="footer">
+                                                    <a class="cta-link" data-cta-type="secondary" href="">Call to
+                                                        action</a>
                                                 </div>
-                                                <footer class="card-footer">
-                                                    <div class="cta">
-                                                        <a class="cta-link" data-cta-type="secondary" href="">Call to
-                                                            action</a>
-                                                    </div>
-                                                </footer>
-                                            </div>
-                                            <div class="card" data-theme="dark">
-                                                <header class="card-header">
-                                                    <h2 class="card-header-headline">This is a Header</h2>
-                                                </header>
-                                                <div class="card-body">
-                                                    <div class="content">
-                                                        <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
-                                                            occaecat.</p>
-                                                    </div>
+                                            </sl-card>
+                                            <sl-card class="sl-theme-dark">
+                                                <h2 class="headline" slot="header">This is a Header</h2>
+                                                <p>Legam in et aliqua excepteur, non nulla qui noster. Ab aute
+                                                    occaecat.</p>
+                                                <div class="cta" slot="footer">
+                                                    <a class="cta-link" data-cta-type="secondary" href="">Call to
+                                                        action</a>
                                                 </div>
-                                                <footer class="card-footer">
-                                                    <div class="cta">
-                                                        <a class="cta-link" data-cta-type="secondary" href="">Call to
-                                                            action</a>
-                                                    </div>
-                                                </footer>
-                                            </div>
+                                            </sl-card>
                                         </div>
                                     </div>
                                 </article>
                                 <article class="switcher-slide" data-state="next" id="1">
-                                    <div class="group" data-layout="stacked" data-theme="white">
+                                    <div class="group" layout="stacked" data-theme="white">
                                         <header class="band-header">
                                             <h3 class="band-header-title">Demo</h3>
                                             <h4 class="band-header-headline">Carousel: Slide #2</h4>
@@ -158,8 +134,8 @@
                                     </div>
                                 </article>
                                 <article class="switcher-slide" data-state="next" id="2">
-                                    <div class="group" data-layout="7 5">
-                                        <div class="group" data-layout="stacked" data-theme="white">
+                                    <div class="group" layout="7 5">
+                                        <div class="group" layout="stacked" data-theme="white">
                                             <header class="band-header">
                                                 <h3 class="band-header-title">Demo</h3>
                                                 <h4 class="band-header-headline">Carousel: Slide #3</h4>
@@ -227,14 +203,14 @@
             </section>
             <section class="band" data-band-background="dark">
                 <div class="band-container">
-                    <div class="group" data-layout="8 4">
-                        <div class="group" data-layout="stacked" data-theme="dark">
+                    <div class="group" layout="8 4">
+                        <div class="group" layout="stacked" data-theme="dark">
                             <header class="band-header">
                                 <h3 class="band-header-title">Demo</h3>
                                 <h4 class="band-header-headline">Card Slider</h4>
                             </header>
-                            <div class="band-body" data-layout="8 4">
-                                <div class="group" data-layout="stacked">
+                            <div class="band-body" layout="8 4">
+                                <div class="group" layout="stacked">
                                     <div class="content">
                                         <p>Culpa iis non esse ullamco, hic nulla reprehenderit iis in dolore culpa id
                                             deserunt, nam incididunt efflorescere ea quem commodo cernantur est ubi an
@@ -252,7 +228,7 @@
                         <aside class="card" data-theme="white" data-justify="justify">
                             <div class="switcher card-body">
                                 <div class="switcher-body" data-slide-id="demo-card" data-height="variable">
-                                    <article class="switcher-slide" data-state="current" id="0" data-layout="stacked">
+                                    <article class="switcher-slide" data-state="current" id="0" layout="stacked">
                                         <header class="card-header">
                                             <h2 class="card-header-headline">Slide #1</h2>
                                         </header>
@@ -268,7 +244,7 @@
                                             </div>
                                         </div>
                                     </article>
-                                    <article class="switcher-slide" data-state="next" id="1" data-layout="stacked">
+                                    <article class="switcher-slide" data-state="next" id="1" layout="stacked">
                                         <header class="card-header">
                                             <h2 class="card-header-headline">Slide #2</h2>
                                         </header>
@@ -284,7 +260,7 @@
                                             </div>
                                         </div>
                                     </article>
-                                    <article class="switcher-slide" data-state="next" id="2" data-layout="stacked">
+                                    <article class="switcher-slide" data-state="next" id="2" layout="stacked">
                                         <header class="card-header">
                                             <h2 class="card-header-headline">Slide #3</h2>
                                         </header>
@@ -337,7 +313,7 @@
                     <div class="switcher">
                         <div class="switcher-body" data-slide-id="demo-text">
                             <article class="switcher-slide" data-state="current" id="slide1">
-                                <div class="group" data-layout="stacked" data-theme="gray">
+                                <div class="group" layout="stacked" data-theme="gray">
                                     <header class="band-header">
                                         <h3 class="band-header-title">Demo</h3>
                                         <h4 class="band-header-headline">Text slider: Slide #1</h4>
@@ -358,7 +334,7 @@
                                 </div>
                             </article>
                             <article class="switcher-slide" data-state="next" id="slide2">
-                                <div class="group" data-layout="stacked" data-theme="gray">
+                                <div class="group" layout="stacked" data-theme="gray">
                                     <header class="band-header">
                                         <h3 class="band-header-title">Demo</h3>
                                         <h4 class="band-header-headline">Text slider: Slide #2</h4>
@@ -378,7 +354,7 @@
                                 </div>
                             </article>
                             <article class="switcher-slide" data-state="next" id="slide3">
-                                <div class="group" data-layout="stacked" data-theme="gray">
+                                <div class="group" layout="stacked" data-theme="gray">
                                     <header class="band-header">
                                         <h3 class="band-header-title">Demo</h3>
                                         <h4 class="band-header-headline">Text slider: Slide #3</h4>

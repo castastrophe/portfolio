@@ -1,0 +1,28 @@
+pfe-accordion {
+    --pfe-accordion--BorderColor: transparent;
+
+    body.cv & {
+        z-index: 1;
+    }
+
+    @media print {
+        z-index: 1;
+    }
+
+    &-header,
+    &-panel {
+        body.cv & {
+            --pfe-accordion--BorderColor--accent: transparent;
+            --pfe-accordion--BorderRightWidth: 0;
+            --pfe-accordion--accent: transparent;
+            --pfe-accordion--BoxShadow: none;
+        }
+
+        @media print {
+            --pfe-accordion--BorderColor--accent: transparent;
+            --pfe-accordion--BorderRightWidth: 0;
+            --pfe-accordion--accent: transparent;
+            --pfe-accordion--BoxShadow: none;
+        }
+    }
+}

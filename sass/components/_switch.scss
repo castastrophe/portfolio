@@ -1,0 +1,24 @@
+sl-switch {
+    --sl-color-neutral-400: hsla(240 5% 70% / 0.7);
+
+    &:active {
+        --sl-color-neutral-400: hsla(0 0% 12% / 0.7);
+    }
+
+    &::part(thumb) {
+        background-image: url(/img/allonsy-logo.png);
+        background-position-x: center;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        overflow: hidden;
+    }
+
+    &[checked]::part(thumb) {
+        background-image: url(/img/allonsy-darkmode.png);
+    }
+
+    &::part(control) {
+        --height: 1rem;
+    }
+}

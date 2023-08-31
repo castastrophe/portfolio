@@ -4,15 +4,37 @@ pfe-cta {
     }
 
     a {
-        font-family: var(--pfe-theme--font-family--heading);
         font-size: 1em;
     }
 
     &.small a {
-        font-family: var(--pfe-theme--font-family);
         font-size: 1em;
         font-weight: 100;
     }
+}
+
+a:has(svg) {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: max-content;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    white-space: normal;
+}
+
+a > svg {
+    display: inline;
+    fill: currentColor;
+    width: 13px;
+    height: 13px;
+    padding-inline-start: 3px;
+    margin-bottom: -1px;
+    transition: padding .3s cubic-bezier(.465,.183,.153,.946);
+}
+
+a:hover > svg {
+    padding-inline-start: 6px;
 }
 
 .cta-link {
@@ -22,7 +44,7 @@ pfe-cta {
         font-weight: 400;
         text-align: center;
         text-decoration: none;
-        color: var(--pfe-broadcasted--link);
+        color: var(--link);
 
         &[data-size="sm"]::after {
             padding: 8px 0px 0px 3px;

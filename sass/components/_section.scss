@@ -1,0 +1,76 @@
+section {
+    scroll-margin: 10px;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+
+    display: grid;
+    place-items: center;
+    background-color: var(--background-color, var(--sl-panel-background-color));
+    color: var(--text, var(--sl-color-neutral-500));
+    padding: var(--padding, var(--padding--vertical, 2rem) var(--padding--horizontal, 2rem));
+
+    .container {
+        max-width: var(--width, 100%);
+    }
+
+    @media (min-width:576px) {
+        --padding--vertical: 4rem;
+    }
+
+    &[size="double"] {
+        @media screen and (max-width: 991px) {
+            --padding: 15h var(--padding--horizontal) 2rem;
+        }
+
+        @media screen and (min-width: 992px) {
+            --padding--vertical: 25vh;
+        }
+    }
+
+    &[size="half"] {
+        --padding--vertical: 1rem;
+    }
+
+    @mixin highcontrast {
+        background-color: #fff !important;
+        color: #151515 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        padding: 2rem 1rem;
+    }
+
+    @media screen and (-ms-high-contrast:active),
+    screen and (-ms-high-contrast:none) {
+        @include highcontrast;
+    }
+
+    @media print {
+        @include highcontrast;
+    }
+
+    &[transparent] {
+        --background-color: transparent;
+        --text: inherit;
+    }
+
+    &[sticky] {
+        width: 100%;
+        position: fixed;
+        z-index: var(--zindex, 2);
+        top: 0;
+    }
+
+    &:not([full-width]) {
+        @media screen and (min-width:768px) {
+            --width: calc(768px - var(--padding--horizontal) * 4);
+        }
+
+        @media screen and (min-width:992px) {
+            --width: calc(992px - var(--padding--horizontal) * 4);
+        }
+
+        @media screen and (min-width:1200px) {
+            --width: calc(1200px - var(--padding--horizontal) * 4);
+        }
+    }
+}

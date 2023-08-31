@@ -19,7 +19,7 @@
 
         @each $state in (hover, focus) {
             &:#{$state} {
-                color: var(--pfe-broadcasted--link--#{$state});
+                color: var(--link--#{$state});
             }
         }
     }
@@ -28,7 +28,6 @@
 %title {
     @extend %headline-link;
     font-size: 22px;
-    font-family: var(--pfe-theme--font-family--heading);
     margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: 800;
@@ -36,7 +35,7 @@
     line-height: 1.4;
 
     .featured & {
-        color: var(--pfe-theme--color--ui-accent);
+        color: var(--sl-color-primary-400);
     }
 
     &.accent {
@@ -46,7 +45,6 @@
 
 %headline {
     @extend %headline-link;
-    font-family: var(--pfe-theme--font-family--heading);
     font-size: 32px;
     margin-bottom: 10px;
     font-weight: 100;
@@ -54,7 +52,7 @@
     line-height: 1.1;
 
     .featured & {
-        color: var(--pfe-theme--color--ui-accent);
+        color: var(--sl-color-primary-400);
     }
 
     &.accent {
@@ -72,7 +70,6 @@
 
 %headline-3 {
     @extend %headline-link;
-    font-family: var(--pfe-theme--font-family--heading);
     font-size: 20px;
     font-weight: 800;
     margin-top: 0;
@@ -85,12 +82,14 @@
     line-height: 1.38;
     margin-top: 0;
 
+    max-width: 80ch;
+
     a {
-        color: var(--pfe-broadcasted--link);
+        color: var(--link);
 
         @each $state in (hover, focus, visited) {
             &:#{$state} {
-                color: var(--pfe-broadcasted--link--#{$state});
+                color: var(--link--#{$state});
             }
         }
 
@@ -124,80 +123,5 @@
         @media (min-width: 992px) {
             text-align: left;
         }
-    }
-}
-
-@mixin resume-mode {
-    :root {
-        --pfe-theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-        --pfe-theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-    }
-
-    #about {
-        img[data-type="profile"] {
-            max-width: 400px;
-            max-height: 90%;
-            bottom: -70px;
-            right: 5vw;
-            z-index: 0;
-
-            @media (min-width: 768px) {
-                width: 40vw;
-            }
-        }
-    }
-
-    #resume {
-        display: block;
-    }
-
-    .header-title,
-    .header-headline {
-        font-size: 1.6em;
-        font-weight: 100;
-        text-transform: uppercase;
-        color: var(--pfe-theme--color--ui-accent);
-
-        text-align: left !important;
-        border-bottom: 1px solid #ddd;
-        margin-top: 1px;
-        margin-bottom: 10px;
-    }
-
-    #teaser,
-    .video-embed-iframe-container {
-        display: none;
-    }
-
-    #teaser {
-        z-index: 5;
-        background-color: rgba(0, 0, 0, .7);
-        --context: darker;
-
-        .group {
-            --spacing--vertical: 0;
-        }
-
-        .header {
-            display: grid;
-            grid-template-columns: 2.5em 1fr;
-            grid-gap: 1em;
-        }
-
-        pfe-cta {
-            font-size: 1.3em;
-        }
-    }
-
-    pfe-accordion {
-        z-index: 1;
-    }
-
-    pfe-accordion-header,
-    pfe-accordion-panel {
-        --pfe-accordion--BorderColor--accent: transparent;
-        --pfe-accordion--BorderRightWidth: 0;
-        --pfe-accordion--accent: transparent;
-        --pfe-accordion--BoxShadow: none;
     }
 }

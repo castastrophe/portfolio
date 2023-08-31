@@ -1,12 +1,11 @@
 import "@webcomponents/webcomponentsjs/webcomponents-loader.js";
 
-import "@patternfly/pfe-card/dist/pfe-card.min.js";
-import "@patternfly/pfe-band/dist/pfe-band.min.js";
 import "@patternfly/pfe-cta/dist/pfe-cta.min.js";
 import "@patternfly/pfe-tabs/dist/pfe-tabs.min.js";
 import "@patternfly/pfe-accordion/dist/pfe-accordion.min.js";
 
 import "@shoelace-style/shoelace/dist/components/switch/switch.js";
+import "@shoelace-style/shoelace/dist/components/card/card.js";
 
 const updateQuery = (params, add = true) => {
   const url = new URL(window.location);
@@ -24,10 +23,6 @@ const getNavHeight = () => {
   return navHeight;
 };
 
-// Check for query param
-const urlParams = new URLSearchParams(window.location.search);
-const displayMode = urlParams.get("format");
-
 document.addEventListener("DOMContentLoaded", async () => {
   for (const link of document.querySelectorAll(".read-more")) {
     link.addEventListener("click", (evt) => {
@@ -43,36 +38,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+// Check for query param
+  const urlParams = new URLSearchParams(window.location.search);
+  const displayMode = urlParams.get("format");
+  if (displayMode && displayMode.toUpperCase() === "CV") {
+    document.body.classList.add("cv");
+  } else {
+    document.body.classList.remove("cv");
+  }
+
   await Promise.all([
     customElements.whenDefined("pfe-accordion"),
     customElements.whenDefined("pfe-tabs"),
     customElements.whenDefined("sl-switch")
   ]);
 
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches || urlParams.get("dark") === "true";
   const slSwitch = document.querySelector("sl-switch");
+
+  // Check if the dark mode setting is set by the browser
+  if (isDarkMode) {
+    if (slSwitch) slSwitch.setAttribute("checked", "");
+    document.body.classList.add("sl-theme-dark");
+  }
+
   if (slSwitch) {
-    if (displayMode === "cv") {
-      slSwitch.setAttribute("checked", "");
-      document.body.classList.add("cv");
-    } else {
-      slSwitch.removeAttribute("checked");
-      document.body.classList.remove("cv");
-    }
-
-    slSwitch.addEventListener("sl-change", () => {
-      // Toggle the CV class on the body
-      document.body.classList.toggle("cv");
-
-      // Apply the CV query string
-      if (document.body.classList.contains("cv")) updateQuery([{
-        key: "format",
-        value: "cv"
-      }]);
-      else updateQuery([{
-        key: "format",
-      }], false);
-
-      document.querySelectorAll("pfe-card,pfe-band").forEach(item => item.resetContext());
+    slSwitch.addEventListener("sl-change", (evt) => {
+      document.body.classList.toggle("sl-theme-dark", evt.target.checked);
+      updateQuery([{ key: "dark", value: evt.target.checked.toString() }]);
     });
   }
 

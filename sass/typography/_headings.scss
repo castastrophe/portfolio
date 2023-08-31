@@ -42,6 +42,10 @@
     font-size: 30px;
 }
 
+.header:not(:only-child,:last-child) {
+    margin-bottom: 4em;
+}
+
 .header>*:last-child {
     margin-bottom: 0;
 }

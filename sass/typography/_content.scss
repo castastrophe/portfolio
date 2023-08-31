@@ -21,7 +21,7 @@
 
     dt,
     th {
-        color: var(--pfe-broadcasted--text, --headline-color);
+        color: var(--headline-color, var(--sl-color-neutral-900));
     }
 
     p,
@@ -29,7 +29,7 @@
     li,
     dd,
     td {
-        color: var(--pfe-broadcasted--text, --text-color);
+        color: var(--text-color, var(--sl-color-neutral-900));
     }
 
     p {
@@ -47,21 +47,21 @@
     a:not(.social-icon) {
         text-decoration: none;
         font-weight: 400;
-        color: var(--pfe-broadcasted--link, --link--color);
+        color: var(--link--color, var(--sl-color-neutral-900));
 
         &:hover {
             text-decoration: underline;
-            color: var(--pfe-broadcasted--link--hover, #002f3b);
+            color: var(--link--hover, #002f3b);
         }
 
         &:focus {
             text-decoration: underline;
-            color: var(--pfe-broadcasted--link--focus, #002f3b);
+            color: var(--link--focus, #002f3b);
         }
 
         &:visited {
             text-decoration: line-through;
-            color: var(--pfe-broadcasted--link--visited, #002f3b);
+            color: var(--link--visited, #002f3b);
         }
 
         &[name]:not([href]) {
@@ -180,13 +180,12 @@
             color: inherit;
 
             &:hover {
-                color: var(--pfe-broadcasted--link);
+                color: var(--link);
             }
         }
     }
 
     &-quotation {
-        font-family: var(--pfe-theme--font-family--heading);
         margin-block: 0;
         padding-bottom: 1em;
         line-height: 1.4;
