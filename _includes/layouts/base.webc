@@ -34,8 +34,6 @@
 </head>
 
 <body>
-    <div class="background"></div>
-
     <main @raw="content"></main>
 
     <footer>

@@ -77,6 +77,7 @@ export default {
 			true,
 			{
 				checkPrefixed: true,
+				ignoreProperties: ["container-name", "container-type", "container"],
 			},
 		],
 		"rule-empty-line-before": [

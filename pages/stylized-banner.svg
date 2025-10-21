@@ -1,0 +1,100 @@
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root {
+      --color-primary: rgba(176, 48, 148);
+      --color-secondary: rgba(70, 16, 170);
+      --layer-1: 0.5;
+      --layer-2: 0.2;
+      --layer-3: 0.1;
+      --layer-4: 0.05;
+      --layer-5: 0.03;
+      --layer-6: 0.02;
+      --layer-7: 0.01;
+    }
+  </style>
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--color-secondary)" stroke-width=".5" opacity="var(--layer-2)"/>
+    </pattern>
+    
+    <!-- Gradient backgrounds -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f5f7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#e8e8ec;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f0f3;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b03094;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d040b8;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bgGradient)"/>
+  <rect width="1200" height="400" fill="url(#grid)" opacity="var(--layer-1)"/>
+  
+  <!-- Abstract geometric elements -->
+  <circle cx="950" cy="100" r="60" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="10"/>
+  <circle cx="950" cy="100" r="80" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)" stroke-width="3"/>
+  <circle cx="950" cy="100" r="100" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="2"/>
+  <circle cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="150"/>
+  <circle cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="2"/>
+  <circle cx="950" cy="100" r="260" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="10"/>
+  
+  <path d="M 100 300 L 200 250 L 180 350 Z" fill="var(--color-primary)" opacity="var(--layer-3)" stroke="var(--color-primary)" stroke-width="2.5"/>
+  
+  <!-- Code brackets - stylized -->
+  <g opacity="0.4">
+    <path d="M 600 20 L 570 50 L 600 80" fill="none" stroke="var(--color-primary)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 720 20 L 750 50 L 720 80" fill="none" stroke="var(--color-primary)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Flowing connection lines -->
+  <path d="M -5 280 Q 300 -180 600 200 T 1205 130" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-3)" stroke-width="3.5"/>
+  <path d="M -5 200 Q 350 280 650 220 T 1205 240" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2.1"/>
+  
+  <path d="M -5 80 Q 400 190 800 280 T 1205 370" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="1.5"/>
+
+  <path d="M -5 360 Q 300 400 600 130 T 1205 310" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-6)" stroke-width="8"/>
+  <path d="M -5 120 Q 300 -100 600 200 T 1205 215" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)" stroke-width="5"/>
+  
+  <!-- Nodes on the lines -->
+  <circle cx="180" cy="35" r="28" fill="var(--color-primary)" opacity="var(--layer-3)"/>
+  <circle cx="180" cy="35" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)" stroke-width="3"/>
+
+  <circle cx="260" cy="150" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+  <circle cx="450" cy="245" r="6" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+  <circle cx="450" cy="245" r="18" fill="var(--color-primary)" opacity="var(--layer-4)"/>
+  <circle cx="450" cy="245" r="48" fill="var(--color-primary)" opacity="var(--layer-4)"/>
+  <circle cx="600" cy="200" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+  
+  <circle cx="820" cy="286" r="16" fill="var(--color-primary)" opacity="var(--layer-2)"/>
+
+  <circle cx="900" cy="194" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+  
+  <!-- Binary code background texture -->
+  <g font-family="monospace" font-size="14" fill="var(--color-primary)" filter="url(#glow)">
+    <text x="100" y="80" opacity="var(--layer-5)">01001000 01100101 01101100 01101100 01101111</text>
+    <text x="800" y="60" opacity="var(--layer-4)">The quick brown fox jumps over the lazy dog</text>
+    <text x="300" y="150" font-size="16" opacity="var(--layer-7)">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</text>
+    <text x="300" y="180" font-size="16" opacity="var(--layer-7)">Sed do eiusmod tempor incididunt ut labore et dolore magna</text>
+    <text x="300" y="210" font-size="16" opacity="var(--layer-7)">aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</text>
+    <text x="400" y="390" opacity="var(--layer-6)">01010111 01101111 01110010 01101100 01100100 01100001 11000010 01101100 01100100 01101111</text>
+  </g>
+  
+  
+  <!-- Decorative corner elements -->
+  <path d="M 0 0 L 60 0 L 0 60 Z" fill="var(--color-primary)" opacity="var(--layer-4)"/>
+  <path d="M 1200 400 L 1140 400 L 1200 340 Z" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+</svg>
