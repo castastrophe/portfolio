@@ -1,0 +1,31 @@
+---
+layout: layouts/base.webc
+---
+
+<a-band layout="space-between" id="post-header">
+    <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
+    <div>
+        <h1 class="headline" @text="title"></h1>
+        <p class="metadata">
+            <span class="author" @text="author || site.author"></span>
+            <span class="date" @text="date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></span>
+            <span class="cta"><a href="/posts" title="Return to the articles page" class="cta-link">All articles</a></span>
+        </p>
+        <p class="tags">
+            <span class="tag" webc:for="tag of tags" @text="tag"></span>
+        </p>
+    </div>
+</a-band>
+
+<a-band id="post-content">
+    <div class="content" @raw="content" @raw="markdownContent"></div>
+</a-band>
+
+<a-band padding="double" id="post-footer" layout="space-between">
+    <aside role="note" style="max-inline-size: 50ch;">
+        <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
+                connect</a>!</p>
+    </aside>
+    <p class="promo">or...</p>
+    <a href="https://www.buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
+</a-band>

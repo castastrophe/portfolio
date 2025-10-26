@@ -20,13 +20,22 @@
 
     <!-- Open Graph data -->
     <meta property="og:title" :content="title || site.title">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="website" webc:if="!isPost(page)">
     <meta property="og:url" :content="site.url">
     <meta property="og:description" :content="description || site.description">
     <meta property="og:site_name" :content="site.title">
 
+    <meta property="og:type" content="article" webc:if="isPost(page)">
+    <meta property="article:author" :content="site.author" webc:if="isPost(page)">
+    <meta property="article:published_time" :content="toISOString(date)" webc:if="isPost(page)">
+    <meta property="article:modified_time" :content="toISOString(date)" webc:if="isPost(page)">
+
     <style webc:keep @raw="getBundle('css')"></style>
 
+    <link rel="stylesheet" :href="url('/css/prism.css')" webc:keep/>
+    <link rel="stylesheet" :href="url('/css/prism-one-light.css')" webc:keep/>
+    <link rel="stylesheet" :href="url('/css/prism-one-dark.css')" media="(prefers-color-scheme: dark)" webc:keep/>
+    <link rel="stylesheet" :href="url('/css/home.css')" webc:keep/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous" webc:keep>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
@@ -34,28 +43,155 @@
 </head>
 
 <body>
-    <div class="background"></div>
+    <svg id="background" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
+        style="width: 100%; height: auto; overflow: visible; position: fixed; top: 0; left: 0; z-index: -1;">
+        <style>
+            :root {
+                --color-primary: var(--theme--color--surface-accent);
+                --layer-1: 0.07;
+                --layer-2: 0.06;
+                --layer-3: 0.05;
+                --layer-4: 0.04;
+                --layer-5: 0.03;
+                --layer-6: 0.02;
+                --layer-7: 0.01;
+            }
+
+            /* Scroll-driven animations for SVG elements */
+            @supports (animation-timeline: scroll()) {
+                .pulse {
+                    animation: pulse linear both;
+                    animation-timeline: scroll(root);
+                    animation-range: 0% 100%;
+                }
+
+                .path-draw {
+                    stroke-dasharray: 1000;
+                    stroke-dashoffset: 1000;
+                    animation: pathDraw linear both;
+                    animation-timeline: scroll(root);
+                    animation-range: 0% 70%;
+                }
+            }
+
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.3); }
+                100% { transform: scale(1); }
+            }
+
+            @keyframes pathDraw {
+                0% { stroke-dashoffset: 1200; opacity: var(--layer-2); }
+                100% { stroke-dashoffset: 0; opacity: var(--layer-1); }
+            }
+        </style>
+        <defs>
+            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#b03094;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#d040b8;stop-opacity:1" />
+            </linearGradient>
+
+            <!-- Glow effect -->
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+        </defs>
+
+        <!-- Abstract geometric elements -->
+        <g>
+            <circle cx="950" cy="100" r="60" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)"
+                stroke-width="10" />
+            <circle cx="950" cy="100" r="80" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)"
+                stroke-width="3" />
+            <circle cx="950" cy="100" r="100" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)"
+                stroke-width="2" />
+            <circle cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)"
+                stroke-width="150" />
+            <circle cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)"
+                stroke-width="2" />
+            <circle cx="950" cy="100" r="260" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)"
+                stroke-width="10" />
+        </g>
+
+        <path d="M 100 300 L 200 250 L 180 350 Z" fill="var(--color-primary)" opacity="var(--layer-3)"
+            stroke="var(--color-primary)" stroke-width="2.5" class="pulse"/>
+
+        <!-- Flowing connection lines -->
+        <path d="M -5 280 Q 300 -180 600 200 T 1205 130" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-3)"
+            stroke-width="3.5" class="path-draw" />
+        <path d="M -5 200 Q 350 280 650 220 T 1205 240" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)"
+            stroke-width="2.1" class="path-draw" />
+
+        <path d="M -5 80 Q 400 190 800 280 T 1205 370" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)"
+            stroke-width="1.5" class="path-draw" />
+
+        <path d="M -5 360 Q 300 400 600 130 T 1205 310" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-6)"
+            stroke-width="8" />
+        <path d="M -5 120 Q 300 -100 600 200 T 1205 215" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)"
+            stroke-width="5" class="path-draw" />
+
+        <!-- Nodes on the lines -->
+        <circle cx="180" cy="35" r="28" fill="var(--color-primary)" opacity="var(--layer-3)"/>
+        <circle cx="180" cy="35" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)"
+            stroke-width="3"/>
+
+        <circle cx="260" cy="150" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+        <circle cx="450" cy="245" r="6" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+        <circle cx="450" cy="245" r="18" fill="var(--color-primary)" opacity="var(--layer-4)" />
+        <circle cx="450" cy="245" r="48" fill="var(--color-primary)" opacity="var(--layer-4)" />
+        <circle cx="600" cy="200" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+
+        <circle cx="820" cy="286" r="16" fill="var(--color-primary)" opacity="var(--layer-2)"/>
+
+        <circle cx="900" cy="194" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+
+        <!-- Binary code background texture -->
+        <g font-family="monospace" font-size="14" fill="var(--color-primary)" filter="url(#glow)">
+            <text x="100" y="80" opacity="var(--layer-5)">01001000 01100101 01101100 01101100 01101111</text>
+            <text x="800" y="60" opacity="var(--layer-4)">The quick brown fox jumps over the lazy dog</text>
+            <text x="300" y="150" font-size="16" opacity="var(--layer-7)">Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit.</text>
+            <text x="300" y="180" font-size="16" opacity="var(--layer-7)">Sed do eiusmod tempor incididunt ut labore et
+                dolore magna</text>
+            <text x="300" y="210" font-size="16" opacity="var(--layer-7)">aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation.</text>
+            <text x="400" y="390" opacity="var(--layer-6)">01010111 01101111 01110010 01101100 01100100 01100001 11000010
+                01101100 01100100 01101111</text>
+        </g>
+
+
+        <!-- Decorative corner elements -->
+        <path d="M 0 0 L 60 0 L 0 60 Z" fill="var(--color-primary)" opacity="var(--layer-4)" class="pulse" />
+    </svg>
 
     <main @raw="content"></main>
 
+    <!-- Contact -->
+    <a-band id="contact" padding="double">
+        <hr />
+        <div class="social">
+            <span class="social-icons">
+                <a webc:for="social of site.social" class="social-icon" rel="me" :href="social.url"><span :class="`fab fa-${social.icon}`"></span></a>
+            </span>
+        </div>
+    </a-band>
+
     <footer>
         <script type="module" webc:keep @raw="getBundle('js')"></script>
+        <script type="module" webc:keep :src="url('/js/prism.js')"></script>
+        <script type="module" webc:keep :src="url('/js/home.js')"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JKC7D3ZDXB" webc:keep></script>
         <script>
             if (!navigator.doNotTrack) {
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-                ga('create', 'UA-49502366-1', 'allons-y.llc');
-                ga('send', 'pageview');
+                gtag('config', 'G-JKC7D3ZDXB');
             }
         </script>
     </footer>
