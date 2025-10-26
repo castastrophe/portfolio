@@ -3,240 +3,159 @@ layout: layouts/base.webc
 eleventyExcludeFromCollections: true
 ---
 
-<link rel="stylesheet" href="./home.css">
-
-<a-band data-padding="half" id="nav" data-layout="space-between">
-    <img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
-    <div data-layout="stacked" style="align-items: center; justify-content: center;">
-        <div><h1 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h1></div>
+<a-band padding="half" id="nav" layout="space-between">
+    <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
+    <div>
+        <h1 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h1>
         <h2 class="headline">Cassondra Roberts | <a href="https://front-end.social/@castastrophe">@castastrophe</a></h2>
-        <hr/>
+        <hr />
         <div class="social">
             <span class="social-icons">
-                <a class="social-icon" rel="me" href="https://front-end.social/@castastrophe"><span
-                        class="fab fa-mastodon"></span></a>
-                <a class="social-icon" href="https://www.linkedin.com/in/castastrophe"><span
-                        class="fab fa-linkedin-in"></span></a>
-                <a class="social-icon" href="https://github.com/castastrophe"><span
-                        class="fab fa-github-alt"></span></a>
-                <a class="social-icon" href="https://codepen.io/castastrophee/"><span
-                        class="fab fa-codepen"></span></a>
+                <a webc:for="social of site.social" class="social-icon" rel="me" :href="social.url"><span :class="`fab fa-${social.icon}`"></span></a>
             </span>
         </div>
     </div>
 </a-band>
 
 <a-band id="consulting">
-    <div>
+    <div class="content" style="inline-size: 80ch; max-inline-size: 100%;">
         <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-        <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web experiences at enterprise scale in a way that empowers developers to work in unison with each other and with their design counterparts.</p>
+        <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web
+            experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
+            their design counterparts.</p>
         <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
                 technologies and implementing highly-optimized, clean solutions to complex
                 problems.</b></p>
         <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b>
             and these values guide the code that I produce and influence. One of the most enjoyable aspects
-            of my job is open source community management; engaging with and connecting the contributors and consumers.</p>
-        
-        <aside role="note"><p>Seeking my next leadership role—<a href="mailto:consulting@allons-y.llc">let's connect</a>!</p></aside>
+            of my job is open source community management; engaging with and connecting the contributors and consumers.
+        </p>
     </div>
-    <hr/>
-    <article data-layout="auto-grid">
-        <a-card class="bordered">
-            <h3 class="title">Adobe</h3>
+    <aside role="note">
+        <p>Available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
+                connect</a>!</p>
+    </aside>
+</a-band>
+
+<a-band id="projects" layout="space-around" width="full">
+    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
+        <h2 class="title">Projects</h2>
+        <p class="header-summary">I'm proud to have worked on a variety of projects, from open source libraries to
+            enterprise design systems. As a project maintainer and contributor, I'm passionate about building tools that
+            empower developers to build better web experiences, leveraging the latest technologies and techniques so
+            they can focus on what matter most.</p>
+    </div>
+    <a-card bordered featured>
+        <div slot="header">
+            <h3 class="title">Plugins</h3>
             <h4 class="headline"><a
-                    href="https://github.com/adobe/spectrum-css"
-                    title="Click to view project">Spectrum CSS</a></h4>
-            <div class="card-body">
-                <div class="content">
-                    <p>A CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
-                </div>
+                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                    title="Click to view project listing">PostCSS Plugins</a></h4>
+        </div>
+        <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in
+            diverse framework ecosystems.</p>
+    </a-card>
+    <a-card bordered featured>
+        <div slot="header">
+            <h3 class="title">Automation</h3>
+            <h4 class="headline"><a
+                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                    title="Click to view projects">GitHub Actions</a></h4>
+        </div>
+        <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable
+            tool for automatically updating open pull requests.</p>
+    </a-card>
+    <div layout="space-around">
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Adobe</h3>
+                <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
+                        CSS</a></h4>
             </div>
-            <button class="cta card-footer">
-                <a class="cta-link" href="https://github.com/adobe/spectrum-css"
-                    title="Click to view project" data-cta-type="secondary">View the source code</a>
-            </button>
+            <div class="content">
+                <p>A CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the
+                    foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
+            </div>
+            <p class="cta" slot="footer">
+                <a class="cta-link" href="https://github.com/adobe/spectrum-css" title="Click to view project">View the
+                    source code</a>
+            </p>
         </a-card>
-        <a-card class="featured bordered">
-            <h3 class="title">Adobe</h3>
-            <h4 class="headline accent"><a
-                    href="https://github.com/adobe/spectrum-web-components"
-                    title="Click to view project">Spectrum Web Components</a></h4>
-            <div class="card-body">
-                <div class="content">
-                    <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.</p>
-                </div>
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Adobe</h3>
+                <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
+                        title="Click to view project">Spectrum Web Components</a></h4>
             </div>
-            <button class="cta card-footer">
+            <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
+            </p>
+            <p class="cta" slot="footer">
                 <a class="cta-link" href="https://github.com/adobe/spectrum-web-components"
-                    title="Click to view project" data-cta-type="secondary">View the source code</a>
-            </button>
+                    title="Click to view project">View the source code</a>
+            </p>
         </a-card>
-        <a-card>
-            <h3 class="title">Red Hat</h3>
-            <h4 class="headline"><a
-                    href="https://github.com/patternfly/patternfly-elements"
-                    title="Click to view project">PatternFly Elements</a></h4>
-            <div class="card-body">
-                <div class="content">
-                    <p>A web component implementation of the Red Hat design system. It leverages the
-                        encapsulation of ShadowDOM and the
-                        power of custom properties to create well-scoped elements that are still
-                        designer-friendly.
-                    </p>
-                </div>
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Red Hat</h3>
+                <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
+                        title="Click to view project">PatternFly Elements</a></h4>
             </div>
-            <button class="cta card-footer">
+            <p>A web component implementation of the Red Hat design system. It leverages the
+                encapsulation of ShadowDOM and the
+                power of custom properties to create well-scoped elements that are still
+                designer-friendly.
+            </p>
+            <p class="cta" slot="footer">
                 <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
-                    title="Click to view project" data-cta-type="secondary">View the source code</a>
-            </button>
+                    title="Click to view project">View the source code</a>
+            </p>
         </a-card>
-    </article>
-</a-band>
-
-<!-- Featured video -->
-<a-band id="teaser" data-padding="half" data-layout="space-between" data-bordered>
-    <img src="/img/2023_cssday_speaking.png" alt="Cassondra Roberts speaking at CSS Day 2023"/>
-    <div class="header" data-layout="stacked" style="max-inline-size: 50ch; align-self: center;">
-        <div> 
-            <h3 class="promo-headline"><a
-                    href="https://www.youtube.com/watch?v=67bSCEEdaH8">Shining Light on the Shadow DOM</a>
-            </h3>
-            <p class="header-summary">CSS Day | 2023</p>
-        </div>
-        <button class="cta" data-cta-type="video-play">
-            <a class="cta-link" data-popup="youtube"
-                href="/presentation/cssday/">Slide deck</a>
-        </button>
     </div>
-</a-band>
-
-<a-band id="articles">
-    <div>
-        <h2 class="title">Articles</h2>
-        <p class="header-summary">You can find me as a writer on Medium where I post explorations on CSS, web components, and enterprise design systems.</p>
-        <a href="https://castastrophe.medium.com">View all articles</a>
-    </div>
-</a-band>
-
-<!-- Code -->
-<a-band id="coding" data-layout="auto-grid">
-    <a-card data-bordered>
-        <div><h3 class="title">Plugins</h3></div>
-        <h4 class="headline accent"><a
-                href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                title="Click to view project listing">PostCSS Plugins</a></h4>
-        <div class="card-body">
-            <div class="content">
-                <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in diverse framework ecosystems.</p>
-            </div>
-        </div>
-        <button class="cta card-footer">
-            <a class="cta-link" href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                title="Click to view projects" data-cta-type="secondary">View the respositories</a>
-        </button>
-    </a-card>
-    <a-card data-bordered>
-        <div><h3 class="title">Automation</h3></div>
-        <h4 class="headline accent"><a
-                href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                title="Click to view projects">GitHub Actions</a></h4>
-        <div class="card-body">
-            <div class="content">
-                <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable tool for automatically updating open pull requests.</p>
-            </div>
-        </div>
-        <button class="cta card-footer">
-            <a class="cta-link" href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                title="Click to view projects" data-cta-type="secondary">View the repositories</a>
-        </button>
-    </a-card>
 </a-band>
 
 <!-- Recorded talks -->
-<a-band data-width="full" id="presentations" data-layout="overflow">
-    <div slot="header" data-text-align="center">
-        <h2 class="title" style="margin-block-end: 2em">Presentations</h2>
+<a-band id="presentations" layout="auto-grid" width="full">
+    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
+        <h2 class="title">Presentations</h2>
+        <p class="header-summary">Available for speaking, teaching, workshops, and being a podcast or stream guest
+            -<br /><a href="mailto:consulting@allons-y.llc">let's get in touch</a>.</p>
     </div>
-    <a-card>
-        <div class="video-embed-iframe-container" overflow="top right left">
-            <iframe src="https://www.youtube.com/embed/67bSCEEdaH8" frameborder="0"
+    <a-card overflow webc:for="presentation of site.presentations">
+        <div slot="header">
+            <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
         </div>
-        <h3 class="title">CSS Day | 2023</h3>
-        <h4 class="card-headline"><a
-                href="https://www.youtube.com/embed/67bSCEEdaH8"
-                title="Click to watch this interview">Shining Light on the Shadow DOM</a></h4>
-        <p>All about the Shadow DOM and how to use it to build better web components.</p>
-    </a-card>
-    <a-card>
-        <div class="video-embed-iframe-container" overflow="top right left">
-            <iframe src="https://www.youtube.com/embed/7n3PHEx_xvg" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-        <h3 class="title">S01E04.3 | 2022</h3>
-        <h4 class="card-headline"><a
-                href="https://www.youtube.com/embed/7n3PHEx_xvg"
-                title="Click to watch this interview">Web Components in Space</a></h4>
-        <p>Join us for a fun interview as we talk about how Adobe is using web components in their design system.</p>
-    </a-card>
-    <a-card>
-        <div class="video-embed-iframe-container" overflow="top right left">
-            <iframe src="https://www.youtube.com/embed/xH2MmVNuSe4" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-        <h3 class="title">DrupalCon 2019</h3>
-        <h4 class="card-headline">Unlocking design in a design system with custom properties</h4>
-        <p>A deep-dive on how to leverage custom properties to create a flexible and customizable design system.</p>
-    </a-card>
-    <a-card>
-        <div class="video-embed-iframe-container" overflow="top right left">
-            <iframe src="https://www.youtube.com/embed/Akn6keIYZ3k" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-        <h3 class="title">DrupalCon 2019</h3>
-        <h4 class="card-headline"><a
-                href="https://events.drupal.org/seattle2019/sessions/make-web-development-fun-again-web-components"
-                title="Click to read more about this presentation">Make web development fun again, with
-                web components!</a>
-        </h4>
-        <p>A joint presentation with Penn State on how web components can make development workflows fun
-            and efficient.</p>
-    </a-card>
-    <a-card>
-        <div class="video-embed-iframe-container" overflow="top right left">
-            <iframe src="https://www.youtube.com/embed/p3y0ljTr8YQ" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-        <h3 class="title">DrupalCon 2019</h3>
-        <h4 class="card-headline"><a
-                href="https://events.drupal.org/nashville2018/sessions/one-these-things-not-other-identifying-patterns-mock"
-                title="Click to read more about this presentation">One of these things is not like the
-                other; identifying
-                patterns in a mock-up</a></h4>
-        <p>An example-rich talk about how to break out mock-ups into patterns for maximum reusability.
+        <h3 class="title" @text="presentation.title"></h3>
+        <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
+                title="Click to watch this interview" @text="presentation.headline"></a></h4>
+        <p @text="presentation.description"></p>
+        <p class="cta" slot="footer" webc:if="presentation.resources">
+            <a class="cta-link" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
         </p>
     </a-card>
 </a-band>
 
-<!-- Contact -->
-<a-band id="contact" data-layout="space-between" style="--spacing--horizontal: 2em; flex-wrap: nowrap; background: var(--theme--color--ui-accent); color: white; margin-inline: 0; width: 100%;">
-    <img src="/img/90s-sitcom.png" data-type="rounded" style="max-width: 150px; margin-inline-start: auto;"/>
-    <div data-layout="stacked" style="margin-inline-end: auto;">
-        <div class="header">
-            <h3 class="header-title extra">Contact</h3>
-            <p class="header-summary" style="max-width: 40ch;  color: white;">Always happy to chat about web development, design, 90s pop culture references,
-    or anything else.</p>
+<a-band width="full" id="articles" padding="double" layout="auto-grid">
+    <h2 class="title" slot="header">Articles</h2>
+    <a-card bordered webc:for="article of collections.posts.toReversed()">
+        <div slot="header">
+            <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
+            <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
         </div>
-        <button class="cta featured">
-            <a href="https://front-end.social/@castastrophe" title="Click to follow me on social media" style="color: white;">Say hello on
-                front-end.social</a>
-        </button>
-    </div>
+        <p @text="article.data.description"></p>
+        <p class="tags" slot="footer">
+            <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
+        </p>
+    </a-card>
 </a-band>
 
-<script src="../js/home.js" type="module"></script>
+
+<a-band padding="double" id="post-footer" layout="space-between">
+    <aside role="note" style="max-inline-size: 50ch;">
+        <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
+                connect</a>!</p>
+    </aside>
+    <p class="promo">or...</p>
+    <a href="https://www.buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
+</a-band>

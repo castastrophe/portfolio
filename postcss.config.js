@@ -1,4 +1,6 @@
-export default {
+/** @type {import('postcss-load-config').ConfigFn} */
+export default ({ env }) => ({
+    map: env === "production" ? false : true,
     plugins: {
         /* --------------------------------------------------- */
         /* ------------------- IMPORTS ---------------- */
@@ -6,6 +8,7 @@ export default {
         'postcss-import': {},
         /* --------------------------------------------------- */
         /* ------------------- UTILITIES ---------------- */
+        'postcss-extend': {},
         'postcss-each': {},
         /* --------------------------------------------------- */
         /* ------------------- POLYFILLS --------------------- */
@@ -35,6 +38,7 @@ export default {
             reportInvalidScopeDisables: true,
         },
         autoprefixer: {},
+        cssnano: env === "production" ? { preset: "default" } : false,
         /* --------------------------------------------------- */
         /* ------------------- REPORTING --------------------- */
         "postcss-reporter": {
@@ -42,4 +46,4 @@ export default {
             noIcon: true,
         },
     },
-};
+});

@@ -1,0 +1,147 @@
+<template webc:nokeep>
+    <section @attributes webc:root>
+        <slot name="header" class="header"></slot>
+        <div class="body">
+            <slot></slot>
+        </div>
+        <slot class="footer" name="footer"></slot>
+    </section>
+</template>
+
+<style webc:scoped>
+    :host {
+        --multiplier-vertical: 2;
+        --multiplier-horizontal: .6;
+
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: var(--spacing--vertical);
+        column-gap: var(--spacing--horizontal);
+
+        /* @todo review and test */
+        scroll-margin: 10px;
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
+
+        background: var(--band--BackgroundColor, transparent);
+
+        /* Size constraints */
+        inline-size: var(--band--Width, 100%);
+        max-inline-size: calc(100vw - (var(--spacing--horizontal) * var(--multiplier-horizontal) * 2));
+        margin-inline: auto;
+        padding-block: calc(var(--spacing--vertical) * var(--multiplier-vertical));
+        padding-inline: calc(var(--spacing--horizontal) * var(--multiplier-horizontal));
+    }
+
+    :host([padding="half"]) {
+        --multiplier-vertical: .5;
+    }
+
+    :host([padding="double"]) {
+        --multiplier-vertical: 2;
+    }
+
+    :host([padding="none"]) {
+        --multiplier-vertical: 0;
+    }
+
+    /* Default layout for all regions is stacked */
+    .header,
+    .body,
+    .footer {
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: var(--spacing--vertical);
+        column-gap: var(--spacing--horizontal);
+        justify-content: start;
+    }
+
+    .body {
+        flex-grow: 1;
+        max-inline-size: 100%;
+    }
+
+    :host([layout="space-between"]) .body {
+        flex-flow: row wrap;
+    }
+
+    :host([layout="space-evenly"]) .body {
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+    }
+
+    :host([layout="space-around"]) .body,
+    .body [layout="space-around"] {
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: stretch;
+        row-gap: calc(var(--spacing--horizontal) * 2);
+        column-gap: var(--spacing--horizontal);
+    }
+
+    .body [layout="space-around"] {
+        --spacing--vertical: .2em;
+        --spacing--horizontal: .2em;
+
+        display: flex;
+        flex-grow: 1;
+    }
+
+    :host([layout="auto-grid"]) .body {
+        --spacing--vertical: .5em;
+
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(325px, 1fr));
+        align-items: var(--align-items, stretch);
+        justify-content: var(--justify-content, space-around);
+    }
+
+    :host([overflow]) {
+        --band--Padding--horizontal: 0;
+        --band--Width: min(80ch, 90%);
+
+        .body {
+            flex-flow: row nowrap;
+            overflow: auto;
+        }
+    }
+
+    :host([width="full"]) {
+        --band--Width: 90%;
+    }
+
+    @media screen and (width >= 1200px) {
+        :host {
+            align-items: center;
+            justify-content: center;
+        }
+
+        :host([overflow]) {
+            --band--Width: 100%;
+        }
+
+        :host([overflow][layout="auto-grid"]) .body {
+            width: 100%;
+            /* Create some gutter for the overflow scroll */
+            padding-block-end: var(--spacing--vertical, 1em);
+        }
+    }
+
+    @media screen and (min-width: 1220px) {
+        :host(:not([width="full"])) {
+            max-inline-size: 1200px;
+        }
+    }
+
+    @media print {
+        :host {
+            border: none;
+        }
+
+        :host([width="full"]) {
+            padding: 1em 0;
+        }
+    }
+</style>
