@@ -18,6 +18,12 @@ layout: layouts/base.webc
 </a-band>
 
 <a-band id="post-content">
+    <aside>
+        <details class="post-toc">
+            <summary>Table of contents</summary>
+            <div @raw="toc(content)" webc:nokeep></div>
+        </details>
+    </div>
     <div class="content" @raw="content" @raw="markdownContent"></div>
 
     <div class="post-cta">

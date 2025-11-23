@@ -8,6 +8,9 @@ import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
 import brokenLinks from "eleventy-plugin-broken-links";
+import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
+import pluginTOC from "eleventy-plugin-toc";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function(config) {
@@ -68,6 +71,8 @@ export default async function(config) {
 		},
 	});
 
+	config.setLibrary('md', markdownIt().use(markdownItAnchor));
+
 	config.addCollection("posts", function(collectionApi) {
 		return collectionApi.getFilteredByGlob("pages/posts/*.md");
 	});
@@ -80,6 +85,10 @@ export default async function(config) {
 		broken: "warn",
 		forbidden: "warn",
 		redirects: "warn",
+	});
+	config.addPlugin(pluginTOC, {
+		tags: ['h2', 'h3'],
+		ul: false,
 	});
 
 	config.addFilter("isPost", function(page) {
