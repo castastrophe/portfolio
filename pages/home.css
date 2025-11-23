@@ -54,7 +54,7 @@ pre {
   border: 1px solid color-mix(in sRGB, var(--theme--color--surface-accent) 40%, transparent);
   font-family: "PT Mono", monospace;
   display: block;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: normal;
   line-height: 1.44;
   margin: 0;
@@ -64,8 +64,8 @@ pre {
   }
 }
 
-p > code,
-li > code {
+p>code,
+li>code {
   background-color: light-dark(hsl(230 1% 98%), hsl(230 1% 20%));
   padding: 0.2em 0.4em;
   border-radius: var(--border-radius);
@@ -256,9 +256,10 @@ body {
   &:hover {
     transition: color 0.2s linear;
     color: var(--theme--color--ui-accent);
-    cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🚀</text></svg>") 16 0,auto; /* thank you !emojicursor.app */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🚀</text></svg>") 16 0, auto;
+    /* thank you !emojicursor.app */
 
-    & > span {
+    &>span {
       transition: transform 0.2s linear;
       display: inline-block;
 
@@ -316,7 +317,7 @@ body {
   position: relative;
   padding: 0.2em 0;
 
-  [slot="footer"] > & {
+  [slot="footer"]>& {
     text-transform: none;
   }
 
@@ -379,10 +380,12 @@ body {
 
     @each $state in (hover, focus) {
       &:$(state) {
-        color: var(--theme--color--link--$(state));
-      }
+        color: var(--theme--color--link--$(
+            state)
+        );
     }
   }
+}
 }
 
 .headline {
@@ -399,11 +402,11 @@ body {
     color: var(--headline--accent);
   }
 
-  @media (width >= 992px) {
+  @media (width >=992px) {
     font-size: 39px;
   }
 
-  @media (width >= 1200px) {
+  @media (width >=1200px) {
     font-size: 42px;
   }
 
@@ -537,8 +540,8 @@ aside[role="note"] {
 }
 
 [slot="header"]:has(iframe) {
-    inline-size: 100%;
-    flex-grow: 1;
+  inline-size: 100%;
+  flex-grow: 1;
 }
 
 .highlight-container {
@@ -586,16 +589,16 @@ a.social-icon {
 
   &:hover {
     color: var(--theme--color--ui-accent--hover);
-    }
+  }
 
-    &:focus {
-      color: var(--theme--color--ui-accent--focus);
-    }
+  &:focus {
+    color: var(--theme--color--ui-accent--focus);
+  }
 
-    &:focus-visible {
-      outline: 2px solid var(--theme--color--ui-accent--focus-visible);
-      outline-offset: 2px;
-    }
+  &:focus-visible {
+    outline: 2px solid var(--theme--color--ui-accent--focus-visible);
+    outline-offset: 2px;
+  }
 }
 
 img[data-type="rounded"] {
@@ -603,7 +606,7 @@ img[data-type="rounded"] {
   border-radius: 50%;
   border: 1px solid var(--theme--color--ui-subtle);
 
-  @media screen and (width <= 991px) {
+  @media screen and (width <=991px) {
     max-inline-size: 200px;
   }
 }
@@ -620,7 +623,7 @@ img[data-type="rounded"] {
     color: inherit;
   }
 
-  @media screen and (width <= 768px) {
+  @media screen and (width <=768px) {
     .date {
       flex-grow: 1;
       margin-inline-end: 2em;
@@ -632,12 +635,29 @@ img[data-type="rounded"] {
     text-align: end;
     margin-inline: 0.5em;
 
-    @media screen and (width <= 768px) {
+    @media screen and (width <=768px) {
       text-align: start;
       margin-inline-start: 0;
     }
   }
+}
 
+.post-cta {
+  margin-block-start: 4em;
+  max-inline-size: 80ch;
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 40px;
+  align-items: end;
+
+  aside {
+    flex-grow: 1;
+  }
+
+  aside+a:has(img) {
+    display: flex;
+    min-inline-size: 217px;
+  }
 }
 
 div:has(> iframe) {
@@ -717,28 +737,21 @@ div:has(> iframe) {
 }
 
 #post-header {
-  --spacing--horizontal: 2em;
-  --image-size: max(150px, 20%);
+  --spacing-horizontal: 20px;
+  --image-size: min(150px, 20%);
 
   margin-block-start: 2em;
 
-  .body {
-    flex-wrap: nowrap;
-    align-self: center;
+  a:has(img) {
+    display: inline-block;
+    max-inline-size: var(--image-size);
+    block-size: auto;
   }
 
-  .body > div {
-    flex-grow: 1;
-  }
-
-  a:has(img), a > img {
-    inline-size: var(--image-size);
-  }
-
-  @media screen and (width <= 768px) {
-    .body {
-      flex-wrap: wrap;
-    }
+  img {
+    aspect-ratio: 1 / 1;
+    inline-size: 100%;
+    block-size: auto;
   }
 }
 
@@ -748,25 +761,6 @@ div:has(> iframe) {
 
   hr {
     border-color: color-mix(in sRGB, var(--theme--color--ui-accent) 50%, transparent);
-  }
-}
-
-#post-footer {
-  margin-block-start: 2em;
-
-  .promo {
-    font-weight: 800;
-
-    @media screen and (width <= 768px) {
-      display: none;
-    }
-  }
-
-  .body {
-    flex-grow: 1;
-    inline-size: 80ch;
-    justify-content: space-between;
-    max-inline-size: 100%;
   }
 }
 
@@ -785,19 +779,19 @@ div:has(> iframe) {
     min-inline-size: 85%;
   }
 
-  @media screen and (width <= 768px) {
+  @media screen and (width <=768px) {
     .headline {
       font-size: 1.5em;
     }
   }
 
-  @media screen and (width <= 768px) and (width > 468px) {
+  @media screen and (width <=768px) and (width > 468px) {
     .body {
       margin-block-start: 1em;
     }
   }
 
-  @media screen and (width >= 1200px) {
+  @media screen and (width >=1200px) {
     hr {
       margin-block-start: 2em;
     }
@@ -815,7 +809,7 @@ div:has(> iframe) {
     margin-block-end: -1em;
     opacity: 0.3;
 
-    @media screen and (width <= 768px) {
+    @media screen and (width <=768px) {
       display: none;
     }
   }
@@ -825,26 +819,27 @@ div:has(> iframe) {
   }
 
   .body:has([promo])::before {
-      content: '';
-      display: block;
-      background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, transparent);
-      block-size: 100%;
-      inline-size: 100%;
-      inset-block-end: -40px;
-      inset-inline-end: -40px;
-      z-index: -10;
-      position: absolute;
+    content: '';
+    display: block;
+    background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, transparent);
+    block-size: 100%;
+    inline-size: 100%;
+    inset-block-end: -40px;
+    inset-inline-end: -40px;
+    z-index: -10;
+    position: absolute;
   }
 }
 
 #projects,
 #presentations {
+
   h2.title,
   .header-summary {
     margin-block-end: 1em;
   }
 
-  @media screen and (width >= 992px) {
+  @media screen and (width >=992px) {
     h2.title {
       margin-block-start: 4em;
     }
@@ -852,7 +847,7 @@ div:has(> iframe) {
 }
 
 #projects {
-  @media screen and (width >= 992px) {
+  @media screen and (width >=992px) {
     --card--MaxInlineSize: min(max(300px, 30%), 100%);
 
     a-card[featured] {
@@ -873,7 +868,7 @@ div:has(> iframe) {
     padding-block-end: 0;
   }
 
-  @media screen and (width >= 992px) {
+  @media screen and (width >=992px) {
     --grid-columns: 1;
   }
 }

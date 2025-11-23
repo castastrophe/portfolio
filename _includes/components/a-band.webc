@@ -61,6 +61,7 @@
     .body {
         flex-grow: 1;
         max-inline-size: 100%;
+        position: relative;
     }
 
     :host([layout="space-between"]) .body {

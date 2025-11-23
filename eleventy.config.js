@@ -7,6 +7,7 @@ import { minify } from "html-minifier";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
+import brokenLinks from "eleventy-plugin-broken-links";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function(config) {
@@ -75,6 +76,11 @@ export default async function(config) {
 
 	config.addPlugin(InputPathToUrlTransformPlugin);
 	config.addPlugin(syntaxHighlight);
+	config.addPlugin(brokenLinks, {
+		broken: "warn",
+		forbidden: "warn",
+		redirects: "warn",
+	});
 
 	config.addFilter("isPost", function(page) {
 		return page.inputPath.includes("posts/");

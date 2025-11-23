@@ -33,6 +33,7 @@
     "babelify": "^10.0.0",
     "browserify": "^17.0.1",
     "cssnano": "^7.1.2",
+    "eleventy-plugin-broken-links": "^2.2.1",
     "eslint": "^9.38.0",
     "esmify": "^2.1.1",
     "html-minifier": "^4.0.0",

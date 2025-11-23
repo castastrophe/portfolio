@@ -150,12 +150,12 @@ eleventyExcludeFromCollections: true
     </a-card>
 </a-band>
 
-
-<a-band padding="double" id="post-footer" layout="space-between">
-    <aside role="note" style="max-inline-size: 50ch;">
-        <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                connect</a>!</p>
-    </aside>
-    <p class="promo">or...</p>
-    <a href="https://www.buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a-band padding="none">
+    <div class="post-cta">
+        <aside role="note">
+            <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
+                    connect</a>!</p>
+        </aside>
+        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
+    </div>
 </a-band>

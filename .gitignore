@@ -21,6 +21,7 @@ node_modules/
 .npm
 
 # Plugin caches
+.cache
 .eslintcache
 .stylelintcache
 
