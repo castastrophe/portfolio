@@ -538,11 +538,14 @@ blockquote {
 aside[role="note"] {
   box-sizing: border-box;
   background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, transparent);
-  border-inline-start: 4px solid var(--theme--color--ui-accent);
-  padding: .5rem 1rem;
+  border: 1px solid var(--theme--color--ui-accent);
+  border-inline-start: 8px solid var(--theme--color--ui-accent);
+  border-radius: var(--border-radius);
+  padding: .8rem 1rem;
   inline-size: max-content;
   max-inline-size: calc(100% - 2rem);
-  font-size: 1em;
+  font-size: 1.2em;
+  font-weight: 600;
   margin-inline-start: 0;
 
   strong {
@@ -691,13 +694,13 @@ img[data-type="rounded"] {
     position: relative;
     /* Register summary as an anchor element */
     anchor-name: --summary;
-    
+
     &::marker,
     &::-webkit-details-marker {
       display: none;
       content: "";
     }
-    
+
     &::before,
     &::after {
       /* Custom marker dimensions */
@@ -705,17 +708,17 @@ img[data-type="rounded"] {
       border-block-start: 3px solid var(--theme--color--ui-accent);
       height: 0;
       width: 1rem;
-      
+
       /* Positions the lines */
       inset-block-start: 50%;
       inset-inline-end: 1rem;
-      
+
       /* Anchor the shape to the summary */
       position: absolute;
       position-anchor: --summary;
       position-area: top end;
     }
-    
+
     /* Rotate just the ::after line to create a "+"" shape */
     &::after {
       transform: rotate(90deg);
@@ -803,6 +806,44 @@ div:has(> iframe) {
       outline: 2px solid var(--theme--color--link--focus-visible);
       outline-color: var(--theme--color--link--focus);
     }
+  }
+}
+
+.cta-button,
+a.cta-button {
+  display: inline-block;
+  background-color: var(--theme--color--ui-accent);
+  color: var(--theme--color--surface);
+  padding: 0.5em 1em;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .8em;
+  line-height: 1.15;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--theme--color--ui-accent--hover);
+  }
+
+  &:focus {
+    background-color: var(--theme--color--ui-accent--focus);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme--color--ui-accent--focus);
+    outline-offset: 2px;
+    border-radius: var(--border-radius);
+  }
+
+  &:active {
+    background-color: var(--theme--color--ui-accent--active);
+  }
+
+  aside &:last-child {
+    margin-block-end: calc(var(--spacing--vertical) * .4);
   }
 }
 

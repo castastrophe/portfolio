@@ -37,6 +37,7 @@ eleventyExcludeFromCollections: true
         <aside role="note">
             <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
                     connect</a>!</p>
+            <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
         </aside>
         <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
     </div>

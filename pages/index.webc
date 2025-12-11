@@ -17,7 +17,7 @@ eleventyExcludeFromCollections: true
     </div>
 </a-band>
 
-<a-band id="consulting">
+<a-band id="consulting" style="--spacing--vertical: 2em;">
     <div class="content" style="inline-size: 80ch; max-inline-size: 100%;">
         <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
         <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web
@@ -34,6 +34,7 @@ eleventyExcludeFromCollections: true
     <aside role="note">
         <p>Available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
                 connect</a>!</p>
+        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
     </aside>
 </a-band>
 
@@ -155,6 +156,7 @@ eleventyExcludeFromCollections: true
         <aside role="note">
             <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
                     connect</a>!</p>
+            <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
         </aside>
         <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
     </div>
