@@ -13,10 +13,6 @@ export default ({ env }) => ({
         /* --------------------------------------------------- */
         /* ------------------- POLYFILLS --------------------- */
         /**
-         * @todo should we be documenting this for downstream users rather
-         * than polyfilling the features ourselves? what if they want to
-         * use a different support matrix?
-         *
          * @note stage 2 (default); stage 4 === stable
          * @link https://github.com/csstools/postcss-plugins
          * @link https://preset-env.cssdb.org/features/#stage-2
