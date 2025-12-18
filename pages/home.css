@@ -508,7 +508,7 @@ blockquote {
     color: white;
     padding: 0.2em 0.5em;
     border-radius: 0 var(--border-radius) 0 var(--border-radius);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
   }
 }
 
@@ -599,14 +599,19 @@ aside[role="note"] {
   position: sticky;
   inset-block-start: 0;
 
-  background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
-  border: 1px solid var(--theme--color--ui-accent);
-  box-shadow: 5px 5px color-mix(in sRGB, var(--theme--color--surface) 90%, transparent);
+  background-color: var(--theme--color--surface);
+  color: var(--theme--color--text);
+
+  box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
   border-radius: var(--border-radius);
   margin-block-start: -1em;
   margin-block-end: 1em;
   margin-inline: -5px;
   z-index: 100;
+
+  a {
+    color: inherit;
+  }
 
   summary,
   strong {
@@ -615,6 +620,7 @@ aside[role="note"] {
   }
 
   summary {
+    background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
     cursor: pointer;
     padding: 10px 1rem;
 
@@ -655,6 +661,10 @@ aside[role="note"] {
   }
 
   &[open] {
+    summary {
+      border-block-end: 1px solid var(--theme--color--ui-accent);
+    }
+
     summary::after {
       transform: rotate(0deg);
     }
@@ -662,14 +672,16 @@ aside[role="note"] {
 
   .toc {
     max-block-size: 90vh;
-    padding: 0 1rem 10px;
+    padding: var(--spacing--vertical) 1rem;
     overflow-y: auto;
 
     ol {
-      padding-inline-start: 15px;
+      padding-inline-start: 20px;
       list-style-type: none;
 
       &:first-child {
+        padding-inline-start: 0;
+
         > li > a {
           font-weight: bold;
           line-height: 1.8;
@@ -911,7 +923,7 @@ a.cta-button {
   font-size: 1.3em;
   border-block-start: 2px solid color-mix(in sRGB, var(--theme--color--ui-accent) 80%, transparent);
   margin-block-start: 1em;
-  
+
   .body {
     --spacing-horizontal: 20px;
     --spacing-vertical: 20px;

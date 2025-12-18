@@ -12,10 +12,10 @@
     <div class="masthead">
         <div class="branding-image">
             <div class="flip-logo">
-                <a :href="url('/')" title="Return to the home page" class="flip-logo-front">
+                <a href="/" title="Return to the home page" class="flip-logo-front">
                     <img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
                 </a>
-                <a :href="url('/')" title="Return to the home page" class="flip-logo-back">
+                <a href="/" title="Return to the home page" class="flip-logo-back">
                     <img src="/img/cassondra-roberts.png" alt="Animated caricature of the author" data-type="rounded">
                 </a>
             </div>
@@ -27,7 +27,7 @@
             <div class="navigation">
                 <nav>
                     <ul>
-                        <li webc:for="nav of navigation" :aria-page="page.url.endsWith(nav.href) ? 'current' : false"><a :href="nav.href" @text="nav.label"></a></li>
+                        <li webc:for="nav of navigation" :aria-page="page?.url?.endsWith(nav?.href) ? 'current' : false"><a :href="nav.href" @text="nav.label"></a></li>
                     </ul>
                 </nav>
                 <social-icons></social-icons>
@@ -155,7 +155,7 @@
             }
         }
     }
-  
+
     hr {
       min-inline-size: 85%;
     }

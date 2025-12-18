@@ -1,0 +1,61 @@
+---
+layout: layouts/base.webc
+---
+
+<style>
+    .content {
+        background-color: var(--theme--color--surface);
+        padding: 1em;
+        border-radius: var(--border-radius);
+        box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
+
+        :is(h2) {
+            position: relative;
+
+            &:not(:first-child) {
+                margin-block-start: 2em !important;
+            }
+
+            &:first-child {
+                margin-block-start: 0 !important;
+            }
+
+            &::after {
+                content: '';
+                display: block;
+                background-color: color-mix(in srgb, var(--theme--color--ui-accent) 10%, transparent);
+                height: .8em;
+                width: 100%;
+                inset-block-start: -0.05em;
+                inset-inline-start: -0.25em;
+                z-index: 0;
+                position: absolute;
+            }
+        }
+    }
+</style>
+
+<a-masthead></a-masthead>
+
+<a-band layout="space-between">
+    <div>
+        <h1 class="headline" @text="title"></h1>
+        <p class="metadata">
+            <span class="author" @text="author || site.author" webc:if="author"></span>
+            <span class="cta"><a href="/proposals" title="Return to the proposals page" class="cta-link">All proposals</a></span>
+        </p>
+        <p class="tags" webc:if="tags">
+            <span class="tag" webc:for="tag of tags" @text="tag"></span>
+        </p>
+    </div>
+</a-band>
+
+<a-band>
+    <aside>
+        <details class="post-toc">
+            <summary>Table of contents</summary>
+            <div @raw="toc(content)" webc:nokeep></div>
+        </details>
+    </div>
+    <div class="content" @raw="content" @raw="markdownContent"></div>
+</a-band>
