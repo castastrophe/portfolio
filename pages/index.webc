@@ -3,115 +3,36 @@ layout: layouts/base.webc
 eleventyExcludeFromCollections: true
 ---
 
-<a-band padding="half" id="nav" layout="space-between">
-    <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
-    <div>
-        <h1 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h1>
-        <h2 class="headline">Cassondra Roberts | <a href="https://front-end.social/@castastrophe">@castastrophe</a></h2>
-        <hr />
-        <div class="social">
-            <span class="social-icons">
-                <a webc:for="social of site.social" class="social-icon" rel="me" :href="social.url"><span :class="`fab fa-${social.icon}`"></span></a>
-            </span>
-        </div>
-    </div>
-</a-band>
+<a-masthead></a-masthead>
 
-<a-band id="consulting" style="--spacing--vertical: 2em;">
-    <div class="content" style="inline-size: 80ch; max-inline-size: 100%;">
+<a-band id="consulting" style="--spacing--vertical: 2em; padding-block-start: 2em;">
+    <a-card style="--spacing--vertical: .5em;">
         <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-        <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web
+        <p>That's exactly the energy this consulting venture brings to the web. I'm available to explore how we deliver web
             experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
             their design counterparts.</p>
-        <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
-                technologies and implementing highly-optimized, clean solutions to complex
-                problems.</b></p>
-        <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b>
-            and these values guide the code that I produce and influence. One of the most enjoyable aspects
-            of my job is open source community management; engaging with and connecting the contributors and consumers.
+        <p class="header-summary"><b>Accessibility and developer experience are core values</b>
+            that guide the code we produce and influence. We also offer expertise in open source community management; engaging with and connecting the contributors and consumers.
         </p>
-    </div>
-    <aside role="note">
-        <p>Available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                connect</a>!</p>
+    </a-card>
+    <aside role="note" style="margin-inline-start: -10px;">
+        <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
         <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
     </aside>
 </a-band>
 
-<a-band id="projects" layout="space-around" width="full">
-    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
-        <h2 class="title">Projects</h2>
-        <p class="header-summary">I'm proud to have worked on a variety of projects, from open source libraries to
-            enterprise design systems. As a project maintainer and contributor, I'm passionate about building tools that
-            empower developers to build better web experiences, leveraging the latest technologies and techniques so
-            they can focus on what matter most.</p>
-    </div>
-    <a-card bordered featured>
+<a-band width="full" id="articles" padding="half" layout="auto-grid">
+    <h2 class="title" slot="header">Articles</h2>
+    <a-card bordered webc:for="article of collections.posts.toReversed()">
         <div slot="header">
-            <h3 class="title">Plugins</h3>
-            <h4 class="headline"><a
-                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                    title="Click to view project listing">PostCSS Plugins</a></h4>
+            <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
+            <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
         </div>
-        <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in
-            diverse framework ecosystems.</p>
+        <p @text="article.data.description"></p>
+        <p class="tags" slot="footer">
+            <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
+        </p>
     </a-card>
-    <a-card bordered featured>
-        <div slot="header">
-            <h3 class="title">Automation</h3>
-            <h4 class="headline"><a
-                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                    title="Click to view projects">GitHub Actions</a></h4>
-        </div>
-        <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable
-            tool for automatically updating open pull requests.</p>
-    </a-card>
-    <div layout="space-around">
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Adobe</h3>
-                <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
-                        CSS</a></h4>
-            </div>
-            <div class="content">
-                <p>A CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the
-                    foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
-            </div>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/adobe/spectrum-css" title="Click to view project">View the
-                    source code</a>
-            </p>
-        </a-card>
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Adobe</h3>
-                <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
-                        title="Click to view project">Spectrum Web Components</a></h4>
-            </div>
-            <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
-            </p>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/adobe/spectrum-web-components"
-                    title="Click to view project">View the source code</a>
-            </p>
-        </a-card>
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Red Hat</h3>
-                <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
-                        title="Click to view project">PatternFly Elements</a></h4>
-            </div>
-            <p>A web component implementation of the Red Hat design system. It leverages the
-                encapsulation of ShadowDOM and the
-                power of custom properties to create well-scoped elements that are still
-                designer-friendly.
-            </p>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
-                    title="Click to view project">View the source code</a>
-            </p>
-        </a-card>
-    </div>
 </a-band>
 
 <!-- Recorded talks -->
@@ -121,7 +42,7 @@ eleventyExcludeFromCollections: true
         <p class="header-summary">Available for speaking, teaching, workshops, and being a podcast or stream guest
             -<br /><a href="mailto:consulting@allons-y.llc">let's get in touch</a>.</p>
     </div>
-    <a-card overflow webc:for="presentation of site.presentations">
+    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="index <= 2">
         <div slot="header">
             <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -137,27 +58,9 @@ eleventyExcludeFromCollections: true
     </a-card>
 </a-band>
 
-<a-band width="full" id="articles" padding="double" layout="auto-grid">
-    <h2 class="title" slot="header">Articles</h2>
-    <a-card bordered webc:for="article of collections.posts.toReversed()">
-        <div slot="header">
-            <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
-            <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
-        </div>
-        <p @text="article.data.description"></p>
-        <p class="tags" slot="footer">
-            <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
-        </p>
-    </a-card>
-</a-band>
-
-<a-band padding="none">
-    <div class="post-cta">
-        <aside role="note">
-            <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                    connect</a>!</p>
-            <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-        </aside>
-        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
-    </div>
+<a-band padding="double">
+    <aside role="note" style="align-self: center">
+        <p>I'm available for full-time, consulting, speaking, workshops, or training.</p>
+        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+    </aside>
 </a-band>

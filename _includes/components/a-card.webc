@@ -15,11 +15,10 @@
         flex-flow: column nowrap;
         gap: 1em;
 
-        align-items: start;
         justify-content: start;
 
         font-size: Clamp(1em, 1vw, 1.3em);
-        max-inline-size: var(--card--MaxInlineSize, 80ch);
+        inline-size: min(var(--card--MaxInlineSize, 80ch), 100%);
         color: var(--card--TextColor);
         padding: var(--card--Padding, Clamp(.5em, .2vw, 3em));
         background: var(--card--BackgroundColor, transparent);

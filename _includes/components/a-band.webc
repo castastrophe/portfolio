@@ -56,6 +56,7 @@
         row-gap: var(--spacing--vertical);
         column-gap: var(--spacing--horizontal);
         justify-content: start;
+        align-items: center;
     }
 
     .body {
@@ -94,9 +95,13 @@
         --spacing--vertical: .5em;
 
         display: grid;
-        grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(325px, 1fr));
+        grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(var(--card-Width, 325px), 1fr));
         align-items: var(--align-items, stretch);
         justify-content: var(--justify-content, space-around);
+
+        > a-card {
+            justify-self: center;
+        }
     }
 
     :host([overflow]) {
@@ -113,7 +118,7 @@
         --band--Width: 90%;
     }
 
-    @media screen and (width >= 1200px) {
+    @media screen and (width >= 980px) {
         :host {
             align-items: center;
             justify-content: center;

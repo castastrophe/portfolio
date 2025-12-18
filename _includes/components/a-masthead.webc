@@ -1,0 +1,201 @@
+<script webc:setup>
+	const navigation = [{
+        label: 'About',
+        href: '/about/',
+    }, {
+        label: 'Writing',
+        href: '/posts/',
+    }];
+</script>
+
+<template webc:nokeep>
+    <div class="masthead">
+        <div class="branding-image">
+            <div class="flip-logo">
+                <a :href="url('/')" title="Return to the home page" class="flip-logo-front">
+                    <img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
+                </a>
+                <a :href="url('/')" title="Return to the home page" class="flip-logo-back">
+                    <img src="/img/cassondra-roberts.png" alt="Animated caricature of the author" data-type="rounded">
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Allons-Y Consulting</h1>
+            <h2>Cassondra Roberts | <a href="https://front-end.social/@castastrophe">@castastrophe</a></h2>
+            <hr />
+            <div class="navigation">
+                <nav>
+                    <ul>
+                        <li webc:for="nav of navigation" :aria-page="page.url.endsWith(nav.href) ? 'current' : false"><a :href="nav.href" @text="nav.label"></a></li>
+                    </ul>
+                </nav>
+                <social-icons></social-icons>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style webc:scoped>
+    :host {
+        display: block;
+        box-sizing: border-box;
+        inline-size: var(--band--Width, 90%);
+        max-inline-size: calc(100vw - (var(--spacing--horizontal) * 1.2));
+        margin-inline: auto;
+        padding-block: calc(var(--spacing--vertical) * 2);
+        padding-inline: calc(var(--spacing--horizontal) * .6);
+    }
+
+    .masthead {
+        display: flex;
+        flex-flow: row wrap;
+        row-gap: var(--spacing--vertical);
+        column-gap: calc(var(--spacing--horizontal) * 2);
+        justify-content: center;
+    }
+
+    .branding-image {
+        --border-radius: 50%;
+
+        aspect-ratio: 1 / 1;
+        inline-size: clamp(180px, 18vw, 250px);
+        block-size: auto;
+        perspective: 1000px;
+
+        &:hover .flip-logo,
+        &:has(:focus, :focus-visible) .flip-logo {
+            transform: rotateY(180deg);
+        }
+
+        &:has(:hover, :focus, :focus-visible) {
+            outline: 2px solid var(--theme--color--ui-accent);
+            outline-offset: var(--outline-offset, 2px);
+            border-radius: var(--border-radius);
+        }
+    }
+
+    .flip-logo {
+        margin-inline: 0;
+        cursor: pointer;
+        display: flex;
+        position: relative;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        inline-size: 100%;
+        block-size: 100%;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: transform 2s;
+        }
+    }
+
+    .flip-logo-front,
+    .flip-logo-back {
+        position: absolute;
+        backface-visibility: hidden;
+        inline-size: 100%;
+        block-size: 100%;
+    }
+
+    .flip-logo-back {
+        transform: rotateY(180deg);
+    }
+
+    img[data-type="rounded"] {
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--theme--color--ui-subtle);
+        inline-size: 100%;
+        block-size: 100%;
+    }
+
+    .container {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    h1 {
+        font-size: min(3em, 6vw);
+        font-family: var(--theme--font-family--heading);
+        margin-block-start: 0;
+        margin-block-end: var(--spacing--vertical);
+        font-weight: 800;
+        line-height: 1.4;
+        color: var(--headline);
+    }
+
+    h2 {
+        font-family: var(--theme--font-family--heading);
+        font-size: 1.8em;
+        margin-block-start: 0;
+        margin-block-end: 10px;
+        font-weight: 100;
+        line-height: 1.1;
+        color: var(--headline);
+
+        @media (width >=992px) {
+            font-size: 39px;
+        }
+
+        @media (width >=1200px) {
+            font-size: 42px;
+        }
+
+        a {
+            color: inherit;
+            font-weight: inherit;
+            text-decoration-color: color-mix(in sRGB, var(--theme--color--ui-subtle), black 20%);
+            text-decoration-style: solid;
+            text-decoration-line: underline;
+
+            &:hover {
+                color: var(--theme--color--link--hover);
+                text-decoration-color: var(--theme--color--link--hover);
+            }
+        }
+    }
+  
+    hr {
+      min-inline-size: 85%;
+    }
+
+    .navigation {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        row-gap: var(--spacing--vertical);
+        column-gap: var(--spacing--horizontal);
+    }
+
+    nav {
+        display: inline-flex;
+        flex-flow: row wrap;
+        flex-grow: 1;
+
+        ul {
+            display: inline-flex;
+            gap: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        [aria-page="current"] a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        a:is(:hover, :focus, :focus-visible) {
+            outline: 2px solid var(--theme--color--ui-accent);
+            outline-offset: var(--outline-offset, 2px);
+            border-radius: var(--border-radius);
+        }
+    }
+
+    @media screen and (width <=768px) {
+        h2 {
+            font-size: 1.2em;
+        }
+    }
+</style>

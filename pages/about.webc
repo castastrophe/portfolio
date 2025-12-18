@@ -1,0 +1,128 @@
+---
+layout: layouts/base.webc
+eleventyExcludeFromCollections: true
+---
+
+<a-masthead></a-masthead>
+
+<a-band id="consulting" style="--spacing--vertical: 2em;">
+    <div class="content" style="inline-size: 80ch; max-inline-size: 100%;">
+        <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
+        <p>That's exactly the energy this venture brings to the web. I'm looking to explore how we deliver web
+            experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
+            their design counterparts.</p>
+        <p class="header-summary"><b class="extra">Nothing makes me happier than exploring new
+                technologies and implementing highly-optimized, clean solutions to complex
+                problems.</b></p>
+        <p class="header-summary"><b>Developer experience and accessibility are deeply important to me</b>
+            and these values guide the code that I produce and influence. One of the most enjoyable aspects
+            of my job is open source community management; engaging with and connecting the contributors and consumers.
+        </p>
+    </div>
+</a-band>
+
+<a-band id="projects" layout="space-around" width="full">
+    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
+        <h2 class="title">Projects</h2>
+        <p class="header-summary">I'm proud to have worked on a variety of projects, from open source libraries to
+            enterprise design systems. As a project maintainer and contributor, I'm passionate about building tools that
+            empower developers to build better web experiences, leveraging the latest technologies and techniques so
+            they can focus on what matter most.</p>
+    </div>
+    <a-card bordered featured>
+        <div slot="header">
+            <h3 class="title">Plugins</h3>
+            <h4 class="headline"><a
+                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                    title="Click to view project listing">PostCSS Plugins</a></h4>
+        </div>
+        <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in
+            diverse framework ecosystems.</p>
+    </a-card>
+    <a-card bordered featured>
+        <div slot="header">
+            <h3 class="title">Automation</h3>
+            <h4 class="headline"><a
+                    href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
+                    title="Click to view projects">GitHub Actions</a></h4>
+        </div>
+        <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable
+            tool for automatically updating open pull requests.</p>
+    </a-card>
+    <div layout="space-around">
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Adobe</h3>
+                <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
+                        CSS</a></h4>
+            </div>
+            <div class="content">
+                <p>A CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the
+                    foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
+            </div>
+            <p class="cta" slot="footer">
+                <a class="cta-link" href="https://github.com/adobe/spectrum-css" title="Click to view project">View the
+                    source code</a>
+            </p>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Adobe</h3>
+                <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
+                        title="Click to view project">Spectrum Web Components</a></h4>
+            </div>
+            <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
+            </p>
+            <p class="cta" slot="footer">
+                <a class="cta-link" href="https://github.com/adobe/spectrum-web-components"
+                    title="Click to view project">View the source code</a>
+            </p>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h3 class="title">Red Hat</h3>
+                <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
+                        title="Click to view project">PatternFly Elements</a></h4>
+            </div>
+            <p>A web component implementation of the Red Hat design system. It leverages the
+                encapsulation of ShadowDOM and the
+                power of custom properties to create well-scoped elements that are still
+                designer-friendly.
+            </p>
+            <p class="cta" slot="footer">
+                <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
+                    title="Click to view project">View the source code</a>
+            </p>
+        </a-card>
+    </div>
+</a-band>
+
+<a-band padding="half">
+    <aside role="note" style="align-self: center">
+        <p>I'm available for full-time, consulting, speaking, workshops, or training.</p>
+        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+    </aside>
+</a-band>
+
+<!-- Recorded talks -->
+<a-band id="presentations" layout="auto-grid" width="full">
+    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
+        <h2 class="title">Presentations</h2>
+        <p class="header-summary">Available for speaking, teaching, workshops, and being a podcast or stream guest
+            -<br /><a href="mailto:consulting@allons-y.llc">let's get in touch</a>.</p>
+    </div>
+    <a-card overflow webc:for="presentation of site.presentations">
+        <div slot="header">
+            <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        <h3 class="title" @text="presentation.title"></h3>
+        <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
+                title="Click to watch this interview" @text="presentation.headline"></a></h4>
+        <p @text="presentation.description"></p>
+        <p class="cta" slot="footer" webc:if="presentation.resources">
+            <a class="cta-link" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
+        </p>
+    </a-card>
+</a-band>

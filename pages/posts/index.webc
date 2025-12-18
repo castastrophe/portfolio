@@ -3,21 +3,9 @@ layout: layouts/base.webc
 eleventyExcludeFromCollections: true
 ---
 
-<a-band padding="half" id="nav" layout="space-between">
-    <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
-    <div>
-        <h1 class="masthead"><span>[</span>&nbsp;Allons-Y&nbsp;<span>]</span></h1>
-        <h2 class="headline">Cassondra Roberts | <a href="https://front-end.social/@castastrophe">@castastrophe</a></h2>
-        <hr />
-        <div class="social">
-            <span class="social-icons">
-                <a webc:for="social of site.social" class="social-icon" rel="me" :href="social.url"><span :class="`fab fa-${social.icon}`"></span></a>
-            </span>
-        </div>
-    </div>
-</a-band>
+<a-masthead></a-masthead>
 
-<a-band width="full" id="articles" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
+<a-band width="full" id="articles" padding="double" layout="auto-grid" style="--spacing--vertical: 2em; --card-Width: 80ch">
     <h2 class="title" slot="header" style="inline-size: 60ch; max-inline-size: 100%;">Articles</h2>
     <a-card bordered webc:for="article of collections.posts.toReversed()">
         <div slot="header">
@@ -31,14 +19,9 @@ eleventyExcludeFromCollections: true
     </a-card>
 </a-band>
 
-
-<a-band padding="none">
-    <div class="post-cta">
-        <aside role="note">
-            <p>I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                    connect</a>!</p>
-            <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-        </aside>
-        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
-    </div>
+<a-band padding="half">
+    <aside role="note" style="align-self: center">
+        <p>I'm available for full-time, consulting, speaking, workshops, or training.</p>
+        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+    </aside>
 </a-band>

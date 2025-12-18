@@ -26,11 +26,8 @@ layout: layouts/base.webc
     </div>
     <div class="content" @raw="content" @raw="markdownContent"></div>
 
-    <div class="post-cta">
-        <aside role="note">
-            <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                    connect</a>!</p>
-        </aside>
-        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 60px !important;width: 217px !important;" ></a>
-    </div>
+    <aside role="note" style="margin-block-start: 2em">
+        <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
+                connect</a>!</p>
+    </aside>
 </a-band>

@@ -172,12 +172,8 @@
 
     <!-- Contact -->
     <a-band id="contact" padding="double">
-        <hr />
-        <div class="social">
-            <span class="social-icons">
-                <a webc:for="social of site.social" class="social-icon" rel="me" :href="social.url"><span :class="`fab fa-${social.icon}`"></span></a>
-            </span>
-        </div>
+        <social-icons></social-icons>
+        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 2.2em" ></a>
     </a-band>
 
     <footer>

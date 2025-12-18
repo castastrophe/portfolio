@@ -94,16 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const detailEl = document.querySelector('.post-toc');
-  detailEl.querySelectorAll('a').forEach(link => {
-    link.addEventListener("click", () => {
-      // close the detail container on click
-      detailEl.removeAttribute("open");
+  if (detailEl) {
+    detailEl.querySelectorAll('a').forEach(link => {
+      link.addEventListener("click", () => {
+        // close the detail container on click
+        detailEl.removeAttribute("open");
+      });
     });
-  });
 
-  document.addEventListener("click", (evt) => {
-    if (detailEl.hasAttribute("open") && evt.target !== detailEl) {
-      detailEl.removeAttribute("open");
-    }
-  })
+    document.addEventListener("click", (evt) => {
+      if (detailEl.hasAttribute("open") && evt.target !== detailEl) {
+        detailEl.removeAttribute("open");
+      }
+    })
+  }
 });

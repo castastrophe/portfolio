@@ -7,28 +7,6 @@
     "themeColor": "#DD18B3",
     "url": "https://allons-y.llc",
     "image": "https://allons-y.llc/img/allonsy-logo.png",
-    "social": [
-        {
-            "url": "https://front-end.social/@castastrophe",
-            "icon": "mastodon"
-        },
-        {
-            "url": "https://www.linkedin.com/in/castastrophe",
-            "icon": "linkedin-in"
-        },
-        {
-            "url": "https://github.com/castastrophe",
-            "icon": "github-alt"
-        },
-        {
-            "url": "https://codepen.io/castastrophe",
-            "icon": "codepen"
-        },
-        {
-            "url": "https://www.youtube.com/@castastrophe",
-            "icon": "youtube"
-        }
-    ],
     "presentations": [
         {
             "title": "Craft Across | 2025",
