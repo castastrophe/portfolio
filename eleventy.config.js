@@ -74,7 +74,13 @@ export default async function(config) {
 	config.setLibrary('md', markdownIt().use(markdownItAnchor));
 
 	config.addCollection("posts", function(collectionApi) {
-		return collectionApi.getFilteredByGlob("pages/posts/*.md");
+		// Exclude the index file
+		return collectionApi.getFilteredByGlob("pages/posts/*").filter(item => !item.inputPath.includes("index.webc"));
+	});
+
+	config.addCollection("proposals", function(collectionApi) {
+		// Exclude the index file
+		return collectionApi.getFilteredByGlob("pages/proposals/*").filter(item => !item.inputPath.includes("index.webc"));
 	});
 
 	config.addPassthroughCopy("img");

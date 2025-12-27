@@ -1,0 +1,40 @@
+---
+layout: layouts/base.webc
+eleventyExcludeFromCollections: true
+---
+
+<a-masthead></a-masthead>
+
+<a-band width="full" id="presentation">
+    <div slot="header" style="--spacing--vertical: .5em; margin-block-end: 2em;">
+        <h2 class="title">Presentations</h2>
+        <a-card bordered>
+            <p class="header-summary">Below are some of the presentations or interviews I've given at various events, conferences, podcasts, and streams over the years.</p>
+            <p class="header-summary">Connecting with individuals and organizations to share knowledge and experience is one of my favorite parts of this work. I'd love to hear about your event or podcast to see how we can work together.</p>
+            <div slot="footer" style="display: flex; margin-block-start: 1em; justify-content: end;">
+                <a class="cta cta-button" target="_blank" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+            </div>
+        </a-card>
+    </div>
+    <a-card bordered webc:for="presentation of site.presentations" layout="video-content">
+        <div class="video-container">
+            <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <h3 class="title" @text="presentation.title"></h3>
+            <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
+                    title="Click to watch this interview" @text="presentation.headline"></a></h4>
+            <p @text="presentation.description"></p>
+            <p class="cta" webc:if="presentation.resources">
+                <a class="cta-link" target="_blank" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
+            </p>
+            <tag-group :@tags="presentation.tags" labeled webc:if="presentation.tags?.length > 0"></tag-group>
+        </div>
+    </a-card>
+</a-band>
+
+<a-band padding="half">
+    <a-note style="align-self: center"></a-note>
+</a-band>

@@ -1,14 +1,14 @@
 // Initialize scroll-based animations and gallery functionality
 document.addEventListener('DOMContentLoaded', () => {
   const gallery = document.querySelector('.gallery');
-  
+
   // Gallery horizontal scroll functionality
   if (gallery) {
     let isScrolling;
-    
+
     gallery.addEventListener('wheel', (e) => {
       clearTimeout(isScrolling);
-      
+
       isScrolling = setTimeout(() => {
         if (e.deltaY !== 0) {
           // e.deltaY > 0 => scrolling down
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateSVGAnimations() {
       const scrollProgress = Math.min(window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight), 1);
-      
+
       // Animate pulsing circles
       svgElements.circlePulse.forEach((element, index) => {
         const phase = (scrollProgress * Math.PI * 2) + (index * 0.5);
@@ -88,24 +88,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add scroll listener for fallback animations
     window.addEventListener('scroll', requestTick, { passive: true });
-    
+
     // Initialize animations
     updateSVGAnimations();
   }
 
   const detailEl = document.querySelector('.post-toc');
   if (detailEl) {
+    const summaryEl = detailEl.querySelector('summary');
+    summaryEl.addEventListener("click", () => {
+      // toggle the detail container on click
+      detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
+    });
+
     detailEl.querySelectorAll('a').forEach(link => {
       link.addEventListener("click", () => {
-        // close the detail container on click
-        detailEl.removeAttribute("open");
+        // close the detail container on click after a short delay
+        setTimeout(() => {
+          detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
+        }, 100);
       });
     });
 
+    // close the detail container on click outside of the detail container or the summary
     document.addEventListener("click", (evt) => {
-      if (detailEl.hasAttribute("open") && evt.target !== detailEl) {
-        detailEl.removeAttribute("open");
+      if (detailEl.hasAttribute("open") && (evt.target !== detailEl && evt.target !== summaryEl)) {
+        detailEl.toggleAttribute("open", false);
       }
-    })
+    }, { capture: true });
   }
 });

@@ -9,8 +9,24 @@
     "image": "https://allons-y.llc/img/allonsy-logo.png",
     "presentations": [
         {
+            "title": "CSS is Awesome Game | 2025",
+            "date": "2025-12-18",
+            "tags": ["podcast", "css"],
+            "youtube_id": "4h9awxdLF4EVhEa5",
+            "headline": "CSS Is Awesome Game",
+            "description": "A fun, holiday-themed game about CSS; I was invited to play on the live stream by my friends at OddBird.",
+            "resources": [
+                {
+                    "cta": "OddBird",
+                    "type": "link",
+                    "url": "https://www.oddbird.net/"
+                }
+            ]
+        },
+        {
             "title": "Craft Across | 2025",
             "date": "2025-10-31",
+            "tags": ["podcast"],
             "youtube_id": "dMu5IxkQb2k",
             "headline": "Storybook Integration for Design Systems",
             "description": "A conversation about how design systems can be integrated with Storybook to create a more efficient and joyful development workflow."
@@ -20,19 +36,14 @@
             "date": "2023-06-09",
             "youtube_id": "67bSCEEdaH8",
             "headline": "Shining Light on the Shadow DOM",
-            "description": "All about the Shadow DOM and how to use it to build better web components.",
-            "resources": [
-                {
-                    "cta": "Slide deck",
-                    "type": "slides",
-                    "url": "/presentation/cssday/"
-                }
-            ]
+            "tags": ["featured", "web components", "presentation"],
+            "description": "All about the Shadow DOM and how to use it to build better web components."
         },
         {
             "title": "S01E04.3 | 2023",
             "date": "2023-01-25",
             "youtube_id": "7n3PHEx_xvg",
+            "tags": ["podcast", "web components"],
             "headline": "Web Components in Space",
             "description": "Join us for a fun interview as we talk about how Adobe is using web components in their design system."
         },
@@ -40,6 +51,7 @@
             "title": "DrupalCon | 2019",
             "date": "2019-04-12",
             "youtube_id": "xH2MmVNuSe4",
+            "tags": ["design system", "css", "presentation", "featured"],
             "headline": "Unlocking design in a design system with custom properties",
             "description": "A deep-dive on how to leverage custom properties to create a flexible and customizable design system."
         },
@@ -47,6 +59,7 @@
             "title": "DrupalCon | 2019",
             "date": "2019-04-15",
             "youtube_id": "Akn6keIYZ3k",
+            "tags": ["web components", "presentation", "featured"],
             "headline": "Make web development fun again, with web components!",
             "description": "A joint presentation with Penn State on how web components can make development workflows fun and efficient."
         },
@@ -54,6 +67,7 @@
             "title": "DrupalCon | 2018",
             "date": "2018-04-11",
             "youtube_id": "p3y0ljTr8YQ",
+            "tags": ["design system", "presentation"],
             "headline": "One of these things is not like the other; identifying patterns in a mock-up",
             "description": "An example-rich talk about how to break out mock-ups into patterns for maximum reusability."
         }

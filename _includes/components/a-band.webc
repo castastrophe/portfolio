@@ -1,10 +1,10 @@
 <template webc:nokeep>
     <section @attributes webc:root>
-        <slot name="header" class="header"></slot>
+        <slot name="header"></slot>
         <div class="body">
             <slot></slot>
         </div>
-        <slot class="footer" name="footer"></slot>
+        <slot name="footer"></slot>
     </section>
 </template>
 
@@ -12,12 +12,9 @@
     :host {
         --multiplier-vertical: 2;
         --multiplier-horizontal: .6;
+        --title-accent-opacity: 10%;
 
         box-sizing: border-box;
-        display: flex;
-        flex-flow: column nowrap;
-        row-gap: var(--spacing--vertical);
-        column-gap: var(--spacing--horizontal);
 
         /* @todo review and test */
         scroll-margin: 10px;
@@ -47,35 +44,80 @@
     }
 
     /* Default layout for all regions is stacked */
-    .header,
-    .body,
-    .footer {
-        box-sizing: border-box;
+    :host,
+    :host > [slot="header"],
+    :host > .body,
+    :host > [slot="footer"],
+    [layout="stacked"] {
         display: flex;
         flex-flow: column nowrap;
         row-gap: var(--spacing--vertical);
         column-gap: var(--spacing--horizontal);
+        align-items: center;
+    }
+
+    :host > [slot="header"],
+    :host > .body,
+    :host > [slot="footer"] {
+        box-sizing: border-box;
         justify-content: start;
         align-items: center;
     }
 
-    .body {
+    :host > [slot="header"],
+    :host > .body {
+        > .title {
+            display: block;
+            font-family: var(--theme--font-family--heading);
+            font-size: 1.1em;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--theme--color--text);
+            padding: 0.1em var(--spacing--horizontal);
+            border-radius: var(--border-radius);
+            background-color: color-mix(in srgb, var(--theme--color--ui-accent) var(--title-accent-opacity), var(--theme--color--surface));
+            inline-size: var(--title-inline-size, var(--title-inline-size, min(80ch, 100%)));
+            box-sizing: border-box;
+
+            a {
+                color: inherit;
+                font-weight: 800;
+            }
+        }
+    }
+
+    :host > [slot="header"] {
+        inline-size: min(80ch,100%);
+        align-items: stretch;
+
+        > p {
+            background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
+            align-self: start;
+            text-align: start;
+        }
+
+        > .title {
+            text-align: center;
+        }
+    }
+
+    :host > .body {
         flex-grow: 1;
-        max-inline-size: 100%;
+        inline-size: 100%;
         position: relative;
     }
 
-    :host([layout="space-between"]) .body {
+    :host([layout="space-between"]) > .body {
         flex-flow: row wrap;
     }
 
-    :host([layout="space-evenly"]) .body {
+    :host([layout="space-evenly"]) > .body {
         flex-flow: row wrap;
         justify-content: space-evenly;
     }
 
-    :host([layout="space-around"]) .body,
-    .body [layout="space-around"] {
+    :host([layout="space-around"]) > .body,
+    :host > .body [layout="space-around"] {
         flex-flow: row wrap;
         justify-content: center;
         align-items: stretch;
@@ -83,15 +125,16 @@
         column-gap: var(--spacing--horizontal);
     }
 
-    .body [layout="space-around"] {
+    :host > .body [layout="space-around"] {
         --spacing--vertical: .2em;
         --spacing--horizontal: .2em;
 
         display: flex;
         flex-grow: 1;
+        inline-size: 100%;
     }
 
-    :host([layout="auto-grid"]) .body {
+    :host([layout="auto-grid"]) > .body {
         --spacing--vertical: .5em;
 
         display: grid;
@@ -108,7 +151,7 @@
         --band--Padding--horizontal: 0;
         --band--Width: min(80ch, 90%);
 
-        .body {
+        > .body {
             flex-flow: row nowrap;
             overflow: auto;
         }
@@ -128,7 +171,7 @@
             --band--Width: 100%;
         }
 
-        :host([overflow][layout="auto-grid"]) .body {
+        :host([overflow][layout="auto-grid"]) > .body {
             width: 100%;
             /* Create some gutter for the overflow scroll */
             padding-block-end: var(--spacing--vertical, 1em);

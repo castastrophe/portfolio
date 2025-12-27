@@ -172,8 +172,8 @@
 
     <!-- Contact -->
     <a-band id="contact" padding="double">
-        <social-icons></social-icons>
-        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="height: 2.2em" ></a>
+        <icon-group></icon-group>
+        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="--image-size: 180px; --aspect-ratio: 4 / 1;"></a>
     </a-band>
 
     <footer>

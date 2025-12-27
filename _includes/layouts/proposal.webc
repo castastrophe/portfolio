@@ -3,7 +3,7 @@ layout: layouts/base.webc
 ---
 
 <style>
-    .content {
+    .proposal-container {
         background-color: var(--theme--color--surface);
         padding: 1em;
         border-radius: var(--border-radius);
@@ -28,9 +28,15 @@ layout: layouts/base.webc
                 width: 100%;
                 inset-block-start: -0.05em;
                 inset-inline-start: -0.25em;
-                z-index: 0;
+                z-index: -1;
                 position: absolute;
             }
+        }
+    }
+
+    .proposal-header {
+        > .headline {
+            margin-block-end: 0;
         }
     }
 </style>
@@ -38,15 +44,13 @@ layout: layouts/base.webc
 <a-masthead></a-masthead>
 
 <a-band layout="space-between">
-    <div>
+    <div class="proposal-header">
         <h1 class="headline" @text="title"></h1>
         <p class="metadata">
             <span class="author" @text="author || site.author" webc:if="author"></span>
             <span class="cta"><a href="/proposals" title="Return to the proposals page" class="cta-link">All proposals</a></span>
         </p>
-        <p class="tags" webc:if="tags">
-            <span class="tag" webc:for="tag of tags" @text="tag"></span>
-        </p>
+        <tag-group :@tags="tags" labeled webc:if="tags?.length > 0"></tag-group>
     </div>
 </a-band>
 
@@ -57,5 +61,10 @@ layout: layouts/base.webc
             <div @raw="toc(content)" webc:nokeep></div>
         </details>
     </div>
-    <div class="content" @raw="content" @raw="markdownContent"></div>
+    <div class="proposal-container content" @raw="content" @raw="markdownContent"></div>
+
+    <a-note style="margin-block-start: 2em; align-self: center">
+        <p>Did you find this proposal interesting? I'm available for speaking, workshops, or training.</p>
+        <a href="https://fantastical.app/cassondra/inquiries">Let's connect</a>
+    </a-note>
 </a-band>

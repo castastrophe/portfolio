@@ -1,0 +1,78 @@
+<template webc:nokeep>
+    <div @attributes webc:root>
+        <aside role="note">
+            <slot>
+                <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
+                <a href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+            </slot>
+        </aside>
+    </div>
+</template>
+
+<style webc:scoped>
+    :host {
+        --spacing--horizontal: 1rem;
+        --spacing--vertical: .8rem;
+
+        display: block;
+        inline-size: max-content;
+        max-inline-size: calc(100% - var(--spacing--horizontal) * 2);
+    }
+
+    :host > aside[role="note"] {
+        box-sizing: border-box;
+        background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--note-background-base, var(--theme--color--surface)));
+        border: 1px solid var(--theme--color--ui-accent);
+        border-inline-start: 8px solid var(--theme--color--ui-accent);
+        border-radius: var(--border-radius);
+        padding: var(--spacing--vertical) var(--spacing--horizontal);
+
+        font-size: 1em;
+        font-weight: 400;
+
+        margin-inline-start: 0;
+        inline-size: 100%;
+
+        strong {
+            font-weight: 800;
+        }
+    }
+
+    p + a,
+    a:last-child {
+        display: inline-block;
+        background-color: var(--theme--color--ui-accent);
+        color: var(--theme--color--surface);
+        padding: 0.5em 1em;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 800;
+        font-size: .8em;
+        line-height: 1.15;
+        margin: 0;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--theme--color--ui-accent--hover);
+        }
+
+        &:focus {
+            background-color: var(--theme--color--ui-accent--focus);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--theme--color--ui-accent--focus);
+            outline-offset: var(--outline-offset, 2px);
+            border-radius: var(--border-radius);
+        }
+
+        &:active {
+            background-color: var(--theme--color--ui-accent--active);
+        }
+
+        &:last-child {
+            margin-block-end: calc(var(--spacing--vertical) * .4);
+        }
+    }
+</style>

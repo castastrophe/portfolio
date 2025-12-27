@@ -1,5 +1,8 @@
 <script webc:setup>
 	const navigation = [{
+        label: 'Home',
+        href: '/',
+    }, {
         label: 'About',
         href: '/about/',
     }, {
@@ -9,28 +12,22 @@
 </script>
 
 <template webc:nokeep>
-    <div class="masthead">
-        <div class="branding-image">
-            <div class="flip-logo">
-                <a href="/" title="Return to the home page" class="flip-logo-front">
-                    <img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
-                </a>
-                <a href="/" title="Return to the home page" class="flip-logo-back">
-                    <img src="/img/cassondra-roberts.png" alt="Animated caricature of the author" data-type="rounded">
-                </a>
-            </div>
+    <div class="container" webc:root webc:keep>
+        <div class="branding">
+            <a class="branding-image" href="/" title="Return to the home page">
+                <img src="/img/cartoon-self.png" alt="Animated caricature of the author, Cassondra Roberts, smiling and looking directly at the camera.">
+            </a>
         </div>
-        <div class="container">
+        <div class="content">
             <h1>Allons-Y Consulting</h1>
             <h2>Cassondra Roberts | <a href="https://front-end.social/@castastrophe">@castastrophe</a></h2>
-            <hr />
             <div class="navigation">
                 <nav>
                     <ul>
                         <li webc:for="nav of navigation" :aria-page="page?.url?.endsWith(nav?.href) ? 'current' : false"><a :href="nav.href" @text="nav.label"></a></li>
                     </ul>
                 </nav>
-                <social-icons></social-icons>
+                <icon-group></icon-group>
             </div>
         </div>
     </div>
@@ -38,130 +35,96 @@
 
 <style webc:scoped>
     :host {
-        display: block;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
         box-sizing: border-box;
         inline-size: var(--band--Width, 90%);
         max-inline-size: calc(100vw - (var(--spacing--horizontal) * 1.2));
+        min-block-size: calc(clamp(180px, 18vw, 200px) + var(--spacing--vertical) * 4);
         margin-inline: auto;
         padding-block: calc(var(--spacing--vertical) * 2);
         padding-inline: calc(var(--spacing--horizontal) * .6);
     }
 
-    .masthead {
-        display: flex;
-        flex-flow: row wrap;
-        row-gap: var(--spacing--vertical);
-        column-gap: calc(var(--spacing--horizontal) * 2);
-        justify-content: center;
-    }
-
-    .branding-image {
-        --border-radius: 50%;
-
-        aspect-ratio: 1 / 1;
-        inline-size: clamp(180px, 18vw, 250px);
-        block-size: auto;
-        perspective: 1000px;
-
-        &:hover .flip-logo,
-        &:has(:focus, :focus-visible) .flip-logo {
-            transform: rotateY(180deg);
-        }
-
-        &:has(:hover, :focus, :focus-visible) {
-            outline: 2px solid var(--theme--color--ui-accent);
-            outline-offset: var(--outline-offset, 2px);
-            border-radius: var(--border-radius);
-        }
-    }
-
-    .flip-logo {
-        margin-inline: 0;
-        cursor: pointer;
-        display: flex;
-        position: relative;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-        inline-size: 100%;
-        block-size: 100%;
-
-        @media (prefers-reduced-motion: reduce) {
-            transition: transform 2s;
-        }
-    }
-
-    .flip-logo-front,
-    .flip-logo-back {
-        position: absolute;
-        backface-visibility: hidden;
-        inline-size: 100%;
-        block-size: 100%;
-    }
-
-    .flip-logo-back {
-        transform: rotateY(180deg);
-    }
-
-    img[data-type="rounded"] {
-        box-sizing: border-box;
-        border-radius: var(--border-radius);
-        border: 1px solid var(--theme--color--ui-subtle);
-        inline-size: 100%;
-        block-size: 100%;
-    }
-
     .container {
         display: flex;
-        flex-flow: column nowrap;
-    }
+        flex-flow: row wrap;
+        column-gap: calc(var(--spacing--horizontal) * 4);
+        row-gap: var(--spacing--vertical);
+        margin-inline: auto;
+        inline-size: min(1200px, 100%);
 
-    h1 {
-        font-size: min(3em, 6vw);
-        font-family: var(--theme--font-family--heading);
-        margin-block-start: 0;
-        margin-block-end: var(--spacing--vertical);
-        font-weight: 800;
-        line-height: 1.4;
-        color: var(--headline);
-    }
+        .branding {
+            --border-radius: 50%;
 
-    h2 {
-        font-family: var(--theme--font-family--heading);
-        font-size: 1.8em;
-        margin-block-start: 0;
-        margin-block-end: 10px;
-        font-weight: 100;
-        line-height: 1.1;
-        color: var(--headline);
+            .branding-image {
+                display: block;
+                aspect-ratio: 1 / 1;
+                inline-size: clamp(180px, 18vw, 200px);
+                block-size: auto;
 
-        @media (width >=992px) {
-            font-size: 39px;
+                img {
+                    box-sizing: border-box;
+                    border-radius: var(--border-radius);
+                    border: 2px solid var(--theme--color--ui-subtle);
+                    inline-size: 100%;
+                    block-size: 100%;
+                }
+
+                &:is(:hover, :focus, :focus-visible) img {
+                    border: 2px solid var(--theme--color--ui-accent);
+                    border-radius: var(--border-radius);
+                }
+            }
         }
 
-        @media (width >=1200px) {
-            font-size: 42px;
-        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            max-inline-size: 100%;
 
-        a {
-            color: inherit;
-            font-weight: inherit;
-            text-decoration-color: color-mix(in sRGB, var(--theme--color--ui-subtle), black 20%);
-            text-decoration-style: solid;
-            text-decoration-line: underline;
+            > h1,
+            > h2 {
+                margin-block-end: var(--spacing--vertical);
+                line-height: 1.1;
+            }
 
-            &:hover {
-                color: var(--theme--color--link--hover);
-                text-decoration-color: var(--theme--color--link--hover);
+            > h1 {
+                font-size: calc(2.4em + 1vw);
+                font-weight: 800;
+
+                @media screen and (width <= 460px) {
+                    font-size: calc(2.1em + 1vw);
+                }
+            }
+
+            > h2 {
+                font-size: calc(1em + 1vw);
+                font-weight: 100;
+
+                a {
+                    color: inherit;
+                    font-weight: inherit;
+                    text-decoration-color: color-mix(in sRGB, var(--theme--color--ui-subtle), black 20%);
+                    text-decoration-style: solid;
+                    text-decoration-line: underline;
+
+                    &:hover {
+                        color: var(--theme--color--link--hover);
+                        text-decoration-color: var(--theme--color--link--hover);
+                    }
+                }
             }
         }
     }
 
-    hr {
-      min-inline-size: 85%;
-    }
-
     .navigation {
-        display: flex;
+        border-block-start: 2px solid var(--theme--color--ui-accent);
+        padding-block-start: 0.8em;
+        display: inline-flex;
         flex-flow: row wrap;
         justify-content: space-between;
         row-gap: var(--spacing--vertical);
@@ -193,9 +156,9 @@
         }
     }
 
-    @media screen and (width <=768px) {
-        h2 {
-            font-size: 1.2em;
+    @media screen and (width <= 460px) {
+        nav + icon-group {
+            display: none;
         }
     }
 </style>

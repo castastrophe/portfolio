@@ -5,44 +5,92 @@ eleventyExcludeFromCollections: true
 
 <a-masthead></a-masthead>
 
-<a-band id="consulting" style="--spacing--vertical: 2em; padding-block-start: 2em;">
-    <a-card style="--spacing--vertical: .5em;">
-        <p>Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-        <p>That's exactly the energy this consulting venture brings to the web. I'm available to explore how we deliver web
-            experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
-            their design counterparts.</p>
-        <p class="header-summary"><b>Accessibility and developer experience are core values</b>
-            that guide the code we produce and influence. We also offer expertise in open source community management; engaging with and connecting the contributors and consumers.
-        </p>
-    </a-card>
-    <aside role="note" style="margin-inline-start: -10px;">
-        <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
-        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-    </aside>
+<a-band id="services">
+    <div slot="header">
+        <a-card bordered featured>
+            <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly,<br/><strong>"Let's go!"</strong></p>
+            <p>That's exactly the energy this consulting venture brings to the web. We're here to explore how we deliver
+                experiences at scale in a way that empowers developers to work in unison with each other and with
+                their counterparts.</p>
+        </a-card>
+        <h2 class="title" style="margin-block-start: 2em;">What services do we offer?</h2>
+    </div>
+    <div layout="space-around" id="services">
+        <a-card bordered>
+            <div slot="header">
+                <h4 class="title">Design systems</h4>
+            </div>
+            <div class="content">
+                <p>We have a deep understanding of design systems and how to create them. As a staff engineer and open source maintainer, Cassondra has worked with a variety of design systems and has a lot of experience with building them for complex use-cases at an enterprise scale.</p>
+            </div>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h4 class="title">Front-end development</h4>
+            </div>
+            <div class="content">
+                <p>From building custom design systems to implementing enterprise-level front-end solutions, Cassondra has expertise with the latest technologies and techniques to deliver high-performing, accessible web experiences.</p>
+            </div>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h4 class="title">Open source</h4>
+            </div>
+            <div class="content">
+                <p>As a staff engineer and open source maintainer, Cassondra has worked with a variety of open source projects and has a lot of experience with building and managing communities around them. She is passionate about helping others learn and grow in the open source community.</p>
+            </div>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h4 class="title">Training</h4>
+            </div>
+            <div class="content">
+                <p>We offer training and workshops on a variety of topics, including design systems, front-end development, and open source. We can tailor our training to your specific needs and goals.</p>
+            </div>
+        </a-card>
+        <a-card bordered>
+            <div slot="header">
+                <h4 class="title">Project management</h4>
+            </div>
+            <div class="content">We have recently added Michael Roberts, a project management expert, to our team. As an accredited project manager, he has worked with a variety of projects including large-scale enterprise software development and digital transformation initiatives.</div>
+        </a-card>
+        <a-card bordered featured>
+            <div slot="header">
+                <h4 class="title">Let's talk</h4>
+            </div>
+            <div class="content">
+                <p>To discuss how we can work together, please book a free call with us.</p>
+            </div>
+            <p class="cta" slot="footer">
+                <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+                </p>
+            </div>
+        </a-card>
+    </div>
 </a-band>
 
-<a-band width="full" id="articles" padding="half" layout="auto-grid">
-    <h2 class="title" slot="header">Articles</h2>
-    <a-card bordered webc:for="article of collections.posts.toReversed()">
+<a-band width="full" id="posts" padding="half" layout="auto-grid">
+    <div slot="header">
+        <h2 class="title"><a href="/posts/" title="View all posts">Posts</a></h2>
+    </div>
+    <a-card bordered webc:for="(article, index) of collections.posts.toReversed()" webc:if="index < 4">
         <div slot="header">
             <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
             <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
         </div>
         <p @text="article.data.description"></p>
-        <p class="tags" slot="footer">
-            <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
-        </p>
+        <tag-group :@tags="article.data.tags" labeled slot="footer" webc:if="article.data.tags?.length > 0"></tag-group>
     </a-card>
 </a-band>
 
 <!-- Recorded talks -->
-<a-band id="presentations" layout="auto-grid" width="full">
-    <div slot="header" style="inline-size: 80ch; max-inline-size: 100%;">
-        <h2 class="title">Presentations</h2>
-        <p class="header-summary">Available for speaking, teaching, workshops, and being a podcast or stream guest
-            -<br /><a href="mailto:consulting@allons-y.llc">let's get in touch</a>.</p>
+<a-band id="presentations" layout="auto-grid">
+    <div slot="header" style="margin-block-end: 2em;">
+        <h2 class="title"><a href="/presentation/">Presentations</a></h2>
+        <p class="header-summary">Presentations or interviews I've given at various events, conferences, podcasts, and streams.</p>
+        <p class="header-summary">Connecting with individuals and organizations to share my knowledge and experiences is one of my favorite parts of my job. I'd love to hear about your event or podcast to see how we can work together. <a href="https://fantastical.app/cassondra/inquiries">Grab a free call</a> to discuss your needs.</p>
     </div>
-    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="index <= 2">
+    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
         <div slot="header">
             <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -52,15 +100,14 @@ eleventyExcludeFromCollections: true
         <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
                 title="Click to watch this interview" @text="presentation.headline"></a></h4>
         <p @text="presentation.description"></p>
+        <tag-group :@tags="presentation.tags" labeled slot="footer" webc:if="presentation.tags?.length > 0"></tag-group>
         <p class="cta" slot="footer" webc:if="presentation.resources">
             <a class="cta-link" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
         </p>
     </a-card>
 </a-band>
 
-<a-band padding="double">
-    <aside role="note" style="align-self: center">
-        <p>I'm available for full-time, consulting, speaking, workshops, or training.</p>
-        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-    </aside>
+<a-band id="cta" padding="double" layout="space-evenly">
+    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
+    <img src="/img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>

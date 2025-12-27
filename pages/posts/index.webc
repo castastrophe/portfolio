@@ -5,23 +5,20 @@ eleventyExcludeFromCollections: true
 
 <a-masthead></a-masthead>
 
-<a-band width="full" id="articles" padding="double" layout="auto-grid" style="--spacing--vertical: 2em; --card-Width: 80ch">
-    <h2 class="title" slot="header" style="inline-size: 60ch; max-inline-size: 100%;">Articles</h2>
+<a-band width="full" id="posts" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
+    <div slot="header">
+        <h2 class="title">Posts</h2>
+    </div>
     <a-card bordered webc:for="article of collections.posts.toReversed()">
         <div slot="header">
             <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
             <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
         </div>
         <p @text="article.data.description"></p>
-        <p class="tags" slot="footer">
-            <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
-        </p>
+        <tag-group :@tags="article.data.tags" labeled slot="footer" webc:if="article.data.tags?.length > 0"></tag-group>
     </a-card>
 </a-band>
 
 <a-band padding="half">
-    <aside role="note" style="align-self: center">
-        <p>I'm available for full-time, consulting, speaking, workshops, or training.</p>
-        <a class="cta-button" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-    </aside>
+    <a-note style="align-self: center"></a-note>
 </a-band>

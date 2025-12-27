@@ -9,11 +9,9 @@ layout: layouts/base.webc
         <p class="metadata">
             <span class="author" @text="author || site.author"></span>
             <span class="date" @text="date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></span>
-            <span class="cta"><a href="/posts" title="Return to the articles page" class="cta-link">All articles</a></span>
+            <span class="cta"><a href="/posts" title="Return to the posts page" class="cta-link">All posts</a></span>
         </p>
-        <p class="tags">
-            <span class="tag" webc:for="tag of tags" @text="tag"></span>
-        </p>
+        <tag-group webc:if="tags?.length > 0" :@tags="tags" labeled></tag-group>
     </div>
 </a-band>
 
@@ -26,8 +24,8 @@ layout: layouts/base.webc
     </div>
     <div class="content" @raw="content" @raw="markdownContent"></div>
 
-    <aside role="note" style="margin-block-start: 2em">
-        <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, or training - <a href="mailto:consulting@allons-y.llc">let's
-                connect</a>!</p>
-    </aside>
+    <a-note style="margin-block-start: 2em">
+        <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
+        <a href="https://fantastical.app/cassondra/inquiries">Let's connect!</a>
+    </a-note>
 </a-band>
