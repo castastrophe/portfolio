@@ -2,7 +2,10 @@ export default {
 	allowEmptyInput: true,
 	cache: true,
 	defaultSeverity: "warning",
-	extends: ["stylelint-config-standard"],
+	extends: [
+		"stylelint-config-hudochenkov/full",
+		"stylelint-config-recommended-scss",
+	],
 	plugins: [
 		"stylelint-order",
 		"stylelint-use-logical",
@@ -34,12 +37,6 @@ export default {
 				ignoreAtRules: ["extend"],
 			},
 		],
-		"at-rule-no-unknown": [
-			true,
-			{
-				ignoreAtRules: ["extend", "each", "include", "mixin"],
-			},
-		],
 		"block-no-empty": [true, {
 			ignore: ["comments"],
 		}],
@@ -57,21 +54,7 @@ export default {
 			},
 		],
 		"declaration-block-no-duplicate-custom-properties": true,
-		"declaration-property-value-no-unknown": [
-			true,
-			{
-				ignoreProperties: {
-					"/.+/": ["CanvasText", "preserve-parent-color"],
-				},
-			},
-		],
 		"declaration-block-no-shorthand-property-overrides": true,
-		"function-no-unknown": [
-			true,
-			{
-				severity: "warning",
-			},
-		],
 		"max-nesting-depth": [3, { severity: "warning" }],
 		"property-no-unknown": [
 			true,
@@ -108,7 +91,6 @@ export default {
 		 * Plugins
 		 * -------------------------------------------------------------- */
 		"csstools/use-logical": true,
-		"order/order": ["custom-properties", "declarations"],
 		/** Performance */
 		"plugin/no-low-performance-animation-properties": [
 			true,

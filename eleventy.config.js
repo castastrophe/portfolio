@@ -61,8 +61,8 @@ export default async function(config) {
 		]
 	});
 
-	config.addTemplateFormats('css');
-	config.addExtension('css', {
+	config.addTemplateFormats('scss');
+	config.addExtension('scss', {
 		outputFileExtension: 'css',
 		compile: async (inputContent, inputPath) => {
 			return async ({ page }) => {

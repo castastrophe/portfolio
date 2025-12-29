@@ -1,14 +1,61 @@
-@charset "UTF-8";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:map";
+@use "../sass/theme" as *;
+
 @import url("https://fonts.googleapis.com/css?family=Inconsolata");
 @import url("https://fonts.googleapis.com/css?family=PT+Mono");
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+@function join-list($list, $separator: '--') {
+  $result: '';
+  @each $item in $list {
+    $result: $result + $separator + $item;
+  }
+  @return $result;
+}
+
+@mixin print-tokens($map: $tokens, $list: ('theme')) {
+  @each $key, $value in $map {
+    @debug 'key: #{$key}, type: #{meta.type-of($value)}';
+
+    // If the key is not 'primary', 'light', or 'dark', add it to the list
+    // used to generate the CSS custom property key
+    @if $key != 'primary' and $key != 'light' and $key != 'dark' {
+      $list: list.append($list, $key);
+    }
+
+    // Next, if the value is a map, we need to nest the function call and dig deeper
+    @if meta.type-of($value) == 'map' {
+      $keys: map.keys($value);
+
+      // First: check if the map has both 'light' and 'dark' keys so we can skip the nesting and use the light-dark function
+      @if list.index($keys, 'light') and list.index($keys, 'dark') {
+        #{join-list($list)}: light-dark(map.get($value, 'light'), map.get($value, 'dark'));
+        $list: ('theme');
+      }
+      @else {
+        @include print-tokens($map: $value, $list: $list);
+      }
+    }
+    @else if meta.type-of($value) == 'color' or meta.type-of($value) == 'string' {
+      $property: join-list($list);
+
+      #{join-list($list)}: #{$value};
+      $list: ('theme');
+    }
+    $list: ('theme');
+  }
+}
+
 :root {
-  --theme--color--text: light-dark(#333, #fff);
-  --theme--color--text-accent: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
-  --theme--color--surface: light-dark(#fff, #111);
-  --theme--color--surface-accent: light-dark(hsl(313deg 68% 78%), hsl(313deg 80% 48%));
-  --theme--color--ui-subtle: light-dark(#efefef, #afafaf);
+  @include print-tokens();
+
+  // --theme--color--text: light-dark(#333, #fff);
+  // --theme--color--text-accent: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
+  // --theme--color--surface: light-dark(#fff, #111);
+  // --theme--color--surface-accent: light-dark(hsl(313deg 68% 78%), hsl(313deg 80% 48%));
+  // --theme--color--ui-subtle: light-dark(#efefef, #afafaf);
 
   --theme--container-spacer: 16px;
 

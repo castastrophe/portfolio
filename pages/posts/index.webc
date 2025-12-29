@@ -1,13 +1,15 @@
 ---
+title: Posts
 layout: layouts/base.webc
 eleventyExcludeFromCollections: true
+tags: listing
 ---
 
 <a-masthead></a-masthead>
 
 <a-band width="full" id="posts" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
     <div slot="header">
-        <h2 class="title">Posts</h2>
+        <h2 class="title" @text="title"></h2>
     </div>
     <a-card bordered webc:for="article of collections.posts.toReversed()">
         <div slot="header">

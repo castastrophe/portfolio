@@ -1,0 +1,94 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:color";
+
+$tokens: (
+    'font': (
+    ),
+    'color': (
+        'brand': hsl(313deg 80% 48%),
+        'text': (
+            'primary': ( 'light': #333, 'dark': #fff ),
+            'accent': ( 'light': get('color.brand'), 'dark': hsl(313deg 68% 78%) ),
+        ),
+        'surface': (
+            'primary': ( 'light': #fff, 'dark': #111 ),
+            'accent': ( 'light': hsl(313deg 68% 78%), 'dark': hsl(313deg 80% 48%) ),
+        ),
+        'ui': (
+            'primary': ( 'light': #efefef, 'dark': #afafaf ),
+            'accent': ( 'light': hsl(313deg 57% 44%), 'dark': hsl(313deg 96% 72%) ),
+        ),
+    )
+) !default;
+
+/// Get a value from the tokens map by the key
+///
+/// @param {string} $key - The key to get the value from (e.g. 'color.brand', 'color.content.accent')
+/// @note Do not include the 'light' or 'dark' suffixes in the key as they return the light-dark function
+/// @note You can leave off the 'primary' identifier if you want because it returns as the default value for it's parent key
+/// @param {map} $map - The map to get the value from (default: $tokens)
+/// @return {any} The value from the map
+/// @example
+///   get('color.brand')
+///   get('color.content')
+///   get('color.content.accent')
+@function get($key, $map: $tokens) {
+    $keys: string.split($key, '.');
+
+    @each $key in $keys {
+        $value: map.get($map, $key);
+
+        // If the value is not a map, return the resolved value. Rejoice!
+        @if meta.type-of($value) != 'map' {
+            @return $value;
+        }
+        @else if not $value or $value == null {
+            // Check for a 'primary' key or the 'light'/'dark' set
+            @if map.has-key($value, 'primary') {
+                $value: map.get($value, 'primary');
+            }
+            @else if map.has-key($value, 'light') {
+                $value: 'light-dark($value.light, $value.dark)';
+            }
+        }
+    }
+
+    @if not $value {
+        @warn "[get()]: The key `#{$key}` not found in tokens data map";
+        @return null;
+    }
+
+    @return $value;
+}
+
+
+$states: (
+    'hover': (
+        'darken': 10%,
+    ),
+    'focus': (
+        'darken': 20%,
+    ),
+);
+
+/// This uses a standard set of transformations to convert the
+/// input color into a valid state variant
+@function state($state, $color) {
+    $valid_states: map.keys($states);
+    // Validate the provided state exists in the $state list
+    @if not index($valid_states, $state) {
+        @warn "[state()]: $state variable should be one of the following: " + string.join($valid_states, ', ');
+        @return $color;
+    }
+
+    $state_data: map.get($states, $state);
+    @each $transform, $value in $state_data {
+        @debug 'transform: #{$transform}, value: #{$value}';
+        $color: color[#{$transform}]($color, $value);
+        @debug 'color: #{$color}';
+    }
+
+    @return $color;
+}

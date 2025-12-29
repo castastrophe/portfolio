@@ -3,7 +3,7 @@
 	"useTabs": true,
 	"overrides": [
     {
-      "files": "*.css",
+      "files": "*.{css,scss}",
       "options": {
         "printWidth": 500
       }
