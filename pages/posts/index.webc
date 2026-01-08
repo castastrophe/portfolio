@@ -1,26 +1,38 @@
 ---
 title: Posts
 layout: layouts/base.webc
-eleventyExcludeFromCollections: true
+eleventyExcludeFromCollections: ["posts"]
 tags: listing
 ---
 
 <a-masthead></a-masthead>
 
-<a-band width="full" id="posts" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
-    <div slot="header">
+<style>
+    #posts  {
+        --card--MaxInlineSize: min(80ch, 100cqi);
+    }
+</style>
+<section class="band" width="full" id="posts" layout="auto-grid">
+    <div class="band-header">
         <h2 class="title" @text="title"></h2>
     </div>
-    <a-card bordered webc:for="article of collections.posts.toReversed()">
-        <div slot="header">
-            <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
-            <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
-        </div>
-        <p @text="article.data.description"></p>
-        <tag-group :@tags="article.data.tags" labeled slot="footer" webc:if="article.data.tags?.length > 0"></tag-group>
-    </a-card>
-</a-band>
+    <div>
+        <a-card bordered webc:for="article of collections.posts.toReversed()">
+            <div slot="header">
+                <h3 class="headline accent"><a @text="article.data.title" :href="article.url"></a></h3>
+                <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
+            </div>
+            <p @text="article.data.description"></p>
+            <div class="tag-group" slot="footer" webc:if="article.data.tags?.length > 0">
+                <span class="tag-label">tags:</span>
+                <p class="tags" webc:if="article.data.tags?.length > 0">
+                    <span class="tag" webc:for="tag of article.data.tags" @text="tag"></span>
+                </p>
+            </div>
+        </a-card>
+    </div>
+</section>
 
-<a-band padding="half">
+<section class="band" style="--multiplier-vertical: .5;">
     <a-note style="align-self: center"></a-note>
-</a-band>
+</section>

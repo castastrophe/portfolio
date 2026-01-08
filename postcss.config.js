@@ -3,22 +3,6 @@ export default ({ env }) => ({
     map: env === "production" ? false : true,
     parser: 'postcss-scss',
     plugins: {
-        '@csstools/postcss-sass': {
-            loadPaths: [
-                'sass/*'
-            ],
-            sourceMap: env === 'production',
-            sourceMapIncludeSources: true,
-            style: env === 'production' ? 'compressed' : 'expanded',
-        },
-        /* --------------------------------------------------- */
-        /* ------------------- IMPORTS ---------------- */
-        /** @link https://github.com/postcss/postcss-import#postcss-import */
-        'postcss-import': {},
-        /* --------------------------------------------------- */
-        /* ------------------- UTILITIES ---------------- */
-        'postcss-extend': {},
-        'postcss-each': {},
         /* --------------------------------------------------- */
         /* ------------------- POLYFILLS --------------------- */
         /**

@@ -1,12 +1,12 @@
 ---
 layout: layouts/base.webc
-eleventyExcludeFromCollections: true
+eleventyExcludeFromCollections: ["proposals"]
 ---
 
 <a-masthead></a-masthead>
 
-<a-band width="full" id="proposals" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
-    <div slot="header">
+<section class="band" width="full" id="proposals" layout="auto-grid" style="--multiplier-vertical: 2; --theme-spacing-vertical: 2em;">
+    <div class="band-header">
         <h2 class="title">Proposals</h2>
         <p class="header-summary">These are proposals for talks and workshops I've given or would like to give. <a href="mailto:consulting@allons-y.llc">Let's get in touch</a> if you're interested in discussing having one of these proposals presented at your event.</p>
     </div>
@@ -17,9 +17,9 @@ eleventyExcludeFromCollections: true
         <p @text="proposal.data.description"></p>
         <tag-group :@tags="proposal.data.tags" labeled slot="footer" webc:if="proposal.data.tags?.length > 0"></tag-group>
     </a-card>
-</a-band>
+</section>
 
-<a-band id="cta" padding="double" layout="space-evenly">
-    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
+<section class="band" id="cta" layout="space-evenly">
+    <a-note></a-note>
     <img src="/img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
-</a-band>
+</section>

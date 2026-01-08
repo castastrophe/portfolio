@@ -5,45 +5,47 @@ eleventyExcludeFromCollections: true
 
 <a-masthead></a-masthead>
 
-<a-band id="consulting">
-    <div slot="header">
+<section class="band" id="consulting">
+    <div class="band-header">
         <h2 class="title">Who are we at Allons-y Consulting?</h2>
     </div>
-    <a-card>
-        <p class="header-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-        <p>That's exactly the energy this venture brings to the web. We're looking to explore how we deliver experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
-            their counterparts.</p>
-        <p class="header-summary"><b class="extra">Nothing makes us happier than exploring new
-                approaches and creating highly-optimized, clean solutions to complex
-                problems.</b></p>
-        <p class="header-summary"><b>Developer experience and accessibility are deeply important to us</b>
-            and these values guide the results that we produce and influence. One of the most enjoyable aspects
-            of this work is our open source community management; engaging with and connecting the contributors and consumers.
-        </p>
-    </a-card>
-    <div layout="space-around" id="consultants">
-        <a-card bordered>
-            <img slot="header" src="/img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
-            <p><strong>Cassondra Roberts</strong>, owner and front-end expert</p>
-            <p class="cta" slot="footer"><a href="mailto:cassondra@allons-y.llc">Contact Cassondra</a></p>
+    <div style="inline-size: 100%;">
+        <a-card>
+            <p class="header-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
+            <p>That's exactly the energy this venture brings to the web. We're looking to explore how we deliver experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
+                their counterparts.</p>
+            <p class="header-summary"><b class="extra">Nothing makes us happier than exploring new
+                    approaches and creating highly-optimized, clean solutions to complex
+                    problems.</b></p>
+            <p class="header-summary"><b>Developer experience and accessibility are deeply important to us</b>
+                and these values guide the results that we produce and influence. One of the most enjoyable aspects
+                of this work is our open source community management; engaging with and connecting the contributors and consumers.
+            </p>
         </a-card>
-        <a-card bordered>
-            <img slot="header" src="/img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
-            <p><strong>Michael Roberts</strong>, project management expert</p>
-            <p class="cta" slot="footer"><a href="mailto:consulting@allons-y.llc">Contact Michael</a></p>
-        </a-card>
+        <div layout="center" id="consultants">
+            <a-card bordered>
+                <img slot="header" src="/img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
+                <p><strong>Cassondra Roberts</strong>, owner and front-end expert</p>
+                <p class="cta" slot="footer"><a href="mailto:cassondra@allons-y.llc">Contact Cassondra</a></p>
+            </a-card>
+            <a-card bordered>
+                <img slot="header" src="/img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
+                <p><strong>Michael Roberts</strong>, project management expert</p>
+                <p class="cta" slot="footer"><a href="mailto:consulting@allons-y.llc">Contact Michael</a></p>
+            </a-card>
+        </div>
     </div>
-</a-band>
+</section>
 
-<a-band id="projects" width="full">
-    <div slot="header">
+<section class="band" id="projects" width="full" layout="center">
+    <div class="band-header">
         <h2 class="title">Projects</h2>
         <p class="header-summary">I'm proud to have worked on a variety of projects, from open source libraries to
             enterprise design systems. As a project maintainer and contributor, I'm passionate about building tools that
             empower developers to build better web experiences, leveraging the latest technologies and techniques so
             they can focus on what matter most.</p>
     </div>
-    <div layout="space-around">
+    <div style="inline-size: 100%;">
         <a-card bordered featured>
             <div slot="header">
                 <h3 class="title">Plugins</h3>
@@ -65,7 +67,7 @@ eleventyExcludeFromCollections: true
                 tool for automatically updating open pull requests.</p>
         </a-card>
     </div>
-    <div layout="space-around">
+    <div style="inline-size: 100%;" layout="row">
         <a-card bordered>
             <div slot="header">
                 <h3 class="title">Adobe</h3>
@@ -111,31 +113,35 @@ eleventyExcludeFromCollections: true
             </p>
         </a-card>
     </div>
-</a-band>
+</section>
 
-<a-band id="cta" padding="double" layout="space-evenly">
-    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
+<section class="band" id="cta" layout="space-evenly">
+    <a-note></a-note>
     <img src="/img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
-</a-band>
+</section>
 
 <!-- Recorded talks -->
-<a-band id="presentations" layout="auto-grid">
-    <div slot="header">
+<section class="band" id="presentations" layout="auto-grid">
+    <div class="band-header">
         <h2 class="title"><a href="/presentation/">Presentations</a></h2>
     </div>
-    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
-        <div slot="header">
-            <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-        <h3 class="title" @text="presentation.title"></h3>
-        <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
-                title="Click to watch this interview" @text="presentation.headline"></a></h4>
-        <p @text="presentation.description"></p>
-        <tag-group :@tags="presentation.tags" labeled slot="footer" webc:if="presentation.tags?.length > 0"></tag-group>
-        <p class="cta" slot="footer" webc:if="presentation.resources">
-            <a class="cta-link" target="_blank" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
-        </p>
-    </a-card>
-</a-band>
+    <div style="inline-size: 100%;">
+        <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
+            <div slot="header">
+                <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <h3 class="title" @text="presentation.title"></h3>
+            <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
+                    title="Click to watch this interview" @text="presentation.headline"></a></h4>
+            <p @text="presentation.description"></p>
+            <div slot="footer">
+                <tag-group :@tags="presentation.tags" labeled webc:if="presentation.tags?.length > 0"></tag-group>
+                <p class="cta" webc:if="presentation.resources">
+                    <a class="cta-link" target="_blank" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
+                </p>
+            </div>
+        </a-card>
+    </div>
+</section>

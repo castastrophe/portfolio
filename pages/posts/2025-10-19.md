@@ -2,7 +2,6 @@
 title: AI as a reflection of our values
 date: 2025-10-19
 description: As we examine the flaws in our AI models, we begin to see parallels with the flaws already identified in our own society. What can we learn from these existing critiques and how does it apply to how we train models in the future?
-layout: layouts/post.webc
 banner_img: img/ai-woman-rainbow.webp
 tags:
     - ai

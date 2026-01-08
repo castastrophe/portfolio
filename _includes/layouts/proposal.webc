@@ -4,10 +4,10 @@ layout: layouts/base.webc
 
 <style>
     .proposal-container {
-        background-color: var(--theme--color--surface);
+        background-color: var(--theme-color-surface);
         padding: 1em;
         border-radius: var(--border-radius);
-        box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
+        box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme-color-text) 10%, transparent);
 
         :is(h2) {
             position: relative;
@@ -23,7 +23,7 @@ layout: layouts/base.webc
             &::after {
                 content: '';
                 display: block;
-                background-color: color-mix(in srgb, var(--theme--color--ui-accent) 10%, transparent);
+                background-color: color-mix(in srgb, var(--theme-color-ui-accent) 10%, transparent);
                 height: .8em;
                 width: 100%;
                 inset-block-start: -0.05em;
@@ -43,7 +43,7 @@ layout: layouts/base.webc
 
 <a-masthead></a-masthead>
 
-<a-band layout="space-between">
+<section class="band" layout="row">
     <div class="proposal-header">
         <h1 class="headline" @text="title"></h1>
         <p class="metadata">
@@ -52,9 +52,9 @@ layout: layouts/base.webc
         </p>
         <tag-group :@tags="tags" labeled webc:if="tags?.length > 0"></tag-group>
     </div>
-</a-band>
+</section>
 
-<a-band>
+<section class="band">
     <aside>
         <details class="post-toc">
             <summary>Table of contents</summary>
@@ -67,4 +67,4 @@ layout: layouts/base.webc
         <p>Did you find this proposal interesting? I'm available for speaking, workshops, or training.</p>
         <a href="https://fantastical.app/cassondra/inquiries">Let's connect</a>
     </a-note>
-</a-band>
+</section>

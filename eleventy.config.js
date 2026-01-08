@@ -1,12 +1,14 @@
 import path from "node:path";
-import { writeFile } from "node:fs/promises";
-import postcss from "postcss";
-import loadConfig from "postcss-load-config";
+import * as sass from "sass";
 import { minify } from "html-minifier";
 
+import loadConfig from "postcss-load-config";
+import postcss from "postcss";
+
+import { InputPathToUrlTransformPlugin, RenderPlugin } from "@11ty/eleventy";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
+import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import brokenLinks from "eleventy-plugin-broken-links";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
@@ -19,6 +21,11 @@ export default async function(config) {
 
 	config.ignores.add("README.md");
 
+	config.addPlugin(eleventyImageTransformPlugin, {
+		urlPath: "/img/",
+	});
+
+	config.addPlugin(RenderPlugin);
 	config.addPlugin(pluginWebc, {
 		// Glob to find no-import global components
 		components: "./_includes/components/*.webc",
@@ -34,39 +41,34 @@ export default async function(config) {
 	});
 
 	const styles = await loadConfig({ env: process.env.ELEVENTY_ENV });
-	const processCSS = async function (content, inputPath, outputPath) {
-		const parsed = path.parse(inputPath);
-		console.log(outputPath, parsed.name);
-
-		return postcss(styles.plugins).process(content, {
-			...styles.options,
-			from: inputPath,
-			to: outputPath
-		}).then(async result => {
-			// Write the map file to the output directory
-			if (result.map) {
-				await writeFile(path.join(path.dirname(outputPath), "css", parsed.name + ".css.map"), result.map.toString());
-			}
-
-			return result.css;
-		});
-	};
-
-	config.addBundle("css", {
-		toFileDirectory: "css",
-		transforms: [
-			async function(content) {
-				return processCSS(content, this.inputPath, this.page?.outputPath);
-			}
-		]
-	});
 
 	config.addTemplateFormats('scss');
 	config.addExtension('scss', {
 		outputFileExtension: 'css',
-		compile: async (inputContent, inputPath) => {
-			return async ({ page }) => {
-				return processCSS(inputContent, inputPath, page?.outputPath);
+		useLayouts: false,
+		bundle: "css",
+		watch: true,
+		compile: async function (content, inputPath) {
+			const parsed = path.parse(inputPath);
+
+			// Don't parse utilities or assets
+			if (parsed.name.startsWith('_')) return;
+
+			const compiled = await sass.compileStringAsync(content, {
+				loadPaths: [
+					parsed.dir || '.',
+					path.join(this.config.dir.input, 'styles'),
+				],
+				sourceMap: process.env.ELEVENTY_ENV === 'production',
+				sourceMapIncludeSources: true,
+				style: process.env.ELEVENTY_ENV === 'production' ? 'compressed' : 'expanded',
+			});
+
+			// Add loaded URLs to the watch list
+			this.addDependencies(inputPath, compiled.loadedUrls);
+
+			return async () => {
+				return compiled.css;
 			};
 		},
 	});
@@ -83,14 +85,15 @@ export default async function(config) {
 		return collectionApi.getFilteredByGlob("pages/proposals/*").filter(item => !item.inputPath.includes("index.webc"));
 	});
 
-	config.addPassthroughCopy("img");
-
 	config.addPlugin(InputPathToUrlTransformPlugin);
 	config.addPlugin(syntaxHighlight);
 	config.addPlugin(brokenLinks, {
 		broken: "warn",
 		forbidden: "warn",
 		redirects: "warn",
+		excludeInputs: [
+			"styles/*",
+		],
 	});
 	config.addPlugin(pluginTOC, {
 		tags: ['h2', 'h3'],
@@ -106,12 +109,24 @@ export default async function(config) {
 	});
 
 	config.addPassthroughCopy({
-		"node_modules/prismjs/themes/prism.css": "css/prism.css",
-		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
-		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
-		"node_modules/prismjs/prism.js": "js/prism.js",
-		"pages/home.css": "css/home.css",
-		"pages/home.js": "js/home.js"
+		"node_modules/prismjs/themes/prism.css": "styles/prism.css",
+		"node_modules/prism-themes/themes/prism-one-light.css": "styles/prism-one-light.css",
+		"node_modules/prism-themes/themes/prism-one-dark.css": "styles/prism-one-dark.css",
+		"node_modules/prismjs/prism.js": "js/prism.js"
+	});
+
+	config.addBundle("css", {
+		transforms: [
+			async function(content) {
+				const { page } = this;
+
+				return postcss(styles.plugins).process(content, {
+					...styles.options,
+					from: page.inputPath,
+					to: null,
+				}).then(result => result.css);
+			}
+		]
 	});
 
 	config.setServerOptions({
@@ -147,7 +162,6 @@ export default async function(config) {
 			includes: "../_includes",
 			data: "../_data",
 		},
-		markdownTemplateEngine: false,
-		htmlTemplateEngine: "webc",
+		templateFormats: ["webc", "html", "md", "liquid", "scss"],
 	};
 };

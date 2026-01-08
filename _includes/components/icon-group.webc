@@ -29,34 +29,27 @@
     </span>
 </template>
 
-<style webc:scoped>
+<style webc:scoped="icon-group" webc:type="11ty" 11ty:type="scss" webc:keep>
     :host {
         display: inline-flex;
-        row-gap: var(--spacing--vertical, 1em);
-        column-gap: var(--spacing--horizontal, 1em);
+        row-gap: var(--theme-spacing-vertical);
+        column-gap: var(--theme-spacing-horizontal);
     }
 
     a {
-        &:visited {
-            color: var(--theme--color--ui-accent);
-        }
-
-        &:hover {
-            color: var(--theme--color--ui-accent--hover);
-        }
-
-        &:focus {
-            color: var(--theme--color--ui-accent--focus);
-        }
+        --theme-color-link--visited: var(--theme-color-ui-accent);
+        --theme-color-link--hover: var(--theme-color-ui-accent--hover);
+        --theme-color-link--focus: var(--theme-color-ui-accent--focus);
 
         &:focus-visible {
-            outline: 2px solid var(--theme--color--ui-accent--focus);
+            outline: 2px solid var(--theme-color-ui-accent--focus);
             outline-offset: var(--outline-offset);
             border-radius: var(--border-radius);
         }
 
         &:has(.fa, .fab) {
             inline-size: 1.2em;
+            block-size: 1.2em;
             display: inline-grid;
             place-items: center;
         }

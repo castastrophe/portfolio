@@ -1,0 +1,220 @@
+:where(p, pre, li) {
+  color: var(--theme-color-text);
+}
+
+p {
+  margin: 0;
+
+  &:where(:not(:last-child)) {
+    margin-block-end: 1em;
+  }
+
+  :where(code) {
+    padding: 0.2em 0.4em;
+    font-weight: 400;
+    font-size: 0.8em;
+    line-height: inherit;
+  }
+
+  :where(b, strong) {
+    font-weight: 800;
+  }
+}
+
+pre {
+  border: 1px solid color-mix(in sRGB, var(--theme-color-surface-accent) 40%, transparent);
+  font-family: var(--theme-font-family-code);
+}
+
+p>code,
+li>code {
+  border-radius: var(--border-radius);
+  background-color: light-dark(hsl(230 1% 98%), hsl(230 1% 20%));
+  color: var(--theme-color-text);
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  margin-block: 0;
+  color: var(--theme-color-text);
+  font-family: var(--theme-font-family-heading);
+
+  .content & {
+    margin-block-end: .5em;
+  }
+}
+
+a:not(.button) {
+  color: var(--theme-color-link);
+  font-weight: 400;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--theme-color-link--hover, #002f3b);
+    text-decoration: underline;
+  }
+
+  &:focus,
+  &:focus-visible {
+    color: var(--theme-color-link--focus, #002f3b);
+    text-decoration: underline;
+
+    &:has(img) {
+      outline: none;
+    }
+  }
+
+  &:visited {
+    color: var(--theme-color-link--visited, #002f3b);
+  }
+
+  &[name]:not([href]) {
+    color: inherit;
+  }
+
+  &[aria-current="page"] {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+  &:is(:hover, :focus, :focus-visible):has(.fa, .fab) {
+    border-radius: var(--border-radius);
+    outline: 2px solid var(--theme-color-ui-accent);
+    outline-offset: var(--outline-offset, 2px);
+  }
+}
+
+li b,
+li strong {
+  padding: 0.2em 0.4em;
+  border-radius: var(--border-radius);
+  background-color: color-mix(in sRGB, var(--theme-color-surface-accent) 10%, transparent);
+}
+
+.extra {
+  font-weight: 900;
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+blockquote {
+  position: relative;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: color-mix(in sRGB, var(--theme-color-ui-accent) 10%, transparent);
+  font-size: .9em;
+  border-inline-start: 4px solid var(--theme-color-ui-accent);
+  inline-size: min(100%, max-content);
+  max-inline-size: calc(100% - 2rem);
+  margin-block-start: 2em;
+  margin-inline-start: 0;
+
+  &:has(h1:first-child),
+  &:has(h2:first-child),
+  &:has(h3:first-child),
+  &:has(h4:first-child),
+  &:has(h5:first-child),
+  &:has(h6:first-child) {
+    padding-block-start: 2.5rem;
+  }
+
+  strong {
+    font-weight: 800;
+    font-size: 1em;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    max-inline-size: 100%;
+  }
+
+  h4 {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    padding: 0.2em 0.5em;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    background-color: var(--theme-color-ui-accent);
+    color: white;
+    box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme-color-text) 10%, transparent);
+    font-size: 1.2em;
+    inset-block-start: -1.5em;
+    inset-inline-start: .8em;
+  }
+}
+
+.title {
+  font-weight: 800;
+  font-family: var(--theme-font-family-heading);
+  line-height: 1.8;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 1em;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.2em calc(var(--theme-spacing-horizontal) * 2);
+  background-color: color-mix(in sRGB, var(--theme-color-ui-accent) 10%, var(--theme-color-surface));
+  inline-size: 100%;
+
+  @container card (width > 0) {
+    font-size: .8em;
+  }
+}
+
+.headline {
+  color: var(--theme-color-text);
+  font-weight: 100;
+  font-size: 1.8em;
+  font-family: var(--theme-font-family-heading);
+  line-height: 1.1;
+  margin-block: 0;
+
+  &:not([slot]) {
+    margin-block-end: var(--theme-spacing-vertical);
+  }
+
+  @container card (width > 0) {
+    font-size: 1.6em;
+
+    :where(.card-body) & {
+      font-size: 1.4em;
+    }
+  }
+
+  .featured &,
+  &:where(.accent) {
+    color: var(--theme-color-text-accent);
+  }
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration-color: color-mix(in sRGB, var(--theme-color-ui-subtle), black 20%);
+    text-decoration-style: solid;
+    text-decoration-line: underline;
+
+    &:hover {
+      color: var(--theme-color-link--hover);
+      text-decoration-color: var(--theme-color-link--hover);
+    }
+
+    &:focus {
+      color: var(--theme-color-link--focus);
+    }
+
+    &:visited {
+      color: inherit;
+    }
+  }
+}
+
+.headline-summary {
+  font-weight: 400;
+  font-size: 1.2em;
+}

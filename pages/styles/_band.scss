@@ -1,0 +1,78 @@
+@use "layouts" as layout;
+
+.band {
+    --title-accent-opacity: 10%;
+
+    container: band / inline-size;
+    box-sizing: border-box;
+
+    /* @todo review and test the scroll margin and snap align */
+    scroll-margin: var(--theme-spacing-vertical);
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+
+    background: var(--band--BackgroundColor, transparent);
+
+    /* Size constraints */
+    inline-size: var(--band--Width, 100%);
+    max-inline-size: var(--band--MaxInlineSize, calc(100vw - (var(--theme-spacing-horizontal) * var(--multiplier-horizontal, .6) * 2)));
+    margin-inline: auto;
+    padding-block: calc(var(--theme-spacing-vertical) * var(--multiplier-vertical, 6));
+    padding-inline: calc(var(--theme-spacing-horizontal) * var(--multiplier-horizontal, 2));
+
+    @include layout.stacked('band');
+
+    @container band (width >= 980px) {
+        --band--AlignItems: center;
+        --band--JustifyContent: center;
+    }
+
+    > .band-header {
+        @include layout.stacked('band', 'header');
+
+        text-align: center;
+        min-inline-size: var(--band-header--Width, min(80ch, 100%));
+    }
+
+    &:where(:not(:has(.band-header))),
+    &:where(:has(.band-header)) > :not(.band-header) {
+        @include layout.stacked('band', 'body');
+        position: relative;
+    }
+
+    &[layout="row"] {
+        --band-body--JustifyContent: center;
+        --band-body--AlignItems: stretch;
+
+        &:where(:not(:has(.band-header))),
+        &:has(.band-header) > :not(.band-header) {
+            flex-flow: row wrap;
+        }
+    }
+
+    &[layout="auto-grid"] {
+        &:where(:not(:has(.band-header))),
+        &:where(:has(.band-header)) > :not(.band-header) {
+            --band-body--AlignItems: stretch;
+
+            display: grid;
+            grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(var(--card--MaxInlineSize, 325px), 1fr));
+        }
+    }
+
+    &[width="full"] {
+        --band--Width: 90%;
+    }
+}
+
+@media screen and (min-width: 1220px) {
+    .band:not([width="full"]) {
+        --band--MaxInlineSize: 1200px;
+    }
+}
+
+@media print {
+    .band {
+        border: none;
+    }
+}

@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-img": "^6.0.4",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
     "@11ty/eleventy-plugin-webc": "^0.11.2",
     "@babel/cli": "^7.28.3",
@@ -37,7 +38,6 @@
     "eleventy-plugin-broken-links": "^2.2.1",
     "eleventy-plugin-toc": "^1.1.5",
     "eslint": "^9.39.2",
-    "esmify": "^2.1.1",
     "html-minifier": "^4.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
@@ -45,9 +45,6 @@
     "markdown-it-anchor": "^9.2.0",
     "npm-run-all2": "^8.0.4",
     "postcss": "^8.5.6",
-    "postcss-each": "^1.1.0",
-    "postcss-extend": "^1.0.5",
-    "postcss-import": "^16.1.1",
     "postcss-load-config": "^6.0.1",
     "postcss-preset-env": "^10.6.0",
     "postcss-reporter": "^7.1.0",
@@ -62,7 +59,7 @@
     "stylelint-config-recommended-scss": "^16.0.2",
     "stylelint-config-standard": "^39.0.1",
     "stylelint-high-performance-animation": "^1.11.0",
-    "stylelint-order": "^7.0.0",
+    "stylelint-order": "^7.0.1",
     "stylelint-use-logical": "^2.1.2"
   },
   "keywords": [

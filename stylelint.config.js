@@ -23,6 +23,9 @@ export default {
 		"no-duplicate-selectors": null,
 		"number-max-precision": null,
 		"custom-property-pattern": null,
+		"selector-max-type": null,
+		"selector-max-id": null,
+		"selector-no-qualifying-type": null,
 
 		/** --------------------------------------------------------------
 		 * Customized rule settings
@@ -34,7 +37,7 @@ export default {
 			{
 				except: ["blockless-after-blockless", "first-nested"],
 				ignore: ["after-comment", "first-nested"],
-				ignoreAtRules: ["extend"],
+				ignoreAtRules: ["extend", "each", "use"],
 			},
 		],
 		"block-no-empty": [true, {

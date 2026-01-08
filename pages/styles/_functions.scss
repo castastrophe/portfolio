@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "sass:string";
+@use "sass:color";
+@use "sass:list";
+
+/// This uses a standard set of transformations to convert the
+/// input color into a valid state variant
+@function state($state, $color) {
+    $states: (
+        'hover': (
+            'darken': 10%,
+        ),
+        'focus': (
+            'darken': 20%,
+        ),
+        'active': (
+            'darken': 30%,
+        ),
+    );
+
+    $valid_states: map.keys($states);
+    // Validate the provided state exists in the $state list
+    @if not list.index($valid_states, $state) {
+        @warn "[state()]: $state variable should be one of the following: " + string.join($valid_states, ', ');
+        @return $color;
+    }
+
+    @each $transform, $value in map.get($states, $state) {
+        $mix: #000;
+
+        @if $transform == 'darken' {
+            $mix: #000;
+        }
+
+        @else if $transform == 'lighten' {
+            $mix: #fff;
+        }
+
+        @return color-mix(in srgb, #{$color}, $mix $value);
+    }
+}
+
+/// Join a list of strings into a single string with a separator
+/// @param {list} $list - The list of strings to join
+/// @param {string} $separator - The separator to use between the strings (default: '-')
+/// @return {string} The joined string
+@function join-list($list, $separator: '-') {
+  $result: '-';
+
+  @each $item in $list {
+    // Skip the 'primary' item
+    @if $item != 'primary' {
+      $result: $result + $separator + $item;
+    }
+  }
+
+  @return $result;
+}

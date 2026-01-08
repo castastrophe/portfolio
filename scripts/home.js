@@ -1,24 +1,5 @@
 // Initialize scroll-based animations and gallery functionality
 document.addEventListener('DOMContentLoaded', () => {
-  const gallery = document.querySelector('.gallery');
-
-  // Gallery horizontal scroll functionality
-  if (gallery) {
-    let isScrolling;
-
-    gallery.addEventListener('wheel', (e) => {
-      clearTimeout(isScrolling);
-
-      isScrolling = setTimeout(() => {
-        if (e.deltaY !== 0) {
-          // e.deltaY > 0 => scrolling down
-          // e.deltaY < 0 => scrolling up
-          gallery.scrollLeft += e.deltaY;
-        }
-      }, 6); // debouncing
-    });
-  }
-
   // SVG scroll animation fallback for browsers without CSS scroll-driven animations support
   if (!CSS.supports('animation-timeline', 'scroll()')) {
     const svgElements = {

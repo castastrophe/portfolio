@@ -1,0 +1,18 @@
+{
+    "permissions": {
+      "allow": [
+        "Bash(yarn lint)",
+        "Bash(yarn test:*)",
+        "Bash(git diff:*)",
+        "Read(~/.bashrc)"
+      ],
+      "deny": [
+        "Bash(curl:*)",
+        "Read(./.env)",
+        "Read(./.env.*)"
+      ]
+    },
+    "env": {
+      "OTEL_METRICS_EXPORTER": "otlp"
+    }
+  }

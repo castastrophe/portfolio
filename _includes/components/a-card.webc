@@ -1,5 +1,6 @@
 <template webc:nokeep>
     <div @attributes webc:root webc:type="html:block">
+        <a :href="link" webc:if="link"></a>
         <slot name="header"></slot>
         <div class="card-body">
             <slot></slot>
@@ -8,27 +9,76 @@
     </div>
 </template>
 
-<style webc:scoped>
+<style webc:scoped="card" webc:is="style" webc:type="11ty" 11ty:type="scss" webc:keep>
+    @use "layouts" as *;
+
+    @property --angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }
+
     :host {
-        --card--Padding: Clamp(.5em, .2vw, 3em);
-
-        box-sizing: border-box;
-        display: flex;
-        flex-flow: column nowrap;
-        column-gap: var(--spacing--horizontal);
-        row-gap: var(--spacing--vertical);
-
-        justify-content: start;
-
-        font-size: Clamp(1em, 1vw, 1.3em);
-        inline-size: min(var(--card--MaxInlineSize, 80ch), 100%);
-        color: var(--card--TextColor);
-        padding-block: var(--card--Padding);
-        background: var(--card--BackgroundColor, var(--theme--color--surface));
-        border: var(--card--BorderWidth, 1px) solid var(--card--BorderColor, var(--theme--color--surface));
-        border-radius: var(--card--BorderRadius, 0);
+        --card-spacing-unit: Clamp(.5em, 2cqi, 2rem);
 
         container: card / inline-size;
+        box-sizing: border-box;
+
+        @include stacked('card');
+
+        font-size: Clamp(1em, 1cqi, 1.3em);
+        color: var(--card--TextColor);
+
+        inline-size: min(var(--card--MaxInlineSize, 50ch), 100%);
+        padding-block: var(--card-spacing-unit);
+        background: var(--card--BackgroundColor, var(--theme-color-surface));
+        border: var(--card--BorderWidth, 1px) solid var(--card--BorderColor, transparent);
+        border-radius: var(--card--BorderRadius, 0);
+        position: relative;
+    }
+
+    @each $region in ('header', 'footer') {
+        :host > [slot="#{$region}"] {
+            inline-size: 100%;
+            box-sizing: border-box;
+        }
+
+        :host(:not([overflow])) > [slot="#{$region}"] {
+            padding-inline: var(--card-spacing-unit);
+        }
+
+        :host > :where([slot="#{$region}"]:empty) {
+            display: none;
+        }
+    }
+
+    :host > :where(.card-body) {
+        flex-grow: 1;
+    }
+
+    :host(:has(> a[href])) {
+        > a {
+            position: absolute;
+            inline-size: 100%;
+            block-size: 100%;
+            inset: 0;
+            z-index: 1;
+
+            &:where(:hover, :focus, :focus-visible) {
+                outline: 1px dashed var(--theme-color-ui);
+                outline-offset: -4px;
+            }
+        }
+
+        &:has(:hover, :focus, :focus-visible) {
+            --card--BorderColor: color-mix(in srgb, var(--theme-color-ui-accent) 60%, transparent);
+        }
+    }
+
+    :host(:not([overflow])) {
+        > :where(.card-body) {
+            padding-inline: var(--card-spacing-unit);
+        }
     }
 
     :host([layout="video-content"]) {
@@ -39,21 +89,19 @@
     }
 
     @container card (width < 800px) {
-        :host([layout="video-content"]) {
-            .video-container {
-                margin-inline: calc(var(--card--Padding) * -1);
-                margin-block-start: calc(var(--card--Padding) * -1);
-            }
+        :host([layout="video-content"]) > :where(.video-container) {
+            margin-inline: calc(var(--card-spacing-unit) * -1);
+            margin-block-start: calc(var(--card-spacing-unit) * -1);
         }
     }
 
     @container card (width >= 800px) {
         :host([layout="video-content"]) {
-            .card-body {
+            > :where(.card-body) {
                 flex-flow: row nowrap;
-                column-gap: calc(var(--spacing--horizontal) * 2);
+                column-gap: calc(var(--theme-spacing-horizontal) * 2);
 
-                > .video-container {
+                > :where(.video-container) {
                     inline-size: min(var(--card-video-inline-size), 100%);
                     block-size: auto;
                 }
@@ -62,68 +110,60 @@
                     padding: 0;
                 }
 
-                > .content {
+                > :where(.content) {
                     flex-grow: 1;
                     inline-size: calc(100% - var(--card-video-inline-size));
-                    padding: var(--card--Padding);
+                    padding: var(--card-spacing-unit);
+                }
+
+                > :where(.headline) {
+                    font-size: 1.2em;
                 }
             }
         }
     }
 
-    .card-body {
-        flex-grow: 1;
-        display: flex;
-        flex-flow: column nowrap;
-        row-gap: var(--spacing--vertical);
-        column-gap: var(--spacing--horizontal);
-    }
-
-    :host(:not([overflow])) {
-        [slot="header"],
-        .card-body,
-        [slot="footer"] {
-            padding-inline: var(--card--Padding);
-        }
-    }
-
-    .title {
-        display: inline-block;
-        font-family: var(--theme--font-family--heading);
-        font-size: .8em;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-block-start: 0;
-        margin-block-end: 1em;
-        line-height: 1.8;
-        padding: 0.2em calc(var(--spacing--horizontal) * 2);
-        background-color: color-mix(in srgb, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
-        box-sizing: border-box;
-        inline-size: 100%;
-    }
-
-    .headline {
-        font-family: var(--theme--font-family--heading);
-        font-size: 1.4em;
-        font-weight: 600;
-        line-height: 1.18;
-
-        margin-block: 0;
-    }
-
-    .headline-summary {
-        font-size: 1.2em;
-        font-weight: 400;
-    }
-
-    :host([featured], [accent]) .headline {
-        color: var(--headline--accent);
+    :host([featured], [accent]) > :where(.headline) {
+        color: var(--theme-color-text-accent);
     }
 
     :host([bordered]) {
         --card--BorderWidth: 2px;
-        --card--BorderColor: var(--theme--color--ui-subtle);
-        --card--BackgroundColor: var(--theme--color--surface);
+        --card--BorderRadius: 4px;
+        --card--BorderColor: var(--theme-color-surface-subtle);
+        --card--BackgroundColor: var(--theme-color-surface);
+    }
+
+    :host([animated][bordered]) {
+        --angle: -64deg;
+
+        position: relative;
+        border: 0 solid transparent;
+        overflow: visible !important;
+
+        &::before {
+            content: "";
+            display: block;
+            inline-size: calc(100% + var(--card--BorderWidth) * 2);
+            block-size: calc(100% + var(--card--BorderWidth) * 2);
+            background-image: conic-gradient(
+                from var(--angle),
+                var(--theme-color-ui-accent),
+                var(--theme-color-ui),
+            );
+            border-radius: var(--card--BorderRadius, 8px);
+            position: absolute;
+            inset: calc(var(--card--BorderWidth) * -1);
+            z-index: -1;
+            animation: border-trace 4s cubic-bezier(0.7, 0.33, 0.14, 0.53) infinite;
+            pointer-events: none;
+        }
+
+        @keyframes border-trace {
+            to {
+                --angle: 360deg;
+            }
+        }
     }
 
     :host([overflow]) {
@@ -132,49 +172,53 @@
         overflow: hidden;
         padding-block: 0;
 
-        [slot="header"] {
+        > [slot="header"] {
             padding-inline: 0;
+
+            iframe {
+                inline-size: 100%;
+                block-size: auto;
+                aspect-ratio: 16 / 9;
+            }
         }
 
-        > .card-body,
+        > :where(.card-body),
         > [slot="footer"] {
-            padding-inline: var(--card--Padding);
+            padding-inline: var(--card-spacing-unit);
         }
 
         &:has([slot="footer"]) > [slot="footer"] {
-            padding-block-end: var(--card--Padding);
+            padding-block-end: var(--card-spacing-unit);
         }
 
-        &:not(:has([slot="footer"])) > .card-body {
-            padding-block-end: var(--card--Padding);
+        &:not(:has([slot="footer"])) > :where(.card-body) {
+            padding-block-end: var(--card-spacing-unit);
         }
     }
 
     :host([overflow]:not([bordered])) {
-        gap: 0;
+        --card--RowGap: 0;
+        --card--ColumnGap: 0;
 
         > *:not(:has(iframe)) {
-            padding-inline: var(--card--Padding);
+            padding-inline: var(--card-spacing-unit);
         }
 
-        .title {
+        > :where(.title) {
             position: relative;
-            padding: .5em var(--card--Padding) 0.2em;
-            margin-inline: calc(var(--spacing--horizontal) * -1);
+            padding: .5em var(--card-spacing-unit) 0.2em;
+            margin-block-start: -.49em;
+            margin-inline: calc(var(--theme-spacing-horizontal) * -1);
         }
     }
 
     :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--color--ui-accent) 60%, var(--theme--color--surface));
+        --card--BorderColor: color-mix(in srgb, var(--theme-color-ui-accent) 60%, var(--theme-color-surface));
     }
 
     @media print {
         :host(:not([featured])) {
             border: none;
-        }
-
-        .title::after {
-            display: none;
         }
     }
 </style>

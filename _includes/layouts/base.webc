@@ -31,11 +31,11 @@
     <meta property="article:modified_time" :content="toISOString(date)" webc:if="isPost(page)">
 
     <style webc:keep @raw="getBundle('css')"></style>
+    <link rel="stylesheet" :href="url('/styles/home.css')" webc:keep/>
 
-    <link rel="stylesheet" :href="url('/css/prism.css')" webc:keep/>
-    <link rel="stylesheet" :href="url('/css/prism-one-light.css')" webc:keep/>
-    <link rel="stylesheet" :href="url('/css/prism-one-dark.css')" media="(prefers-color-scheme: dark)" webc:keep/>
-    <link rel="stylesheet" :href="url('/css/home.css')" webc:keep/>
+    <link rel="stylesheet" :href="url('/styles/prism.css')" webc:keep/>
+    <link rel="stylesheet" :href="url('/styles/prism-one-light.css')" webc:keep/>
+    <link rel="stylesheet" :href="url('/styles/prism-one-dark.css')" media="(prefers-color-scheme: dark)" webc:keep/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css"
         integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous" webc:keep>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css"
@@ -47,7 +47,7 @@
         style="width: 100%; height: auto; overflow: visible; position: fixed; top: 0; left: 0; z-index: -1;">
         <style>
             :root {
-                --color-primary: var(--theme--color--surface-accent);
+                --color-primary: var(--theme-color-surface-accent);
                 --layer-1: 0.07;
                 --layer-2: 0.06;
                 --layer-3: 0.05;
@@ -168,18 +168,17 @@
         <path d="M 0 0 L 60 0 L 0 60 Z" fill="var(--color-primary)" opacity="var(--layer-4)" class="pulse" />
     </svg>
 
-    <main @raw="content"></main>
+    <main @html="content"></main>
 
     <!-- Contact -->
-    <a-band id="contact" padding="double">
+    <section class="band" id="contact" layout="row">
         <icon-group></icon-group>
-        <a href="https://buymeacoffee.com/castastrophe"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" style="--image-size: 180px; --aspect-ratio: 4 / 1;"></a>
-    </a-band>
+        <a href="https://buymeacoffee.com/castastrophe" style="--image-size: 180px; --aspect-ratio: 4 / 1;"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee"></a>
+    </section>
 
     <footer>
         <script type="module" webc:keep @raw="getBundle('js')"></script>
         <script type="module" webc:keep :src="url('/js/prism.js')"></script>
-        <script type="module" webc:keep :src="url('/js/home.js')"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-JKC7D3ZDXB" webc:keep></script>
         <script>
             if (!navigator.doNotTrack) {

@@ -1,0 +1,60 @@
+/* stylelint-disable selector-max-type, declaration-no-important -- allow type selectors for foundations and !important for minification */
+
+:where(body) {
+  margin: 0;
+
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1.44;
+}
+
+:where(img, embed, object, video) {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+:where(pre) {
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+  font-size: 0.8em !important;
+  line-height: 1.44;
+}
+
+:where(ul, ol) {
+  margin: 0;
+
+  :where(.content) &:where(:not(:last-child)) {
+    margin-block-end: 1.5em;
+  }
+
+  &:where([role="list"]:has(a-card)) {
+    list-style: none;
+  }
+}
+
+:where(li) {
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.44;
+
+  :where(b, strong) {
+    font-weight: 800;
+    font-size: 0.9em;
+  }
+
+  :where(code) {
+    padding: 0.2em 0.4em;
+    font-weight: 400;
+    font-size: 0.8em;
+    line-height: inherit;
+  }
+}
+
+:where(button)::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* stylelint-enable selector-max-type */

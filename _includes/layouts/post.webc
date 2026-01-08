@@ -2,7 +2,45 @@
 layout: layouts/base.webc
 ---
 
-<a-band layout="space-between" id="post-header">
+<style>
+    #post-header {
+        --band-body--JustifyContent: space-between;
+        --band-body--AlignItems: end;
+        --image-size: clamp(150px, 20cqi, 230px);
+
+        padding-block-end: 0;
+
+        > :first-child {
+            --border-radius: 50%;
+
+            max-inline-size: var(--image-size);
+        }
+
+        > div {
+            inline-size: max(calc(100cqi - var(--image-size) - var(--theme-spacing-horizontal) * 2), 80ch);
+        }
+    }
+
+    #post-content {
+        --band-body--AlignItems: stretch;
+        --band-BackgroundColor: color-mix(in sRGB, var(--theme-color-surface) 90%, transparent);
+
+        .content {
+            font-size: 20px;
+        }
+
+        hr {
+            border-color: color-mix(in sRGB, var(--theme-color-ui-accent) 50%, transparent);
+        }
+
+        a-note {
+            align-self: center;
+            margin-block-start: 2em;
+        }
+    }
+</style>
+
+<section class="band" layout="row" id="post-header">
     <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
     <div>
         <h1 class="headline" @text="title"></h1>
@@ -11,21 +49,24 @@ layout: layouts/base.webc
             <span class="date" @text="date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></span>
             <span class="cta"><a href="/posts" title="Return to the posts page" class="cta-link">All posts</a></span>
         </p>
-        <tag-group webc:if="tags?.length > 0" :@tags="tags" labeled></tag-group>
+        <div class="tag-group">
+            <span class="tag-label">tags:</span>
+            <p class="tags" webc:if="tags?.length > 0">
+                <span class="tag" webc:for="tag of tags" @text="tag"></span>
+            </p>
+        </div>
     </div>
-</a-band>
+</section>
 
-<a-band id="post-content">
-    <aside>
-        <details class="post-toc">
-            <summary>Table of contents</summary>
-            <div @raw="toc(content)" webc:nokeep></div>
-        </details>
-    </div>
+<section class="band" id="post-content">
+    <details class="post-toc">
+        <summary>Table of contents</summary>
+        <div @raw="toc(content)" webc:nokeep></div>
+    </details>
     <div class="content" @raw="content" @raw="markdownContent"></div>
 
-    <a-note style="margin-block-start: 2em">
+    <a-note>
         <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
         <a href="https://fantastical.app/cassondra/inquiries">Let's connect!</a>
     </a-note>
-</a-band>
+</section>

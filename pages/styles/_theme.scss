@@ -1,24 +1,38 @@
 @use "sass:map";
 @use "sass:meta";
+@use "sass:list";
 @use "sass:string";
-@use "sass:color";
+@use "functions" as *;
+
+$brand-color: hsl(313deg 80% 48%);
 
 $tokens: (
     'font': (
+        'family': (
+            'primary': '"Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif',
+            'heading': '"Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif',
+            'code': '"PT Mono", monospace',
+        ),
+    ),
+    'spacing': (
+        'vertical': '10px',
+        'horizontal': '10px',
     ),
     'color': (
-        'brand': hsl(313deg 80% 48%),
         'text': (
             'primary': ( 'light': #333, 'dark': #fff ),
-            'accent': ( 'light': get('color.brand'), 'dark': hsl(313deg 68% 78%) ),
+            'accent': ( 'light': $brand-color, 'dark': hsl(313deg 68% 78%) ),
         ),
+        'link': ( 'light': $brand-color, 'dark': hsl(313deg 68% 78%) ),
         'surface': (
             'primary': ( 'light': #fff, 'dark': #111 ),
             'accent': ( 'light': hsl(313deg 68% 78%), 'dark': hsl(313deg 80% 48%) ),
+            'subtle': ( 'light': #f5f5f5, 'dark': #222 ),
         ),
         'ui': (
-            'primary': ( 'light': #efefef, 'dark': #afafaf ),
+            'primary': ( 'light': #cdcdcd, 'dark': #6c6a6a ),
             'accent': ( 'light': hsl(313deg 57% 44%), 'dark': hsl(313deg 96% 72%) ),
+            'subtle': ( 'light': #efefef, 'dark': #afafaf ),
         ),
     )
 ) !default;
@@ -44,11 +58,13 @@ $tokens: (
         @if meta.type-of($value) != 'map' {
             @return $value;
         }
+
         @else if not $value or $value == null {
             // Check for a 'primary' key or the 'light'/'dark' set
             @if map.has-key($value, 'primary') {
                 $value: map.get($value, 'primary');
             }
+
             @else if map.has-key($value, 'light') {
                 $value: 'light-dark($value.light, $value.dark)';
             }
@@ -63,32 +79,28 @@ $tokens: (
     @return $value;
 }
 
+/// Print the tokens to the screen
+/// @param {map} $map - The map to print the tokens from (default: $tokens)
+/// @param {list} $list - The list of keys to print the tokens from (default: ('theme'))
+///
+@mixin print-tokens($map: $tokens, $list: ('theme')) {
+    @each $key, $value in $map {
+      // Next, if the value is a map, we need to nest the function call and dig deeper
+      @if meta.type-of($value) == 'map' {
+        $keys: map.keys($value);
 
-$states: (
-    'hover': (
-        'darken': 10%,
-    ),
-    'focus': (
-        'darken': 20%,
-    ),
-);
+        // First: check if the map has both 'light' and 'dark' keys so we can skip the nesting and use the light-dark function
+        @if list.index($keys, 'light') and list.index($keys, 'dark') {
+          #{join-list(list.append($list, $key))}: light-dark(map.get($value, 'light'), map.get($value, 'dark'));
+        }
 
-/// This uses a standard set of transformations to convert the
-/// input color into a valid state variant
-@function state($state, $color) {
-    $valid_states: map.keys($states);
-    // Validate the provided state exists in the $state list
-    @if not index($valid_states, $state) {
-        @warn "[state()]: $state variable should be one of the following: " + string.join($valid_states, ', ');
-        @return $color;
+        @else {
+          @include print-tokens($map: $value, $list: list.append($list, $key));
+        }
+      }
+
+      @else {
+        #{join-list(list.append($list, $key))}: #{$value};
+      }
     }
-
-    $state_data: map.get($states, $state);
-    @each $transform, $value in $state_data {
-        @debug 'transform: #{$transform}, value: #{$value}';
-        $color: color[#{$transform}]($color, $value);
-        @debug 'color: #{$color}';
-    }
-
-    @return $color;
-}
+  }
