@@ -9,9 +9,8 @@ eleventyExcludeFromCollections: true
     <div slot="header">
         <a-card bordered featured>
             <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly,<br/><strong>"Let's go!"</strong></p>
-            <p>That's exactly the energy this consulting venture brings to the web. We're here to explore how we deliver
-                experiences at scale in a way that empowers developers to work in unison with each other and with
-                their counterparts.</p>
+            <p>That's exactly the energy we bring to design systems work. We help organizations build front-end infrastructure that empowers teams—transforming design vision into production-ready code while establishing the workflows that make collaboration seamless.</p>
+            <p>With expertise from Adobe, Red Hat, and the W3C CSS Working Group, we deliver enterprise-scale solutions that balance innovation with accessibility, performance, and developer experience.</p>
         </a-card>
         <h2 class="title" style="margin-block-start: 2em;">What services do we offer?</h2>
     </div>
