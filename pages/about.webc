@@ -3,139 +3,220 @@ layout: layouts/base.webc
 eleventyExcludeFromCollections: true
 ---
 
+<style>
+    #consulting {
+        --spacing--vertical: 20px;
+
+        .content {
+            font-size: 1.1em;
+            max-inline-size: 100ch;
+        }
+
+        a-card {
+            --spacing--vertical: 10px;
+        }
+
+        .bio {
+            border-radius: var(--border-radius);
+            padding-inline: 1em;
+            background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
+            margin-block-start: 1em;
+
+            &:not(:first-of-type) {
+                margin-block-start: 2em;
+            }
+
+            .container {
+                border-block-start: 1px solid var(--theme--color--ui-subtle);
+                padding-block-start: 1em;
+                display: flex;
+                flex-flow: row wrap;
+                gap: 2em;
+                align-items: start;
+
+                a-card {
+                    text-align: center;
+                    inline-size: min(250px, 100%);
+
+                    [slot="footer"] {
+                        font-size: .8em;
+                        border-block-start: 1px solid color-mix(in srgb, var(--theme--color--ui-accent) 20%, transparent);
+                        padding-block-start: .5em;
+                        inline-size: 80cqi;
+                        margin-inline: auto;
+                    }
+                }
+
+                .content {
+                    flex-grow: 1;
+                    inline-size: calc(100% - 250px - 2em);
+                    min-inline-size: min(50ch, 100%);
+                }
+            }
+        }
+
+        .projects,
+        .presentations {
+            --card--MaxInlineSize: min(365px, 100%);
+
+            inline-size: 100%;
+
+            .subheadline {
+                margin-block: 1.5em .5em;
+            }
+
+            div[layout="row"] {
+                font-size: .8em;
+                display: flex;
+                flex-flow: row wrap;
+                gap: 1.25em;
+                justify-content: start;
+            }
+        }
+
+        .presentations {
+            div:has(> iframe) {
+                padding: 0;
+                flex-grow: 0;
+                margin-block-end: -7.5px;
+            }
+
+            iframe {
+                aspect-ratio: 16 / 9;
+                width: 100%;
+                height: auto;
+                position: relative !important;
+            }
+        }
+    }
+</style>
+
 <a-masthead></a-masthead>
 
+<a-band id="consulting" width="full">
+    <div slot="header">
+        <h2 class="title">Why choose Allons-y Consulting?</h2>
+    </div>
+    <div class="content">
+        <p class="header-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, <strong>"Let's go!"</strong> That's exactly the energy we bring to design systems and digital transformation work.</p>
+        <p><strong class="extra">We help organizations build front-end infrastructure that scales and manage complex technical initiatives that drive business outcomes.</strong></p>
+        <p class="header-summary">Founded in 2025, we combine deep technical expertise in design systems and web standards with proven program management capabilities. Whether you need someone to architect your component library, lead a multi-million dollar digital transformation, or bridge the gap between design, engineering, and business strategy—we deliver results.</p>
+        <p class="header-summary">We believe the best technology is invisible&emdash;it empowers teams to do their best work without getting in the way. We specialize in creating infrastructure, establishing workflows, and leading initiatives that make complex problems feel manageable.</p>
+    </div>
+</a-band>
 <a-band id="consulting">
     <div slot="header">
-        <h2 class="title">Who are we at Allons-y Consulting?</h2>
+        <h2 class="title">Meet the team</h2>
     </div>
-    <a-card>
-        <p class="header-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, "Let's go!"</p>
-        <p>That's exactly the energy this venture brings to the web. We're looking to explore how we deliver experiences at enterprise scale in a way that empowers developers to work in unison with each other and with
-            their counterparts.</p>
-        <p class="header-summary"><b class="extra">Nothing makes us happier than exploring new
-                approaches and creating highly-optimized, clean solutions to complex
-                problems.</b></p>
-        <p class="header-summary"><b>Developer experience and accessibility are deeply important to us</b>
-            and these values guide the results that we produce and influence. One of the most enjoyable aspects
-            of this work is our open source community management; engaging with and connecting the contributors and consumers.
-        </p>
-    </a-card>
-    <div layout="space-around" id="consultants">
-        <a-card bordered>
-            <img slot="header" src="/img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
-            <p><strong>Cassondra Roberts</strong>, owner and front-end expert</p>
-            <p class="cta" slot="footer"><a href="mailto:cassondra@allons-y.llc">Contact Cassondra</a></p>
-        </a-card>
-        <a-card bordered>
-            <img slot="header" src="/img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
-            <p><strong>Michael Roberts</strong>, project management expert</p>
-            <p class="cta" slot="footer"><a href="mailto:consulting@allons-y.llc">Contact Michael</a></p>
-        </a-card>
-    </div>
-</a-band>
-
-<a-band id="projects" width="full">
-    <div slot="header">
-        <h2 class="title">Projects</h2>
-        <p class="header-summary">I'm proud to have worked on a variety of projects, from open source libraries to
-            enterprise design systems. As a project maintainer and contributor, I'm passionate about building tools that
-            empower developers to build better web experiences, leveraging the latest technologies and techniques so
-            they can focus on what matter most.</p>
-    </div>
-    <div layout="space-around">
-        <a-card bordered featured>
-            <div slot="header">
-                <h3 class="title">Plugins</h3>
-                <h4 class="headline"><a
-                        href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                        title="Click to view project listing">PostCSS Plugins</a></h4>
-            </div>
-            <p>These utilities for PostCSS facilitate parsing and publishing enterprise-level design systems code for use in
-                diverse framework ecosystems.</p>
-        </a-card>
-        <a-card bordered featured>
-            <div slot="header">
-                <h3 class="title">Automation</h3>
-                <h4 class="headline"><a
-                        href="https://github.com/castastrophe?tab=repositories&q=postcss-&type=&language=&sort="
-                        title="Click to view projects">GitHub Actions</a></h4>
-            </div>
-            <p>A growing set of GitHub utilities for managing large open source projects. Initial action is a configurable
-                tool for automatically updating open pull requests.</p>
-        </a-card>
-    </div>
-    <div layout="space-around">
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Adobe</h3>
-                <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
-                        CSS</a></h4>
-            </div>
+    <div class="bio">
+        <h3 class="headline">
+            <strong>Cassondra Roberts</strong>,
+            <span>Founder & Principal Consultant</span>
+        </h3>
+        <p class="headline-summary extra">Design Systems • Front-end Architecture • Web Standards</p>
+        <div class="container">
+            <a-card bordered overflow>
+                <img slot="header" src="/img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
+                <p class="cta"><a href="mailto:cassondra@allons-y.llc"><span class="fa-regular fa-envelope"></span> Contact Cassondra</a></p>
+                <div slot="footer">
+                    <icon-group></icon-group>
+                </div>
+            </a-card>
             <div class="content">
-                <p>A CSS-focused library that expresses the design direction of Adobe's Spectrum design system. It is the
-                    foundation of the Spectrum Web Components styling and the internal React Spectrum library.</p>
-            </div>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/adobe/spectrum-css" title="Click to view project">View the
-                    source code</a>
-            </p>
-        </a-card>
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Adobe</h3>
-                <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
-                        title="Click to view project">Spectrum Web Components</a></h4>
-            </div>
-            <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
-            </p>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/adobe/spectrum-web-components"
-                    title="Click to view project">View the source code</a>
-            </p>
-        </a-card>
-        <a-card bordered>
-            <div slot="header">
-                <h3 class="title">Red Hat</h3>
-                <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
-                        title="Click to view project">PatternFly Elements</a></h4>
-            </div>
-            <p>A web component implementation of the Red Hat design system. It leverages the
-                encapsulation of ShadowDOM and the
-                power of custom properties to create well-scoped elements that are still
-                designer-friendly.
-            </p>
-            <p class="cta" slot="footer">
-                <a class="cta-link" href="https://github.com/patternfly/patternfly-elements"
-                    title="Click to view project">View the source code</a>
-            </p>
-        </a-card>
-    </div>
-</a-band>
+                <p>Cassondra is a W3C CSS Working Group member and design systems engineer with over a decade of experience building enterprise-scale front-end infrastructure. She co-founded PatternFly Elements at Red Hat (adopted by Google, IBM, and Fidelity) and served as Staff Design Engineer on Adobe's Spectrum Design System, where she led the AI Working Group and pioneered workflows that reduced planning overhead by 25%.</p>
+                <p>As an open source leader and conference speaker, Cassondra specializes in the critical space between design and engineering—translating vision into production-ready, accessible code. She contributes to web standards that shape how we build interfaces and brings both cutting-edge technical knowledge and proven enterprise patterns to every project.</p>
 
-<a-band id="cta" padding="double" layout="space-evenly">
-    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
-    <img src="/img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
-</a-band>
-
-<!-- Recorded talks -->
-<a-band id="presentations" layout="auto-grid">
-    <div slot="header">
-        <h2 class="title"><a href="/presentation/">Presentations</a></h2>
-    </div>
-    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
-        <div slot="header">
-            <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+                <p><strong>Expertise:</strong></p>
+                <ul>
+                    <li>Design systems architecture and implementation</li>
+                    <li>Web components, TypeScript, modern CSS and semantic HTML</li>
+                    <li>Accessibility best practices and compliance</li>
+                    <li>W3C standards contribution (CSS Working Group)</li>
+                    <li>Open source community management</li>
+                    <li>AI-augmented engineering workflows</li>
+                    <li>Technical leadership and mentorship</li>
+                </ul>
+            </div>
         </div>
-        <h3 class="title" @text="presentation.title"></h3>
-        <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
-                title="Click to watch this interview" @text="presentation.headline"></a></h4>
-        <p @text="presentation.description"></p>
-        <tag-group :@tags="presentation.tags" labeled slot="footer" webc:if="presentation.tags?.length > 0"></tag-group>
-        <p class="cta" slot="footer" webc:if="presentation.resources">
-            <a class="cta-link" target="_blank" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
-        </p>
-    </a-card>
+        <div class="projects">
+            <h4 class="subheadline">Recent projects</h4>
+            <div layout="row">
+                <a-card bordered overflow>
+                    <div slot="header">
+                        <h3 class="title">Adobe</h3>
+                    </div>
+                    <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
+                        CSS</a></h4>
+                    <p>A native HTML and modern CSS library that expresses the design direction of Adobe's Spectrum design system.</p>
+                </a-card>
+                <a-card bordered overflow>
+                    <div slot="header">
+                        <h3 class="title">Adobe</h3>
+                    </div>
+                    <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
+                        title="Click to view project">Spectrum Web Components</a></h4>
+                    <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
+                    </p>
+                </a-card>
+                <a-card bordered overflow>
+                    <div slot="header">
+                        <h3 class="title">Red Hat</h3>
+                    </div>
+                    <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
+                        title="Click to view project">PatternFly Elements</a></h4>
+                    <p>A web component implementation of the PatternFly design system. Leverages the power of custom properties to create well-scoped elements that are fully customizable.</p>
+                </a-card>
+            </div>
+        </div>
+        <div class="presentations">
+            <h4 class="subheadline">Recent presentations</h4>
+            <div layout="row">
+                <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
+                    <div slot="header">
+                        <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </a-card>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        <h3 class="headline">
+            <strong>Michael L. Roberts</strong>,
+            <span>Program Management Director</span>
+        </h3>
+        <p class="headline-summary extra">Enterprise Program Management • Portfolio Governance • Extensive Government Experience</p>
+        <div class="container">
+            <a-card bordered overflow>
+                <img slot="header" src="/img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
+                <p class="cta"><a href="mailto:michael@allons-y.llc"><span class="fa-regular fa-envelope"></span> Contact Michael</a></p>
+                <div slot="footer">
+                    <p class="icon-group"><a rel="me" href="https://www.linkedin.com/in/michaellroberts"><span class="fa-brands fa-linkedin-in"></span></a></p>
+                </div>
+            </a-card>
+            <div class="content">
+                <p>Michael is an accredited program manager with extensive experience leading large-scale digital transformation initiatives and complex technology portfolios. He has managed programs with budgets exceeding $354 million, led teams of federal employees and contractors, and overseen portfolios with contract ceilings totaling over $127 million.</p>
+                <p>With expertise spanning financial system modernization, enterprise architecture, and organizational change management, Michael brings strategic program leadership to Allons-y's clients. He specializes in aligning technology initiatives with business strategy, managing risk across complex portfolios, and leading global teams through large-scale transformation.</p>
+
+                <p><strong>Recent Achievements:</strong></p>
+                <ul>
+                    <li>Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration</li>
+                    <li>Led portfolio of 20+ projects with combined budget of $354M</li>
+                    <li>Directed teams of 75+ contractors and 12 federal employees</li>
+                    <li>Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives</li>
+                </ul>
+                <p><strong>Expertise:</strong></p>
+                <ul>
+                    <li>Program and portfolio management (PMP<sup>®</sup>, MPM<sup>®</sup>)</li>
+                    <li>Large-scale digital transformation</li>
+                    <li>Financial systems modernization</li>
+                    <li>Enterprise architecture and integration</li>
+                    <li>Change management and organizational strategy</li>
+                    <li>Risk management and governance</li>
+                    <li>Federal/enterprise project delivery</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </a-band>

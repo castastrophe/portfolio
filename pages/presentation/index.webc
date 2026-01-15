@@ -5,13 +5,33 @@ eleventyExcludeFromCollections: true
 
 <a-masthead></a-masthead>
 
+<style>
+    #presentation {
+        div[slot="header"] {
+            --spacing--vertical: .5em;
+
+            margin-block-end: 2em;
+        }
+
+        div[slot="footer"] {
+            display: flex;
+            margin-block-start: 1em;
+            justify-content: end;
+        }
+
+        tag-group {
+            font-size: .8em;
+        }
+    }
+</style>
+
 <a-band width="full" id="presentation">
-    <div slot="header" style="--spacing--vertical: .5em; margin-block-end: 2em;">
+    <div slot="header">
         <h2 class="title">Presentations</h2>
         <a-card bordered>
             <p class="header-summary">Below are some of the presentations or interviews I've given at various events, conferences, podcasts, and streams over the years.</p>
             <p class="header-summary">Connecting with individuals and organizations to share knowledge and experience is one of my favorite parts of this work. I'd love to hear about your event or podcast to see how we can work together.</p>
-            <div slot="footer" style="display: flex; margin-block-start: 1em; justify-content: end;">
+            <div slot="footer">
                 <a class="cta cta-button" target="_blank" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
             </div>
         </a-card>

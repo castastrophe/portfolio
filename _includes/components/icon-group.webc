@@ -25,11 +25,11 @@
 
 <template webc:nokeep>
     <span @attributes webc:root>
-        <a webc:for="item of social" rel="me" :href="item.url"><span :class="`fab fa-${item.icon}`"></span></a>
+        <a webc:for="item of social" rel="me" :href="item.url"><span :class="`fa-brands fa-${item.icon}`"></span></a>
     </span>
 </template>
 
-<style webc:scoped>
+<style webc:scoped="icon-group">
     :host {
         display: inline-flex;
         row-gap: var(--spacing--vertical, 1em);

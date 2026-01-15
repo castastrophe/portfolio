@@ -327,6 +327,12 @@ body {
   }
 }
 
+.subheadline {
+  @extend .headline;
+
+  font-size: 1.4em;
+}
+
 button::-moz-focus-inner {
   padding: 0;
   border: 0;

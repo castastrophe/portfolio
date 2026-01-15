@@ -8,6 +8,9 @@
     }, {
         label: 'Writing',
         href: '/posts/',
+    }, {
+        label: 'Presentations',
+        href: '/presentation/',
     }];
 </script>
 
