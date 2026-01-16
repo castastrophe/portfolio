@@ -36,7 +36,6 @@ export default async function(config) {
 	const styles = await loadConfig({ env: process.env.ELEVENTY_ENV });
 	const processCSS = async function (content, inputPath, outputPath) {
 		const parsed = path.parse(inputPath);
-		console.log(outputPath, parsed.name);
 
 		return postcss(styles.plugins).process(content, {
 			...styles.options,
@@ -71,7 +70,11 @@ export default async function(config) {
 		},
 	});
 
-	config.setLibrary('md', markdownIt().use(markdownItAnchor));
+	config.setLibrary('md', markdownIt({
+		html: true,
+		breaks: true,
+		linkify: true,
+	}).use(markdownItAnchor));
 
 	config.addCollection("posts", function(collectionApi) {
 		// Exclude the index file

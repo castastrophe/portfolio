@@ -147,8 +147,8 @@ a {
     cursor: pointer;
   }
 
-  &:is(:hover, :focus, :focus-visible):has(.fa, .fab) {
-    outline: 2px solid var(--theme--color--ui-accent);
+  &:is(:focus, :focus-visible):has(.fa, .fab) {
+    outline: 2px solid var(--theme--color--ui-accent--focus);
     outline-offset: var(--outline-offset, 2px);
     border-radius: var(--border-radius);
   }
@@ -369,7 +369,7 @@ hr {
 
 blockquote {
   box-sizing: border-box;
-  background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, transparent);
+  background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
   border-inline-start: 4px solid var(--theme--color--ui-accent);
   border-radius: var(--border-radius);
   padding: 1rem;
@@ -403,11 +403,11 @@ blockquote {
   h4 {
     position: absolute;
     display: inline-block;
-    font-size: 1.2em;
-    inset-block-start: -1.5em;
+    font-size: 1.1em;
+    inset-block-start: -.4em;
     inset-inline-start: .8em;
     margin: 0;
-    background-color: var(--theme--color--ui-accent);
+    background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 90%, var(--theme--color--surface));
     color: white;
     padding: 0.2em 0.5em;
     border-radius: 0 var(--border-radius) 0 var(--border-radius);
@@ -623,8 +623,9 @@ div:has(> iframe) {
     }
 
     &:focus-visible {
-      outline: 2px solid var(--theme--color--link--focus-visible);
-      outline-color: var(--theme--color--link--focus);
+      outline: 2px solid var(--theme--color--link--focus);
+      outline-offset: var(--outline-offset, 4px);
+      border-radius: calc(var(--border-radius) / 2);
     }
   }
 }
@@ -878,5 +879,8 @@ div:has(> iframe) {
 
   a:has(img) {
     display: flex;
+    outline: 2px solid var(--theme--color--ui-accent--focus);
+    outline-offset: var(--outline-offset, 4px);
+    border-radius: var(--border-radius);
   }
 }

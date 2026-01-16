@@ -152,10 +152,10 @@
             text-decoration: underline;
         }
 
-        a:is(:hover, :focus, :focus-visible) {
-            outline: 2px solid var(--theme--color--ui-accent);
-            outline-offset: var(--outline-offset, 2px);
-            border-radius: var(--border-radius);
+        a:focus-visible {
+            outline: 2px solid var(--theme--color--ui-accent--focus);
+            outline-offset: var(--outline-offset, 4px);
+            border-radius: calc(var(--border-radius) / 2);
         }
     }
 
