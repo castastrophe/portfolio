@@ -24,6 +24,7 @@ node_modules/
 .cache
 .eslintcache
 .stylelintcache
+.netlify
 
 # Output of 'npm pack'
 *.tgz

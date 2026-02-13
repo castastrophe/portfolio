@@ -1,0 +1,263 @@
+---
+layout: resume-base
+eleventyComputed:
+  title: "{{ candidate.name }} | Resume"
+---
+
+<section id="about">
+  <div class="section-header">
+    <h2 class="section-title scroll-accent">
+      <a href="#about">About me</a>
+    </h2>
+  </div>
+  <div data-replace-key="about">{{ candidate.about | clean | safe }}</div>
+</section>
+<section id="experience">
+  <div class="section-header">
+    <h2 class="section-title scroll-accent">
+      <a href="#experience">Experience</a>
+    </h2>
+    <p class="section-aside">Full experience at
+      <a href="https://{{ candidate.contact.linkedin }}">{{ candidate.contact.linkedin }}</a>
+    </p>
+  </div>
+  <div data-replace-key="experience">
+  {% for job in candidate.experience %}
+    <div class="job-item" data-target>
+      <div class="job-header">
+        <span class="job-title">
+          <span data-replace-key="title">{{ job.title }}</span>, <span data-replace-key="company">{{ job.company }}</span>
+        </span>
+        <span class="job-dates">
+          <span data-replace-key="start-date" data-type="date">{{ job["start-date"] | formatDate }}</span>–<span data-replace-key="end-date" data-type="date">{{ job["end-date"] | formatDate }}</span>
+        </span>
+      </div>
+      <p class="job-summary" data-replace-key="summary">{{ job.summary | clean | safe }}</p>
+      <ul class="job-highlights" data-replace-key="highlights">
+        {% for highlight in job.highlights %}
+          <li data-target>{{ highlight }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+  </div>
+</section>
+
+<div class="columns">
+  <div class="column">
+    <section id="education">
+      <div class="section-header">
+        <h2 class="section-title scroll-accent">
+          <a href="#education">Education</a>
+        </h2>
+      </div>
+      {% for edu in candidate.education %}
+        <p class="education-item">
+          <strong>{{ edu.degree }}</strong>
+          <br>{{ edu.school }}, {{ edu["start-date"] }}–{{ edu["end-date"] }}
+        </p>
+      {% endfor %}
+    </section>
+          
+    <section id="contact">
+      <div class="section-header">
+        <h2 class="section-title scroll-accent">
+          <a href="#contact">Contact</a>
+        </h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="fa-solid fa-phone" aria-hidden="true"></span>
+          <span class="visually-hidden">Phone</span>
+          <a href="tel:+1{{ candidate.contact.phone | digitsOnly }}">{{ candidate.contact.phone }}</a>
+        </div>
+        <div class="contact-item">
+          <span class="fa-solid fa-envelope" aria-hidden="true"></span>
+          <span class="visually-hidden">Email</span>
+          <a href="mailto:{{ candidate.contact.email }}">{{ candidate.contact.email }}</a>
+        </div>
+        <div class="contact-item">
+          <span class="fa-solid fa-globe" aria-hidden="true"></span>
+          <span class="visually-hidden">Website</span>
+          <a href="https://{{ candidate.contact.website }}">{{ candidate.contact.website }}</a>
+        </div>
+        <div class="contact-item">
+          <span class="fa-brands fa-github" aria-hidden="true"></span>
+          <span class="visually-hidden">GitHub</span>
+          <a href="https://{{ candidate.contact.github }}">{{ candidate.contact.github }}</a>
+        </div>
+        <div class="contact-item">
+          <span class="fa-brands fa-codepen" aria-hidden="true"></span>
+          <span class="visually-hidden">Codepen</span>
+          <a href="https://{{ candidate.contact.codepen }}">{{ candidate.contact.codepen }}</a>
+        </div>
+        <div class="contact-item">
+          <span class="fa-brands fa-linkedin" aria-hidden="true"></span>
+          <span class="visually-hidden">LinkedIn</span>
+          <a href="https://{{ candidate.contact.linkedin }}">{{ candidate.contact.linkedin }}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="column">
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="section-title scroll-accent">
+          <a href="#skills">Skills</a>
+        </h2>
+      </div>
+      <p class="skills-grid" data-replace-key="skills">
+        {% for skill in candidate.skills %}
+          <span data-target>{{ skill }}</span>
+        {% endfor %}
+      </p>
+    </section>
+  </div>
+</div>
+
+<script type="module">
+  const getFormatter = (el) => {
+    let formatter = 'clean';
+    // Look for a data-type attribute and use the corresponding formatter function
+    const type = el?.dataset?.type;
+
+    if (
+      type &&
+      typeof window.formatter?.[type] === 'function'
+    ) {
+      return window.formatter[type];
+    }
+
+    return window.formatter.clean ?? (text => text);
+  };
+
+  const getKeyParts = (el) => {
+    const key = el?.dataset?.replaceKey;
+    return key?.split('.') ?? [];
+  };
+
+  // Update resume sections with new content
+  window.renderPage = function (data) {
+    if (!data) return;
+
+    const getProcessor = (value) => {
+      switch (typeof value) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+          return simpleProcess;
+        case 'object':
+          if (Array.isArray(value)) {
+            return arrayProcess;
+          } else {
+            return objectProcess;
+          }
+          break;
+      }
+    };
+    
+    // If the value is a simple string, number, or boolean, we can just replace the appropriate field in the document
+    const simpleProcess = (context, key, value, shouldKeep = true) => {
+      const element = context.querySelector(`[data-replace-key="${key}"]`);
+
+      // Not all content will be relevant to this rendered page so we can move on if it's not there
+      if (!element) return;
+      
+      // If the value is a true/false, that indiciates if the entry should be removed or not
+      if (typeof value === 'boolean') {
+        if (Boolean(value) === false) element.remove();
+        return;
+      }
+
+      // Update the element
+      element.innerHTML = getFormatter(element)(value);
+
+      return element;
+    };
+
+    // If the value is an array, we need to iterate over the array and replace the appropriate fields in the document
+    const arrayProcess = (context, key, value, shouldKeep = true) => {
+      if (value.length === 0) return;
+
+      // This array should have 1 container element that contains the items to be rendered
+      // note that we don't know yet what type the values are, but we're focusing on the container
+      const containers = context.querySelectorAll(`[data-replace-key="${key}"]`);
+
+      // With no container, there's no way to process these items
+      if (!containers.length) return;
+
+      for (const container of containers) {
+        const target = container.querySelector(`[data-target]`) ?? container;
+
+        // Create a template from the container
+        const template = document.createElement('template');
+        template.innerHTML = target.innerHTML;
+
+        const fragment = document.createDocumentFragment();
+
+        // If the value is an array, we need to iterate over the array and replace the appropriate fields in the document
+        for (const item of value) {
+          let row = document.importNode(target, true);
+          console.log(row, { key, item });
+
+          // Determine what type of content is in the array item now
+          const processor = getProcessor(item);
+          if (typeof processor !== 'function') continue;
+
+          processor(row, key, item, false);
+          if (row) fragment.appendChild(row);
+        }
+          
+        container.innerHTML = '';
+        container.appendChild(fragment.cloneNode(true));
+      }
+    };
+
+    // If the value is an object, we need to replace the keys as relevant
+    const objectProcess = (context, key, value, shouldKeep = true) => {
+      if (Object.keys(value).length === 0) return;
+
+      // This object should have 1 container element that contains the items to be rendered
+      // note that we don't know yet what type the values are, but we're focusing on the container
+      const containers = context.querySelectorAll(`[data-replace-key="${key}"]`);
+
+      // With no container, there's no way to process these items
+      if (!containers.length) return;
+
+      for (const container of containers) {
+        // Create a template from the container
+        const template = document.createElement('template');
+        template.innerHTML = container.innerHTML;
+
+        const fragment = document.createDocumentFragment();
+
+        for (const [subKey, subValue] of Object.entries(value)) {
+          let item = template.querySelector(`[data-replace-key="${subKey}"]`);
+          console.log(item, { subKey, subValue });
+
+          // With no item, there's no way to process these items
+          if (!item) continue;
+
+          // Determine what type of content is in the array item now
+          const processor = getProcessor(subValue);
+          if (typeof processor !== 'function') continue;
+
+          processor(item, subKey, subValue, false);
+          console.log(fragment, item);
+          if (item) fragment.appendChild(item.cloneNode(true));
+        }
+          
+        container.innerHTML = '';
+        container.appendChild(fragment.cloneNode(true));
+      }
+    };
+
+    // Iterate over the data and replace the appropriate fields in the document
+    for (const [key, value] of Object.entries(data)) {
+      const processor = getProcessor(value);
+      if (typeof processor !== 'function') continue;
+      
+      processor(document, key, value);
+    }
+  };
+</script>

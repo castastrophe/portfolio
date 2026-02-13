@@ -1,0 +1,17 @@
+<header>
+    <div class="photo">
+        <img
+            src="../../img/cassondra-roberts.png"
+            alt="A photo of {{ candidate.name }}, a red-haired woman with a smile"
+            width="320"
+            height="320">
+    </div>
+    <div>
+        <h1 class="candidate-name">
+            <span>{{ candidate.name | first }}</span>
+            <br>
+            <span>{{ candidate.name | last }}</span>
+        </h1>
+        <p class="subtitle" data-replace-key="tagline">{{ candidate.tagline }}</p>
+    </div>
+</header>

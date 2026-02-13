@@ -3,7 +3,7 @@ layout: layouts/base.webc
 ---
 
 <a-band layout="space-between" id="post-header">
-    <a href="/" title="Return to the home page"><img src="/img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
+    <a href="/" title="Return to the home page"><img src="../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
     <div>
         <h1 class="headline" @text="title"></h1>
         <p class="metadata">

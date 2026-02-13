@@ -4,6 +4,7 @@ import postcss from "postcss";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
 
+import yaml from "js-yaml";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
@@ -11,11 +12,14 @@ import brokenLinks from "eleventy-plugin-broken-links";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
+import { eleventyImageTransformPlugin as imagePlugin } from "@11ty/eleventy-img";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function(config) {
 	// Layout aliases make templates more portable.
 	config.addLayoutAlias("base", "layouts/base.webc");
+	config.addLayoutAlias("resume-base", "layouts/resume-base.njk");
+	config.addLayoutAlias("resume-data", "layouts/resume-data.njk");
 
 	config.ignores.add("README.md");
 
@@ -100,6 +104,39 @@ export default async function(config) {
 		ul: false,
 	});
 
+	// Resume: Eleventy image optimization
+	config.addPlugin(imagePlugin, {
+		urlPath: "/images/",
+		outputDir: "./public/images/",
+		failOnError: false,
+	});
+
+	// Resume: YAML data file support
+	config.addDataExtension("yml,yaml", (contents) => {
+		try {
+			return yaml.load(contents);
+		} catch (e) {
+			console.error(`Error loading YAML: ${e}`);
+			return {};
+		}
+	});
+
+	// Resume: YAML template format (outputs as JSON for resume variants)
+	config.addTemplateFormats("yaml");
+	config.addExtension("yaml", {
+		outputFileExtension: "json",
+		compile: async (inputContent) => {
+			return async () => {
+				try {
+					return yaml.load(inputContent);
+				} catch (e) {
+					console.error(`Error loading YAML: ${e}`);
+					return {};
+				}
+			};
+		},
+	});
+
 	config.addFilter("isPost", function(page) {
 		return page.inputPath.includes("posts/");
 	});
@@ -108,13 +145,47 @@ export default async function(config) {
 		return date?.toISOString();
 	});
 
+	// Resume filters
+	config.addFilter("first", name => name?.split(' ')[0].toUpperCase());
+	config.addFilter("last", name => name?.split(' ').slice(1)?.join(' ')?.toUpperCase());
+	config.addFilter("clean", text => {
+		let output = text?.trim();
+		const paragraphs = output?.split(/\n\n/g) ?? [output];
+		return paragraphs?.map(p => `<p>${p.replace(/\n/g, ' ')}</p>`).join('');
+	});
+
+	const resumeMd = markdownIt({
+		html: false,
+		breaks: true,
+		linkify: true,
+	});
+	config.addFilter("md", (string) => {
+		const result = resumeMd.render(string);
+		return result.replace(/<br\s*\/?>/g, '');
+	});
+
+	config.addFilter("formatDate", value => {
+		if (!value) return '';
+		const str = String(value);
+		if (str.toLowerCase() === 'present') return 'Present';
+		try {
+			const date = new Date(value);
+			return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(date);
+		} catch (e) {
+			return value;
+		}
+	});
+
+	config.addFilter("digitsOnly", text => text?.replace(/\D/g, ''));
+
 	config.addPassthroughCopy({
 		"node_modules/prismjs/themes/prism.css": "css/prism.css",
 		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
 		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
 		"node_modules/prismjs/prism.js": "js/prism.js",
 		"pages/home.css": "css/home.css",
-		"pages/home.js": "js/home.js"
+		"pages/home.js": "js/home.js",
+		"resume-assets/main.css": "resume/main.css"
 	});
 
 	config.setServerOptions({
@@ -122,11 +193,6 @@ export default async function(config) {
 		open: true,
 		browser: "firefox",
 		domDiff: false
-	});
-
-	// A debug utility.
-	config.addFilter("dump", obj => {
-	  return util.inspect(obj);
 	});
 
 	if (process.env.ELEVENTY_ENV === 'production') {

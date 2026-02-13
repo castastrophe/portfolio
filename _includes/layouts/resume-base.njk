@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if candidate.tagline %}<meta name="description" content="{{ candidate.tagline | clean }}">{% endif %}
+    {% if candidate.name %}<meta name="author" content="{{ candidate.name }}">{% endif %}
+    {% if candidate.skills %}<meta name="keywords" content="{{ candidate.skills | join(', ') }}">{% endif %}
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="yandexbot" content="index, follow">
+    <title>{{ title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resume/main.css">
+</head>
+<body>
+  <!-- I know, a table layout?! However, it's the only way to ensure that the header appears at the top of every page when printed. -->
+  <table>
+    <thead>
+      <tr>
+        <th>
+          {% include "resume/_header.njk" %}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <main>{{ content | safe }}</main>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <button type="button" class="print-button" aria-label="Print to PDF" onclick="window.print()">
+    <span class="fa-solid fa-file-pdf" aria-hidden="true"></span>
+    <span class="print-button-text">Export</span>
+  </button>
+
+  <script src="https://kit.fontawesome.com/42e99b4632.js" crossorigin="anonymous"></script>
+
+  <script type="module">
+    // Show print button after scrolling stops
+    const printButton = document.querySelector('.print-button');
+    let scrollTimeout;
+    let hasScrolled = false;
+    
+    function showButton() {
+      printButton.classList.add('visible');
+    }
+    
+    function hideButton() {
+      printButton.classList.remove('visible');
+    }
+    
+    window.addEventListener('scroll', () => {
+      hasScrolled = true;
+      hideButton();
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(showButton, 800);
+    }, { passive: true });
+    
+    // Show button on initial load after a delay
+    setTimeout(showButton, 1500);
+    
+    window.formatter = {
+      clean: function(text) {
+        let output = text?.trim();
+        // Double newlines equate to paragraphs while single newlines equate to spaces
+        const paragraphs = output?.split(/\n\n/g) ?? [output];
+        return paragraphs?.map(p => `<p>${p.replace(/\n/g, ' ')}</p>`).join('');
+      },
+      date: function(value) {
+        // Get the language from the document
+        const lang = document.documentElement.lang ?? 'en-US';
+
+        if (!value) return '';
+        const str = String(value);
+        if (str.toLowerCase() === 'present') return 'Present';
+        return new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long' }).format(new Date(value));
+      },
+    };
+    
+    // Load content based on query parameter
+    async function refreshContent () {
+      const params = new URLSearchParams(window.location.search);
+      for (const [key] of params.entries()) {
+        let response;
+        try {
+          response = await fetch(`/resume/resumes/${key}.json`);
+        } catch (error) {/* empty catch */}
+
+        if (!response?.ok) {
+          console.warn(`Failed to load content: ${response.statusText}`);
+        } else {
+          console.log('Successfully loaded content for', key);
+
+          const content = await response.json();
+
+          // Check if the render function has been defined
+          if (content && typeof window.renderPage === 'function') {
+            window.renderPage(content);
+          }
+        }
+      }
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', refreshContent);
+    } else {
+      refreshContent();
+    }
+  </script>
+</body>
+</html>

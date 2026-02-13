@@ -18,7 +18,7 @@
     <div class="container" webc:root webc:keep>
         <div class="branding">
             <a class="branding-image" href="/" title="Return to the home page">
-                <img src="/img/cartoon-self.png" alt="Animated caricature of the author, Cassondra Roberts, smiling and looking directly at the camera.">
+                <img src="../img/cartoon-self.png" alt="Animated caricature of the author, Cassondra Roberts, smiling and looking directly at the camera.">
             </a>
         </div>
         <div class="content">

@@ -1,0 +1,11 @@
+---
+layout: resume-base
+eleventyComputed:
+  title: "{{ candidate.name }} | Cover Letter"
+---
+
+<div class="cover-letter">
+  <p class="addressee">Dear {{ candidate.addressee | default('Hiring Manager') }},</p>
+  <div class="cover-content" data-replace-key="cover">{{ candidate.cover | md | safe }}</div>
+  <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p> 
+</div>
