@@ -19,6 +19,17 @@ html {
     scroll-snap-align: start;
 }
 
+[hidden] {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: var(--font-family-content);
     font-optical-sizing: auto;
@@ -246,9 +257,15 @@ section {
 }
 
 .skills-grid {
+    list-style: none;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 0.5rem;
+
+    li {
+        margin-block-end: 0.5rem;
+    }
 }
 
 .contact-grid {
@@ -322,6 +339,8 @@ section {
         font-family: var(--font-family-title);
         font-size: 1.2rem;
         font-weight: 600;
+
+        display: inline-block;
     }
 
     .signature {

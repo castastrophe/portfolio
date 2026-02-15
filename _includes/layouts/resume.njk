@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/resume/main.css">
+    <link rel="stylesheet" href="/css/resume.css">
 </head>
 <body>
   <!-- I know, a table layout?! However, it's the only way to ensure that the header appears at the top of every page when printed. -->
@@ -22,7 +22,7 @@
     <thead>
       <tr>
         <th>
-          {% include "resume/_header.njk" %}
+          {% include "_resume-header.njk" %}
         </th>
       </tr>
     </thead>
@@ -43,6 +43,10 @@
   <script src="https://kit.fontawesome.com/42e99b4632.js" crossorigin="anonymous"></script>
 
   <script type="module">
+    import DataProcessor from '/resume/data-processor.js';
+    import formatter from '/resume/formatter.js';
+    window.formatter = formatter;
+
     // Show print button after scrolling stops
     const printButton = document.querySelector('.print-button');
     let scrollTimeout;
@@ -65,32 +69,14 @@
     
     // Show button on initial load after a delay
     setTimeout(showButton, 1500);
-    
-    window.formatter = {
-      clean: function(text) {
-        let output = text?.trim();
-        // Double newlines equate to paragraphs while single newlines equate to spaces
-        const paragraphs = output?.split(/\n\n/g) ?? [output];
-        return paragraphs?.map(p => `<p>${p.replace(/\n/g, ' ')}</p>`).join('');
-      },
-      date: function(value) {
-        // Get the language from the document
-        const lang = document.documentElement.lang ?? 'en-US';
 
-        if (!value) return '';
-        const str = String(value);
-        if (str.toLowerCase() === 'present') return 'Present';
-        return new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long' }).format(new Date(value));
-      },
-    };
-    
     // Load content based on query parameter
     async function refreshContent () {
       const params = new URLSearchParams(window.location.search);
       for (const [key] of params.entries()) {
         let response;
         try {
-          response = await fetch(`/resume/resumes/${key}.json`);
+          response = await fetch(`/resume/${key}.json`);
         } catch (error) {/* empty catch */}
 
         if (!response?.ok) {

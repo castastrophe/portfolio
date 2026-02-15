@@ -1,0 +1,71 @@
+{
+  "tagline": "Staff Frontend Engineer & Design Systems Leader",
+  "addressee": "Frame.io Team",
+  "cover": "I'm excited to apply for this frontend engineering role. With 12+ years building & leading frontend architecture & design systems at scale—including Spectrum at Adobe & PatternFly Elements at Red Hat—I'm passionate about crafting high-quality, accessible experiences that empower product & design teams.\n\nAt Adobe, I served as Staff Design Engineer for Spectrum, leading strategic technical direction for the design system that serves flagship products used by millions. I balanced big-picture thinking with implementation details, mentored team members through active code reviews, & fostered a culture of technical excellence. I led the Spectrum AI Working Group & built tooling that improved developer productivity. My work on accessibility (WCAG AA) & cross-platform implementations directly addressed challenges at current & future scale.\n\nAt Red Hat, I founded & led PatternFly Elements, driving adoption across organizations & collaborating with Google, IBM, Fidelity, & Penn State. I broke down complex problems into actionable solutions, advocated for design system goals, & delivered large cross-functional projects that increased component adoption. My platform stewardship work built distributed theming architecture enabling consistent branding across disparate applications.\n\nReturning to Adobe Design in a Frontend Engineer capacity would allow me to focus deeply on frontend implementation, component architecture, & collaboration with design & product—building on the relationships & context I developed during my time on Spectrum. I'm eager to contribute to the Design team's mission & to help ship experiences that millions rely on.\n\nThank you for considering my application. I'd welcome the opportunity to discuss how my experience can support the Frontend Engineer role.",
+  "about": "Staff Frontend Engineer with 12+ years building design systems & frontend architecture at scale. Former Adobe Spectrum staff engineer & Red Hat PatternFly Elements lead. W3C CSS Working Group member with deep expertise in web components, accessibility (WCAG 2.2 AA), & cross-functional collaboration with design & product. Proven track record of shipping foundational UI that empowers teams to build consistent, high-quality experiences.",
+  "skills": [
+    {
+      "items": [
+        "TypeScript & JavaScript",
+        "Design systems & component architecture",
+        "Accessibility (WCAG 2.2 AA)",
+        "Web components & Web APIs",
+        "Frontend performance & scalability",
+        "Cross-functional collaboration with design",
+        "Code review & technical excellence",
+        "Mentorship & knowledge sharing",
+        "Strategic technical direction",
+        "Platform stewardship & enablement"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Allons-Y Consulting, LLC",
+      "title": "Consultant & Owner",
+      "start-date": "2025-11",
+      "end-date": "present",
+      "summary": "Consulting practice focused on design system evolution & platform enablement, helping teams build scalable, accessible experiences that accelerate product development.",
+      "highlights": [
+        "Crafting presentations & workshops on design system best practices & methodologies for frontend engineering teams",
+        "Breaking down complex design system challenges into actionable decisions with clearly identified tradeoffs",
+        "Leveraging AI tools (Cursor, Claude) to improve developer workflows & maximize productivity",
+        "Advocating for accessibility standards & helping teams implement WCAG 2.2 AA compliance",
+        "Publishing detailed guides & documentation that codify best practices for design system development"
+      ]
+    },
+    {
+      "company": "Adobe",
+      "title": "Staff Design Engineer, Spectrum Design System",
+      "start-date": "2021-08",
+      "end-date": "2025-10",
+      "summary": "Led strategic technical direction & frontend architecture for Adobe's design system, serving flagship products (Photoshop, Illustrator) used by millions. Drove evolution of reusable components, standards, & guidelines that enabled teams to ship faster while maintaining quality & accessibility.",
+      "highlights": [
+        "Led strategic technical direction for design system evolution, balancing big-picture thinking with attention to implementation details",
+        "Contributed to defining & codifying best practices & methodologies for frontend engineering across Adobe's specialty",
+        "Mentored team members & participated actively in design & code reviews, fostering culture of technical excellence & continuous learning",
+        "Technical leader for web components: conducted thorough code reviews ensuring accessibility (WCAG AA) & design fidelity across cross-platform implementations",
+        "Led Spectrum AI Working Group: explored how AI can improve developer & design workflows, established guidelines & built AI-assisted tooling",
+        "Delivered large cross-functional projects: modernized Spectrum CSS tooling & documentation, significantly reducing technical debt",
+        "Successfully advocated for design system improvements: represented Adobe in W3C CSS Working Group, influencing web platform standards",
+        "Worked on trickiest & most impactful projects: addressed problems at current & future scale, evolving system to meet emerging needs"
+      ]
+    },
+    {
+      "company": "Red Hat",
+      "title": "Principal Front-end Architect, User Experience",
+      "start-date": "2014-01",
+      "end-date": "2021-07",
+      "summary": "Led design system development & platform stewardship for PatternFly Elements, driving adoption across Red Hat & partner organizations. Broke down complex problems into actionable solutions while collaborating with cross-functional teams & external organizations on shared standards.",
+      "highlights": [
+        "Developed & led PatternFly Elements design system: founded open source community, managed roadmap, & drove adoption across Red Hat & external organizations",
+        "Platform stewardship & enablement: built distributed component theming architecture enabling consistent branding across disparate applications",
+        "Cross-functional collaboration: worked effectively with designers, developers, & stakeholders (Google, IBM, Fidelity, Penn State) to prioritize high-impact features & drive standardization",
+        "Stakeholder communication & advocacy: successfully advocated for design system goals & drove significant technical changes through leading others & individual contribution",
+        "Delivered large cross-functional projects: increased component adoption by engaging cross-functional teams & aligning on shared patterns across enterprise applications",
+        "Mentorship & knowledge sharing: community management including code reviews, documentation, & fostering positive contributor culture",
+        "Standards contribution: active CSS Working Group & web components contributor, represented Red Hat's priorities & influenced platform direction"
+      ]
+    }
+  ]
+}

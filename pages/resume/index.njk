@@ -1,8 +1,15 @@
 ---
-layout: resume-base
+layout: resume
 eleventyComputed:
   title: "{{ candidate.name }} | Resume"
 ---
+
+
+<div class="cover-letter" hidden>
+  <p class="addressee">Dear <span data-replace-key="addressee" data-type="raw">{{ candidate.addressee | default('Hiring Manager') }}</span>,</p>
+  {% if candidate.cover %}<div class="cover-content" data-replace-key="cover">{{ candidate.cover | md | clean | safe }}</div>{% endif %}
+  <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p> 
+</div>
 
 <section id="about">
   <div class="section-header">
@@ -106,155 +113,40 @@ eleventyComputed:
           <a href="#skills">Skills</a>
         </h2>
       </div>
-      <p class="skills-grid" data-replace-key="skills">
-        {% for skill in candidate.skills %}
-          <span data-target>{{ skill }}</span>
+      <ul class="skills-grid" data-replace-key="skills">
+        {% for entry in candidate.skills %}
+            {% if entry.category %}
+              <li data-target>
+                <h3 data-replace-key="category" data-type="raw">{{ entry.category }}</h3>
+                <ul data-replace-key="items">
+            {% endif %}
+            {% for skill in entry.items %}
+              <li data-template>
+                <span data-target>{{ skill }}</span>
+              </li>
+            {% endfor %}
+            {% if entry.category %}
+                </ul>
+              </li>
+            {% endif %}
         {% endfor %}
-      </p>
+      </ul>
     </section>
   </div>
 </div>
 
 <script type="module">
-  const getFormatter = (el) => {
-    let formatter = 'clean';
-    // Look for a data-type attribute and use the corresponding formatter function
-    const type = el?.dataset?.type;
-
-    if (
-      type &&
-      typeof window.formatter?.[type] === 'function'
-    ) {
-      return window.formatter[type];
-    }
-
-    return window.formatter.clean ?? (text => text);
-  };
-
-  const getKeyParts = (el) => {
-    const key = el?.dataset?.replaceKey;
-    return key?.split('.') ?? [];
-  };
+  import DataProcessor from './data-processor.js';
 
   // Update resume sections with new content
   window.renderPage = function (data) {
     if (!data) return;
 
-    const getProcessor = (value) => {
-      switch (typeof value) {
-        case 'string':
-        case 'number':
-        case 'boolean':
-          return simpleProcess;
-        case 'object':
-          if (Array.isArray(value)) {
-            return arrayProcess;
-          } else {
-            return objectProcess;
-          }
-          break;
-      }
-    };
-    
-    // If the value is a simple string, number, or boolean, we can just replace the appropriate field in the document
-    const simpleProcess = (context, key, value, shouldKeep = true) => {
-      const element = context.querySelector(`[data-replace-key="${key}"]`);
-
-      // Not all content will be relevant to this rendered page so we can move on if it's not there
-      if (!element) return;
-      
-      // If the value is a true/false, that indiciates if the entry should be removed or not
-      if (typeof value === 'boolean') {
-        if (Boolean(value) === false) element.remove();
-        return;
-      }
-
-      // Update the element
-      element.innerHTML = getFormatter(element)(value);
-
-      return element;
-    };
-
-    // If the value is an array, we need to iterate over the array and replace the appropriate fields in the document
-    const arrayProcess = (context, key, value, shouldKeep = true) => {
-      if (value.length === 0) return;
-
-      // This array should have 1 container element that contains the items to be rendered
-      // note that we don't know yet what type the values are, but we're focusing on the container
-      const containers = context.querySelectorAll(`[data-replace-key="${key}"]`);
-
-      // With no container, there's no way to process these items
-      if (!containers.length) return;
-
-      for (const container of containers) {
-        const target = container.querySelector(`[data-target]`) ?? container;
-
-        // Create a template from the container
-        const template = document.createElement('template');
-        template.innerHTML = target.innerHTML;
-
-        const fragment = document.createDocumentFragment();
-
-        // If the value is an array, we need to iterate over the array and replace the appropriate fields in the document
-        for (const item of value) {
-          let row = document.importNode(target, true);
-          console.log(row, { key, item });
-
-          // Determine what type of content is in the array item now
-          const processor = getProcessor(item);
-          if (typeof processor !== 'function') continue;
-
-          processor(row, key, item, false);
-          if (row) fragment.appendChild(row);
-        }
-          
-        container.innerHTML = '';
-        container.appendChild(fragment.cloneNode(true));
-      }
-    };
-
-    // If the value is an object, we need to replace the keys as relevant
-    const objectProcess = (context, key, value, shouldKeep = true) => {
-      if (Object.keys(value).length === 0) return;
-
-      // This object should have 1 container element that contains the items to be rendered
-      // note that we don't know yet what type the values are, but we're focusing on the container
-      const containers = context.querySelectorAll(`[data-replace-key="${key}"]`);
-
-      // With no container, there's no way to process these items
-      if (!containers.length) return;
-
-      for (const container of containers) {
-        // Create a template from the container
-        const template = document.createElement('template');
-        template.innerHTML = container.innerHTML;
-
-        const fragment = document.createDocumentFragment();
-
-        for (const [subKey, subValue] of Object.entries(value)) {
-          let item = template.querySelector(`[data-replace-key="${subKey}"]`);
-          console.log(item, { subKey, subValue });
-
-          // With no item, there's no way to process these items
-          if (!item) continue;
-
-          // Determine what type of content is in the array item now
-          const processor = getProcessor(subValue);
-          if (typeof processor !== 'function') continue;
-
-          processor(item, subKey, subValue, false);
-          console.log(fragment, item);
-          if (item) fragment.appendChild(item.cloneNode(true));
-        }
-          
-        container.innerHTML = '';
-        container.appendChild(fragment.cloneNode(true));
-      }
-    };
+    const dataHandler = new DataProcessor();
 
     // Iterate over the data and replace the appropriate fields in the document
     for (const [key, value] of Object.entries(data)) {
-      const processor = getProcessor(value);
+      const processor = dataHandler.processorType(value);
       if (typeof processor !== 'function') continue;
       
       processor(document, key, value);

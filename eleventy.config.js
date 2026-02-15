@@ -4,7 +4,6 @@ import postcss from "postcss";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
 
-import yaml from "js-yaml";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
@@ -15,13 +14,14 @@ import pluginTOC from "eleventy-plugin-toc";
 import { eleventyImageTransformPlugin as imagePlugin } from "@11ty/eleventy-img";
 
 /** @param {import('@11ty/eleventy')} config */
-export default async function(config) {
+export default async function (config) {
 	// Layout aliases make templates more portable.
 	config.addLayoutAlias("base", "layouts/base.webc");
-	config.addLayoutAlias("resume-base", "layouts/resume-base.njk");
-	config.addLayoutAlias("resume-data", "layouts/resume-data.njk");
+	config.addLayoutAlias("resume", "layouts/resume.njk");
+	config.addLayoutAlias("data", "layouts/data.njk");
 
 	config.ignores.add("README.md");
+	config.ignores.add("**/CLAUDE.md");
 
 	config.addPlugin(pluginWebc, {
 		// Glob to find no-import global components
@@ -58,7 +58,7 @@ export default async function(config) {
 	config.addBundle("css", {
 		toFileDirectory: "css",
 		transforms: [
-			async function(content) {
+			async function (content) {
 				return processCSS(content, this.inputPath, this.page?.outputPath);
 			}
 		]
@@ -67,25 +67,43 @@ export default async function(config) {
 	config.addTemplateFormats('css');
 	config.addExtension('css', {
 		outputFileExtension: 'css',
+		// output to "css/" directory
+		toFileDirectory: "css",
 		compile: async (inputContent, inputPath) => {
 			return async ({ page }) => {
 				return processCSS(inputContent, inputPath, page?.outputPath);
 			};
 		},
+		compileOptions: {
+			permalink: function (_, inputPath) {
+				return () => path.join("css", path.basename(inputPath));
+			}
+		}
 	});
 
-	config.setLibrary('md', markdownIt({
+	config.addBundle("js", {
+		toFileDirectory: "js",
+		transforms: [
+			async function (content) {
+				return content;
+			}
+		]
+	});
+
+	const markdown = markdownIt({
 		html: true,
 		breaks: true,
 		linkify: true,
-	}).use(markdownItAnchor));
+	});
 
-	config.addCollection("posts", function(collectionApi) {
+	config.setLibrary('md', markdown.use(markdownItAnchor));
+
+	config.addCollection("posts", function (collectionApi) {
 		// Exclude the index file
 		return collectionApi.getFilteredByGlob("pages/posts/*").filter(item => !item.inputPath.includes("index.webc"));
 	});
 
-	config.addCollection("proposals", function(collectionApi) {
+	config.addCollection("proposals", function (collectionApi) {
 		// Exclude the index file
 		return collectionApi.getFilteredByGlob("pages/proposals/*").filter(item => !item.inputPath.includes("index.webc"));
 	});
@@ -111,37 +129,11 @@ export default async function(config) {
 		failOnError: false,
 	});
 
-	// Resume: YAML data file support
-	config.addDataExtension("yml,yaml", (contents) => {
-		try {
-			return yaml.load(contents);
-		} catch (e) {
-			console.error(`Error loading YAML: ${e}`);
-			return {};
-		}
-	});
-
-	// Resume: YAML template format (outputs as JSON for resume variants)
-	config.addTemplateFormats("yaml");
-	config.addExtension("yaml", {
-		outputFileExtension: "json",
-		compile: async (inputContent) => {
-			return async () => {
-				try {
-					return yaml.load(inputContent);
-				} catch (e) {
-					console.error(`Error loading YAML: ${e}`);
-					return {};
-				}
-			};
-		},
-	});
-
-	config.addFilter("isPost", function(page) {
+	config.addFilter("isPost", function (page) {
 		return page.inputPath.includes("posts/");
 	});
 
-	config.addFilter("toISOString", function(date) {
+	config.addFilter("toISOString", function (date) {
 		return date?.toISOString();
 	});
 
@@ -151,17 +143,11 @@ export default async function(config) {
 	config.addFilter("clean", text => {
 		let output = text?.trim();
 		const paragraphs = output?.split(/\n\n/g) ?? [output];
-		return paragraphs?.map(p => `<p>${p.replace(/\n/g, ' ')}</p>`).join('');
+		return paragraphs?.map(p => `<p>${p?.replace(/\n/g, ' ')}</p>`).join('');
 	});
 
-	const resumeMd = markdownIt({
-		html: false,
-		breaks: true,
-		linkify: true,
-	});
 	config.addFilter("md", (string) => {
-		const result = resumeMd.render(string);
-		return result.replace(/<br\s*\/?>/g, '');
+		return markdown?.render(string) ?? String(string);
 	});
 
 	config.addFilter("formatDate", value => {
@@ -183,10 +169,10 @@ export default async function(config) {
 		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
 		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
 		"node_modules/prismjs/prism.js": "js/prism.js",
-		"pages/home.css": "css/home.css",
-		"pages/home.js": "js/home.js",
-		"resume-assets/main.css": "resume/main.css"
+		"pages/resume/*.json": "resume/"
 	});
+
+	config.addPassthroughCopy("pages/**/*.js");
 
 	config.setServerOptions({
 		// Open the browser automatically
@@ -197,7 +183,7 @@ export default async function(config) {
 
 	if (process.env.ELEVENTY_ENV === 'production') {
 		config.addTransform('htmlmin', (content, outputPath) => {
-		  if (!outputPath.endsWith('.html')) return content;
+			if (!outputPath.endsWith('.html')) return content;
 
 			return minify(content, {
 				collapseInlineTagWhitespace: false,
@@ -207,7 +193,7 @@ export default async function(config) {
 				useShortDoctype: true,
 			});
 		});
-	  }
+	}
 
 	return {
 		dir: {

@@ -1,11 +1,30 @@
 ---
-layout: resume-base
+layout: resume
 eleventyComputed:
   title: "{{ candidate.name }} | Cover Letter"
 ---
 
 <div class="cover-letter">
-  <p class="addressee">Dear {{ candidate.addressee | default('Hiring Manager') }},</p>
-  <div class="cover-content" data-replace-key="cover">{{ candidate.cover | md | safe }}</div>
+  <p class="addressee">Dear <span data-replace-key="addressee" data-type="raw">{{ candidate.addressee | default('Hiring Manager') }}</span>,</p>
+  {% if candidate.cover %}<div class="cover-content" data-replace-key="cover">{{ candidate.cover | md | clean | safe }}</div>{% endif %}
   <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p> 
 </div>
+
+<script type="module">
+  import DataProcessor from '/resume/data-processor.js';
+
+  // Update resume sections with new content
+  window.renderPage = function (data) {
+    if (!data) return;
+
+    const dataHandler = new DataProcessor();
+
+    // Iterate over the data and replace the appropriate fields in the document
+    for (const [key, value] of Object.entries(data)) {
+      const processor = dataHandler.processorType(value);
+      if (typeof processor !== 'function') continue;
+      
+      processor(document, key, value);
+    }
+  };
+</script>

@@ -12,6 +12,6 @@
             <br>
             <span>{{ candidate.name | last }}</span>
         </h1>
-        <p class="subtitle" data-replace-key="tagline">{{ candidate.tagline }}</p>
+        {% if candidate.tagline %}<p class="subtitle" data-replace-key="tagline">{{ candidate.tagline }}</p>{% endif %}
     </div>
 </header>
