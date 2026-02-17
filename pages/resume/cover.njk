@@ -17,14 +17,11 @@ eleventyComputed:
   window.renderPage = function (data) {
     if (!data) return;
 
-    const dataHandler = new DataProcessor();
+    {% if process.env.ELEVENTY_ENV === 'development' %}
+      const dataHandler = new DataProcessor(data, { verbose: true });
+    {% else %}
+      const dataHandler = new DataProcessor(data);
+    {% endif %}
 
-    // Iterate over the data and replace the appropriate fields in the document
-    for (const [key, value] of Object.entries(data)) {
-      const processor = dataHandler.processorType(value);
-      if (typeof processor !== 'function') continue;
-      
-      processor(document, key, value);
-    }
   };
 </script>

@@ -20,8 +20,8 @@
     "build": "eleventy",
     "clean": "rimraf public",
     "start": "eleventy --serve",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "NODE_OPTIONS='--no-deprecation' vitest run",
+    "test:watch": "NODE_OPTIONS='--no-deprecation' vitest"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",

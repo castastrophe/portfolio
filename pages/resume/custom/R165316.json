@@ -1,0 +1,73 @@
+{
+  "tagline": "Senior Frontend Engineer & Product UI Architect",
+  "addressee": "Frame.io Engineering Team",
+  "cover": "I'm excited to apply for the Senior Frontend Engineer role on the Frame.io team. With 12+ years building scalable web applications & frontend architecture at Adobe & Red Hat—and deep familiarity with Adobe's culture, teams, & technical landscape—I'm eager to bring my product engineering expertise to Frame.io's flagship product.\n\nAs Staff Design Engineer on Spectrum, I shipped polished, accessible UI that powers Adobe's flagship products including Photoshop, Illustrator, & Express. I built higher-level web components by composing base components into larger patterns, ensuring pixel-perfect design fidelity & WCAG AA compliance across every implementation. I migrated documentation & prototyping to Storybook, architected modern build tooling to reduce technical debt, & drove cross-functional collaboration with design, product, & accessibility experts. My work on the Spectrum AI Working Group—building workflows that converted engineer descriptions into sprint-ready tickets—demonstrated my focus on shipping velocity & developer productivity.\n\nBefore Spectrum, I served as Senior Web Components Developer on the Photoshop team, where I initialized & led the Unified Experience Components project serving all Adobe web products. I built semantic, performant components with keyboard navigation & high-contrast mode as requirements, defined best practices for pattern building, & facilitated alignment between application teams & design—exactly the kind of cross-functional product work Frame.io needs.\n\nAt Red Hat, I co-founded PatternFly Elements & led frontend architecture across enterprise applications, building component theming systems, visual regression testing with Mocha/Chai & WebdriverIO, & expert-level Sass/CSS architecture. I collaborated with Google, IBM, Fidelity, & Penn State on shared standards & drove adoption through agile, iterative delivery.\n\nReturning to Adobe on the Frame.io team would let me focus deeply on what I love most: shipping high-quality, performant frontend features in close collaboration with design & product. I'd welcome the chance to discuss how my experience can contribute to Frame.io's next chapter.",
+  "about": "Senior Frontend Engineer with 12+ years shipping scalable, accessible web applications at Adobe & Red Hat. Former Staff Design Engineer on Adobe Spectrum & Senior Web Components Developer on Photoshop. Deep expertise in TypeScript, web components, CSS architecture, Storybook, & building pixel-perfect, performant UI. W3C CSS Working Group member with proven ability to collaborate cross-functionally with design, product, & QA to shape, prototype, & ship features that millions rely on.",
+  "skills": [
+    {
+      "items": [
+        "TypeScript & JavaScript (ES6+)",
+        "Web components & component architecture",
+        "CSS, Sass, & animations",
+        "Storybook (React) & visual regression testing",
+        "Accessibility (WCAG 2.2 AA, WAI-ARIA)",
+        "Performance, scalability, & responsive design",
+        "Cross-functional collaboration with design, product, & QA",
+        "Code review & pair programming",
+        "Git/GitHub & Agile methodologies",
+        "AI-enhanced developer workflows",
+        "Web components & Web APIs",
+        "W3C CSS Working Group member"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Allons-Y Consulting, LLC",
+      "title": "Consultant & Owner",
+      "start-date": "2025-11",
+      "end-date": "present",
+      "summary": "Consulting practice focused on frontend architecture & design system enablement, helping teams ship scalable, accessible web experiences faster.",
+      "highlights": [
+        "Helping teams architect & ship scalable frontend features with modern TypeScript & component patterns",
+        "Leveraging AI tools (Cursor, Claude) to improve developer workflows & maximize shipping velocity",
+        "Advocating for accessibility standards & helping teams implement WCAG 2.2 AA compliance",
+        "Breaking down complex frontend challenges into actionable decisions with clearly identified tradeoffs",
+        "Publishing detailed guides & documentation that codify best practices for frontend development"
+      ]
+    },
+    {
+      "company": "Adobe",
+      "title": "Staff Design Engineer, Spectrum Design System",
+      "start-date": "2021-08",
+      "end-date": "2025-10",
+      "summary": "Shipped polished, accessible frontend components powering Adobe's flagship products (Photoshop, Illustrator, Express). Led cross-functional collaboration with design, product, & accessibility experts while driving modern build tooling & AI-assisted workflows.",
+      "highlights": [
+        "Built higher-level web components by composing base components into larger patterns, ensuring pixel-perfect design fidelity & WCAG AA compliance",
+        "Initialized & led the Unified Experience Components project on the Photoshop team, serving all Adobe web products with semantic, performant UI",
+        "Migrated documentation & prototyping to Storybook, establishing a single source of truth for component behavior & visual specifications",
+        "Architected modern CSS build system reducing technical debt & enabling consistent delivery across Adobe's product ecosystem",
+        "Led Spectrum AI Working Group: built workflow that converted engineer descriptions into sprint-ready tickets, improving team shipping velocity",
+        "Facilitated alignment between application teams & design, defining best practices for pattern building & consistent UX across products",
+        "Represented Adobe in W3C CSS Working Group, influencing web platform standards for component styling & layout",
+        "Active code reviewer fostering culture of technical excellence, mentoring team members & collaborating across distributed squads"
+      ]
+    },
+    {
+      "company": "Red Hat",
+      "title": "Principal Front-end Architect, User Experience",
+      "start-date": "2014-01",
+      "end-date": "2021-07",
+      "summary": "Led frontend architecture & shipped enterprise web applications across Red Hat's product portfolio. Co-founded PatternFly Elements, built component theming systems, & drove cross-functional collaboration with design & product teams across organizations.",
+      "highlights": [
+        "Co-founded PatternFly Elements: shipped web component library with distributed theming architecture enabling consistent branding across enterprise applications",
+        "Technical lead for redhat.com pattern library: semantic markup, JavaScript interactions, JSON schemas for CMS, & visual regression testing (Mocha/Chai, WebdriverIO)",
+        "Expert-level Sass/CSS architect: optimized stylesheets for performance, maintainability, & cross-browser consistency across responsive layouts",
+        "Cross-organization collaboration with Google, IBM, Fidelity, & Penn State: aligned on shared patterns & drove standardization across enterprise applications",
+        "Drove component adoption by engaging designers, developers, & stakeholders to prioritize high-impact features based on user needs",
+        "Active CSS Working Group & web components standards contributor, representing Red Hat's priorities & influencing platform direction",
+        "Mentored developers & managed open source community: code reviews, documentation, & fostering positive contributor culture across distributed teams"
+      ]
+    }
+  ]
+}

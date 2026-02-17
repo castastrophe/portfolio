@@ -13,6 +13,9 @@ import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
 import { eleventyImageTransformPlugin as imagePlugin } from "@11ty/eleventy-img";
 
+// Make sure we use the same formatter logic for the dynamic content as the pre-compiled outputs
+import formatter from "./pages/resume/formatter.js";
+
 /** @param {import('@11ty/eleventy')} config */
 export default async function (config) {
 	// Layout aliases make templates more portable.
@@ -133,43 +136,93 @@ export default async function (config) {
 		return page.inputPath.includes("posts/");
 	});
 
-	config.addFilter("toISOString", function (date) {
-		return date?.toISOString();
+	config.addFilter("toISOString", formatter.toISOString);
+
+	// Create a mini template for formatting start and end dates with logic
+	config.addShortcode("dates", function(startDate, endDate, classPrefix = '', asTemplate = false) {
+		// Either a start or end date is required to render this template
+		if (!startDate && !endDate) return '';
+
+		// as template returns mark-up without embedded content and with identifiers for keys
+		// 	<span class="job-dates">
+		// 	  <span data-replace-key="start-date" data-type="date"></span><span class="separator">–</span><span data-replace-key="end-date" data-type="date"></span>
+		//  </span>
+		return `<span class="${[classPrefix, 'dates'].filter(Boolean).join('-')}">
+			${startDate ? `<span${asTemplate ? ' data-replace-key="start-date" data-type="date"' : ''}>${formatter.date(startDate)}</span>` : ''}
+			${startDate && endDate ? '<span class="separator">–</span>' : ''}
+			${endDate ? `<span${asTemplate ? ' data-replace-key="end-date" data-type="date"' : ''}>${formatter.date(endDate)}</span>` : ''}
+		</span>`;
+	});
+
+	// Create a mini template for formatting start and end dates with logic
+	config.addShortcode("years", function(startDate, endDate, classPrefix = '', asTemplate = false) {
+		// Either a start or end date is required to render this template
+		if (!startDate && !endDate) return '';
+
+		// as template returns mark-up without embedded content and with identifiers for keys
+		// 	<span class="job-dates">
+		// 	  <span data-replace-key="start-date" data-type="date"></span><span class="separator">–</span><span data-replace-key="end-date" data-type="date"></span>
+		//  </span>
+		return `<span class="${[classPrefix, 'dates'].filter(Boolean).join('-')}">
+			${startDate ? `<span${asTemplate ? ' data-replace-key="start-date" data-type="year"' : ''}>${formatter.year(startDate)}</span>` : ''}
+			${startDate && endDate ? '<span class="separator">–</span>' : ''}
+			${endDate ? `<span${asTemplate ? ' data-replace-key="end-date" data-type="year"' : ''}>${formatter.year(endDate)}</span>` : ''}
+		</span>`;
+	});
+
+	const brands = ['github', 'codepen', 'linkedin'];
+	config.addShortcode("contact", function(contact, label, type, icon) {
+		if (!contact) return '';
+		
+		let href, content = String(contact ?? '').trim();
+		if (type) {
+			switch (type) {
+				case 'url':
+					href = `https://${formatter.noSpace(contact)}`;
+					content = formatter.noSpace(contact);
+					break;
+				case 'phone':
+					href = `tel:+1${formatter.digitsOnly(contact)}`;
+					content = formatter.toPhone(contact);
+					break;
+				case 'email':
+					href = `mailto:${formatter.toEmail(contact)}`;
+					content = formatter.toEmail(contact);
+					break;
+			}
+		}
+
+		if (!label) {
+			// Warn the build process that a label is required
+			console.warn(`[Contact] Label is required for contact: ${contact} [${this.page?.inputPath}]`);
+		}
+
+		return `<div class="contact-item">
+            ${icon ? `<span class="${brands.includes(icon) ? `fa-brands fa-${icon}` : `fa-solid fa-${icon}`}" aria-hidden="true"></span>` : ''}
+            ${label ? `<span class="visually-hidden">${label}</span>` : ''}
+            ${href ? `<a href="${href}">${content}</a>` : `${content}`}
+		</div>`;
 	});
 
 	// Resume filters
-	config.addFilter("first", name => name?.split(' ')[0].toUpperCase());
-	config.addFilter("last", name => name?.split(' ').slice(1)?.join(' ')?.toUpperCase());
-	config.addFilter("clean", text => {
-		let output = text?.trim();
-		const paragraphs = output?.split(/\n\n/g) ?? [output];
-		return paragraphs?.map(p => `<p>${p?.replace(/\n/g, ' ')}</p>`).join('');
-	});
+	config.addFilter("first", formatter.first);
+	config.addFilter("last", formatter.last);
+	config.addFilter("clean", formatter.clean);
 
 	config.addFilter("md", (string) => {
 		return markdown?.render(string) ?? String(string);
 	});
 
-	config.addFilter("formatDate", value => {
-		if (!value) return '';
-		const str = String(value);
-		if (str.toLowerCase() === 'present') return 'Present';
-		try {
-			const date = new Date(value);
-			return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(date);
-		} catch (e) {
-			return value;
-		}
-	});
+	config.addFilter("formatDate", formatter.date);
 
-	config.addFilter("digitsOnly", text => text?.replace(/\D/g, ''));
+	config.addFilter("digitsOnly", formatter.digitsOnly);
 
 	config.addPassthroughCopy({
 		"node_modules/prismjs/themes/prism.css": "css/prism.css",
 		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
 		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
 		"node_modules/prismjs/prism.js": "js/prism.js",
-		"pages/resume/*.json": "resume/"
+		"pages/resume/custom/*.json": "resume/custom/"
 	});
 
 	config.addPassthroughCopy("pages/**/*.js");

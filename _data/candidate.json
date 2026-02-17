@@ -1,17 +1,47 @@
 {
   "name": "Cassondra Roberts",
-  "contact": {
-    "phone": "(919) 656-1194",
-    "email": "consulting@allons-y.llc",
-    "website": "allons-y.llc",
-    "github": "github.com/castastrophe",
-    "codepen": "codepen.io/castastrophe",
-    "linkedin": "linkedin.com/in/castastrophe"
-  },
-  "education": [
+  "contact": [
     {
-      "degree": "Bachelor of Science, Computer Science",
-      "school": "Meredith College",
+      "type": "phone",
+      "value": "+19196561194",
+      "label": "Phone",
+      "icon": "phone"
+    },
+    {
+      "type": "email",
+      "value": "consulting -at- allons-y.llc",
+      "label": "Email",
+      "icon": "envelope"
+    },
+    {
+      "type": "url",
+      "value": "allons-y.llc",
+      "label": "Website",
+      "icon": "globe"
+    },
+    {
+      "type": "url",
+      "value": "github.com/castastrophe",
+      "label": "GitHub",
+      "icon": "github"
+    },
+    {
+      "type": "url",
+      "value": "codepen.io/castastrophe",
+      "label": "Codepen",
+      "icon": "codepen"
+    },
+    {
+      "type": "url",
+      "value": "linkedin.com/in/castastrophe",
+      "label": "LinkedIn",
+      "icon": "linkedin"
+    }
+  ],
+  "training": [
+    {
+      "title": "Bachelor of Science, Computer Science",
+      "institution": "Meredith College",
       "start-date": 2008,
       "end-date": 2012
     }
@@ -46,7 +76,8 @@
         "Help teams deliver web experiences at scale that accelerate product development",
         "Leveraging AI tools (Cursor, Claude) to maximize productivity & code quality",
         "Publish detailed guides & documentation"
-      ]
+      ],
+      "featured": true
     },
     {
       "company": "Adobe",
@@ -59,7 +90,8 @@
         "Modernized & refactored Spectrum CSS tooling & documentation, significantly reducing technical debt",
         "Led Spectrum AI Working Group: established Cursor guidelines & built AI-assisted workflow that converted engineer descriptions into sprint-ready tickets",
         "Represented Adobe in W3C CSS Working Group, directly influencing web platform standards to meet product team priorities"
-      ]
+      ],
+      "featured": true
     },
     {
       "company": "Red Hat",
@@ -74,7 +106,8 @@
         "Active CSS Working Group & web components standards contributor: represented Red Hat's priorities & influenced platform direction",
         "Built distributed component theming architecture enabling consistent branding across disparate applications",
         "Community management: responded to issues, reviewed code, wrote documentation, & fostered healthy, positive contributor culture"
-      ]
+      ],
+      "featured": true
     }
   ]
 }

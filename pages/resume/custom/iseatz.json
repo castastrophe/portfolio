@@ -1,0 +1,70 @@
+{
+  "tagline": "Staff Frontend Engineer & Design Systems Architect",
+  "addressee": "iSeatz Design Engineering Team",
+  "cover": "I'm excited to apply for the Senior Design Engineer role at iSeatz. With 12+ years building & leading enterprise design systems—including Spectrum at Adobe & PatternFly Elements at Red Hat—I bring deep expertise in bridging the gap between design intent & technical implementation across multi-product platforms.\n\nAt Adobe, I led frontend architecture for the Spectrum CSS Design System implementation, serving flagship products such as Photoshop and Express, reaching millions of customers. I migrated documentation & prototyping to Storybook, architected modern build systems to reduce technical debt, & conducted thorough code reviews ensuring WCAG AA compliance & design fidelity across all components. Collaborating closely with design & accessibility experts, I ensured consistent component delivery across diverse product teams—experience directly applicable to iSeatz's multi-tenant, white-label platform.\n\nAt Red Hat, I co-founded PatternFly Elements, building a theming architecture that enabled consistent branding across disparate applications—essentially a white-label component system. I drove adoption across Red Hat & partner organizations (Google, IBM, Fidelity, Penn State), engaging designers, developers, & stakeholders to align on shared patterns. This cross-organization collaboration mirrors the kind of systemic thinking iSeatz needs to serve partners like American Express, IHG, & Qantas.\n\nAs a W3C CSS Working Group member, I bring standards-level understanding of CSS & web components that informs practical, forward-looking design system decisions. I'm passionate about accessibility, reducing complexity through quality work, & building systems that empower teams to ship consistent experiences at scale.\n\nI'd welcome the opportunity to discuss how my experience can help iSeatz's design system serve your partners with consistency, accessibility, & technical excellence.",
+  "about": "Staff Frontend Engineer with 12+ years building enterprise design systems that serve multiple products & brands with consistency & accessibility. W3C CSS Working Group member with deep expertise in HTML5, CSS3, Sass, TypeScript, Storybook, & WCAG compliance. Proven track record architecting multi-tenant component systems, migrating documentation tooling, & bridging the gap between design intent & technical implementation. Passionate about reducing complexity, driving cross-functional collaboration, & building systemic frontend infrastructure that empowers teams to ship faster.",
+  "skills": [
+    {
+      "items": [
+        "Design systems for multi-product platforms",
+        "HTML5, CSS3, Sass, JavaScript (ES6+), TypeScript",
+        "Accessibility (WCAG 2.2 AA, WAI-ARIA)",
+        "Storybook, Chromatic, Style Dictionary",
+        "Figma collaboration & design-to-code workflows",
+        "Cross-functional collaboration with design & product",
+        "Web components & component architecture",
+        "Git/GitHub, Agile methodologies",
+        "Multi-tenant & white-label theming systems",
+        "Code review & technical mentorship",
+        "W3C CSS Working Group member",
+        "AI-enhanced developer workflows"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Allons-Y Consulting, LLC",
+      "title": "Consultant & Owner",
+      "start-date": "2025-11",
+      "end-date": "present",
+      "summary": "Consulting practice focused on design system architecture & frontend enablement, helping teams build scalable, accessible component systems that maintain design consistency across products.",
+      "highlights": [
+        "Leveraging AI tools (Cursor, Claude) to improve developer workflows & maximize productivity",
+        "Publishing detailed guides & documentation that codify design system best practices",
+        "Designed & presented workshops on design system best practices & methodologies for frontend engineering teams"
+      ]
+    },
+    {
+      "company": "Adobe",
+      "title": "Staff Design Engineer, Spectrum Design System",
+      "start-date": "2021-08",
+      "end-date": "2025-10",
+      "summary": "Led frontend architecture for Adobe's CSS implementation, serving multiple flagship products (Photoshop, Illustrator, Express). Drove consistent component delivery across diverse product teams while ensuring accessibility & design fidelity—directly bridging design intent & technical implementation.",
+      "highlights": [
+        "Migrated documentation to Storybook, establishing a source of truth for component behavior & visual specifications",
+        "Architected modern CSS build system reducing technical debt & enabling consistent theming across Adobe's multi-product ecosystem",
+        "Technical leader for web components: conducted thorough code reviews ensuring WCAG AA compliance, keyboard navigation, & high-contrast mode support",
+        "Collaborated with design & accessibility experts to translate design specifications into production-ready components",
+        "Early member of Spectrum AI Working Group: established Cursor guidelines & built AI-assisted workflow that improved cross-team productivity",
+        "Represented Adobe in W3C CSS Working Group, directly influencing web platform standards for component styling",
+        "Drove consistent component delivery across distributed product teams in agile environment"
+      ]
+    },
+    {
+      "company": "Red Hat",
+      "title": "Principal Front-end Architect, User Experience",
+      "start-date": "2014-01",
+      "end-date": "2021-07",
+      "summary": "Co-founded & led PatternFly Elements, building a white-label-ready web component system with distributed theming architecture. Drove adoption across Red Hat & partner organizations while collaborating on shared standards with major tech companies.",
+      "highlights": [
+        "Co-founded PatternFly Elements: built distributed theming architecture enabling consistent branding across disparate applications—a white-label component system serving multiple organizations",
+        "Cross-organization collaboration with Google, IBM, Fidelity, & Penn State: aligned on shared patterns & drove standardization across enterprise applications",
+        "Drove component adoption by engaging designers, developers, & stakeholders to prioritize high-impact features based on user needs & product requirements",
+        "Expert-level Sass developer: optimized CSS architecture for maintainability, theming flexibility, & cross-browser consistency",
+        "Built semantic, WCAG AA compliant components with keyboard navigation & high-contrast mode as requirements for all assets",
+        "Active CSS Working Group & web components standards contributor: represented team priorities & influenced platform direction",
+        "Community management: facilitated contributions through documentation, code review, & fostering healthy contributor culture across distributed teams"
+      ]
+    }
+  ]
+}

@@ -4,136 +4,125 @@ eleventyComputed:
   title: "{{ candidate.name }} | Resume"
 ---
 
-
-<div class="cover-letter" hidden>
-  <p class="addressee">Dear <span data-replace-key="addressee" data-type="raw">{{ candidate.addressee | default('Hiring Manager') }}</span>,</p>
-  {% if candidate.cover %}<div class="cover-content" data-replace-key="cover">{{ candidate.cover | md | clean | safe }}</div>{% endif %}
-  <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p> 
-</div>
-
-<section id="about">
-  <div class="section-header">
-    <h2 class="section-title scroll-accent">
-      <a href="#about">About me</a>
-    </h2>
-  </div>
-  <div data-replace-key="about">{{ candidate.about | clean | safe }}</div>
-</section>
-<section id="experience">
-  <div class="section-header">
-    <h2 class="section-title scroll-accent">
-      <a href="#experience">Experience</a>
-    </h2>
-    <p class="section-aside">Full experience at
-      <a href="https://{{ candidate.contact.linkedin }}">{{ candidate.contact.linkedin }}</a>
-    </p>
-  </div>
-  <div data-replace-key="experience">
-  {% for job in candidate.experience %}
-    <div class="job-item" data-target>
-      <div class="job-header">
-        <span class="job-title">
-          <span data-replace-key="title">{{ job.title }}</span>, <span data-replace-key="company">{{ job.company }}</span>
-        </span>
-        <span class="job-dates">
-          <span data-replace-key="start-date" data-type="date">{{ job["start-date"] | formatDate }}</span>–<span data-replace-key="end-date" data-type="date">{{ job["end-date"] | formatDate }}</span>
-        </span>
-      </div>
-      <p class="job-summary" data-replace-key="summary">{{ job.summary | clean | safe }}</p>
-      <ul class="job-highlights" data-replace-key="highlights">
-        {% for highlight in job.highlights %}
-          <li data-target>{{ highlight }}</li>
-        {% endfor %}
-      </ul>
+<tr>
+  <td>
+    <div class="cover-letter" id="cover-letter">
+      <p class="addressee">Dear <span data-replace-key="addressee">{{ candidate.addressee | default('Hiring Manager') }}</span>,</p>
+      {% if candidate.cover %}<div class="cover-content" data-replace-key="cover" data-type="clean">{{ candidate.cover | md | clean | safe }}</div>{% endif %}
+      <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p> 
     </div>
-  {% endfor %}
-  </div>
-</section>
+  </td>
+</tr>
 
-<div class="columns">
-  <div class="column">
-    <section id="education">
+<tr class="resume" id="resume">
+  <td>
+    <section id="about">
       <div class="section-header">
         <h2 class="section-title scroll-accent">
-          <a href="#education">Education</a>
+          <a href="#about">About me</a>
         </h2>
       </div>
-      {% for edu in candidate.education %}
-        <p class="education-item">
-          <strong>{{ edu.degree }}</strong>
-          <br>{{ edu.school }}, {{ edu["start-date"] }}–{{ edu["end-date"] }}
-        </p>
-      {% endfor %}
+      <div data-replace-key="about" data-type="clean">{{ candidate.about | clean | safe }}</div>
     </section>
-          
-    <section id="contact">
+  </td>
+</tr>
+
+<tr id="experience">
+  <td>
+    <section>
       <div class="section-header">
         <h2 class="section-title scroll-accent">
-          <a href="#contact">Contact</a>
+          <a href="#experience">Experience</a>
         </h2>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-item">
-          <span class="fa-solid fa-phone" aria-hidden="true"></span>
-          <span class="visually-hidden">Phone</span>
-          <a href="tel:+1{{ candidate.contact.phone | digitsOnly }}">{{ candidate.contact.phone }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="fa-solid fa-envelope" aria-hidden="true"></span>
-          <span class="visually-hidden">Email</span>
-          <a href="mailto:{{ candidate.contact.email }}">{{ candidate.contact.email }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="fa-solid fa-globe" aria-hidden="true"></span>
-          <span class="visually-hidden">Website</span>
-          <a href="https://{{ candidate.contact.website }}">{{ candidate.contact.website }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="fa-brands fa-github" aria-hidden="true"></span>
-          <span class="visually-hidden">GitHub</span>
-          <a href="https://{{ candidate.contact.github }}">{{ candidate.contact.github }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="fa-brands fa-codepen" aria-hidden="true"></span>
-          <span class="visually-hidden">Codepen</span>
-          <a href="https://{{ candidate.contact.codepen }}">{{ candidate.contact.codepen }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="fa-brands fa-linkedin" aria-hidden="true"></span>
-          <span class="visually-hidden">LinkedIn</span>
+        {% if candidate.contact.linkedin %}
+        <p class="section-aside">Full experience at
           <a href="https://{{ candidate.contact.linkedin }}">{{ candidate.contact.linkedin }}</a>
+        </p>
+        {% endif %}
+      </div>
+
+      <div data-replace-key="experience" data-template="experience-template">
+        {% for job in candidate.experience %}
+        <div class="job-item">
+          <div class="job-header">
+            <span class="job-title">
+              <span>{{ job.title }}</span>{% if job.company %}, <span>{{ job.company }}</span>{% endif %}
+            </span>
+            {% dates job["start-date"], job["end-date"], 'job' %}
+          </div>
+          <p class="job-summary">{{ job.summary | clean | safe }}</p>
+          <ul class="job-highlights">
+            {% for highlight in job.highlights %}
+            <li>{{ highlight }}</li>
+            {% endfor %}
+          </ul>
         </div>
+        {% endfor %}
       </div>
     </section>
-  </div>
-  <div class="column">
-    <section id="skills">
-      <div class="section-header">
-        <h2 class="section-title scroll-accent">
-          <a href="#skills">Skills</a>
-        </h2>
-      </div>
-      <ul class="skills-grid" data-replace-key="skills">
-        {% for entry in candidate.skills %}
-            {% if entry.category %}
-              <li data-target>
-                <h3 data-replace-key="category" data-type="raw">{{ entry.category }}</h3>
-                <ul data-replace-key="items">
-            {% endif %}
-            {% for skill in entry.items %}
-              <li data-template>
-                <span data-target>{{ skill }}</span>
-              </li>
+  </td>
+</tr>
+<tr>
+  <td>
+    <div class="columns">
+      <div class="columns-item">
+        <section id="education">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#education">Education</a>
+            </h2>
+          </div>
+          <div data-replace-key="training" data-template="education-template">
+          {% for entry in candidate.training %}
+          {% if entry.title or entry.institution %}
+            <p class="education-item">
+              {% if entry.title %}<strong>{{ entry.title }}</strong>{% endif %}
+              {% if entry.title and entry.institution %}<br class="separator"/>{% endif %}
+              {% if entry.institution %}<span>{{ entry.institution }}</span>{% endif %}{% if entry.institution and (entry["start-date"] or entry["end-date"]) %}<span class="separator">, </span>{% endif %}
+              {% years entry["start-date"], entry["end-date"], 'education' %}
+            </p>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </section>
+              
+        <section id="contact">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#contact">Contact</a>
+            </h2>
+          </div>
+          <div class="contact-grid">
+            {% for contact in candidate.contact %}
+              {% contact contact.value, contact.label, contact.type, contact.icon %}
             {% endfor %}
-            {% if entry.category %}
+          </div>
+        </section>
+      </div>
+      <div class="columns-item">
+        <section id="skills">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#skills">Skills</a>
+            </h2>
+          </div>
+          <ul class="skills-grid" data-replace-key="skills" data-template="skills-template">
+            {% for entry in candidate.skills %}
+              <li>
+                {% if entry.category %}<h3>{{ entry.category }}</h3>{% endif %}
+                <ul>
+                {% for skill in entry.items %}
+                  <li>{{ skill }}</li>
+                {% endfor %}
                 </ul>
               </li>
-            {% endif %}
-        {% endfor %}
-      </ul>
-    </section>
-  </div>
-</div>
+            {% endfor %}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </td>
+</tr>
 
 <script type="module">
   import DataProcessor from './data-processor.js';
@@ -142,14 +131,41 @@ eleventyComputed:
   window.renderPage = function (data) {
     if (!data) return;
 
-    const dataHandler = new DataProcessor();
-
-    // Iterate over the data and replace the appropriate fields in the document
-    for (const [key, value] of Object.entries(data)) {
-      const processor = dataHandler.processorType(value);
-      if (typeof processor !== 'function') continue;
-      
-      processor(document, key, value);
-    }
+    const dataHandler = new DataProcessor(data);
   };
 </script>
+
+<!-- These templates are used to render the arrays of content when custom data is provided by the API -->
+
+<template id="education-template">
+  <p class="education-item">
+    <strong data-replace-key="title"></strong>
+    <br class="separator"/>
+    <span data-replace-key="institution"></span><span class="separator">, </span>
+    {% years job["start-date"], job["end-date"], 'education', true %}
+  </p>
+</template>
+    
+<template id="experience-template">
+  <div class="job-item">
+    <div class="job-header">
+      <span class="job-title">
+        <span data-replace-key="title"></span><span class="separator">, </span><span data-replace-key="company"></span>
+      </span>
+      {% dates job["start-date"], job["end-date"], 'job', true %}
+    </div>
+    <p class="job-summary" data-replace-key="summary"></p>
+    <ul class="job-highlights" data-replace-key="highlights">
+      <li></li>
+    </ul>
+  </div>
+</template>
+
+<template id="skills-template">
+  <li>
+    <h3 data-replace-key="category"></h3>
+    <ul data-replace-key="items">
+      <li></li>
+    </ul>
+  </li>
+</template>

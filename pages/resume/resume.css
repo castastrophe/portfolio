@@ -15,8 +15,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-    scroll-snap-align: start;
 }
 
 [hidden] {
@@ -36,10 +34,40 @@ body {
     color: var(--text);
     background-color: var(--background);
     line-height: 1.18;
+    background: repeating-conic-gradient(var(--background) 0 0.0001%, color-mix(in srgb, var(--background) 95%, var(--text)) 0 0.0002%) 60% 60% / 100vw 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+table {
     max-width: 900px;
     padding: 2rem;
-    background: repeating-conic-gradient(var(--background) 0 0.0001%, color-mix(in srgb, var(--background) 95%, var(--text)) 0 0.0002%) 60% 60% / 100vw 100vw;
     margin: 0 auto;
+}
+
+@media not print {
+    table {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+
+        thead {
+            display: block;
+            inline-size: max-content;
+            block-size: auto;
+            margin: 0 auto;
+        }
+
+        tbody {
+            overflow-y: scroll;
+            scroll-snap-type: y proximity;
+            scroll-snap-align: start;
+            scroll-margin-block-start: 2rem;
+            scroll-snap-stop: always;
+        }
+    }
 }
 
 /* Stylized highlight for selected text */
@@ -81,6 +109,22 @@ header {
     column-gap: 4rem;
     margin-block-end: 2rem;
     text-align: start;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+:is(section, .resume) {
+    scroll-snap-align: start;
+    scroll-margin-block-start: 2rem;
+    scroll-snap-stop: always;
+}
+
+@media not print {
+    .resume {
+        display: block;
+        margin-block-start: 20vh;
+    }
 }
 
 .photo {
@@ -257,14 +301,22 @@ section {
 }
 
 .skills-grid {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.5rem;
+    &,
+    & ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        row-gap: 1rem;
+        column-gap: 0.8rem;
+    }
 
     li {
-        margin-block-end: 0.5rem;
+        line-height: 1.1;
+        margin-block-end: 0;
     }
 }
 
@@ -304,7 +356,7 @@ section {
     gap: 2rem;
 
     /* Animate section titles from right to left on even sections */
-    .column:nth-child(even) .section-title {
+    .columns-item:nth-child(even) .section-title {
         --animation-direction: 1;
         transform-origin: right;
 
@@ -448,6 +500,7 @@ section {
     .print-button {
         display: none;
     }
+
     body {
         font-size: 16px;
         max-width: none;
@@ -458,8 +511,12 @@ section {
         margin-block-start: 2rem;
     }
 
-    main {
-        padding-inline: 2rem;
+    tr:first-child td {
+        padding-block-end: 1rem;
+    }
+
+    tr td {
+        padding: .4rem 0;
     }
 
     .education-item {
