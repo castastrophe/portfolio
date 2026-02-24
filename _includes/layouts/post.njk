@@ -1,17 +1,18 @@
 ---
-layout: layouts/base.webc
+layout: base
+masthead: true
 ---
 
 <a-band layout="space-between" id="post-header">
     <a href="/" title="Return to the home page"><img src="../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
     <div>
-        <h1 class="headline" @text="title"></h1>
+        <h1 class="headline">{{ title }}</h1>
         <p class="metadata">
-            <span class="author" @text="author || site.author"></span>
-            <span class="date" @text="date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></span>
+            <span class="author">{{ author || site.author }}</span>
+            <span class="date">{{ date | date: '%B %e, %Y' }}</span>
             <span class="cta"><a href="/posts" title="Return to the posts page" class="cta-link">All posts</a></span>
         </p>
-        <tag-group webc:if="tags?.length > 0" :@tags="tags" labeled></tag-group>
+        {% if tags?.length > 0 %}<tag-group tags="{{ tags.join(',') }}" labeled></tag-group>{% endif %}
     </div>
 </a-band>
 
@@ -19,13 +20,13 @@ layout: layouts/base.webc
     <aside>
         <details class="post-toc">
             <summary>Table of contents</summary>
-            <div @raw="toc(content)" webc:nokeep></div>
+            {{ toc(content) | safe }}
         </details>
-    </div>
-    <div class="content" @raw="content" @raw="markdownContent"></div>
+    </aside>
+    <div class="content">{{ content | md | safe }}</div>
 
     <a-note style="margin-block-start: 2em">
         <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
-        <a href="https://fantastical.app/cassondra/inquiries">Let's connect!</a>
+        <a href="{{ site.contact.scheduler }}">Let's connect!</a>
     </a-note>
 </a-band>

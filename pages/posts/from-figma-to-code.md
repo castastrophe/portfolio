@@ -2,7 +2,6 @@
 title: "From Figma to code: why design systems need continuous collaboration"
 date: 2025-10-03
 description: High-performing design systems thrive on parallel collaboration between designers and engineers. While achieving this workflow can be challenging—especially when design iterations outpace implementation—slowing down for meaningful dialogue creates opportunities to challenge assumptions and ask critical questions.
-layout: layouts/post.webc
 tags:
     - design
     - responsive

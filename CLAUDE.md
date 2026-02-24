@@ -1,3 +1,8 @@
+---
+description:
+alwaysApply: true
+---
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -24,10 +29,11 @@ yarn clean          # Remove public/ directory
 - **Data**: `_data/site.json` - Global site data including presentations list
 
 ### Template System
-- Uses **WebC** as the primary template engine
-- Layout alias: `base` → `layouts/base.webc`
+- Adds **WebC** to the existing supported templates (i.e., Nunjucks, HTML, and Markdown)
+- Layout alias: `base` → `layouts/base.njk`
 - Global components auto-imported from `_includes/components/*.webc`
-- Markdown files processed with markdown-it + anchor plugin
+- Web components imported from `pages/components/*.js`
+- Markdown files processed with markdown-it and anchor plugin
 
 ### Collections
 - `posts` - Blog posts from `pages/posts/*`

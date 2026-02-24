@@ -1,0 +1,20 @@
+---
+layout: foundation
+---
+
+{% include "../_background.njk" %}
+
+{% if masthead %}
+    {% include "../_masthead.njk" %}
+{% endif %}
+
+<main>{{ content }}</main>
+
+<!-- Contact -->
+<a-band id="contact" padding="double">
+    <icon-group icons="{{ site.socials | featured | toJson | trim }}"></icon-group>
+    <a href="{{ site.funding[0].url }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
+        {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% endif %}
+        {% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
+    </a>
+</a-band>

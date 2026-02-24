@@ -1,9 +1,11 @@
 ---
-layout: layouts/base.webc
+layout: base
+masthead: true
 eleventyExcludeFromCollections: true
+eleventyNavigation:
+  key: Home
+  order: 1
 ---
-
-<a-masthead></a-masthead>
 
 <style>
     #services {
@@ -109,7 +111,7 @@ eleventyExcludeFromCollections: true
             <p class="date" @text="article.data.date.toLocaleDateString(site.language, { year: 'numeric', month: 'long', day: 'numeric' })"></p>
         </div>
         <p @text="article.data.description"></p>
-        <tag-group :@tags="article.data.tags" labeled slot="footer" webc:if="article.data.tags?.length > 0"></tag-group>
+        <tag-group :tags="article.data.tags.join(',')" labeled slot="footer" webc:if="article.data.tags?.length > 0"></tag-group>
     </a-card>
 </a-band>
 
@@ -120,7 +122,7 @@ eleventyExcludeFromCollections: true
         <p class="header-summary">Presentations or interviews I've given at various events, conferences, podcasts, and streams.</p>
         <p class="header-summary">Connecting with individuals and organizations to share my knowledge and experiences is one of my favorite parts of my job. I'd love to hear about your event or podcast to see how we can work together. <a href="https://fantastical.app/cassondra/inquiries">Grab a free call</a> to discuss your needs.</p>
     </div>
-    <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
+    <a-card overflow webc:for="(presentation, index) of presentations" webc:if="presentation.tags?.includes('featured')">
         <div slot="header">
             <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -130,7 +132,7 @@ eleventyExcludeFromCollections: true
         <h4 class="headline"><a :href="`https://www.youtube.com/embed/${presentation.youtube_id}`"
                 title="Click to watch this interview" @text="presentation.headline"></a></h4>
         <p @text="presentation.description"></p>
-        <tag-group :@tags="presentation.tags" labeled slot="footer" webc:if="presentation.tags?.length > 0"></tag-group>
+        <tag-group :tags="presentation.tags.join(',')" labeled slot="footer" webc:if="presentation.tags?.length > 0"></tag-group>
         <p class="cta" slot="footer" webc:if="presentation.resources">
             <a class="cta-link" webc:for="resource of presentation.resources" :href="resource.url" @text="resource.cta"></a>
         </p>

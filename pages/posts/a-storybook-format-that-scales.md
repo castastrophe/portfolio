@@ -1,8 +1,7 @@
 ---
-title: A Storybook format that scales with you
+title: A Storybook format that scales
 date: 2025-10-31
 description: Storybook is a powerful and flexible tool but with great power comes great responsibility...to architect a scalable and intuitive approach. In this post, I dive deep into techniques for building a Storybook your developers and users will love.
-layout: layouts/post.webc
 tags:
   - storybook
   - tooling

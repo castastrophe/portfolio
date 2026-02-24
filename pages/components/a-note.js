@@ -1,15 +1,5 @@
-<template webc:nokeep>
-    <div @attributes webc:root>
-        <aside role="note">
-            <slot>
-                <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
-                <a href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-            </slot>
-        </aside>
-    </div>
-</template>
-
-<style webc:scoped>
+const styles = new CSSStyleSheet();
+styles.replaceSync(`
     :host {
         --spacing--horizontal: 1rem;
         --spacing--vertical: .8rem;
@@ -17,9 +7,7 @@
         display: block;
         inline-size: max-content;
         max-inline-size: calc(100% - var(--spacing--horizontal) * 2);
-    }
 
-    :host > aside[role="note"] {
         box-sizing: border-box;
         background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--note-background-base, var(--theme--color--surface)));
         border: 1px solid var(--theme--color--ui-accent);
@@ -33,13 +21,13 @@
         margin-inline-start: 0;
         inline-size: 100%;
 
-        strong {
+        ::slotted(strong) {
             font-weight: 800;
         }
     }
 
-    p + a,
-    a:last-child {
+    ::slotted(p + a),
+    ::slotted(a:last-child) {
         display: inline-block;
         background-color: var(--theme--color--ui-accent);
         color: var(--theme--color--surface);
@@ -75,4 +63,27 @@
             margin-block-end: calc(var(--spacing--vertical) * .4);
         }
     }
-</style>
+`);
+
+customElements.define(
+    "a-note",
+    class ANote extends HTMLElement {
+        constructor() {
+            super();
+            this.shadowRoot = this.attachShadow({ mode: "open" });
+            this.setAttribute("role", "note");
+        }
+
+        connectedCallback() {
+            const templateElement = document.createElement("template");
+            templateElement.innerHTML = `
+                <slot>
+                    <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
+                    <a href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+                </slot>`;
+
+            this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
+            this.shadowRoot.adoptedStyleSheets = [styles];
+        }
+    },
+);

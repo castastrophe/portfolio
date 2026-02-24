@@ -12,20 +12,26 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
 import { eleventyImageTransformPlugin as imagePlugin } from "@11ty/eleventy-img";
+import eleventyNavigation from "@11ty/eleventy-navigation";
 
 // Make sure we use the same formatter logic for the dynamic content as the pre-compiled outputs
 import formatter from "./pages/resume/formatter.js";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function (config) {
+	config.setDataFileBaseName("index");
+
 	// Layout aliases make templates more portable.
-	config.addLayoutAlias("base", "layouts/base.webc");
+	config.addLayoutAlias("base", "layouts/base.njk");
+	config.addLayoutAlias("foundation", "layouts/foundation.njk");
+	config.addLayoutAlias("post", "layouts/post.webc");
+	config.addLayoutAlias("proposal", "layouts/proposal.webc");
 	config.addLayoutAlias("resume", "layouts/resume.njk");
-	config.addLayoutAlias("data", "layouts/data.njk");
 
 	config.ignores.add("README.md");
 	config.ignores.add("**/CLAUDE.md");
 
+	config.addPlugin(eleventyNavigation);
 	config.addPlugin(pluginWebc, {
 		// Glob to find no-import global components
 		components: "./_includes/components/*.webc",
@@ -103,12 +109,16 @@ export default async function (config) {
 
 	config.addCollection("posts", function (collectionApi) {
 		// Exclude the index file
-		return collectionApi.getFilteredByGlob("pages/posts/*").filter(item => !item.inputPath.includes("index.webc"));
+		return collectionApi.getFilteredByGlob("pages/posts/*");
 	});
 
 	config.addCollection("proposals", function (collectionApi) {
 		// Exclude the index file
-		return collectionApi.getFilteredByGlob("pages/proposals/*").filter(item => !item.inputPath.includes("index.webc"));
+		return collectionApi.getFilteredByGlob("pages/proposals/*");
+	});
+
+	config.addCollection("components", function (collectionApi) {
+		return collectionApi.getFilteredByGlob("pages/components/*.js");
 	});
 
 	config.addPassthroughCopy("img");
@@ -132,11 +142,14 @@ export default async function (config) {
 		failOnError: false,
 	});
 
-	config.addFilter("isPost", function (page) {
-		return page.inputPath.includes("posts/");
-	});
-
 	config.addFilter("toISOString", formatter.toISOString);
+	config.addFilter("toEmail", formatter.toEmail);
+	config.addFilter("toJson", (input) => {
+		return JSON.stringify(input, null, 2);
+	});
+	config.addFilter("featured", function (value) {
+		return value?.filter(item => item.featured);
+	});
 
 	// Create a mini template for formatting start and end dates with logic
 	config.addShortcode("dates", function(startDate, endDate, classPrefix = '', asTemplate = false) {
@@ -173,7 +186,7 @@ export default async function (config) {
 	const brands = ['github', 'codepen', 'linkedin'];
 	config.addShortcode("contact", function(contact, label, type, icon) {
 		if (!contact) return '';
-		
+
 		let href, content = String(contact ?? '').trim();
 		if (type) {
 			switch (type) {
@@ -255,7 +268,6 @@ export default async function (config) {
 			includes: "../_includes",
 			data: "../_data",
 		},
-		markdownTemplateEngine: false,
-		htmlTemplateEngine: "webc",
+		templateFormats: ["html", "webc", "njk", "md", "11ty.js"],
 	};
 };

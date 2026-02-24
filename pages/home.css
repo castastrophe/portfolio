@@ -26,7 +26,7 @@
 
   --theme--color--ui-accent: light-dark(hsl(313deg 57% 44%), hsl(313deg 96% 72%));
   --theme--color--ui-accent--hover: light-dark(hsl(313deg 57% 30%), hsl(313deg 96% 62%));
-  --theme--color--ui-accent--focus: light-dark(hsl(313deg 57% 30%), hsl(313deg 96% 62%));
+  --theme--color--ui-accent--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
   --theme--color--link: var(--theme--color--text-accent);
   --theme--color--link--hover: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
   --theme--color--link--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
@@ -114,6 +114,13 @@ a {
   font-weight: 400;
   color: var(--theme--color--link);
 
+  &:has(img) {
+    /* Ensures the link fits to the image and has the correct aspect ratio */
+    display: flex;
+    aspect-ratio: var(--aspect-ratio, 1 / 1);
+    inline-size: var(--image-size, 250px);
+  }
+
   &:hover {
     text-decoration: underline;
     color: var(--theme--color--link--hover, #002f3b);
@@ -123,10 +130,6 @@ a {
   &:focus-visible {
     text-decoration: underline;
     color: var(--theme--color--link--focus, #002f3b);
-
-    &:has(img) {
-      outline: none;
-    }
   }
 
   &:visited {
@@ -147,9 +150,9 @@ a {
     cursor: pointer;
   }
 
-  &:is(:focus, :focus-visible):has(.fa, .fab) {
-    outline: 2px solid var(--theme--color--ui-accent--focus);
-    outline-offset: var(--outline-offset, 2px);
+  &:is(:focus, :focus-visible) {
+    outline: 1px solid var(--theme--color--ui-accent--focus);
+    outline-offset: var(--outline-offset, 1px);
     border-radius: var(--border-radius);
   }
 }
@@ -718,7 +721,7 @@ div:has(> iframe) {
   }
 
   img {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: var(--aspect-ratio, 1 / 1);
     inline-size: 100%;
     block-size: auto;
     border-radius: var(--border-radius);
@@ -875,12 +878,5 @@ div:has(> iframe) {
     > icon-group {
       flex-grow: 1;
     }
-  }
-
-  a:has(img) {
-    display: flex;
-    outline: 2px solid var(--theme--color--ui-accent--focus);
-    outline-offset: var(--outline-offset, 4px);
-    border-radius: var(--border-radius);
   }
 }

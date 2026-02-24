@@ -1,14 +1,5 @@
-<template webc:nokeep>
-    <div @attributes webc:root webc:type="html:block">
-        <slot name="header"></slot>
-        <div class="card-body">
-            <slot></slot>
-        </div>
-        <slot name="footer"></slot>
-    </div>
-</template>
-
-<style webc:scoped>
+const styles = new CSSStyleSheet();
+styles.replaceSync(`
     :host {
         --card--Padding: Clamp(.5em, .2vw, 3em);
 
@@ -49,7 +40,7 @@
 
     @container card (width >= 800px) {
         :host([layout="video-content"]) {
-            .card-body {
+            .body {
                 flex-flow: row nowrap;
                 column-gap: calc(var(--spacing--horizontal) * 2);
 
@@ -71,7 +62,7 @@
         }
     }
 
-    .card-body {
+    .body {
         flex-grow: 1;
         display: flex;
         flex-flow: column nowrap;
@@ -81,13 +72,13 @@
 
     :host(:not([overflow])) {
         [slot="header"],
-        .card-body,
+        .body,
         [slot="footer"] {
             padding-inline: var(--card--Padding);
         }
     }
 
-    .title {
+    ::slotted(.title) {
         display: inline-block;
         font-family: var(--theme--font-family--heading);
         font-size: .8em;
@@ -102,7 +93,7 @@
         inline-size: 100%;
     }
 
-    .headline {
+    ::slotted(.headline) {
         font-family: var(--theme--font-family--heading);
         font-size: 1.4em;
         font-weight: 600;
@@ -111,12 +102,12 @@
         margin-block: 0;
     }
 
-    .headline-summary {
+    ::slotted(.headline-summary) {
         font-size: 1.2em;
         font-weight: 400;
     }
 
-    :host([featured], [accent]) .headline {
+    :host([featured], [accent]) ::slotted(.headline) {
         color: var(--headline--accent);
     }
 
@@ -136,28 +127,28 @@
             padding-inline: 0;
         }
 
-        > .card-body,
-        > [slot="footer"] {
+        .body,
+        [slot="footer"] {
             padding-inline: var(--card--Padding);
         }
+    }
 
-        &:has([slot="footer"]) > [slot="footer"] {
-            padding-block-end: var(--card--Padding);
-        }
+    :host([overflow]:has([slot="footer"])) [slot="footer"] {
+        padding-block-end: var(--card--Padding);
+    }
 
-        &:not(:has([slot="footer"])) > .card-body {
-            padding-block-end: var(--card--Padding);
-        }
+    :host([overflow]:not(:has([slot="footer"])) .body {
+        padding-block-end: var(--card--Padding);
     }
 
     :host([overflow]:not([bordered])) {
         gap: 0;
 
-        > *:not(:has(iframe)) {
+        ::slotted(:not(:has(iframe))) {
             padding-inline: var(--card--Padding);
         }
 
-        .title {
+        ::slotted(.title) {
             position: relative;
             padding: .5em var(--card--Padding) 0.2em;
             margin-inline: calc(var(--spacing--horizontal) * -1);
@@ -173,8 +164,31 @@
             border: none;
         }
 
-        .title::after {
+        ::slotted(.title::after) {
             display: none;
         }
     }
-</style>
+`);
+
+customElements.define(
+    "a-card",
+    class ACard extends HTMLElement {
+        constructor() {
+            super();
+            this.shadowRoot = this.attachShadow({ mode: "open" });
+        }
+
+        connectedCallback() {
+            const templateElement = document.createElement("template");
+            templateElement.innerHTML = `
+                <slot name="header"></slot>
+                <div class="body">
+                    <slot></slot>
+                </div>
+                <slot name="footer"></slot>`;
+
+            this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
+            this.shadowRoot.adoptedStyleSheets = [styles];
+        }
+    },
+);

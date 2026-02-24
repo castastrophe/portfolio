@@ -1,6 +1,10 @@
 ---
-layout: layouts/base.webc
+layout: base
+masthead: true
 eleventyExcludeFromCollections: true
+eleventyNavigation:
+  key: About
+  order: 2
 ---
 
 <style>
@@ -91,8 +95,6 @@ eleventyExcludeFromCollections: true
     }
 </style>
 
-<a-masthead></a-masthead>
-
 <a-band id="consulting" width="full">
     <div slot="header">
         <h2 class="title">Why choose Allons-y Consulting?</h2>
@@ -171,7 +173,7 @@ eleventyExcludeFromCollections: true
         <div class="presentations">
             <h4 class="subheadline">Recent presentations</h4>
             <div layout="row">
-                <a-card overflow webc:for="(presentation, index) of site.presentations" webc:if="presentation.tags?.includes('featured')">
+                <a-card overflow webc:for="(presentation, index) of presentations" webc:if="presentation.tags?.includes('featured')">
                     <div slot="header">
                         <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

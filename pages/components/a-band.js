@@ -1,14 +1,5 @@
-<template webc:nokeep>
-    <section @attributes webc:root>
-        <slot name="header"></slot>
-        <div class="body">
-            <slot></slot>
-        </div>
-        <slot name="footer"></slot>
-    </section>
-</template>
-
-<style webc:scoped>
+const styles = new CSSStyleSheet();
+styles.replaceSync(`
     :host {
         --multiplier-vertical: 2;
         --multiplier-horizontal: .6;
@@ -45,10 +36,10 @@
 
     /* Default layout for all regions is stacked */
     :host,
-    :host > [slot="header"],
-    :host > .body,
-    :host > [slot="footer"],
-    [layout="stacked"] {
+    [slot="header"],
+    .body,
+    [slot="footer"],
+    ::slotted([layout="stacked"]) {
         display: flex;
         flex-flow: column nowrap;
         row-gap: var(--spacing--vertical);
@@ -56,17 +47,17 @@
         align-items: center;
     }
 
-    :host > [slot="header"],
-    :host > .body,
-    :host > [slot="footer"] {
+    [slot="header"],
+    .body,
+    [slot="footer"] {
         box-sizing: border-box;
         justify-content: start;
         align-items: center;
     }
 
-    :host > [slot="header"],
-    :host > .body {
-        > .title {
+    [slot="header"],
+    .body {
+        ::slotted(.title) {
             display: block;
             font-family: var(--theme--font-family--heading);
             font-size: 1.1em;
@@ -86,38 +77,38 @@
         }
     }
 
-    :host > [slot="header"] {
-        inline-size: min(80ch,100%);
+    [slot="header"] {
+        inline-size: min(80ch, 100%);
         align-items: stretch;
 
-        > p {
+        ::slotted(p) {
             background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
             align-self: start;
             text-align: start;
         }
 
-        > .title {
+        ::slotted(.title) {
             text-align: center;
         }
     }
 
-    :host > .body {
+    .body {
         flex-grow: 1;
         inline-size: 100%;
         position: relative;
     }
 
-    :host([layout="space-between"]) > .body {
+    :host([layout="space-between"]) .body {
         flex-flow: row wrap;
     }
 
-    :host([layout="space-evenly"]) > .body {
+    :host([layout="space-evenly"]) .body {
         flex-flow: row wrap;
         justify-content: space-evenly;
     }
 
-    :host([layout="space-around"]) > .body,
-    :host > .body [layout="space-around"] {
+    :host([layout="space-around"]) .body,
+    .body ::slotted([layout="space-around"]) {
         flex-flow: row wrap;
         justify-content: center;
         align-items: stretch;
@@ -125,7 +116,7 @@
         column-gap: var(--spacing--horizontal);
     }
 
-    :host > .body [layout="space-around"] {
+    .body ::slotted([layout="space-around"]) {
         --spacing--vertical: .2em;
         --spacing--horizontal: .2em;
 
@@ -134,7 +125,7 @@
         inline-size: 100%;
     }
 
-    :host([layout="auto-grid"]) > .body {
+    :host([layout="auto-grid"]) .body {
         --spacing--vertical: .5em;
 
         display: grid;
@@ -142,7 +133,7 @@
         align-items: var(--align-items, stretch);
         justify-content: var(--justify-content, space-around);
 
-        > a-card {
+        ::slotted(a-card) {
             justify-self: center;
         }
     }
@@ -151,7 +142,7 @@
         --band--Padding--horizontal: 0;
         --band--Width: min(80ch, 90%);
 
-        > .body {
+        .body {
             flex-flow: row nowrap;
             overflow: auto;
         }
@@ -171,7 +162,7 @@
             --band--Width: 100%;
         }
 
-        :host([overflow][layout="auto-grid"]) > .body {
+        :host([overflow][layout="auto-grid"]) .body {
             width: 100%;
             /* Create some gutter for the overflow scroll */
             padding-block-end: var(--spacing--vertical, 1em);
@@ -193,4 +184,28 @@
             padding: 1em 0;
         }
     }
-</style>
+`);
+
+customElements.define(
+	"a-band",
+	class ABand extends HTMLElement {
+		constructor() {
+			super();
+            this.setAttribute("role", "region");
+            this.shadowRoot = this.attachShadow({ mode: "open" });
+        }
+
+        connectedCallback() {
+            const templateElement = document.createElement("template");
+            templateElement.innerHTML = `
+                <slot name="header"></slot>
+                <div class="body">
+                    <slot></slot>
+                </div>
+                <slot name="footer"></slot>`;
+
+			this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
+            this.shadowRoot.adoptedStyleSheets = [styles];
+		}
+	},
+);
