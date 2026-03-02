@@ -1,0 +1,22 @@
+{% css %}
+.icon-group {
+    display: inline-flex;
+    row-gap: var(--spacing--vertical, 1em);
+    column-gap: var(--spacing--horizontal, 1em);
+        
+    a:has(.fa, .fa-brands, .fa-solid) {
+        inline-size: 1.2em;
+        block-size: fit-content;
+        display: inline-grid;
+        place-items: center;
+    }
+}
+{% endcss %}
+
+<div class="icon-group">
+    {% for icon in icons | default(site.socials) %}
+    <a href="{{ icon.url }}" rel="{{ icon.rel }}" aria-label="{{ icon.label}} ">
+        <span class="{{ icon.classes }}"></span>
+    </a>
+    {% endfor %}
+</div>

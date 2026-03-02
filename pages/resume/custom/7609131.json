@@ -1,0 +1,37 @@
+{
+    "tagline": "Staff Front-End Engineer | Open Source Leader | W3C CSS Working Group",
+    "about": "Passionate front-end engineer and W3C CSS Working Group member with 12+ years building scalable, user-focused applications and leading open source communities. Founded and maintained PatternFly Elements—an open source design system adopted across Red Hat, IBM, Google, and Fidelity—establishing governance models, fostering global contributor communities, and balancing technical leadership with collaborative decision-making. Deep expertise in modern vanilla JavaScript (custom elements, shadow DOM, ES modules), accessibility (WCAG AA), and performance optimization. At Adobe, led Spectrum's CSS architecture and pioneered AI-augmented workflows. Passionate about building technology that respects user privacy, empowers people to work with standards, and thrives through transparent, community-driven development.",
+    "skills": [{
+        "category": "Modern JavaScript & Web Platform",
+        "items": [
+            "JavaScript (ES2024+)",
+            "Custom elements & shadow DOM",
+            "Module patterns, async/promises",
+            "Modern framework & state management tooling"
+        ]
+    }, {
+        "category": "HTML, CSS & Accessibility",
+        "items": [
+            "HTML5 semantic markup",
+            "Enterprise component & styling architecture",
+            "Accessibility (WCAG AA/AAA)",
+            "ARIA & screen reader usability"
+        ]
+    }, {
+        "category": "Open Source Leadership",
+        "items": [
+            "Community management & governance",
+            "Global contributor collaboration & recruitment",
+            "Code review & mentorship",
+            "Transparent & community-driven development best practices"
+        ]
+    }, {
+        "category": "System Architecture & Performance",
+        "items": [
+            "Front-end architecture & design patterns",
+            "Performance optimization",
+            "Cross-platform development",
+            "Technical leadership & strategy"
+        ]
+    }]
+}

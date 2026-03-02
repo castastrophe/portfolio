@@ -1,99 +1,10 @@
 ---
 layout: base
 masthead: true
-eleventyExcludeFromCollections: true
 eleventyNavigation:
   key: About
   order: 2
 ---
-
-<style>
-    #consulting {
-        --spacing--vertical: 20px;
-
-        .content {
-            font-size: 1.1em;
-            max-inline-size: 100ch;
-        }
-
-        a-card {
-            --spacing--vertical: 10px;
-        }
-
-        .bio {
-            border-radius: var(--border-radius);
-            padding-inline: 1em;
-            background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
-            margin-block-start: 1em;
-
-            &:not(:first-of-type) {
-                margin-block-start: 2em;
-            }
-
-            .container {
-                border-block-start: 1px solid var(--theme--color--ui-subtle);
-                padding-block-start: 1em;
-                display: flex;
-                flex-flow: row wrap;
-                gap: 2em;
-                align-items: start;
-
-                a-card {
-                    text-align: center;
-                    inline-size: min(250px, 100%);
-
-                    [slot="footer"] {
-                        font-size: .8em;
-                        border-block-start: 1px solid color-mix(in srgb, var(--theme--color--ui-accent) 20%, transparent);
-                        padding-block-start: .5em;
-                        inline-size: 80cqi;
-                        margin-inline: auto;
-                    }
-                }
-
-                .content {
-                    flex-grow: 1;
-                    inline-size: calc(100% - 250px - 2em);
-                    min-inline-size: min(50ch, 100%);
-                }
-            }
-        }
-
-        .projects,
-        .presentations {
-            --card--MaxInlineSize: min(365px, 100%);
-
-            inline-size: 100%;
-
-            .subheadline {
-                margin-block: 1.5em .5em;
-            }
-
-            div[layout="row"] {
-                font-size: .8em;
-                display: flex;
-                flex-flow: row wrap;
-                gap: 1.25em;
-                justify-content: start;
-            }
-        }
-
-        .presentations {
-            div:has(> iframe) {
-                padding: 0;
-                flex-grow: 0;
-                margin-block-end: -7.5px;
-            }
-
-            iframe {
-                aspect-ratio: 16 / 9;
-                width: 100%;
-                height: auto;
-                position: relative !important;
-            }
-        }
-    }
-</style>
 
 <a-band id="consulting" width="full">
     <div slot="header">
@@ -107,21 +18,20 @@ eleventyNavigation:
     </div>
 </a-band>
 <a-band id="consulting">
-    <div slot="header">
-        <h2 class="title">Meet the team</h2>
-    </div>
+    <h2 class="title" slot="header">Meet the team</h2>
     <div class="bio">
         <h3 class="headline">
             <strong>Cassondra Roberts</strong>,
             <span>Founder & Principal Consultant</span>
         </h3>
-        <p class="headline-summary extra">Design Systems • Front-end Architecture • Web Standards</p>
+        <p class="headline-summary">Design Systems • Front-end Architecture • Web Standards</p>
         <div class="container">
             <a-card bordered overflow>
-                <img slot="header" src="/img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
-                <p class="cta"><a href="mailto:cassondra@allons-y.llc"><span class="fa-regular fa-envelope"></span> Contact Cassondra</a></p>
+                <img slot="header" src="../img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
+                <p class="cta"><a href="mailto:{{ 'cassondra -at- allons-y.llc' | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact Cassondra</a></p>
                 <div slot="footer">
-                    <icon-group></icon-group>
+                    {% set icons = site.socials | featured %}
+                    {% include "_icon-group.njk" %}
                 </div>
             </a-card>
             <div class="content">
@@ -173,13 +83,13 @@ eleventyNavigation:
         <div class="presentations">
             <h4 class="subheadline">Recent presentations</h4>
             <div layout="row">
-                <a-card overflow webc:for="(presentation, index) of presentations" webc:if="presentation.tags?.includes('featured')">
+                {% for presentation in presentations | featured %}
+                <a-card overflow>
                     <div slot="header">
-                        <iframe :src="`https://www.youtube.com/embed/${presentation.youtube_id}`" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        {% if presentation.youtube_id %}<iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>{% endif %}
                     </div>
                 </a-card>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -188,13 +98,14 @@ eleventyNavigation:
             <strong>Michael L. Roberts</strong>,
             <span>Program Management Director</span>
         </h3>
-        <p class="headline-summary extra">Enterprise Program Management • Portfolio Governance • Extensive Government Experience</p>
+        <p class="headline-summary">Enterprise Program Management • Portfolio Governance • Extensive Government Experience</p>
         <div class="container">
             <a-card bordered overflow>
-                <img slot="header" src="/img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
-                <p class="cta"><a href="mailto:michael@allons-y.llc"><span class="fa-regular fa-envelope"></span> Contact Michael</a></p>
+                <img slot="header" src="../img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
+                <p class="cta"><a href="mailto:{{ 'michael -at- allons-y.llc' | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact Michael</a></p>
                 <div slot="footer">
-                    <p class="icon-group"><a rel="me" href="https://www.linkedin.com/in/michaellroberts"><span class="fa-brands fa-linkedin-in"></span></a></p>
+                    {% set icons = [{"url":"https://www.linkedin.com/in/michaellroberts","classes":"fa-brands fa-linkedin-in"}] %}
+                    {% include "_icon-group.njk" %}
                 </div>
             </a-card>
             <div class="content">
@@ -222,3 +133,115 @@ eleventyNavigation:
         </div>
     </div>
 </a-band>
+
+{% js %}
+   import '/js/components/a-band.js';
+   import '/js/components/a-card.js';
+   import '/js/components/a-note.js';
+   import '/js/components/tag-group.js';
+{% endjs %}
+
+{% css %}
+#consulting {
+    --spacing--vertical: 20px;
+
+    .content {
+        font-size: 1.1em;
+        max-inline-size: 100ch;
+    }
+
+    a-card {
+        --spacing--vertical: 10px;
+    }
+
+    .bio {
+        border-radius: var(--border-radius);
+        padding-inline: 1em;
+        background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
+        margin-block-start: 1em;
+
+        &:not(:first-of-type) {
+            margin-block-start: 2em;
+        }
+
+        .container {
+            border-block-start: 1px solid var(--theme--color--ui-subtle);
+            padding-block-start: 1em;
+            display: flex;
+            flex-flow: row wrap;
+            gap: 2em;
+            align-items: start;
+
+            a-card {
+                text-align: center;
+                inline-size: min(250px, 100%);
+
+                [slot="footer"] {
+                    font-size: .8em;
+                    border-block-start: 1px solid color-mix(in srgb, var(--theme--color--ui-accent) 20%, transparent);
+                    padding-block-start: .5em;
+                    inline-size: 80cqi;
+                    margin-inline: auto;
+                }
+            }
+
+            .content {
+                flex-grow: 1;
+                inline-size: calc(100% - 250px - 2em);
+                min-inline-size: min(50ch, 100%);
+            }
+        }
+    }
+
+    .projects,
+    .presentations {
+        --card--MaxInlineSize: min(365px, 100%);
+
+        inline-size: 100%;
+
+        .subheadline {
+            margin-block: 1.5em .5em;
+        }
+
+        div[layout="row"] {
+            font-size: .8em;
+            display: flex;
+            flex-flow: row wrap;
+            gap: 1.25em;
+            justify-content: start;
+        }
+    }
+
+    .presentations {
+        div:has(> iframe) {
+            padding: 0;
+            flex-grow: 0;
+            margin-block-end: -7.5px;
+        }
+
+        iframe {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            height: auto;
+            position: relative !important;
+        }
+    }
+}
+
+#projects {
+  @media screen and (width >=992px) {
+    --card--MaxInlineSize: min(max(300px, 30%), 100%);
+
+    a-card[featured] {
+      --card--MaxInlineSize: min(max(450px, 47%), 100%);
+    }
+  }
+}
+
+.content .extra,
+.bio .headline-summary {
+  font-size: 1.4em;
+  font-weight: 900;
+  line-height: 1;
+}
+{% endcss %}

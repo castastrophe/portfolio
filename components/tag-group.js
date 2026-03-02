@@ -19,6 +19,13 @@ styles.replaceSync(`
         gap: .5rem;
     }
 
+    .tags:is([name="footer"]) {
+        margin-block-end: 1em;
+        border-block-start: 1px solid var(--theme--color--ui-subtle);
+        padding-block-start: 0.5em;
+        flex-grow: 1;
+    }
+
     .tag {
         display: inline-block;
         font-size: 1em;
@@ -56,7 +63,7 @@ styles.replaceSync(`
 customElements.define(
     "tag-group",
     class TagGroup extends HTMLElement {
-        static observedAttribute = ["tags", "filters"];
+        static observedAttribute = ["tags", "filters", "url"];
 
         _tags = [];
 
@@ -105,7 +112,7 @@ customElements.define(
 
         constructor() {
             super();
-            this.shadowRoot = this.attachShadow({ mode: "open" });
+            this.attachShadow({ mode: "open" });
             this.setAttribute("role", "group");
         }
 
@@ -127,7 +134,7 @@ customElements.define(
                 const span = document.createElement("span");
                 span.classList.add("tag");
 
-                if (url) {
+                if (this.showLink) {
                     const a = document.createElement("a");
                     // cursor todo: create dynamic tag filtering URL functionality to collection landing pages
                     a.href = `/?tag=${label}`;

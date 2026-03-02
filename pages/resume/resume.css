@@ -34,6 +34,7 @@ body {
     color: var(--text);
     background-color: var(--background);
     line-height: 1.18;
+    /* stylelint-disable-next-line declaration-block-no-shorthand-property-overrides -- fallback for browsers without repeating-conic-gradient support */
     background: repeating-conic-gradient(var(--background) 0 0.0001%, color-mix(in srgb, var(--background) 95%, var(--text)) 0 0.0002%) 60% 60% / 100vw 100vw;
     margin: 0;
     padding: 0;
@@ -101,8 +102,6 @@ p strong {
 header {
     --image-size: 160px;
 
-    container-type: block-size;
-    container-name: header;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -345,7 +344,7 @@ section {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
 }

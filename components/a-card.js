@@ -30,34 +30,30 @@ styles.replaceSync(`
     }
 
     @container card (width < 800px) {
-        :host([layout="video-content"]) {
-            .video-container {
-                margin-inline: calc(var(--card--Padding) * -1);
-                margin-block-start: calc(var(--card--Padding) * -1);
-            }
+        :host([layout="video-content"]) .video-container {
+            margin-inline: calc(var(--card--Padding) * -1);
+            margin-block-start: calc(var(--card--Padding) * -1);
         }
     }
 
     @container card (width >= 800px) {
-        :host([layout="video-content"]) {
-            .body {
-                flex-flow: row nowrap;
-                column-gap: calc(var(--spacing--horizontal) * 2);
+        :host([layout="video-content"]) .body {
+            flex-flow: row nowrap;
+            column-gap: calc(var(--spacing--horizontal) * 2);
 
-                > .video-container {
-                    inline-size: min(var(--card-video-inline-size), 100%);
-                    block-size: auto;
-                }
+            ::slotted(.video-container) {
+                inline-size: min(var(--card-video-inline-size), 100%);
+                block-size: auto;
+            }
 
-                div:has(> iframe) {
-                    padding: 0;
-                }
+            ::slotted(:has(> iframe)) {
+                padding: 0;
+            }
 
-                > .content {
-                    flex-grow: 1;
-                    inline-size: calc(100% - var(--card-video-inline-size));
-                    padding: var(--card--Padding);
-                }
+            ::slotted(.content) {
+                flex-grow: 1;
+                inline-size: calc(100% - var(--card-video-inline-size));
+                padding: var(--card--Padding);
             }
         }
     }
@@ -117,6 +113,10 @@ styles.replaceSync(`
         --card--BackgroundColor: var(--theme--color--surface);
     }
 
+    :host([bordered][featured]) {
+        --card--BorderColor: color-mix(in srgb, var(--theme--color--ui-accent) 60%, var(--theme--color--surface));
+    }
+
     :host([overflow]) {
         --card--BorderRadius: 5px;
 
@@ -133,11 +133,11 @@ styles.replaceSync(`
         }
     }
 
-    :host([overflow]:has([slot="footer"])) [slot="footer"] {
+    :host([overflow]:has([name="footer"])) [slot="footer"] {
         padding-block-end: var(--card--Padding);
     }
 
-    :host([overflow]:not(:has([slot="footer"])) .body {
+    :host([overflow]:not(:has([name="footer"]))) .body {
         padding-block-end: var(--card--Padding);
     }
 
@@ -153,10 +153,6 @@ styles.replaceSync(`
             padding: .5em var(--card--Padding) 0.2em;
             margin-inline: calc(var(--spacing--horizontal) * -1);
         }
-    }
-
-    :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--color--ui-accent) 60%, var(--theme--color--surface));
     }
 
     @media print {
@@ -175,7 +171,7 @@ customElements.define(
     class ACard extends HTMLElement {
         constructor() {
             super();
-            this.shadowRoot = this.attachShadow({ mode: "open" });
+            this.attachShadow({ mode: "open" });
         }
 
         connectedCallback() {

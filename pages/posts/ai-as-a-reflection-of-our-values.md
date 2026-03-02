@@ -13,7 +13,7 @@ I first encountered this article and subsequent white paper a few days ago, and 
 
 The paper highlights that since making a guess increases the likelihood of getting the right answer compared to leaving it blank, AI logically opts to return an assumption or estimate instead of stating, "I don't know." As a student of the United States public education system, I was well acquainted with this advice. After all, leaving an answer blank guarantees a zero, while a guess offers a one-in-four chance of earning a point.
 
-<p class="extra">Therefore, it's better to guess, isn't it?</p>
+**Therefore, it's better to guess, isn't it?**
 
 ## What's the harm of a guess?
 

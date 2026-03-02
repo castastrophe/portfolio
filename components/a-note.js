@@ -70,7 +70,7 @@ customElements.define(
     class ANote extends HTMLElement {
         constructor() {
             super();
-            this.shadowRoot = this.attachShadow({ mode: "open" });
+            this.attachShadow({ mode: "open" });
             this.setAttribute("role", "note");
         }
 

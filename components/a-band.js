@@ -1,25 +1,20 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
-        --multiplier-vertical: 2;
-        --multiplier-horizontal: .6;
-        --title-accent-opacity: 10%;
-
+        display: block;
         box-sizing: border-box;
 
-        /* @todo review and test */
         scroll-margin: 10px;
         scroll-snap-align: start;
         scroll-snap-stop: normal;
 
         background: var(--band--BackgroundColor, transparent);
 
-        /* Size constraints */
         inline-size: var(--band--Width, 100%);
-        max-inline-size: calc(100vw - (var(--spacing--horizontal) * var(--multiplier-horizontal) * 2));
+        max-inline-size: calc(100vw - (var(--spacing--horizontal) * var(--multiplier-horizontal, .6) * 2));
         margin-inline: auto;
-        padding-block: calc(var(--spacing--vertical) * var(--multiplier-vertical));
-        padding-inline: calc(var(--spacing--horizontal) * var(--multiplier-horizontal));
+        padding-block: calc(var(--spacing--vertical) * var(--multiplier-vertical, 2));
+        padding-inline: calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6));
     }
 
     :host([padding="half"]) {
@@ -36,9 +31,9 @@ styles.replaceSync(`
 
     /* Default layout for all regions is stacked */
     :host,
-    [slot="header"],
-    .body,
-    [slot="footer"],
+    slot:has([name="header"]),
+    slot:not(:has([name])),
+    slot:has([name="footer"]),
     ::slotted([layout="stacked"]) {
         display: flex;
         flex-flow: column nowrap;
@@ -47,16 +42,16 @@ styles.replaceSync(`
         align-items: center;
     }
 
-    [slot="header"],
-    .body,
-    [slot="footer"] {
+    slot:has([name="header"]),
+    slot:not(:has([name])),
+    slot:has([name="footer"]) {
         box-sizing: border-box;
         justify-content: start;
         align-items: center;
     }
 
-    [slot="header"],
-    .body {
+    slot:has([name="header"]),
+    slot:not(:has([name])) {
         ::slotted(.title) {
             display: block;
             font-family: var(--theme--font-family--heading);
@@ -66,18 +61,13 @@ styles.replaceSync(`
             color: var(--theme--color--text);
             padding: 0.1em var(--spacing--horizontal);
             border-radius: var(--border-radius);
-            background-color: color-mix(in srgb, var(--theme--color--ui-accent) var(--title-accent-opacity), var(--theme--color--surface));
+            background-color: color-mix(in srgb, var(--theme--color--ui-accent) var(--title-accent-opacity, 10%), var(--theme--color--surface));
             inline-size: var(--title-inline-size, var(--title-inline-size, min(80ch, 100%)));
             box-sizing: border-box;
-
-            a {
-                color: inherit;
-                font-weight: 800;
-            }
         }
     }
 
-    [slot="header"] {
+    slot:has([name="header"]) {
         inline-size: min(80ch, 100%);
         align-items: stretch;
 
@@ -92,23 +82,24 @@ styles.replaceSync(`
         }
     }
 
-    .body {
+    slot:not(:has([name])) {
         flex-grow: 1;
         inline-size: 100%;
         position: relative;
     }
 
-    :host([layout="space-between"]) .body {
+    :host([layout="space-between"]) slot:not(:has([name])) {
         flex-flow: row wrap;
+        justify-content: space-between;
     }
 
-    :host([layout="space-evenly"]) .body {
+    :host([layout="space-evenly"]) slot:not(:has([name])) {
         flex-flow: row wrap;
         justify-content: space-evenly;
     }
 
-    :host([layout="space-around"]) .body,
-    .body ::slotted([layout="space-around"]) {
+    :host([layout="space-around"]) slot:not(:has([name])),
+    ::slotted([layout="space-around"]) {
         flex-flow: row wrap;
         justify-content: center;
         align-items: stretch;
@@ -116,7 +107,7 @@ styles.replaceSync(`
         column-gap: var(--spacing--horizontal);
     }
 
-    .body ::slotted([layout="space-around"]) {
+    ::slotted([layout="space-around"]) {
         --spacing--vertical: .2em;
         --spacing--horizontal: .2em;
 
@@ -125,7 +116,7 @@ styles.replaceSync(`
         inline-size: 100%;
     }
 
-    :host([layout="auto-grid"]) .body {
+    :host([layout="auto-grid"]) slot:not(:has([name])) {
         --spacing--vertical: .5em;
 
         display: grid;
@@ -142,7 +133,7 @@ styles.replaceSync(`
         --band--Padding--horizontal: 0;
         --band--Width: min(80ch, 90%);
 
-        .body {
+        slot:not(:has([name])) {
             flex-flow: row nowrap;
             overflow: auto;
         }
@@ -162,7 +153,7 @@ styles.replaceSync(`
             --band--Width: 100%;
         }
 
-        :host([overflow][layout="auto-grid"]) .body {
+        :host([overflow][layout="auto-grid"]) slot:not(:has([name])) {
             width: 100%;
             /* Create some gutter for the overflow scroll */
             padding-block-end: var(--spacing--vertical, 1em);
@@ -192,16 +183,14 @@ customElements.define(
 		constructor() {
 			super();
             this.setAttribute("role", "region");
-            this.shadowRoot = this.attachShadow({ mode: "open" });
+            this.attachShadow({ mode: "open" });
         }
 
         connectedCallback() {
             const templateElement = document.createElement("template");
             templateElement.innerHTML = `
                 <slot name="header"></slot>
-                <div class="body">
-                    <slot></slot>
-                </div>
+                <slot class="body"></slot>
                 <slot name="footer"></slot>`;
 
 			this.shadowRoot.appendChild(templateElement.content.cloneNode(true));

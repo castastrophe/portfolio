@@ -98,15 +98,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@11ty/eleventy-plugin-bundle@npm:^1.0.4":
-  version: 1.0.5
-  resolution: "@11ty/eleventy-plugin-bundle@npm:1.0.5"
-  dependencies:
-    debug: "npm:^4.3.4"
-  checksum: 10c0/89c03b6d5872c19324e4ae297fdf195bc31aa97912b1dee04b925a0684e5b4522882677c8550e3e6ffe770e96dc67501758f94c2e96d325f42e2a68533ce1370
-  languageName: node
-  linkType: hard
-
 "@11ty/eleventy-plugin-bundle@npm:^3.0.6":
   version: 3.0.7
   resolution: "@11ty/eleventy-plugin-bundle@npm:3.0.7"
@@ -124,25 +115,6 @@ __metadata:
   dependencies:
     prismjs: "npm:^1.30.0"
   checksum: 10c0/527e833bb0925d57d6015c62d2598f90f9dcfe38f01a03f7233af1352013cdce5e0537a618710a74cfb3b780c7d53357d790bbe6e80161c6cb903837ee253b1e
-  languageName: node
-  linkType: hard
-
-"@11ty/eleventy-plugin-webc@npm:^0.11.2":
-  version: 0.11.2
-  resolution: "@11ty/eleventy-plugin-webc@npm:0.11.2"
-  dependencies:
-    "@11ty/eleventy-plugin-bundle": "npm:^1.0.4"
-    "@11ty/webc": "npm:^0.11.0"
-  checksum: 10c0/5c12d7de382a3ca4185af01f6c988a170f2fce738cd02925aff611f1e78203c9be5f002e264f7b0449a11deaad1179e995a7b44d5e561c5af9f1d6e31139c09d
-  languageName: node
-  linkType: hard
-
-"@11ty/eleventy-utils@npm:^1.0.1":
-  version: 1.0.3
-  resolution: "@11ty/eleventy-utils@npm:1.0.3"
-  dependencies:
-    normalize-path: "npm:^3.0.0"
-  checksum: 10c0/35cd74ed3cb934b5c96006e8d77dff347874e87696204389572f8666e00ae912906d1400c9a42f9983614530a3aafe0462fdff39831559c61f165e683a16908d
   languageName: node
   linkType: hard
 
@@ -224,23 +196,6 @@ __metadata:
     maximatch: "npm:^0.1.0"
     slash: "npm:^3.0.0"
   checksum: 10c0/faf71eb57c3555f4b47bfe47cbfdf979c642ea2462a2afcaedb9091f5647fe1fa24f3de3882c0b8f05468d6d60b3dbf2901a57c13e21bc1c5e70b78b2e9b2525
-  languageName: node
-  linkType: hard
-
-"@11ty/webc@npm:^0.11.0":
-  version: 0.11.4
-  resolution: "@11ty/webc@npm:0.11.4"
-  dependencies:
-    "@11ty/eleventy-utils": "npm:^1.0.1"
-    css-tree: "npm:^2.3.1"
-    dependency-graph: "npm:^0.11.0"
-    entities: "npm:^4.4.0"
-    fast-glob: "npm:^3.2.12"
-    is-glob: "npm:^4.0.3"
-    nanoid: "npm:^4.0.1"
-    node-retrieve-globals: "npm:^2.0.7"
-    parse5: "npm:^7.1.2"
-  checksum: 10c0/ada03460f17c68bef8cc53b0206ae094e7341ade010ba7b51a300e2beae8154956fa075372d5b2926eeb290df6b7946c89b7eb64c282d6050a4c27175deaeee5
   languageName: node
   linkType: hard
 
@@ -3123,12 +3078,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-walk@npm:^8.2.0, acorn-walk@npm:^8.3.4":
-  version: 8.3.5
-  resolution: "acorn-walk@npm:8.3.5"
+"acorn-walk@npm:^8.3.4":
+  version: 8.3.4
+  resolution: "acorn-walk@npm:8.3.4"
   dependencies:
     acorn: "npm:^8.11.0"
-  checksum: 10c0/e31bf5b5423ed1349437029d66d708b9fbd1b77a644b031501e2c753b028d13b56348210ed901d5b1d0d86eb3381c0a0fc0d0998511a9d546d1194936266a332
+  checksum: 10c0/76537ac5fb2c37a64560feaf3342023dadc086c46da57da363e64c6148dc21b57d49ace26f949e225063acb6fb441eabffd89f7a3066de5ad37ab3e328927c62
   languageName: node
   linkType: hard
 
@@ -3141,7 +3096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.11.0, acorn@npm:^8.14.1, acorn@npm:^8.15.0, acorn@npm:^8.8.2":
+"acorn@npm:^8.11.0, acorn@npm:^8.14.1, acorn@npm:^8.15.0":
   version: 8.16.0
   resolution: "acorn@npm:8.16.0"
   bin:
@@ -4484,16 +4439,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-tree@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "css-tree@npm:2.3.1"
-  dependencies:
-    mdn-data: "npm:2.0.30"
-    source-map-js: "npm:^1.0.1"
-  checksum: 10c0/6f8c1a11d5e9b14bf02d10717fc0351b66ba12594166f65abfbd8eb8b5b490dd367f5c7721db241a3c792d935fc6751fbc09f7e1598d421477ad9fadc30f4f24
-  languageName: node
-  linkType: hard
-
 "css-tree@npm:^3.0.1, css-tree@npm:^3.1.0":
   version: 3.2.1
   resolution: "css-tree@npm:3.2.1"
@@ -4689,13 +4634,6 @@ __metadata:
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: 10c0/58bd06ec20e19529b06f7ad07ddab60e504d9e0faca4bd23079fac2d279c3594334d736508dc350e06e510aba5e22e4594483b3a6562ce7c17dd797f4cc4ad2c
-  languageName: node
-  linkType: hard
-
-"dependency-graph@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "dependency-graph@npm:0.11.0"
-  checksum: 10c0/9e6968d1534fdb502f7f3a25a3819b499f9d60f8389193950ed0b4d1618f1341b36b5d039f2cee256cfe10c9e8198ace16b271e370df06a93fac206e81602e7c
   languageName: node
   linkType: hard
 
@@ -5424,7 +5362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.3":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.3":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -7014,13 +6952,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdn-data@npm:2.0.30":
-  version: 2.0.30
-  resolution: "mdn-data@npm:2.0.30"
-  checksum: 10c0/a2c472ea16cee3911ae742593715aa4c634eb3d4b9f1e6ada0902aa90df13dcbb7285d19435f3ff213ebaa3b2e0c0265c1eb0e3fb278fda7f8919f046a410cd9
-  languageName: node
-  linkType: hard
-
 "mdn-data@npm:2.27.1":
   version: 2.27.1
   resolution: "mdn-data@npm:2.27.1"
@@ -7303,15 +7234,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^4.0.1":
-  version: 4.0.2
-  resolution: "nanoid@npm:4.0.2"
-  bin:
-    nanoid: bin/nanoid.js
-  checksum: 10c0/3fec62f422bc4727918eda0e7aa43e9cbb2e759be72813a0587b9dac99727d3c7ad972efce7f4f1d4cb5c7c554136a1ec3b1043d1d91d28d818d6acbe98200e5
-  languageName: node
-  linkType: hard
-
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -7401,16 +7323,6 @@ __metadata:
   version: 2.0.36
   resolution: "node-releases@npm:2.0.36"
   checksum: 10c0/85d8d7f4b6248c8372831cbcc3829ce634cb2b01dbd85e55705cefc8a9eda4ce8121bd218b9629cf2579aef8a360541bad409f3925a35675c825b9471a49d7e9
-  languageName: node
-  linkType: hard
-
-"node-retrieve-globals@npm:^2.0.7":
-  version: 2.0.8
-  resolution: "node-retrieve-globals@npm:2.0.8"
-  dependencies:
-    acorn: "npm:^8.8.2"
-    acorn-walk: "npm:^8.2.0"
-  checksum: 10c0/2c4f2718e4c2aa961fdf8dfe285fe62b715b1b945ecaf4d09f8007da085f4c18e530f482564d6468747fe9e3f6186a4d17d8e0e873208021229fed314ec188df
   languageName: node
   linkType: hard
 
@@ -7774,7 +7686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:^7.0.0, parse5@npm:^7.1.2, parse5@npm:^7.3.0":
+"parse5@npm:^7.0.0, parse5@npm:^7.3.0":
   version: 7.3.0
   resolution: "parse5@npm:7.3.0"
   dependencies:
@@ -7878,7 +7790,6 @@ __metadata:
     "@11ty/eleventy-img": "npm:^6.0.4"
     "@11ty/eleventy-navigation": "npm:^1.0.5"
     "@11ty/eleventy-plugin-syntaxhighlight": "npm:^5.0.2"
-    "@11ty/eleventy-plugin-webc": "npm:^0.11.2"
     "@babel/cli": "npm:^7.28.3"
     "@babel/core": "npm:^7.28.5"
     "@babel/preset-env": "npm:^7.28.5"

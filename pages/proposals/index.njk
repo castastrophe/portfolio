@@ -4,23 +4,38 @@ masthead: true
 eleventyExcludeFromCollections: true
 ---
 
-<a-band width="full" id="proposals" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
-    <div slot="header">
-        <h2 class="title">Proposals</h2>
-        <p class="header-summary">These are proposals for talks and workshops I've given or would like to give. <a href="mailto:{{ site.contact.email | toEmail }}">Let's get in touch</a> if you're interested in discussing having one of these proposals presented at your event.</p>
-    </div>
+<a-band width="full" id="proposals" padding="double" layout="auto-grid">
+    <h2 class="title" slot="header">Proposals</h2>
+    <p class="header-summary" slot="header">These are proposals for talks and workshops I've given or would like to give. <a href="mailto:{{ site.contact.email | toEmail }}">Let's get in touch</a> if you're interested in discussing having one of these proposals presented at your event.</p>
     {% for proposal in collections.proposals %}
         <a-card bordered>
-            <div slot="header">
-                <h3 class="headline accent"><a href="{{ proposal.url }}">{{ proposal.data.title }}</a></h3>
-            </div>
+            <h3 class="headline accent" slot="header"><a href="{{ proposal.url }}">{{ proposal.data.title }}</a></h3>
             <p>{{ proposal.data.description }}</p>
-            {% if proposal.data.tags?.length > 0 %}<tag-group tags="{{ proposal.data.tags | join: ',' }}" labeled slot="footer"></tag-group>{% endif %}
+            {% if proposal.data.tags.length > 0 %}<tag-group tags="{{ proposal.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
         </a-card>
     {% endfor %}
 </a-band>
 
 <a-band id="cta" padding="double" layout="space-evenly">
-    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
-    <img src="/img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
+    <a-note></a-note>
+    <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>
+
+{% css %}
+#proposals {
+    --spacing--vertical: 2em;
+}
+
+#cta {
+  img {
+    --image-size: 200px;
+    --border-color: transparent;
+    shape-outside: url('../img/cartoon-thinking.png');
+    shape-margin: .5em;
+  }
+
+  a-note {
+    --note-background-base: var(--theme--color--surface);
+  }
+}
+{% endcss %}

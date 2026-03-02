@@ -3,8 +3,45 @@ layout: base
 masthead: true
 ---
 
+<a-band layout="space-between" id="proposal">
+    <h1 class="headline">{{ title }}</h1>
+    <p class="metadata">
+        {% if author or site.author %}<span class="author">{{ author or site.author }}</span>{% endif %}
+        <span class="cta"><a href="{{ '/proposals/' | url }}" title="Return to the proposals page" class="cta-link">All proposals</a></span>
+    </p>
+    {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
+</a-band>
+
+<a-band id="proposal-content">
+    <aside>
+        <details class="post-toc">
+            <summary>Table of contents</summary>
+            {{ content | toc | safe }}
+        </details>
+    </aside>
+    <div class="content">{{ content | md | safe }}</div>
+
+    <a-note>
+        <p>Did you find this proposal interesting? I'm available for speaking, workshops, or training.</p>
+        <a href="{{ site.contact.scheduler }}">Let's connect</a>
+    </a-note>
+</a-band>
+
+{% js %}
+   import '/js/components/a-band.js';
+   import '/js/components/a-note.js';
+   import '/js/components/tag-group.js';
+{% endjs %}
+
 {% css %}
-    .proposal-container {
+#proposal {
+    .headline {
+        margin-block-end: 0;
+    }
+}
+
+#proposal-content {
+    .content {
         background-color: var(--theme--color--surface);
         padding: 1em;
         border-radius: var(--border-radius);
@@ -35,35 +72,9 @@ masthead: true
         }
     }
 
-    .proposal-header {
-        > .headline {
-            margin-block-end: 0;
-        }
+    a-note {
+        margin-block-start: 2em;
+        align-self: center;
     }
+}
 {% endcss %}
-
-<a-band layout="space-between">
-    <div class="proposal-header">
-        <h1 class="headline">{{ title }}</h1>
-        <p class="metadata">
-            {% if author or site.author %}<span class="author">{{ author || site.author }}</span>{% endif %}
-            <span class="cta"><a href="/proposals" title="Return to the proposals page" class="cta-link">All proposals</a></span>
-        </p>
-        {% if tags?.length > 0 %}<tag-group tags="{{ tags.join(',') }}" labeled></tag-group>{% endif %}
-    </div>
-</a-band>
-
-<a-band>
-    <aside>
-        <details class="post-toc">
-            <summary>Table of contents</summary>
-            {{ toc(content) | safe }}
-        </details>
-    </div>
-    <div class="proposal-container content">{{ content | md | safe }}</div>
-
-    <a-note style="margin-block-start: 2em; align-self: center">
-        <p>Did you find this proposal interesting? I'm available for speaking, workshops, or training.</p>
-        <a href="{{ site.contact.scheduler }}">Let's connect</a>
-    </a-note>
-</a-band>

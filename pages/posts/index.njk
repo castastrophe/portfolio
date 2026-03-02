@@ -1,28 +1,37 @@
 ---
 layout: base
-eleventyExcludeFromCollections: true
 masthead: true
 eleventyNavigation:
   key: Writing
   order: 3
 ---
 
-<a-band width="full" id="posts" padding="double" layout="auto-grid" style="--spacing--vertical: 2em;">
-    <div slot="header">
-        <h2 class="title">Posts</h2>
-    </div>
+<a-band width="full" id="posts" padding="double" layout="auto-grid">
+    <h2 class="title" slot="header">Posts</h2>
     {% for article in collections.posts | reverse %}
         <a-card bordered>
             <div slot="header">
                 <h3 class="headline accent"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
-                <p class="date">{{ article.data.date | date: '%B %e, %Y' }}</p>
+                <p class="date">{{ article.data.date | formatDate({ day: 'numeric' }) }}</p>
             </div>
             <p>{{ article.data.description }}</p>
-            {% if article.data.tags?.length > 0 %}<tag-group tags="{{ article.data.tags | join: ',' }}" labeled slot="footer"></tag-group>{% endif %}
+            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
         </a-card>
     {% endfor %}
 </a-band>
 
-<a-band padding="half">
-    <a-note style="align-self: center"></a-note>
+<a-band padding="half" id="cta">
+    <a-note></a-note>
 </a-band>
+
+{% css %}
+#posts {
+    --spacing--vertical: 2em;
+}
+
+#cta {
+    a-note {
+        align-self: center;
+    }
+}
+{% endcss %}

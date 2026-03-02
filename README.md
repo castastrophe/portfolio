@@ -25,7 +25,6 @@ This repository is the source code for [allons-y.llc](https://allons-y.llc) — 
 | Layer | Technology |
 |---|---|
 | Static site generator | [Eleventy (11ty) v3](https://www.11ty.dev/) |
-| Templating | [WebC](https://www.11ty.dev/docs/languages/webc/) |
 | Styling | [PostCSS](https://postcss.org/) with modern CSS features |
 | Scripting | JavaScript (ES modules, bundled for the browser) |
 | Hosting | [Netlify](https://www.netlify.com/) |
@@ -56,7 +55,7 @@ The development server will be available at `http://localhost:8080`.
 ## Project Structure
 
 ```
-pages/          # Source content (WebC templates, Markdown)
+pages/          # Source content (Nunjucks templates, Markdown)
 _includes/      # Layouts and reusable components
 _data/          # Global site data (navigation, presentations, etc.)
 public/         # Built output (generated, not committed)

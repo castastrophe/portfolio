@@ -1,5 +1,7 @@
 ---
 layout: foundation
+customSheets:
+  - home
 ---
 
 {% include "../_background.njk" %}
@@ -8,13 +10,43 @@ layout: foundation
     {% include "../_masthead.njk" %}
 {% endif %}
 
-<main>{{ content }}</main>
+<main>{{ content | safe }}</main>
 
 <!-- Contact -->
 <a-band id="contact" padding="double">
-    <icon-group icons="{{ site.socials | featured | toJson | trim }}"></icon-group>
+    {% set icons = site.socials | featured %}
+    {% include "../_icon-group.njk" %}
     <a href="{{ site.funding[0].url }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
-        {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% endif %}
-        {% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
+        {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
     </a>
 </a-band>
+
+{% js %}
+   import '/js/components/a-band.js';
+{% endjs %}
+
+{% css %}
+#contact {
+  font-size: 1.3em;
+  border-block-start: 2px solid color-mix(in sRGB, var(--theme--color--ui-accent) 80%, transparent);
+  margin-block-start: 1em;
+
+  .body {
+    inline-size: 100%;
+  }
+
+  .body:has(> .icon-group) {
+    --spacing-horizontal: 20px;
+    --spacing-vertical: 20px;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: start;
+
+    > .icon-group {
+      flex-grow: 1;
+    }
+  }
+}
+{% endcss %}

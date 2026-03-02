@@ -5,37 +5,37 @@
       "type": "phone",
       "value": "+19196561194",
       "label": "Phone",
-      "icon": "phone"
+      "icon": "fa-solid fa-phone"
     },
     {
       "type": "email",
       "value": "castastrophe -at- hey.com",
       "label": "Email",
-      "icon": "envelope"
+      "icon": "fa-solid fa-envelope"
     },
     {
       "type": "url",
       "value": "allons-y.llc",
       "label": "Website",
-      "icon": "globe"
+      "icon": "fa-solid fa-globe"
     },
     {
       "type": "url",
       "value": "github.com/castastrophe",
       "label": "GitHub",
-      "icon": "github"
+      "icon": "fa-brands fa-github"
     },
     {
       "type": "url",
       "value": "codepen.io/castastrophe",
       "label": "Codepen",
-      "icon": "codepen"
+      "icon": "fa-brands fa-codepen"
     },
     {
       "type": "url",
       "value": "linkedin.com/in/castastrophe",
       "label": "LinkedIn",
-      "icon": "linkedin"
+      "icon": "fa-brands fa-linkedin"
     }
   ],
   "training": [

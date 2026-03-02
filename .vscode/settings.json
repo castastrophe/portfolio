@@ -1,7 +1,6 @@
 {
   "files.associations": {
-    "*.webc": "html",
-    "*.njk": "html"
+    "*.html": "njk"
   },
   "svg.preview.background": "transparent"
 }

@@ -13,8 +13,9 @@ export default () => {
 			title: "CSS Day | 2023",
 			date: "2023-06-09",
 			youtube_id: "67bSCEEdaH8",
+			featured: true,
 			headline: "Shining Light on the Shadow DOM",
-			tags: ["featured", "web components", "presentation"],
+			tags: ["web components", "presentation"],
 			description:
 				"All about the Shadow DOM and how to use it to build better web components.",
 		},
@@ -31,7 +32,8 @@ export default () => {
 			title: "DrupalCon | 2019",
 			date: "2019-04-12",
 			youtube_id: "xH2MmVNuSe4",
-			tags: ["design system", "css", "presentation", "featured"],
+			tags: ["design system", "css", "presentation"],
+			featured: true,
 			headline:
 				"Unlocking design in a design system with custom properties",
 			description:
@@ -41,7 +43,8 @@ export default () => {
 			title: "DrupalCon | 2019",
 			date: "2019-04-15",
 			youtube_id: "Akn6keIYZ3k",
-			tags: ["web components", "presentation", "featured"],
+			tags: ["web components", "presentation"],
+			featured: true,
 			headline: "Make web development fun again, with web components!",
 			description:
 				"A joint presentation with Penn State on how web components can make development workflows fun and efficient.",

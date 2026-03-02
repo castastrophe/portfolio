@@ -4,9 +4,8 @@ import postcss from "postcss";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
 
-import pluginWebc from "@11ty/eleventy-plugin-webc";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
+import { InputPathToUrlTransformPlugin, RenderPlugin } from "@11ty/eleventy";
 import brokenLinks from "eleventy-plugin-broken-links";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
@@ -24,27 +23,14 @@ export default async function (config) {
 	// Layout aliases make templates more portable.
 	config.addLayoutAlias("base", "layouts/base.njk");
 	config.addLayoutAlias("foundation", "layouts/foundation.njk");
-	config.addLayoutAlias("post", "layouts/post.webc");
-	config.addLayoutAlias("proposal", "layouts/proposal.webc");
+	config.addLayoutAlias("post", "layouts/post.njk");
+	config.addLayoutAlias("proposal", "layouts/proposal.njk");
 	config.addLayoutAlias("resume", "layouts/resume.njk");
 
 	config.ignores.add("README.md");
 	config.ignores.add("**/CLAUDE.md");
 
 	config.addPlugin(eleventyNavigation);
-	config.addPlugin(pluginWebc, {
-		// Glob to find no-import global components
-		components: "./_includes/components/*.webc",
-
-		// Adds an Eleventy WebC transform to process all HTML output
-		useTransform: true,
-
-		// Additional global data used in the Eleventy WebC transform
-		transformData: {},
-
-		// Options passed to @11ty/eleventy-plugin-bundle
-		bundlePluginOptions: {},
-	});
 
 	const styles = await loadConfig({ env: process.env.ELEVENTY_ENV });
 	const processCSS = async function (content, inputPath, outputPath) {
@@ -68,7 +54,8 @@ export default async function (config) {
 		toFileDirectory: "css",
 		transforms: [
 			async function (content) {
-				return processCSS(content, this.inputPath, this.page?.outputPath);
+				if (!content?.trim()) return content;
+				return processCSS(content, this.page.inputPath, this.page?.outputPath);
 			}
 		]
 	});
@@ -117,12 +104,6 @@ export default async function (config) {
 		return collectionApi.getFilteredByGlob("pages/proposals/*");
 	});
 
-	config.addCollection("components", function (collectionApi) {
-		return collectionApi.getFilteredByGlob("pages/components/*.js");
-	});
-
-	config.addPassthroughCopy("img");
-
 	config.addPlugin(InputPathToUrlTransformPlugin);
 	config.addPlugin(syntaxHighlight);
 	config.addPlugin(brokenLinks, {
@@ -137,7 +118,7 @@ export default async function (config) {
 
 	// Resume: Eleventy image optimization
 	config.addPlugin(imagePlugin, {
-		urlPath: "/images/",
+		urlPath: "/img/",
 		outputDir: "./public/images/",
 		failOnError: false,
 	});
@@ -183,7 +164,6 @@ export default async function (config) {
 		</span>`;
 	});
 
-	const brands = ['github', 'codepen', 'linkedin'];
 	config.addShortcode("contact", function(contact, label, type, icon) {
 		if (!contact) return '';
 
@@ -211,7 +191,7 @@ export default async function (config) {
 		}
 
 		return `<div class="contact-item">
-            ${icon ? `<span class="${brands.includes(icon) ? `fa-brands fa-${icon}` : `fa-solid fa-${icon}`}" aria-hidden="true"></span>` : ''}
+            ${icon ? `<span class="${icon}" aria-hidden="true"></span>` : ''}
             ${label ? `<span class="visually-hidden">${label}</span>` : ''}
             ${href ? `<a href="${href}">${content}</a>` : `${content}`}
 		</div>`;
@@ -235,10 +215,11 @@ export default async function (config) {
 		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
 		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
 		"node_modules/prismjs/prism.js": "js/prism.js",
-		"pages/resume/custom/*.json": "resume/custom/"
+		"pages/resume/custom/*.json": "resume/custom/",
+		"pages/favicon.*": "/",
+		"pages/**/*.js": "js/",
+		"components/*.js": "js/components/"
 	});
-
-	config.addPassthroughCopy("pages/**/*.js");
 
 	config.setServerOptions({
 		// Open the browser automatically
@@ -268,6 +249,6 @@ export default async function (config) {
 			includes: "../_includes",
 			data: "../_data",
 		},
-		templateFormats: ["html", "webc", "njk", "md", "11ty.js"],
+		templateFormats: ["html", "njk", "md", "11ty.js", "11ty.json"],
 	};
 };

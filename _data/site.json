@@ -6,7 +6,6 @@
     "keywords": "css, web development, portfolio",
     "themeColor": "#DD18B3",
     "url": "https://allons-y.llc",
-    "image": "https://allons-y.llc/img/allonsy-logo.png",
     "contact": {
         "email": "consulting -at- allons-y.llc",
         "scheduler": "https://fantastical.app/cassondra/inquiries"
@@ -20,10 +19,10 @@
         }
     ],
     "socials": [
-        { "url": "https://front-end.social/@castastrophe", "icon": "mastodon", "label": "Mastodon", "featured": true },
-        { "url": "https://www.linkedin.com/in/castastrophe", "icon": "linkedin-in", "label": "LinkedIn", "featured": true },
-        { "url": "https://github.com/castastrophe", "icon": "github-alt", "label": "GitHub", "featured": true },
-        { "url": "https://codepen.io/castastrophe", "icon": "codepen", "label": "Codepen", "featured": true },
-        { "url": "https://www.youtube.com/@castastrophe", "icon": "youtube", "label": "YouTube", "featured": true }
+        { "url": "https://front-end.social/@castastrophe", "classes": "fa-brands fa-mastodon", "label": "Mastodon", "rel":"me", "featured": true },
+        { "url": "https://www.linkedin.com/in/castastrophe", "classes": "fa-brands fa-linkedin-in", "label": "LinkedIn", "rel":"me", "featured": true },
+        { "url": "https://github.com/castastrophe", "classes": "fa-brands fa-github", "label": "GitHub", "rel":"me", "featured": true },
+        { "url": "https://codepen.io/castastrophe", "classes": "fa-brands fa-codepen", "label": "Codepen", "rel":"me", "featured": true },
+        { "url": "https://www.youtube.com/@castastrophe", "classes": "fa-brands fa-youtube", "label": "YouTube", "rel":"me", "featured": true }
     ]
 }

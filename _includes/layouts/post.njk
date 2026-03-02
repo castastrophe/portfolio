@@ -1,18 +1,19 @@
 ---
 layout: base
 masthead: true
+prism: true
 ---
 
 <a-band layout="space-between" id="post-header">
-    <a href="/" title="Return to the home page"><img src="../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
+    <a href="{{ '/' | url }}" title="Return to the home page"><img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
     <div>
         <h1 class="headline">{{ title }}</h1>
         <p class="metadata">
-            <span class="author">{{ author || site.author }}</span>
-            <span class="date">{{ date | date: '%B %e, %Y' }}</span>
-            <span class="cta"><a href="/posts" title="Return to the posts page" class="cta-link">All posts</a></span>
+            <span class="author">{{ author or site.author }}</span>
+            <span class="date">{{ date | formatDate({ day: 'numeric' }) }}</span>
+            <span class="cta"><a href="{{ '/posts/' | url }}" title="Return to the posts page" class="cta-link">All posts</a></span>
         </p>
-        {% if tags?.length > 0 %}<tag-group tags="{{ tags.join(',') }}" labeled></tag-group>{% endif %}
+        {% if tags.length > 0 %}<tag-group tags="{{ tags.join(',') }}" labeled></tag-group>{% endif %}
     </div>
 </a-band>
 
@@ -20,13 +21,100 @@ masthead: true
     <aside>
         <details class="post-toc">
             <summary>Table of contents</summary>
-            {{ toc(content) | safe }}
+            {{ content | toc | safe }}
         </details>
     </aside>
+
     <div class="content">{{ content | md | safe }}</div>
 
-    <a-note style="margin-block-start: 2em">
+    <a-note>
         <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
         <a href="{{ site.contact.scheduler }}">Let's connect!</a>
     </a-note>
 </a-band>
+
+
+{% js %}
+    import '/js/components/a-band.js';
+    import '/js/components/a-note.js';
+    import '/js/components/tag-group.js';
+
+    // Initialize scroll-based animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const detailEl = document.querySelector('.post-toc');
+      if (detailEl) {
+          const summaryEl = detailEl.querySelector('summary');
+          summaryEl.addEventListener("click", () => {
+            // toggle the detail container on click
+            detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
+          });
+
+          detailEl.querySelectorAll('a').forEach(link => {
+            link.addEventListener("click", () => {
+                // close the detail container on click after a short delay
+                setTimeout(() => {
+                detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
+                }, 100);
+            });
+          });
+
+          // close the detail container on click outside of the detail container or the summary
+          document.addEventListener("click", (evt) => {
+            if (detailEl.hasAttribute("open") && (evt.target !== detailEl && evt.target !== summaryEl)) {
+                detailEl.toggleAttribute("open", false);
+            }
+          }, { capture: true });
+      }
+    });
+{% endjs %}
+
+{% css %}
+#post-header {
+  --spacing-horizontal: 20px;
+  --image-size: max(150px, 20%);
+
+  margin-block-start: 2em;
+
+  a:has(img) {
+    --border-radius: 50%;
+    --outline-offset: -1px;
+
+    cursor: pointer;
+    display: flex;
+    max-inline-size: var(--image-size);
+    block-size: auto;
+    margin-block-start: -10px;
+    margin-inline-end: 10px;
+  }
+
+  img {
+    aspect-ratio: var(--aspect-ratio, 1 / 1);
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--theme--color--ui-subtle);
+  }
+}
+
+#post-content {
+  --band-BackgroundColor: color-mix(in sRGB, var(--theme--color--surface) 90%, transparent);
+
+  .content {
+    font-size: 20px;
+    
+    strong {
+      font-size: 1.4em;
+      font-weight: 900;
+      line-height: 1;
+    }
+  }
+
+  hr {
+    border-color: color-mix(in sRGB, var(--theme--color--ui-accent) 50%, transparent);
+  }
+
+  a-note {
+    margin-block-start: 2em;
+  }
+}
+{% endcss %}

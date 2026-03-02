@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Allons-Y Consulting built with Eleventy (11ty) v3 using WebC templates.
+Personal portfolio site for Allons-Y Consulting built with Eleventy (11ty).
 
 ## Commands
 
@@ -23,15 +23,13 @@ yarn clean          # Remove public/ directory
 ## Architecture
 
 ### Eleventy Structure
-- **Input**: `pages/` - Source templates (WebC, Markdown)
+- **Input**: `pages/` - Source templates (Nunjucks, Markdown)
 - **Output**: `public/` - Built site
 - **Includes**: `_includes/` - Layouts and components
 - **Data**: `_data/site.json` - Global site data including presentations list
 
 ### Template System
-- Adds **WebC** to the existing supported templates (i.e., Nunjucks, HTML, and Markdown)
 - Layout alias: `base` → `layouts/base.njk`
-- Global components auto-imported from `_includes/components/*.webc`
 - Web components imported from `pages/components/*.js`
 - Markdown files processed with markdown-it and anchor plugin
 
