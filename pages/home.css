@@ -1,118 +1,23 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Inconsolata");
-@import url("https://fonts.googleapis.com/css?family=PT+Mono");
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=PT+Mono&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-:root {
-  --theme--color--text: light-dark(#333, #fff);
-  --theme--color--text-accent: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
-  --theme--color--surface: light-dark(#fff, #111);
-  --theme--color--surface-accent: light-dark(hsl(313deg 68% 78%), hsl(313deg 80% 48%));
-  --theme--color--ui-subtle: light-dark(#efefef, #afafaf);
-
-  --theme--container-spacer: 16px;
-
-  --theme--font-family: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-  --theme--font-family--heading: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-
-  --headline: var(--theme--color--text);
-  --headline--accent: var(--theme--color--text-accent);
-
-  --spacing--vertical: 10px;
-  --spacing--horizontal: 10px;
-
-  --border-radius: 0.2em;
-  --outline-offset: 2px;
-
-  --theme--color--ui-accent: light-dark(hsl(313deg 57% 44%), hsl(313deg 96% 72%));
-  --theme--color--ui-accent--hover: light-dark(hsl(313deg 57% 30%), hsl(313deg 96% 62%));
-  --theme--color--ui-accent--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
-  --theme--color--link: var(--theme--color--text-accent);
-  --theme--color--link--hover: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
-  --theme--color--link--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
-  --theme--color--link--visited: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
-}
+@import "theme.css";
 
 html {
   backface-visibility: hidden;
   scroll-padding-block-start: 20px;
   scroll-behavior: smooth;
 
-  &:has(.post-toc) {
-    scroll-padding-block-start: 70px;
+  /* todo: can we determine the height of the TOC dynamically? */
+  &:has(.table-of-contents) {
+    scroll-padding-block-start: var(--theme--container--Height--sticky, 70px);
   }
 }
 
-img,
-embed,
-object,
-video {
-  max-inline-size: 100%;
-  block-size: auto;
-}
-
-p,
-pre,
-li {
-  color: var(--theme--color--text);
-}
-
-pre {
-  box-sizing: border-box;
-  border: 1px solid color-mix(in sRGB, var(--theme--color--surface-accent) 40%, transparent);
-  font-family: "PT Mono", monospace;
-  display: block;
-  font-size: 0.8em !important;
-  font-weight: normal;
-  line-height: 1.44;
-  margin: 0;
-
-  &:not(:last-child) {
-    margin-block-end: 1em;
-  }
-}
-
-p>code,
-li>code {
-  background-color: light-dark(hsl(230 1% 98%), hsl(230 1% 20%));
-  padding: 0.2em 0.4em;
-  border-radius: var(--border-radius);
-  font-size: 0.8em;
-  font-weight: 400;
-  line-height: inherit;
-  color: var(--theme--color--text);
-}
-
-p {
-  font-size: 1em;
-  font-weight: normal;
-  line-height: 1.44;
-  margin: 0;
-
-  &:not(:last-child, :has(+ .tags)) {
-    margin-block-end: 1em;
-  }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--theme--font-family--heading);
-  margin-block: 0;
-  color: var(--headline);
-
-  .content & {
-    margin-block-end: .5em;
-  }
-}
-
-a {
+:where(a) {
   text-decoration: none;
   font-weight: 400;
-  color: var(--theme--color--link);
+  color: var(--theme--link--Color);
 
   &:has(img) {
     /* Ensures the link fits to the image and has the correct aspect ratio */
@@ -123,17 +28,17 @@ a {
 
   &:hover {
     text-decoration: underline;
-    color: var(--theme--color--link--hover, #002f3b);
+    color: var(--theme--link--Color--hover, #002f3b);
   }
 
   &:focus,
   &:focus-visible {
     text-decoration: underline;
-    color: var(--theme--color--link--focus, #002f3b);
+    color: var(--theme--link--Color--focus, #002f3b);
   }
 
   &:visited {
-    color: var(--theme--color--link--visited, #002f3b);
+    color: var(--theme--link--Color--visited, #002f3b);
   }
 
   &[name]:not([href]) {
@@ -151,14 +56,104 @@ a {
   }
 
   &:is(:focus, :focus-visible) {
-    outline: 1px solid var(--theme--color--ui-accent--focus);
+    outline: 1px solid var(--theme--ui--Color--active);
     outline-offset: var(--outline-offset, 1px);
     border-radius: var(--border-radius);
   }
 }
 
-ul,
-ol {
+:where(p) {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: var(--theme--text--LineHeight);
+
+  margin: 0;
+
+  &:not(:last-child, :where(:has(+ tag-group))) {
+    margin-block-end: 1em;
+  }
+}
+
+:heading,
+:where(h1, h2, h3, h4, h5, h6),
+:where(.title, .headline) {
+  font-family: var(--theme--heading--FontFamily);
+  color: var(--theme--heading--Color);
+  line-height: var(--theme--heading--LineHeight, 1.4);
+
+  margin-block: 0;
+
+  .content &:where(:not(:last-child)) {
+    margin-block-end: var(--spacing--vertical);
+  }
+
+  [featured] &,
+  &:where(.accent) {
+    color: var(--theme--heading--Color--accent);
+  }
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration-color: color-mix(in sRGB, var(--theme--ui--Color--subtle), black 20%);
+    text-decoration-style: solid;
+    text-decoration-line: underline;
+
+    &:hover {
+      color: var(--theme--link--Color--hover);
+      text-decoration-color: var(--theme--link--Color--hover);
+    }
+
+    &:where(:focus, :focus-visible) {
+      color: var(--theme--link--Color--focus);
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: var(--theme--link--Color--visited);
+      text-decoration-color: var(--theme--link--Color--visited);
+    }
+  }
+}
+
+:where(img, embed, object, video) {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+:where(code, pre) {
+  font-family: var(--theme--code--FontFamily);
+}
+
+:where(pre) {
+  box-sizing: border-box;
+  display: block;
+
+  font-size: 0.8em !important;
+
+  border: 1px solid color-mix(in sRGB, var(--theme--surface--color--accent) 40%, transparent);
+  border-radius: var(--border-radius);
+
+  margin: 0;
+
+  &:where(:not(:last-child)) {
+    margin-block-end: var(--spacing--vertical);
+  }
+}
+
+:where(p>code, li>code) {
+  background: var(--theme--surface--color);
+  color: var(--theme--text--Color);
+
+  font-size: .8em;
+  font-weight: 400;
+  line-height: inherit;
+
+  border-radius: var(--border-radius);
+  padding: .2em .4em;
+}
+
+:where(ul, ol) {
   margin: 0;
 
   &:not(:last-child) {
@@ -166,109 +161,97 @@ ol {
   }
 }
 
-li {
+:where(li) {
   font-size: 1em;
   margin: 0;
   line-height: 1.44;
 }
 
-b,
-strong {
+:where(b, strong) {
   font-weight: 800;
 }
 
-li b,
-li strong {
-  background-color: color-mix(in sRGB, var(--theme--color--surface-accent) 10%, transparent);
-  padding: 0.2em 0.4em;
+:where(li b, li strong) {
+  background-color: color-mix(in sRGB, var(--theme--surface--color--accent) 10%, transparent);
+  padding: .2em .4em;
   border-radius: var(--border-radius);
-  font-size: 0.9em;
+
+  font-size: .9em;
   font-weight: 800;
 }
 
-img {
+:where(img) {
   aspect-ratio: var(--aspect-ratio, 1 / 1);
   inline-size: var(--image-size, 250px);
   block-size: auto;
 
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color, var(--theme--color--ui-subtle));
+  border: 1px solid var(--border-color, var(--theme--ui--Color--subtle));
 }
 
 body {
   position: relative;
   margin: 0;
-  background-color: var(--theme--color--surface);
+  background-color: var(--theme--surface--color);
+  color: var(--theme--text--Color);
 
-  font-family: var(--theme--font-family);
+  font-family: var(--theme--text--FontFamily);
+  line-height: var(--theme--text--LineHeight);
+  font-optical-sizing: auto;
+
   font-size: 18px;
-  line-height: 1.444;
+
+  /* note: reduce base font size for print */
+  @media print {
+    font-size: 14px;
+  }
 
   scroll-snap-type: y mandatory;
   overflow-y: auto;
   overflow-x: hidden;
 
   min-block-size: 100vh;
+
   display: flex;
   flex-flow: column nowrap;
 
-  > main {
+  >main {
     flex-grow: 1;
+
     display: flex;
     flex-flow: column nowrap;
   }
-
-  @media print {
-    font-size: 14px;
-  }
 }
 
-.title {
-  font-size: 22px;
-  font-family: var(--theme--font-family--heading);
-  margin-block-start: 0;
-  margin-block-end: var(--spacing--vertical);
+:where(.title) {
+  font-size: 1.1em;
+  /* todo: convert to rem/em; was: 22px */
+
   font-weight: 800;
-  line-height: 1.4;
-  color: var(--headline);
+  line-height: var(--title--LineHeight, var(--theme--heading--LineHeight));
+  text-transform: var(--title--TextTransform, uppercase);
 
-  [featured] &,
-  &:where(.accent) {
-    color: var(--headline--accent);
+  @container card (width >=0px) {
+    font-size: .8em;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
+  @container card (width >=0px) and band (width >=0px) {
+    box-sizing: border-box;
+    display: inline-block;
 
-    &:hover {
-      color: var(--theme--color--link--hover);
-    }
-
-    &:is(:focus, :focus-visible) {
-      color: var(--theme--color--link--focus);
-    }
-
-    &:visited {
-      color: var(--theme--color--link--visited);
-    }
+    padding: var(--title--Padding, .1em var(--spacing--horizontal));
+    background: var(--title--Background, color-mix(in srgb, var(--theme--ui--Color) var(--title--Opacity, 10%), var(--theme--surface--color)));
+    inline-size: min(var(--title--InlineSize, 80ch), 100%);
+    border-radius: var(--border-radius);
   }
 }
 
-.headline {
-  font-family: var(--theme--font-family--heading);
+:where(.headline) {
   font-size: 1.8em;
-  margin-block-start: 0;
-  margin-block-end: 10px;
   font-weight: 100;
-  line-height: 1.1;
-  color: var(--headline);
+  line-height: var(--theme--text--LineHeight);
 
-  [featured] &,
-  &:where(.accent) {
-    color: var(--headline--accent);
-  }
-
+  /* todo: convert to rem/em */
   @media (width >=992px) {
     font-size: 39px;
   }
@@ -277,36 +260,20 @@ body {
     font-size: 42px;
   }
 
-  @container card (width >= 0) {
+  @container card (width >=0) {
     font-size: 1.4em;
-  }
-
-  a {
-    color: inherit;
-    font-weight: inherit;
-    text-decoration-color: color-mix(in sRGB, var(--theme--color--ui-subtle), black 20%);
-    text-decoration-style: solid;
-    text-decoration-line: underline;
-
-    &:hover {
-      color: var(--theme--color--link--hover);
-      text-decoration-color: var(--theme--color--link--hover);
-    }
-
-    &:is(:focus, :focus-visible) {
-      color: var(--theme--color--link--focus);
-    }
-
-    &:visited {
-      color: inherit;
-    }
   }
 }
 
-.subheadline {
-  @extend .headline;
-
+:where(.headline-summary) {
   font-size: 1.4em;
+  font-weight: 900;
+  line-height: var(--theme--text--LineHeight);
+
+  @container card (width >=0) {
+    font-size: 1.2em;
+    font-weight: 400;
+  }
 }
 
 button::-moz-focus-inner {
@@ -322,23 +289,29 @@ svg {
 
 hr {
   border: none;
-  border-block-start: 2px solid var(--theme--color--ui-accent);
+  border-block-start: 2px solid var(--theme--ui--Color);
   inline-size: 100%;
 }
 
 blockquote {
   box-sizing: border-box;
-  background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
-  border-inline-start: 4px solid var(--theme--color--ui-accent);
+  position: relative;
+
+  font-size: .9em;
+
+  background-color: color-mix(in sRGB, var(--theme--ui--Color) 10%, var(--theme--surface--color));
+  border-inline-start: 4px solid var(--theme--ui--Color);
   border-radius: var(--border-radius);
+
   padding: 1rem;
   inline-size: min(100%, max-content);
   max-inline-size: calc(100% - 2rem);
-  font-size: .9em;
   margin-block-start: 2em;
   margin-inline-start: 0;
-  position: relative;
 
+  /* note: not yet widely supported */
+  &:has(:heading:first-child),
+  /* below: fallback for older browsers */
   &:has(h1:first-child),
   &:has(h2:first-child),
   &:has(h3:first-child),
@@ -349,7 +322,6 @@ blockquote {
   }
 
   strong {
-    font-size: 1em;
     font-weight: 800;
   }
 
@@ -359,6 +331,7 @@ blockquote {
     overflow-x: auto;
   }
 
+  /* todo: add details about why the h4 has special styling */
   h4 {
     position: absolute;
     display: inline-block;
@@ -366,20 +339,21 @@ blockquote {
     inset-block-start: -.4em;
     inset-inline-start: .8em;
     margin: 0;
-    background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 90%, var(--theme--color--surface));
+    background-color: color-mix(in sRGB, var(--theme--ui--Color) 90%, var(--theme--surface--color));
     color: white;
     padding: 0.2em 0.5em;
     border-radius: 0 var(--border-radius) 0 var(--border-radius);
-    box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
+    box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--text--Color) 10%, transparent);
   }
 }
 
+/* todo: add note about where this is used */
 .metadata {
   display: flex;
   flex-flow: row wrap;
   gap: 0.5em;
   margin-block-end: 1em;
-  border-block-end: 1px solid var(--theme--color--ui-accent);
+  border-block-end: 1px solid var(--theme--ui--Color);
 
   .author:has(+ .date)::after {
     content: '|';
@@ -407,14 +381,15 @@ blockquote {
   }
 }
 
-.post-toc {
+/* todo: move this to the post template? */
+.table-of-contents {
   position: sticky;
   inset-block-start: 0;
 
-  background-color: var(--theme--color--surface);
-  color: var(--theme--color--text);
+  background-color: var(--theme--surface--color);
+  color: var(--theme--text--Color);
 
-  box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
+  box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--text--Color) 10%, transparent);
   border-radius: var(--border-radius);
   margin-block-start: -1em;
   margin-block-end: 1em;
@@ -432,7 +407,7 @@ blockquote {
   }
 
   summary {
-    background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
+    background-color: color-mix(in sRGB, var(--theme--ui--Color) 10%, var(--theme--surface--color));
     cursor: pointer;
     padding: 10px 1rem;
 
@@ -451,7 +426,7 @@ blockquote {
     &::after {
       /* Custom marker dimensions */
       content: "";
-      border-block-start: 3px solid var(--theme--color--ui-accent);
+      border-block-start: 3px solid var(--theme--ui--Color);
       height: 0;
       width: 1rem;
 
@@ -475,7 +450,7 @@ blockquote {
 
   &[open] {
     summary {
-      border-block-end: 1px solid var(--theme--color--ui-accent);
+      border-block-end: 1px solid var(--theme--ui--Color);
     }
 
     summary::after {
@@ -496,7 +471,7 @@ blockquote {
         padding-inline-start: 0;
       }
 
-      &:first-child > li > a {
+      &:first-child>li>a {
         font-weight: bold;
         line-height: 1.8;
       }
@@ -504,6 +479,7 @@ blockquote {
   }
 }
 
+/* todo: should the div have a unique class? */
 div:has(> iframe) {
   padding: 0 0 56.25%;
   position: relative;
@@ -517,6 +493,7 @@ div:has(> iframe) {
   }
 }
 
+/* @todo: combine all the cta styling found below */
 .cta {
   -webkit-appearance: button;
   font-family: inherit;
@@ -531,28 +508,28 @@ div:has(> iframe) {
   display: inline-block;
 
   a {
-    font-family: var(--theme--font-family--heading);
+    font-family: var(--theme--heading--FontFamily);
     font-size: 1em;
-    color: var(--theme--color--link);
+    color: var(--theme--link--Color);
 
     &:visited {
-      color: var(--theme--color--link);
+      color: var(--theme--link--Color);
     }
 
     &:hover {
-      color: var(--theme--color--link--hover);
+      color: var(--theme--link--Color--hover);
     }
 
     &:focus {
-      color: var(--theme--color--link--focus);
+      color: var(--theme--link--Color--focus);
     }
 
     &:active {
-      color: var(--theme--color--link--active);
+      color: var(--theme--link--Color--active);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--theme--color--link--focus);
+      outline: 2px solid var(--theme--link--Color--focus);
       outline-offset: var(--outline-offset, 4px);
       border-radius: calc(var(--border-radius) / 2);
     }
@@ -576,8 +553,8 @@ div:has(> iframe) {
 
 .cta-button {
   display: inline-block;
-  background-color: var(--theme--color--ui-accent);
-  color: var(--theme--color--surface) !important;
+  background-color: var(--theme--ui--Color);
+  color: var(--theme--surface--color) !important;
   padding: 0.5em 1em;
   border-radius: var(--border-radius);
   text-decoration: none;
@@ -589,44 +566,24 @@ div:has(> iframe) {
   cursor: pointer;
 
   &:hover {
-      background-color: var(--theme--color--ui-accent--hover);
+    background-color: var(--theme--ui--Color--hover);
   }
 
   &:focus {
-      background-color: var(--theme--color--ui-accent--focus);
+    background-color: var(--theme--ui--Color--active);
   }
 
   &:focus-visible {
-      outline: 2px solid var(--theme--color--ui-accent--focus);
-      outline-offset: var(--outline-offset, 2px);
-      border-radius: var(--border-radius);
+    outline: 2px solid var(--theme--ui--Color--active);
+    outline-offset: var(--outline-offset, 2px);
+    border-radius: var(--border-radius);
   }
 
   &:active {
-      background-color: var(--theme--color--ui-accent--active);
+    background-color: var(--theme--ui--Color--active);
   }
 
   &:last-child {
-      margin-block-end: calc(var(--spacing--vertical) * .4);
-  }
-}
-
-@media screen and (width >=992px) {
-  #presentations {
-      margin-block-start: 4em;
-  }
-}
-
-#posts {
-  --spacing--vertical: 2em;
-  --grid-columns: 2;
-
-  a-card {
-    padding-block-start: 1em;
-    padding-block-end: 0;
-  }
-
-  @media screen and (width <= 992px) {
-    --grid-columns: 1;
+    margin-block-end: calc(var(--spacing--vertical) * .4);
   }
 }

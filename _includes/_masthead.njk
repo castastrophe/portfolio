@@ -1,7 +1,7 @@
 <div class="masthead container">
     <div class="branding">
         <a class="branding-image" href="/" title="Return to the home page">
-            <img src="../img/allonsy-logo.png" alt="Allons-y Consulting logo, a colorful illustration of a coffee mug">
+            <img src="../img/logo.svg" alt="Allons-y Consulting logo, a colorful illustration of a coffee mug">
         </a>
     </div>
     <div class="content">
@@ -43,14 +43,13 @@
             img {
                 box-sizing: border-box;
                 border-radius: var(--border-radius);
-                border: 2px solid var(--theme--color--ui-subtle);
+                border: 2px solid var(--theme--ui--Color--subtle);
                 inline-size: 100%;
                 block-size: 100%;
             }
 
             &:is(:hover, :focus, :focus-visible) img {
-                border: 2px solid var(--theme--color--ui-accent);
-                border-radius: var(--border-radius);
+                border-color: var(--theme--ui--Color);
             }
         }
     }
@@ -58,6 +57,7 @@
     .content {
         flex-grow: 1;
         display: flex;
+        
         flex-flow: column nowrap;
         max-inline-size: 100%;
 
@@ -79,26 +79,14 @@
         > h2 {
             font-size: calc(1em + 1vw);
             font-weight: 100;
-
-            a {
-                color: inherit;
-                font-weight: inherit;
-                text-decoration-color: color-mix(in sRGB, var(--theme--color--ui-subtle), black 20%);
-                text-decoration-style: solid;
-                text-decoration-line: underline;
-
-                &:hover {
-                    color: var(--theme--color--link--hover);
-                    text-decoration-color: var(--theme--color--link--hover);
-                }
-            }
         }
     }
 }
 
 .navigation {
-    border-block-start: 2px solid var(--theme--color--ui-accent);
+    border-block-start: 2px solid var(--theme--ui--Color);
     padding-block-start: 0.8em;
+
     display: inline-flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -125,7 +113,7 @@
     }
 
     a:focus-visible {
-        outline: 2px solid var(--theme--color--ui-accent--focus);
+        outline: 2px solid var(--theme--ui--Color--active);
         outline-offset: var(--outline-offset, 4px);
         border-radius: calc(var(--border-radius) / 2);
     }

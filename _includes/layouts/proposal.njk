@@ -14,7 +14,7 @@ masthead: true
 
 <a-band id="proposal-content">
     <aside>
-        <details class="post-toc">
+        <details class="table-of-contents">
             <summary>Table of contents</summary>
             {{ content | toc | safe }}
         </details>
@@ -42,10 +42,10 @@ masthead: true
 
 #proposal-content {
     .content {
-        background-color: var(--theme--color--surface);
+        background-color: var(--theme--surface--color);
         padding: 1em;
         border-radius: var(--border-radius);
-        box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--color--text) 10%, transparent);
+        box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--text--Color) 10%, transparent);
 
         :is(h2) {
             position: relative;
@@ -61,7 +61,7 @@ masthead: true
             &::after {
                 content: '';
                 display: block;
-                background-color: color-mix(in srgb, var(--theme--color--ui-accent) 10%, transparent);
+                background-color: color-mix(in srgb, var(--theme--ui--Color) 10%, transparent);
                 height: .8em;
                 width: 100%;
                 inset-block-start: -0.05em;

@@ -1,20 +1,100 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
-    :host {
-        display: block;
-        box-sizing: border-box;
+    @property --band--Background {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: transparent;
+    }
 
+    @property --band--Width {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: 100%;
+    }
+
+    @property --band--Padding--horizontal {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6));
+    }
+
+    @property --band--Padding--vertical {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: calc(var(--spacing--vertical) * var(--multiplier-vertical, 2));
+    }
+
+    @property --band--Gap--horizontal {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: var(--spacing--horizontal);
+    }
+
+    @property --band--Gap--vertical {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: var(--spacing--vertical);
+    }
+
+    @property --band--Display {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: flex;
+    }
+
+    @property --band--Direction {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: column;
+    }
+
+    @property --band--Wrap {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: nowrap;
+    }
+
+    @property --band--AlignItems {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: center;
+    }
+
+    @property --band--JustifyContent {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: start;
+    }
+
+    @property --multiplier-horizontal {
+        syntax: "<number>";
+        inherits: false;
+        initial-value: .6;
+    }
+
+    @property --multiplier-vertical {
+        syntax: "<number>";
+        inherits: false;
+        initial-value: 2;
+    }
+
+    :host {
+        position: relative;
+        
         scroll-margin: 10px;
         scroll-snap-align: start;
         scroll-snap-stop: normal;
 
-        background: var(--band--BackgroundColor, transparent);
+        background: var(--band--Background, transparent);
 
         inline-size: var(--band--Width, 100%);
-        max-inline-size: calc(100vw - (var(--spacing--horizontal) * var(--multiplier-horizontal, .6) * 2));
-        margin-inline: auto;
-        padding-block: calc(var(--spacing--vertical) * var(--multiplier-vertical, 2));
-        padding-inline: calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6));
+        max-inline-size: calc(100vw - var(--band--Padding--horizontal, calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6))) * 2);
+        margin-inline: auto; /* Center the band horizontally */
+
+        padding-block: var(--band--Padding--vertical, calc(var(--spacing--vertical) * var(--multiplier-vertical, 2)));
+        padding-inline: var(--band--Padding--horizontal, calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6)));
+
+        container: band / inline-size;
     }
 
     :host([padding="half"]) {
@@ -25,54 +105,27 @@ styles.replaceSync(`
         --multiplier-vertical: 2;
     }
 
-    :host([padding="none"]) {
-        --multiplier-vertical: 0;
-    }
-
     /* Default layout for all regions is stacked */
     :host,
-    slot:has([name="header"]),
-    slot:not(:has([name])),
-    slot:has([name="footer"]),
-    ::slotted([layout="stacked"]) {
-        display: flex;
-        flex-flow: column nowrap;
-        row-gap: var(--spacing--vertical);
-        column-gap: var(--spacing--horizontal);
-        align-items: center;
-    }
-
-    slot:has([name="header"]),
-    slot:not(:has([name])),
-    slot:has([name="footer"]) {
+    slot {
         box-sizing: border-box;
-        justify-content: start;
-        align-items: center;
+
+        display: var(--band--Display, flex);
+        flex-direction: var(--band--Direction, column);
+        flex-wrap: var(--band--Wrap, nowrap);
+        row-gap: var(--band--Gap--vertical, var(--spacing--vertical));
+        column-gap: var(--band--Gap--horizontal, var(--spacing--horizontal));
+        align-items: var(--band--AlignItems, center);
+        justify-content: var(--band--JustifyContent, start);
     }
 
-    slot:has([name="header"]),
-    slot:not(:has([name])) {
-        ::slotted(.title) {
-            display: block;
-            font-family: var(--theme--font-family--heading);
-            font-size: 1.1em;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--theme--color--text);
-            padding: 0.1em var(--spacing--horizontal);
-            border-radius: var(--border-radius);
-            background-color: color-mix(in srgb, var(--theme--color--ui-accent) var(--title-accent-opacity, 10%), var(--theme--color--surface));
-            inline-size: var(--title-inline-size, var(--title-inline-size, min(80ch, 100%)));
-            box-sizing: border-box;
-        }
-    }
+    slot:where([name="header"]) {
+        --band--AlignItems: stretch;
 
-    slot:has([name="header"]) {
         inline-size: min(80ch, 100%);
-        align-items: stretch;
 
         ::slotted(p) {
-            background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
+            background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
             align-self: start;
             text-align: start;
         }
@@ -82,6 +135,7 @@ styles.replaceSync(`
         }
     }
 
+    /* Default slot */
     slot:not(:has([name])) {
         flex-grow: 1;
         inline-size: 100%;
@@ -89,40 +143,41 @@ styles.replaceSync(`
     }
 
     :host([layout="space-between"]) slot:not(:has([name])) {
-        flex-flow: row wrap;
-        justify-content: space-between;
+        --band--Direction: row;
+        --band--Wrap: wrap;
+        --band--JustifyContent: space-between;
     }
 
     :host([layout="space-evenly"]) slot:not(:has([name])) {
-        flex-flow: row wrap;
-        justify-content: space-evenly;
+        --band--Direction: row;
+        --band--Wrap: wrap;
+        --band--JustifyContent: space-evenly;
     }
 
-    :host([layout="space-around"]) slot:not(:has([name])),
-    ::slotted([layout="space-around"]) {
-        flex-flow: row wrap;
-        justify-content: center;
-        align-items: stretch;
-        row-gap: calc(var(--spacing--horizontal) * 2);
-        column-gap: var(--spacing--horizontal);
-    }
-
-    ::slotted([layout="space-around"]) {
+    :host([layout="space-around"]) {
         --spacing--vertical: .2em;
         --spacing--horizontal: .2em;
 
-        display: flex;
         flex-grow: 1;
-        inline-size: 100%;
+
+        slot:not(:has([name])) {
+            --band--Direction: row;
+            --band--Wrap: wrap;
+            --band--JustifyContent: center;
+            --band--AlignItems: stretch;
+            --band--Gap--vertical: calc(var(--spacing--horizontal) * 2);
+            --band--Gap--horizontal: var(--spacing--horizontal);
+        }
     }
 
     :host([layout="auto-grid"]) slot:not(:has([name])) {
         --spacing--vertical: .5em;
 
-        display: grid;
+        --band--Display: grid;
+        --band--AlignItems: stretch;
+        --band--JustifyContent: space-around;
+
         grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(var(--card-Width, 325px), 1fr));
-        align-items: var(--align-items, stretch);
-        justify-content: var(--justify-content, space-around);
 
         ::slotted(a-card) {
             justify-self: center;

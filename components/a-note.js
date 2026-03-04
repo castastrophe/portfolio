@@ -9,9 +9,9 @@ styles.replaceSync(`
         max-inline-size: calc(100% - var(--spacing--horizontal) * 2);
 
         box-sizing: border-box;
-        background-color: color-mix(in sRGB, var(--theme--color--ui-accent) 10%, var(--note-background-base, var(--theme--color--surface)));
-        border: 1px solid var(--theme--color--ui-accent);
-        border-inline-start: 8px solid var(--theme--color--ui-accent);
+        background-color: color-mix(in sRGB, var(--theme--ui--Color) 10%, var(--note-background-base, var(--theme--surface--color)));
+        border: 1px solid var(--theme--ui--Color);
+        border-inline-start: 8px solid var(--theme--ui--Color);
         border-radius: var(--border-radius);
         padding: var(--spacing--vertical) var(--spacing--horizontal);
 
@@ -29,8 +29,8 @@ styles.replaceSync(`
     ::slotted(p + a),
     ::slotted(a:last-child) {
         display: inline-block;
-        background-color: var(--theme--color--ui-accent);
-        color: var(--theme--color--surface);
+        background-color: var(--theme--ui--Color);
+        color: var(--theme--surface--color);
         padding: 0.5em 1em;
         border-radius: var(--border-radius);
         text-decoration: none;
@@ -42,21 +42,21 @@ styles.replaceSync(`
         cursor: pointer;
 
         &:hover {
-            background-color: var(--theme--color--ui-accent--hover);
+            background-color: var(--theme--ui--Color--hover);
         }
 
         &:focus {
-            background-color: var(--theme--color--ui-accent--focus);
+            background-color: var(--theme--ui--Color--active);
         }
 
         &:focus-visible {
-            outline: 2px solid var(--theme--color--ui-accent--focus);
+            outline: 2px solid var(--theme--ui--Color--active);
             outline-offset: var(--outline-offset, 2px);
             border-radius: var(--border-radius);
         }
 
         &:active {
-            background-color: var(--theme--color--ui-accent--active);
+            background-color: var(--theme--ui--Color--active);
         }
 
         &:last-child {

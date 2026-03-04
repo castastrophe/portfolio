@@ -100,12 +100,16 @@ eleventyNavigation:
 </a-band>
 
 <a-band id="cta" padding="double" layout="space-evenly">
-    <a-note style="--note-background-base: var(--theme--color--surface)"></a-note>
+    <a-note style="--note-background-base: var(--theme--surface--color)"></a-note>
     <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>
 
 {% css %}
 #services {
+    --spacing--vertical: .5em;
+    --card--Width: min(50ch, 100%);
+    --card--BorderRadius: 8px;
+
     margin-block-start: 2em;
     
     a-card:first-of-type {
@@ -115,21 +119,18 @@ eleventyNavigation:
             display: block !important;
 
             > p {
-                background-color: color-mix(in sRGB, var(--theme--color--surface) 70%, transparent);
+                background-color: color-mix(in sRGB, var(--theme--surface--color) 70%, transparent);
             }
         }
     }
 
     [layout="space-around"] {
-        --spacing--vertical: .5em;
-        --card--MaxInlineSize: min(50ch, 100%);
-        --card--BorderRadius: 8px;
 
         inline-size: 100%;
         justify-content: space-evenly;
 
         @media screen and (width <= 992px) {
-            --card--MaxInlineSize: min(40ch, 100%);
+            --card--Width: min(40ch, 100%);
 
             font-size: .9em;
         }
@@ -155,9 +156,23 @@ eleventyNavigation:
     }
 }
 
+@media screen and (width >=992px) {
+  #presentations {
+      margin-block-start: 4em;
+  }
+}
+
 #posts {
-    tag-group {
-        font-size: .8em;
+    --spacing--vertical: 2em;
+    --grid-columns: 2;
+
+    a-card {
+        padding-block-start: 1em;
+        padding-block-end: 0;
+    }
+
+    @media screen and (width <= 992px) {
+        --grid-columns: 1;
     }
 }
 {% endcss %}

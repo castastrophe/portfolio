@@ -1,48 +1,106 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
+    @property --card--Padding {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: Clamp(.5em, .2vw, 3em);
+    }
+
+    @property --card--Width {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: 80ch;
+    }
+
+    @property --card--Display {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: flex;
+    }
+
+    @property --card--Direction {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: column;
+    }
+
+    @property --card--Wrap {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: nowrap;
+    }
+
+    @property --card--AlignItems {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: stretch;
+    }
+
+    @property --card--JustifyContent {
+        syntax: "<string>";
+        inherits: false;
+        initial-value: start;
+    }
+
+    @property --card--Gap--horizontal {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: var(--spacing--horizontal);
+    }
+
+    @property --card--Gap--vertical {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: var(--spacing--vertical);
+    }
+
     :host {
         --card--Padding: Clamp(.5em, .2vw, 3em);
 
         box-sizing: border-box;
-        display: flex;
-        flex-flow: column nowrap;
-        column-gap: var(--spacing--horizontal);
-        row-gap: var(--spacing--vertical);
+        inline-size: min(var(--card--Width, 80ch), 100%);
 
-        justify-content: start;
+        display: var(--card--Display, flex);
+        flex-direction: var(--card--Direction, column);
+        flex-wrap: var(--card--Wrap, nowrap);
+        row-gap: var(--card--Gap--vertical, var(--spacing--vertical));
+        column-gap: var(--card--Gap--horizontal, var(--spacing--horizontal));
+        align-items: var(--card--AlignItems, stretch);
+        justify-content: var(--card--JustifyContent, start);
+
+        padding-block: var(--card--Padding);
+        /* Note: inline padding appears on the individual slots, not the host */
 
         font-size: Clamp(1em, 1vw, 1.3em);
-        inline-size: min(var(--card--MaxInlineSize, 80ch), 100%);
         color: var(--card--TextColor);
-        padding-block: var(--card--Padding);
-        background: var(--card--BackgroundColor, var(--theme--color--surface));
-        border: var(--card--BorderWidth, 1px) solid var(--card--BorderColor, var(--theme--color--surface));
+        background: var(--card--Background, var(--theme--surface--color));
+
+        border: var(--card--BorderWidth, 1px) solid var(--card--BorderColor, var(--theme--surface--color));
         border-radius: var(--card--BorderRadius, 0);
 
         container: card / inline-size;
     }
 
     :host([layout="video-content"]) {
-        --card--MaxInlineSize: calc(80ch + var(--card-video-inline-size));
-        --card-video-inline-size: min(400px, 100%);
-
-        padding: 0;
+        --card--Width: calc(80ch + var(--card--video--Width));
+        --card--video--Width: 400px, 100%);
+        --card--Padding: 0;
     }
 
     @container card (width < 800px) {
-        :host([layout="video-content"]) .video-container {
+        :host([layout="video-content"]) ::slotted(.video-container) {
             margin-inline: calc(var(--card--Padding) * -1);
             margin-block-start: calc(var(--card--Padding) * -1);
         }
     }
 
     @container card (width >= 800px) {
-        :host([layout="video-content"]) .body {
+        :host([layout="video-content"]) slot:where(:not([name])) {
             flex-flow: row nowrap;
             column-gap: calc(var(--spacing--horizontal) * 2);
 
             ::slotted(.video-container) {
-                inline-size: min(var(--card-video-inline-size), 100%);
+                inline-size: min(var(--card--video--Width), 100%);
                 block-size: auto;
             }
 
@@ -52,69 +110,45 @@ styles.replaceSync(`
 
             ::slotted(.content) {
                 flex-grow: 1;
-                inline-size: calc(100% - var(--card-video-inline-size));
+                inline-size: calc(100% - var(--card--video--Width));
                 padding: var(--card--Padding);
             }
         }
     }
 
-    .body {
+    slot:where(:not([name])) {
         flex-grow: 1;
-        display: flex;
-        flex-flow: column nowrap;
-        row-gap: var(--spacing--vertical);
-        column-gap: var(--spacing--horizontal);
     }
 
-    :host(:not([overflow])) {
-        [slot="header"],
-        .body,
-        [slot="footer"] {
-            padding-inline: var(--card--Padding);
-        }
+    :host(:not([overflow])) slot {
+        padding-inline: var(--card--Padding);
     }
 
     ::slotted(.title) {
-        display: inline-block;
-        font-family: var(--theme--font-family--heading);
-        font-size: .8em;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-block-start: 0;
-        margin-block-end: 1em;
-        line-height: 1.8;
-        padding: 0.2em calc(var(--spacing--horizontal) * 2);
-        background-color: color-mix(in srgb, var(--theme--color--ui-accent) 10%, var(--theme--color--surface));
-        box-sizing: border-box;
-        inline-size: 100%;
+        --title--LineHeight: 1.8;
+        --title--Padding: 0.2em calc(var(--spacing--horizontal) * 2);
+        --title--InlineSize: 100%;
     }
 
     ::slotted(.headline) {
-        font-family: var(--theme--font-family--heading);
         font-size: 1.4em;
         font-weight: 600;
-        line-height: 1.18;
 
-        margin-block: 0;
-    }
-
-    ::slotted(.headline-summary) {
-        font-size: 1.2em;
-        font-weight: 400;
+        margin-block-end: 0;
     }
 
     :host([featured], [accent]) ::slotted(.headline) {
-        color: var(--headline--accent);
+        color: var(--theme--heading--Color--accent);
     }
 
     :host([bordered]) {
         --card--BorderWidth: 2px;
-        --card--BorderColor: var(--theme--color--ui-subtle);
-        --card--BackgroundColor: var(--theme--color--surface);
+        --card--BorderColor: var(--theme--ui--Color--subtle);
+        --card--Background: var(--theme--surface--color);
     }
 
     :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--color--ui-accent) 60%, var(--theme--color--surface));
+        --card--BorderColor: color-mix(in srgb, var(--theme--ui--Color) 60%, var(--theme--surface--color));
     }
 
     :host([overflow]) {
@@ -123,12 +157,11 @@ styles.replaceSync(`
         overflow: hidden;
         padding-block: 0;
 
-        [slot="header"] {
+        slot:where([name="header"]) {
             padding-inline: 0;
         }
 
-        .body,
-        [slot="footer"] {
+        slot:where([name="footer"], :not([name])) {
             padding-inline: var(--card--Padding);
         }
     }
@@ -178,9 +211,7 @@ customElements.define(
             const templateElement = document.createElement("template");
             templateElement.innerHTML = `
                 <slot name="header"></slot>
-                <div class="body">
-                    <slot></slot>
-                </div>
+                <slot></slot>
                 <slot name="footer"></slot>`;
 
             this.shadowRoot.appendChild(templateElement.content.cloneNode(true));

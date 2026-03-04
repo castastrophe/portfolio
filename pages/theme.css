@@ -1,0 +1,175 @@
+@property --theme--text--Color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: light-dark(#333, #fff);
+}
+
+@property --theme--text--Color--accent {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
+}
+
+@property --theme--surface--color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: light-dark(#fff, #111);
+}
+
+@property --theme--surface--color--accent {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: light-dark(hsl(313deg 68% 78%), hsl(313deg 80% 48%));
+}
+
+@property --theme--ui--Color--subtle {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: light-dark(#efefef, #afafaf);
+}
+
+@property --theme--container--space {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 16px;
+}
+
+@property --theme--content--space {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 10px;
+}
+
+@property --theme--text--FontFamily {
+    syntax: "<string>";
+    inherits: false;
+    initial-value: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+}
+
+@property --theme--text--LineHeight {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1.1;
+}
+
+@property --theme--heading--FontFamily {
+    syntax: "<string>";
+    inherits: false;
+    initial-value: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+}
+
+@property --theme--heading--LineHeight {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1.4;
+}
+
+@property --spacing--vertical {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 10px;
+}
+
+@property --spacing--horizontal {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 10px;
+}
+
+@property --border-radius {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0.2em;
+}
+
+@property --outline-offset {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 2px;
+}
+
+@property --title--Padding {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0.1em var(--spacing--horizontal);
+}
+
+@property --title--Background {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: color-mix(in srgb, var(--theme--ui--Color) 10%, var(--theme--surface--color));
+}
+
+@property --title--InlineSize {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 80ch;
+}
+
+@property --title--Opacity {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 10%;
+}
+
+:root {
+    --theme--surface--color: light-dark(hsl(0, 0%, 100%), hsl(0, 0%, 7%));
+    --theme--surface--color--accent: light-dark(hsl(313deg 68% 78%), hsl(313deg 80% 48%));
+
+    --theme--ui--Color: light-dark(hsl(313deg 57% 44%), hsl(313deg 96% 72%));
+    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 94%), hsl(0, 0%, 69%));
+    --theme--ui--Color--hover: light-dark(hsl(313deg 57% 30%), hsl(313deg 96% 62%));
+    --theme--ui--Color--active: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+
+    --theme--text--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--text--FontFamily--signature: "Dancing Script", cursive;
+    --theme--text--LineHeight: 1.1;
+
+    /* Roboto font weight mappings, 100-900 */
+    --theme--FontWeight--thin: 100;
+    --theme--FontWeight--extra-light: 200;
+    --theme--FontWeight--light: 300;
+    --theme--FontWeight: 400;
+    /* Dancing Script starts at 400; PT Mono only has 400 */
+    --theme--FontWeight--medium: 500;
+    --theme--FontWeight--semi-bold: 600;
+    --theme--FontWeight--bold: 700;
+    /* Dancing Script ends at 700 */
+    --theme--FontWeight--extra-bold: 800;
+    --theme--FontWeight--black: 900;
+
+    --theme--text--Color: light-dark(hsl(0, 0%, 20%), hsl(0, 0%, 100%));
+    --theme--text--Color--accent: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
+
+    --theme--code--FontFamily: "PT Mono", monospace;
+
+    --theme--link--Color: light-dark(hsl(313deg 80% 48%), hsl(313deg 68% 78%));
+    --theme--link--Color--hover: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+    --theme--link--Color--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+    --theme--link--Color--visited: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+
+    --theme--heading--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--heading--LineHeight: 1.4;
+
+    --theme--heading--Color: var(--theme--text--Color);
+    --theme--heading--Color--accent: var(--theme--text--Color--accent);
+
+    --theme--container--space: 16px;
+    --theme--content--space: 10px;
+
+    /* note: these are relative, inheritable values */
+    --spacing--vertical: var(--theme--content--space);
+    --spacing--horizontal: var(--theme--content--space);
+
+    --border-radius: 0.2em;
+    --outline-offset: 2px;
+
+    --theme--ui--Color: light-dark(hsl(313deg 57% 44%), hsl(313deg 96% 72%));
+    --theme--ui--Color--hover: light-dark(hsl(313deg 57% 30%), hsl(313deg 96% 62%));
+    --theme--ui--Color--active: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+
+    --theme--link--Color: var(--theme--text--Color--accent);
+    --theme--link--Color--hover: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+    --theme--link--Color--focus: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+    --theme--link--Color--visited: light-dark(hsl(313deg 80% 50%), hsl(313deg 68% 78%));
+}

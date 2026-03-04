@@ -27,26 +27,15 @@ customSheets:
 
 {% css %}
 #contact {
-  font-size: 1.3em;
-  border-block-start: 2px solid color-mix(in sRGB, var(--theme--color--ui-accent) 80%, transparent);
-  margin-block-start: 1em;
-
-  .body {
-    inline-size: 100%;
-  }
-
-  .body:has(> .icon-group) {
     --spacing-horizontal: 20px;
     --spacing-vertical: 20px;
 
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: start;
+    font-size: 1.3em;
+    border-block-start: 2px solid color-mix(in sRGB, var(--theme--ui--Color) 80%, transparent);
+    margin-block-start: 1em;
 
     > .icon-group {
       flex-grow: 1;
     }
-  }
 }
 {% endcss %}

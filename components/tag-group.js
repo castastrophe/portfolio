@@ -1,10 +1,10 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
-        --tag-background-color: var(--theme--color--ui-accent);
-        --tag-background-base: var(--theme--color--surface);
+        --tag-background-color: var(--theme--ui--Color);
+        --tag-background-base: var(--theme--surface--color);
         --tag-background-opacity: 10%;
-        --tag-text-color: var(--headline);
+        --tag-text-color: var(--theme--text--Color);
 
         margin-block: 1em;
 
@@ -21,7 +21,7 @@ styles.replaceSync(`
 
     .tags:is([name="footer"]) {
         margin-block-end: 1em;
-        border-block-start: 1px solid var(--theme--color--ui-subtle);
+        border-block-start: 1px solid var(--theme--ui--Color--subtle);
         padding-block-start: 0.5em;
         flex-grow: 1;
     }
@@ -49,7 +49,7 @@ styles.replaceSync(`
         display: none;
         font-size: 1em;
         font-weight: 100;
-        color: var(--theme--color--text);
+        color: var(--theme--text--Color);
         line-height: 1.8;
     }
 

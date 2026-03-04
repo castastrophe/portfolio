@@ -27,6 +27,20 @@ eleventyNavigation:
 {% css %}
 #posts {
     --spacing--vertical: 2em;
+    --grid-columns: 2;
+
+    a-card {
+        padding-block-start: 1em;
+        padding-block-end: 0;
+    }
+
+    tag-group {
+        font-size: .8em;
+    }
+
+    @media screen and (width <= 992px) {
+        --grid-columns: 1;
+    }
 }
 
 #cta {

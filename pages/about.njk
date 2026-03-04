@@ -51,7 +51,7 @@ eleventyNavigation:
             </div>
         </div>
         <div class="projects">
-            <h4 class="subheadline">Recent projects</h4>
+            <h4 class="headline subheadline">Recent projects</h4>
             <div layout="row">
                 <a-card bordered overflow>
                     <div slot="header">
@@ -81,7 +81,7 @@ eleventyNavigation:
             </div>
         </div>
         <div class="presentations">
-            <h4 class="subheadline">Recent presentations</h4>
+            <h4 class="headline subheadline">Recent presentations</h4>
             <div layout="row">
                 {% for presentation in presentations | featured %}
                 <a-card overflow>
@@ -157,7 +157,7 @@ eleventyNavigation:
     .bio {
         border-radius: var(--border-radius);
         padding-inline: 1em;
-        background-color: color-mix(in srgb, var(--theme--color--surface) 80%, transparent);
+        background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
         margin-block-start: 1em;
 
         &:not(:first-of-type) {
@@ -165,7 +165,7 @@ eleventyNavigation:
         }
 
         .container {
-            border-block-start: 1px solid var(--theme--color--ui-subtle);
+            border-block-start: 1px solid var(--theme--ui--Color--subtle);
             padding-block-start: 1em;
             display: flex;
             flex-flow: row wrap;
@@ -178,7 +178,7 @@ eleventyNavigation:
 
                 [slot="footer"] {
                     font-size: .8em;
-                    border-block-start: 1px solid color-mix(in srgb, var(--theme--color--ui-accent) 20%, transparent);
+                    border-block-start: 1px solid color-mix(in srgb, var(--theme--ui--Color) 20%, transparent);
                     padding-block-start: .5em;
                     inline-size: 80cqi;
                     margin-inline: auto;
@@ -195,11 +195,12 @@ eleventyNavigation:
 
     .projects,
     .presentations {
-        --card--MaxInlineSize: min(365px, 100%);
+        --card--Width: min(365px, 100%);
 
         inline-size: 100%;
 
         .subheadline {
+            font-size: 1.4em;
             margin-block: 1.5em .5em;
         }
 
@@ -230,16 +231,15 @@ eleventyNavigation:
 
 #projects {
   @media screen and (width >=992px) {
-    --card--MaxInlineSize: min(max(300px, 30%), 100%);
+    --card--Width: min(max(300px, 30%), 100%);
 
     a-card[featured] {
-      --card--MaxInlineSize: min(max(450px, 47%), 100%);
+      --card--Width: min(max(450px, 47%), 100%);
     }
   }
 }
 
-.content .extra,
-.bio .headline-summary {
+.content .extra {
   font-size: 1.4em;
   font-weight: 900;
   line-height: 1;
