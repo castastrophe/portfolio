@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 4
 ---
 
-<style>
+{% css %}
     #presentation {
         div[slot="header"] {
             --spacing--vertical: .5em;
@@ -24,9 +24,9 @@ eleventyNavigation:
             font-size: .8em;
         }
     }
-</style>
+{% endcss %}
 
-<a-band width="full" id="presentation">
+<a-band full id="presentation">
     <div slot="header">
         <h2 class="title">Presentations</h2>
         <a-card bordered>
@@ -38,7 +38,7 @@ eleventyNavigation:
         </a-card>
     </div>
     {% for presentation in presentations %}
-        <a-card bordered layout="video-content">
+        <a-card bordered video>
             {% if presentation.youtube_id %}
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>

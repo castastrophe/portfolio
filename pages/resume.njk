@@ -1,0 +1,392 @@
+---
+layout: resume
+eleventyExcludeFromCollections: true
+pagination:
+  data: resume
+  size: 1
+  alias: resume
+permalink: "resume/{{ resume.slug | slugify }}.html"
+---
+
+<tr>
+  <td>
+    <section id="cover-letter" stacked>
+      <p class="addressee">Dear <span>{{ resume.addressee | default('Hiring Manager') }}</span>,</p>
+      {% if resume.cover_letter %}<div class="content">{{ resume.cover_letter | md | safe }}</div>{% endif %}
+      <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p>
+    </section>
+  </td>
+</tr>
+
+{% css %}
+  #cover-letter {
+    text-wrap: balance;
+    max-inline-size: 80ch;
+
+    @media print {
+      break-after: always;
+    }
+
+    .content p {
+      margin-block-end: 1rem;
+    }
+
+    .addressee,
+    .signature {
+      font-family: var(--theme--heading--FontFamily);
+      font-size: 1.2rem;
+      font-weight: var(--theme--FontWeight--semi-bold);
+
+      display: inline-block;
+    }
+
+    .signature {
+      font-weight: var(--theme--FontWeight);
+
+      .name {
+        font-family: var(--theme--text--FontFamily--signature);
+        font-size: 2rem;
+        font-weight: var(--theme--FontWeight--thin);
+      }
+    }
+
+    @media not print {
+      margin-block-end: 20vh;
+    }
+  }
+{% endcss %}
+
+{% if resume.about %}
+  <tr>
+    <td>
+      <section id="about">
+        <div class="section-header">
+          <h2 class="section-title scroll-accent">
+            <a href="#about">About me</a>
+          </h2>
+        </div>
+        <div class="content focused">{{ resume.about | md | safe }}</div>
+      </section>
+    </td>
+  </tr>
+
+  {% css %}
+    #about {
+      text-wrap: balance;
+
+      @media print {
+        break-before: always;
+      }
+    }
+  {% endcss %}
+{% endif %}
+
+{% if resume.experience %}
+  <tr>
+    <td>
+      <section id="experience">
+        <div class="section-header">
+          <h2 class="section-title scroll-accent">
+            <a href="#experience">Experience</a>
+          </h2>
+        </div>
+
+        <div stacked>
+          {% set grouped = resume.experience | groupByCompany %}
+          {% for group in grouped %}
+            <div class="job-item{% if group.featured %} featured{% endif %}">
+              {% if group.company %}
+              <div class="job-company">
+                  <span>{{ group.company }}</span>
+              </div>
+              {% endif %}
+
+              <div class="job-header">
+                {% if group.roles %}
+                <span class="job-title">
+                    <span{% if group.roles.length > 1 %} class="job-title-role"{% endif %}>{{ group.roles[0].title }}</span>
+                </span>
+                {% endif %}
+                {% if group["start-date"] or group["end-date"] %}
+                <span class="job-dates">
+                  {% set startDate = group["start-date"] %}
+                  {% set endDate = group["end-date"] %}
+                  {% if startDate %}<span>{{ startDate | shortDate }}</span>{% endif %}
+                  {% if endDate %}<span>{{ endDate | shortDate }}</span>{% endif %}
+                </span>
+                {% endif %}
+              </div>
+
+              {% if group.roles.length > 1 %}
+                  <a-timeline>
+                      {% for role in group.roles %}
+                          <div class="role-panel" {% if loop.first %} active {% endif %} data-title="{{ role.title }}">
+                              <p class="job-summary">{{ role.summary | md | safe }}</p>
+                              <ul class="job-highlights">
+                                  {% for highlight in role.highlights %}
+                                      <li>{{ highlight }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </div>
+                      {% endfor %}
+                  </a-timeline>
+              {% else %}
+                  <p class="job-summary">{{ group.roles[0].summary | md | safe }}</p>
+                  <ul class="job-highlights">
+                      {% for highlight in group.roles[0].highlights %}
+                          <li>{{ highlight }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </td>
+  </tr>
+  {% css %}
+    .job-company,
+    .job-header {
+      font-family: var(--theme--heading--FontFamily);
+    }
+
+    .job-company {
+      font-size: 1.1rem;
+      font-weight: var(--theme--FontWeight);
+      margin-block-end: 0.2rem;
+    }
+
+    .job-header {
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-block-end: 1rem;
+    }
+
+    .job-title {
+      font-weight: var(--theme--FontWeight--bold);
+    }
+
+    .job-dates {
+      font-weight: var(--theme--FontWeight--light);
+
+      span:has(+ span)::after {
+        content: "–";
+        margin-inline: 0.5rem;
+      }
+    }
+
+    .job-summary {
+      text-wrap: pretty;
+      font-weight: var(--theme--FontWeight--thin);
+      margin: 0.5rem 0;
+    }
+
+    .job-highlights {
+      list-style: disc;
+      margin-inline-start: 1.5rem;
+
+      li:not(:last-child) {
+        margin-block-end: 0.25rem;
+      }
+    }
+
+  @media print {
+    .job-item {
+        break-inside: avoid;
+
+      &:not(.featured) {
+        display: none;
+      }
+    }
+
+    .job-highlights {
+      break-inside: avoid;
+    }
+  }
+  {% endcss %}
+{% endif %}
+
+<tr>
+  <td>
+    <div class="columns">
+      <div class="columns-item">
+
+        <section id="education">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#education">Education</a>
+            </h2>
+          </div>
+          <div>
+          {% for entry in resume.training %}
+          {% if entry.title or entry.institution %}
+            <p class="education-item">
+              {% if entry.title %}<strong>{{ entry.title }}</strong>{% endif %}
+              {% if entry.title and entry.institution %}<br class="separator"/>{% endif %}
+              {% if entry.institution %}<span>{{ entry.institution }}</span>{% endif %}{% if entry.institution and (entry["start-date"] or entry["end-date"]) %}<span class="separator">, </span>{% endif %}
+
+              {% set startDate = entry["start-date"] %}
+              {% set endDate = entry["end-date"] %}
+              {% if startDate or endDate %}
+              <span class="education-dates">
+                {% if startDate %}
+                  <span>{{ startDate | yearFormat }}</span>
+                {% endif %}
+                {% if startDate and endDate %}
+                  <span class="separator">–</span>
+                {% endif %}
+                {% if endDate %}
+                  <span>{{ endDate | yearFormat }}</span>
+                {% endif %}
+              </span>
+              {% endif %}
+            </p>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </section>
+
+        <section id="contact">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#contact">Contact</a>
+            </h2>
+          </div>
+          <div class="contact-grid">
+            {% for contact in candidate.contact %}
+              {% set href = '//' + contact.value | clean %}
+              {% set content = contact.value | clean %}
+              {% if contact.type == 'email' %}
+                {% set href = 'mailto:' + contact.value | toEmail %}
+                {% set content = contact.value | toEmail %}
+              {% elif contact.type == 'phone' %}
+                {% set href = 'tel:' + contact.value | digitsOnly %}
+                {% set content = contact.value | digitsOnly %}
+              {% endif %}
+
+              <div class="contact-item">
+                {% if contact.icon %}<span class="{{ contact.icon }}" aria-hidden="true"></span>{% endif %}
+                {% if contact.label %}<span class="visually-hidden">{{ contact.label }}</span>{% endif %}
+                {% if href %}<a href="{{ href }}">{{ content }}</a>{% else %}{{ content }}{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+
+      </div>
+
+      <div class="columns-item">
+
+        <section id="skills">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#skills">Skills</a>
+            </h2>
+          </div>
+          <ul class="skills-grid">
+            {% for entry in resume.skills %}
+              <li>
+                {% if entry.category %}<h3>{{ entry.category }}</h3>{% endif %}
+                <ul>
+                {% for skill in entry.items %}
+                  <li>{{ skill }}</li>
+                {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </td>
+</tr>
+
+{% css %}
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    break-inside: avoid;
+
+    /* Animate section titles from right to left on even sections */
+    .columns-item:nth-child(even) .section-title {
+        --animation-direction: 1;
+        transform-origin: right;
+
+        &::before {
+            inset-inline-end: inherit;
+            inset-inline-start: -0.5rem;
+        }
+    }
+  }
+
+  .education-item {
+    font-size: 1.2rem;
+
+    @media print {
+      font-size: 1rem;
+    }
+
+    strong {
+      font-family: var(--theme--heading--FontFamily);
+    }
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    @media print {
+      gap: .3rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        @media print {
+          font-size: 1rem;
+        }
+
+        svg {
+            width: 1em;
+            height: 1em;
+            flex-shrink: 0;
+        }
+    }
+  }
+
+  .skills-grid {
+    &,
+    & ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      row-gap: 1rem;
+      column-gap: 0.8rem;
+    }
+
+    li {
+      line-height: var(--theme--text--LineHeight);
+      margin-block-end: 0;
+    }
+  }
+{% endcss %}
+
+{% js %}
+  // Update the job header title when a timeline role is selected
+  document.addEventListener('role-change', (e) => {
+    const header = e.target.closest('.job-item')?.querySelector('.job-title-role');
+    if (header) header.textContent = e.detail.title;
+  });
+{% endjs %}

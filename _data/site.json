@@ -1,6 +1,7 @@
 {
-	"title": "Allons-Y Consulting",
-	"description": "Allons-y Consulting, LLC is a small consulting shop that specializes in building scalable design systems in code.",
+	"title": "Allons-y Consulting",
+    "tagline": ["Design systems", "Front-end", "Project management"],
+	"description": "Allons-y Consulting is a small consulting shop that specializes in building scalable design systems in code.",
 	"language": "en",
     "author": "Cassondra Roberts",
     "keywords": "css, web development, portfolio",

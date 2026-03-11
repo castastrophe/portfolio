@@ -1,24 +1,28 @@
 import path from "node:path";
 import { writeFile } from "node:fs/promises";
+
 import postcss from "postcss";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
+import dotenv from "dotenv";
 
+import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import { InputPathToUrlTransformPlugin, RenderPlugin } from "@11ty/eleventy";
+import Image, { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import eleventyNavigation from "@11ty/eleventy-navigation";
+
 import brokenLinks from "eleventy-plugin-broken-links";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
-import { eleventyImageTransformPlugin as imagePlugin } from "@11ty/eleventy-img";
-import eleventyNavigation from "@11ty/eleventy-navigation";
-
-// Make sure we use the same formatter logic for the dynamic content as the pre-compiled outputs
-import formatter from "./pages/resume/formatter.js";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function (config) {
+	dotenv.config();
 	config.setDataFileBaseName("index");
+
+	config.addWatchTarget("pages/background.svg");
+	config.addWatchTarget("pages/logo.svg");
 
 	// Layout aliases make templates more portable.
 	config.addLayoutAlias("base", "layouts/base.njk");
@@ -55,7 +59,12 @@ export default async function (config) {
 		transforms: [
 			async function (content) {
 				if (!content?.trim()) return content;
-				return processCSS(content, this.page.inputPath, this.page?.outputPath);
+				try {
+					return await processCSS(content, this.page.inputPath, this.page?.outputPath);
+				} catch (err) {
+					console.warn(`[css] ${this.page.inputPath}: ${err.message}`);
+					return content;
+				}
 			}
 		]
 	});
@@ -94,14 +103,12 @@ export default async function (config) {
 
 	config.setLibrary('md', markdown.use(markdownItAnchor));
 
-	config.addCollection("posts", function (collectionApi) {
-		// Exclude the index file
-		return collectionApi.getFilteredByGlob("pages/posts/*");
-	});
-
-	config.addCollection("proposals", function (collectionApi) {
-		// Exclude the index file
-		return collectionApi.getFilteredByGlob("pages/proposals/*");
+	// Create collections for content inside directories
+	['posts', 'proposals'].forEach(collection => {
+		config.addCollection(collection, function (collectionApi) {
+			// Exclude the index file from the collection
+			return collectionApi.getFilteredByGlob(`pages/${collection}/*`).filter(item => item.url !== `/${collection}/`);
+		});
 	});
 
 	config.addPlugin(InputPathToUrlTransformPlugin);
@@ -116,106 +123,180 @@ export default async function (config) {
 		ul: false,
 	});
 
-	// Resume: Eleventy image optimization
-	config.addPlugin(imagePlugin, {
-		urlPath: "/img/",
+	const imageOptions = {
+		urlPath: "/images/",
 		outputDir: "./public/images/",
-		failOnError: false,
-	});
+		formats: ["webp", "png"],
+		failOnError: true,
+	};
 
-	config.addFilter("toISOString", formatter.toISOString);
-	config.addFilter("toEmail", formatter.toEmail);
-	config.addFilter("toJson", (input) => {
-		return JSON.stringify(input, null, 2);
-	});
-	config.addFilter("featured", function (value) {
-		return value?.filter(item => item.featured);
-	});
+	// Resume: Eleventy image optimization
+	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
 
-	// Create a mini template for formatting start and end dates with logic
-	config.addShortcode("dates", function(startDate, endDate, classPrefix = '', asTemplate = false) {
-		// Either a start or end date is required to render this template
-		if (!startDate && !endDate) return '';
-
-		// as template returns mark-up without embedded content and with identifiers for keys
-		// 	<span class="job-dates">
-		// 	  <span data-replace-key="start-date" data-type="date"></span><span class="separator">–</span><span data-replace-key="end-date" data-type="date"></span>
-		//  </span>
-		return `<span class="${[classPrefix, 'dates'].filter(Boolean).join('-')}">
-			${startDate ? `<span${asTemplate ? ' data-replace-key="start-date" data-type="date"' : ''}>${formatter.date(startDate)}</span>` : ''}
-			${startDate && endDate ? '<span class="separator">–</span>' : ''}
-			${endDate ? `<span${asTemplate ? ' data-replace-key="end-date" data-type="date"' : ''}>${formatter.date(endDate)}</span>` : ''}
-		</span>`;
-	});
-
-	// Create a mini template for formatting start and end dates with logic
-	config.addShortcode("years", function(startDate, endDate, classPrefix = '', asTemplate = false) {
-		// Either a start or end date is required to render this template
-		if (!startDate && !endDate) return '';
-
-		// as template returns mark-up without embedded content and with identifiers for keys
-		// 	<span class="job-dates">
-		// 	  <span data-replace-key="start-date" data-type="date"></span><span class="separator">–</span><span data-replace-key="end-date" data-type="date"></span>
-		//  </span>
-		return `<span class="${[classPrefix, 'dates'].filter(Boolean).join('-')}">
-			${startDate ? `<span${asTemplate ? ' data-replace-key="start-date" data-type="year"' : ''}>${formatter.year(startDate)}</span>` : ''}
-			${startDate && endDate ? '<span class="separator">–</span>' : ''}
-			${endDate ? `<span${asTemplate ? ' data-replace-key="end-date" data-type="year"' : ''}>${formatter.year(endDate)}</span>` : ''}
-		</span>`;
-	});
-
-	config.addShortcode("contact", function(contact, label, type, icon) {
-		if (!contact) return '';
-
-		let href, content = String(contact ?? '').trim();
-		if (type) {
-			switch (type) {
-				case 'url':
-					href = `https://${formatter.noSpace(contact)}`;
-					content = formatter.noSpace(contact);
-					break;
-				case 'phone':
-					href = `tel:+1${formatter.digitsOnly(contact)}`;
-					content = formatter.toPhone(contact);
-					break;
-				case 'email':
-					href = `mailto:${formatter.toEmail(contact)}`;
-					content = formatter.toEmail(contact);
-					break;
+	config.addShortcode("image", async function (src, alt, widths = [320, 320], sizes = "") {
+		return Image(src, {
+			...imageOptions,
+			urlPath: "../public/images/",
+			widths,
+			returnType: "html",
+			htmlOptions: {
+				imgAttributes: { alt, sizes }
 			}
+		});
+	});
+
+	/**
+	 * Convert a string date to an ISO string for use in HTML metadata
+	 * @param {string} date - The date to convert
+	 * @returns {string} The ISO string
+	 */
+	config.addFilter("toISOString", (date) => {
+		return date ? new Date(date).toISOString() : '';
+	});
+
+	/**
+	 * Convert a string date to a year for use in HTML metadata
+	 * @param {string} date - The date to convert
+	 * @returns {string} The year
+	 */
+	config.addFilter("yearFormat", (date) => {
+		return date ? new Date(date).getFullYear() : '';
+	});
+
+	/**
+	 * Convert a string date to a month and year for use in HTML metadata
+	 * @param {string} date - The date to convert
+	 * @returns {string} The month and year
+	 */
+	config.addFilter("shortDate", (date) => {
+		if (date === 'present') return date;
+		return date ? new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
+	});
+
+	/**
+	 * Convert e-mail with alias'ed @ symbol ("-at-") to a valid e-mail address
+	 * @param {string} email - The e-mail address to convert
+	 * @returns {string} The converted e-mail address
+	 */
+	config.addFilter("toEmail", (email) => {
+		return email ? email.replace(/-at-/g, '@').replace(/\s/g, '').toLowerCase() : '';
+	});
+
+	/**
+	 * Filter to get featured items from a collection
+	 * @param {object[]} value - The collection to filter
+	 * @returns {object[]} The featured items
+	 */
+	config.addFilter("featured", function (value) {
+		return value?.filter(item => {
+			if (item.data?.featured) return true;
+			if (item.data?.tags?.includes('featured')) return true;
+			if (item.featured) return true;
+			return false;
+		});
+	});
+
+	// Group experience entries by company for timeline display
+	config.addFilter("groupByCompany", function(experience) {
+		if (!experience?.length) return [];
+
+		const groups = new Map();
+
+		for (const job of experience) {
+			const key = job.company;
+			if (!groups.has(key)) {
+				groups.set(key, {
+					company: key,
+					category: job.category,
+					featured: false,
+					roles: []
+				});
+			}
+			const group = groups.get(key);
+			group.roles.push(job);
+			if (job.featured) group.featured = true;
 		}
 
-		if (!label) {
-			// Warn the build process that a label is required
-			console.warn(`[Contact] Label is required for contact: ${contact} [${this.page?.inputPath}]`);
+		for (const group of groups.values()) {
+			// Sort roles by start-date descending (most recent first)
+			group.roles.sort((a, b) => {
+				const dateA = a["start-date"] || "";
+				const dateB = b["start-date"] || "";
+				if (dateA === "present") return -1;
+				if (dateB === "present") return 1;
+				return dateB.localeCompare(dateA);
+			});
+
+			// Compute company-wide date range
+			let earliest = null;
+			let latest = null;
+
+			for (const role of group.roles) {
+				const start = role["start-date"];
+				const end = role["end-date"];
+
+				if (start && start !== "present") {
+					if (!earliest || start < earliest) earliest = start;
+				}
+
+				if (end === "present") {
+					latest = "present";
+				} else if (end && latest !== "present") {
+					if (!latest || end > latest) latest = end;
+				}
+			}
+
+			group["start-date"] = earliest;
+			group["end-date"] = latest;
 		}
 
-		return `<div class="contact-item">
-            ${icon ? `<span class="${icon}" aria-hidden="true"></span>` : ''}
-            ${label ? `<span class="visually-hidden">${label}</span>` : ''}
-            ${href ? `<a href="${href}">${content}</a>` : `${content}`}
-		</div>`;
+		return Array.from(groups.values());
 	});
 
 	// Resume filters
-	config.addFilter("first", formatter.first);
-	config.addFilter("last", formatter.last);
-	config.addFilter("clean", formatter.clean);
-
-	config.addFilter("md", (string) => {
-		return markdown?.render(string) ?? String(string);
+	config.addFilter("first", (string) => {
+		return string?.split(' ')?.[0];
+	});
+	config.addFilter("last", (string) => {
+		return string?.split(' ')?.[string.split(' ').length - 1];
+	});
+	config.addFilter("clean", (string) => {
+		return string?.replace(/\s/g, '');
 	});
 
-	config.addFilter("formatDate", formatter.date);
+	config.addFilter("md", (string) => {
+		if (!string || typeof string !== 'string') return string;
 
-	config.addFilter("digitsOnly", formatter.digitsOnly);
+		// If newlines are present as strings, convert them
+		const paragraphs = string.split('\\n\\n')?.map(paragraph => `<p>${paragraph.replace(/\\n/g, '<br>').trim()}</p>`);
+		if (!paragraphs || paragraphs.length === 0) return string;
+
+		return markdown.render(paragraphs.join(''));
+	});
+
+	/**
+	 * Filter to format a date for use in blog posts
+	 * @param {string} date - The date to format
+	 * @returns {string} The formatted date
+	 */
+	config.addFilter("postDate", (date) => {
+		return date ? new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+	});
+
+	/**
+	 * Filter to get only digits from a string
+	 * @param {string} string - The string to filter
+	 * @returns {string} The string with only digits
+	 */
+	config.addFilter("digitsOnly", (string) => {
+		return string?.replace(/\D/g, '');
+	});
 
 	config.addPassthroughCopy({
 		"node_modules/prismjs/themes/prism.css": "css/prism.css",
 		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
 		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
 		"node_modules/prismjs/prism.js": "js/prism.js",
-		"pages/resume/custom/*.json": "resume/custom/",
 		"pages/favicon.*": "/",
 		"pages/**/*.js": "js/",
 		"components/*.js": "js/components/"

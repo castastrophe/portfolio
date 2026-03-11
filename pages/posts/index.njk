@@ -6,13 +6,13 @@ eleventyNavigation:
   order: 3
 ---
 
-<a-band width="full" id="posts" padding="double" layout="auto-grid">
+<a-band full id="posts" padding="double" grid full>
     <h2 class="title" slot="header">Posts</h2>
     {% for article in collections.posts | reverse %}
         <a-card bordered>
             <div slot="header">
                 <h3 class="headline accent"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
-                <p class="date">{{ article.data.date | formatDate({ day: 'numeric' }) }}</p>
+                <p class="date">{{ article.data.date | postDate }}</p>
             </div>
             <p>{{ article.data.description }}</p>
             {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
@@ -27,25 +27,13 @@ eleventyNavigation:
 {% css %}
 #posts {
     --spacing--vertical: 2em;
-    --grid-columns: 2;
 
-    a-card {
-        padding-block-start: 1em;
-        padding-block-end: 0;
-    }
-
-    tag-group {
-        font-size: .8em;
+    &:is([full]) {
+        --columns: 2;
     }
 
     @media screen and (width <= 992px) {
-        --grid-columns: 1;
-    }
-}
-
-#cta {
-    a-note {
-        align-self: center;
+        --columns: 1;
     }
 }
 {% endcss %}

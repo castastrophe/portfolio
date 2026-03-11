@@ -1,4 +1,4 @@
-# Allons-Y Consulting | Portfolio Site
+# Allons-y Consulting | Portfolio site
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bd35124e-c577-496b-9371-ce9e18da1248/deploy-status)](https://app.netlify.com/projects/allons-y/deploys)
 
@@ -8,9 +8,9 @@
 
 ## About us
 
-Allons-Y Consulting, LLC is a front-end consultancy specializing in scalable design systems. We help teams build component libraries, establish CSS architecture, and bridge the gap between design and engineering — so that the two disciplines can move together and expand their impact.
+Allons-y Consulting, LLC is a front-end consultancy specializing in scalable design systems. We help teams build component libraries, establish CSS architecture, and bridge the gap between design and engineering — so that the two disciplines can move together and expand their impact.
 
-Founded by Cassondra, a front-end architect with deep experience in web components and design systems, Allons-Y is positioned to help your organization, big or small, scale your work quickly and beautifully.
+Founded by Cassondra, a front-end architect with deep experience in web components and design systems, Allons-y is positioned to help your organization, big or small, scale your work quickly and beautifully.
 
 ---
 
@@ -49,6 +49,16 @@ yarn test
 ```
 
 The development server will be available at `http://localhost:8080`.
+
+### Netlify Dev
+
+To test serverless functions locally, you need to authenticate with Netlify first:
+
+```bash
+yarn netlify login
+```
+
+Then use `yarn netlify dev` to run the local development server with function support. Note that all `netlify` commands should be prefixed with `yarn` to use the locally installed CLI package. See the [Netlify CLI docs](https://docs.netlify.com/api-and-cli-guides/cli-guides/get-started-with-cli/) for more details.
 
 ---
 

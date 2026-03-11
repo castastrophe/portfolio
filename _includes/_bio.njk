@@ -1,0 +1,68 @@
+<div class="bio">
+    <h3 class="headline">
+        <strong>{{ employee.name }}</strong>,
+        <span>{{ employee.title }}</span>
+    </h3>
+    <p class="headline-summary">{{ employee.skills_summary | join(' • ') }}</p>
+    <div class="container">
+        <a-card bordered overflow>
+            <img slot="header" src="../img/{{ employee.photo }}" alt="A photo {{ employee.name }} smiling and looking directly at the camera.">
+            <p class="cta"><a href="mailto:{{ employee.email | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a></p>
+            <div slot="footer">
+                {% set icons = employee.socials | featured %}
+                {% include "_icon-group.njk" %}
+            </div>
+        </a-card>
+        <div class="content">
+            <p>{{ employee.bio | md | safe }}</p>
+
+            {% if employee.achievements.length > 0 %}
+            <p><strong>Recent Achievements:</strong></p>
+            <ul>
+                {% for achievement in employee.achievements %}
+                <li>{{ achievement }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if employee.skills.length > 0 %}
+            <p><strong>Expertise:</strong></p>
+            <ul>
+                {% for skill in employee.skills %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+    {% if employee.projects.length > 0 %}
+    <div class="projects">
+        <h4 class="headline-summary">Recent projects</h4>
+        <div layout="row">
+            {% for project in employee.projects | featured %}
+            <a-card bordered overflow>
+                <div slot="header">
+                    <h3 class="title">{{ project.title }}</h3>
+                </div>
+                <h4 class="headline"><a href="{{ project.url }}" title="Click to view project">{{ project.headline }}</a></h4>
+                <p>{{ project.description }}</p>
+            </a-card>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if employee.presentations.length > 0 %}
+    <div class="presentations">
+        <h4 class="headline-summary">Recent presentations</h4>
+        <div layout="row">
+            {% for presentation in employee.presentations | featured if presentation.youtube_id %}
+            <a-card overflow video>
+                <div slot="header">
+                    <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </a-card>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

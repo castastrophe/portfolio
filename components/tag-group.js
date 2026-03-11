@@ -6,8 +6,6 @@ styles.replaceSync(`
         --tag-background-opacity: 10%;
         --tag-text-color: var(--theme--text--Color);
 
-        margin-block: 1em;
-
         display: flex;
         flex-flow: row nowrap;
         gap: 0.5rem;
@@ -17,6 +15,7 @@ styles.replaceSync(`
         display: flex;
         flex-flow: row wrap;
         gap: .5rem;
+        margin: 0;
     }
 
     .tags:is([name="footer"]) {
@@ -29,9 +28,9 @@ styles.replaceSync(`
     .tag {
         display: inline-block;
         font-size: 1em;
-        font-weight: 800;
+        font-weight: var(--theme--FontWeight--medium);
         color: var(--tag-text-color);
-        padding: 0.2em 0.4em;
+        padding: .3em .4em .2em;
         border-radius: var(--border-radius);
         background-color: color-mix(in sRGB, var(--tag-background-color) var(--tag-background-opacity), var(--tag-background-base));
 
@@ -48,7 +47,7 @@ styles.replaceSync(`
     .tag-label {
         display: none;
         font-size: 1em;
-        font-weight: 100;
+        font-weight: var(--theme--FontWeight--thin);
         color: var(--theme--text--Color);
         line-height: 1.8;
     }
@@ -107,7 +106,11 @@ customElements.define(
                 else this._tags = value.split(",").map(tag => tag.trim());
             } else this._tags = value;
 
-            this.setAttribute("tags", this._tags.join(","));
+            if (this._tags.length > 0) {
+                this.setAttribute("tags", this._tags.join(","));
+            } else {
+                this.removeAttribute("tags");
+            }
         }
 
         constructor() {

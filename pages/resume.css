@@ -1,0 +1,390 @@
+@import "theme.css";
+
+:root {
+    --theme--ui--Color--accent: light-dark(hsl(42, 100%, 71%), hsla(42, 100%, 60%));
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--theme--text--FontFamily--dense);
+    font-optical-sizing: auto;
+    color: var(--theme--text--Color);
+    background-color: var(--theme--surface--color);
+    line-height: var(--theme--text--LineHeight);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+
+    scroll-snap-type: y proximity;
+    scroll-snap-align: start;
+    scroll-margin-block-start: 2rem;
+    scroll-snap-stop: always;
+
+    @media not (prefers-color-scheme: dark) {
+        background: repeating-conic-gradient(var(--theme--surface--color) 0 0.0001%, color-mix(in srgb, var(--theme--surface--color) 95%, var(--theme--text--Color)) 0 0.0002%) 60vw 60vw / 100px 100px;
+    }
+}
+
+header {
+    --image-size: 160px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 4rem;
+    margin-block-end: 2rem;
+    text-align: start;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    .photo {
+        display: flex;
+        align-items: start;
+        justify-content: end;
+
+        img {
+            position: relative;
+            width: var(--image-size);
+            height: var(--image-size);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+
+            &::after {
+                content: "C";
+                position: absolute;
+                inline-size: var(--image-size);
+                block-size: var(--image-size);
+                border-radius: 50%;
+                inset: 0;
+                background: var(--theme--ui--Color--accent);
+                font-size: 2.5rem;
+                color: white;
+                display: grid;
+                place-items: center;
+            }
+        }
+    }
+
+    .candidate-name {
+        --block-size: 400px;
+
+        font-family: var(--theme--heading--FontFamily);
+        margin-block-start: 0.5em;
+        margin-block-end: 0;
+        font-size: 3.5rem;
+        line-height: 1;
+        position: relative;
+        transform-origin: top;
+
+        &::before {
+            content: "";
+            display: block;
+            inline-size: 80px;
+            block-size: var(--block-size);
+            background: var(--theme--ui--Color--accent);
+            position: absolute;
+            inset-inline-start: -1rem;
+            inset-block-end: -0.25rem;
+            z-index: -1;
+        }
+
+        span {
+            text-shadow: 1px 1px 1px light-dark(transparent, hsla(0, 0, 45%, 90%));
+
+            &:first-child {
+                font-weight: var(--theme--FontWeight--semi-bold);
+                letter-spacing: 0.1rem;
+            }
+
+            &:last-child {
+                font-weight: var(--theme--FontWeight--thin);
+                letter-spacing: 0.25rem;
+            }
+        }
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+        font-weight: var(--theme--FontWeight--thin);
+        margin-block-start: 0.5rem;
+        margin-inline-start: -1rem;
+    }
+}
+
+/* Stylized highlight for selected text */
+::selection {
+    background: color-mix(in srgb, var(--theme--ui--Color--accent) 30%, transparent);
+    border-radius: 0.25rem;
+    color: black;
+}
+
+/* Defaults for links */
+a {
+    color: var(--theme--text--Color);
+
+    &:focus-visible {
+        outline: 2px solid LinkText;
+        outline-offset: 2px;
+    }
+}
+
+p strong {
+    font-weight: var(--theme--FontWeight--semi-bold);
+}
+
+.content:is(.focused) p {
+    font-size: 1.2rem;
+    font-weight: var(--theme--FontWeight--thin);
+    max-width: 80ch;
+}
+
+section {
+    scroll-snap-align: start;
+    scroll-margin-block-start: 2rem;
+    scroll-snap-stop: always;
+
+    margin-bottom: var(--section--spacing--vertical, 2rem);
+}
+
+.section-header {
+    container-type: inline-size;
+    container-name: section-header;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    margin-block-end: 1rem;
+}
+
+.section-title {
+    --inline-size: 50vw;
+
+    transform-origin: left;
+    font-family: var(--theme--heading--FontFamily);
+    font-size: 1.25rem;
+    font-weight: var(--theme--FontWeight--semi-bold);
+    text-transform: uppercase;
+    position: relative;
+    margin-block-end: 0;
+    color: var(--theme--text--Color);
+    display: inline-block;
+
+    &::before {
+        content: "";
+        display: block;
+        inline-size: var(--inline-size);
+        height: 0.8em;
+        background: var(--theme--ui--Color--accent);
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        inset-inline-end: -0.5rem;
+        inset-block-end: 0.5em;
+
+        @media (prefers-color-scheme: dark) {
+            background: none;
+            border-block-end: 5px solid var(--theme--ui--Color--accent);
+            inset-block-end: -.2em;
+        }
+    }
+
+    + .section-aside {
+        font-family: var(--theme--heading--FontFamily);
+        font-size: 0.9em;
+        font-weight: var(--theme--FontWeight--light);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+[stacked] {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(var(--spacing--vertical) * 2);
+}
+
+/* Timeline role carousel panels */
+a-timeline .role-panel:not([active]) {
+    display: none;
+}
+
+/* Print/PDF button - fixed to bottom right, appears on scroll stop */
+button:is(.print) {
+    --button-size: 3.5rem;
+
+    position: fixed;
+    inset-block-end: 2rem;
+    inset-inline-end: 2rem;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    background: var(--theme--ui--Color--accent);
+    color: var(--theme--text--Color);
+    border: none;
+    border-radius: 2rem;
+    padding: 0.875rem 1.5rem;
+
+    font-family: var(--theme--heading--FontFamily);
+    font-size: 1rem;
+    font-weight: var(--theme--FontWeight--semi-bold);
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 10px 20px -2px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+
+    /* Start hidden and below */
+    opacity: 0;
+    transform: translateY(1rem);
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.3s,
+        box-shadow 0.2s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    &:hover {
+        box-shadow:
+            0 8px 12px -2px rgba(0, 0, 0, 0.15),
+            0 16px 32px -4px rgba(0, 0, 0, 0.2),
+            0 0 0 1px rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow:
+            0 2px 4px -1px rgba(0, 0, 0, 0.1),
+            0 4px 8px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus-visible {
+        outline: 3px solid var(--theme--text--Color);
+        outline-offset: 2px;
+    }
+
+    svg {
+        width: 1.25em;
+        height: 1.25em;
+    }
+}
+
+@media screen and (width > 1149px) {
+    /* At larger screen sizes, make the section highlight span the container instead of flowing off-screen */
+    .section-title::before {
+        --inline-size: 100cqi;
+
+        inset-inline-end: inherit;
+        inset-inline-start: -0.5rem;
+        transform-origin: left;
+    }
+
+    .section-title + .section-aside {
+        flex-basis: 100%;
+        text-align: end;
+        margin-block-start: -0.5rem;
+    }
+}
+
+@media not print {
+    :where(table, thead, tbody, tr, td, th) {
+        display: contents;
+    }
+
+    td > * {
+        max-inline-size: 900px;
+        padding-inline: var(--theme--content--space);
+        margin-inline: auto;
+    }
+}
+
+/* These overrides enable the creation of a printable or PDF-able resume that fits neatly on 2 pages. */
+@media print {
+    button:is(.print) {
+        display: none;
+    }
+
+    body {
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
+@media not (prefers-color-scheme: dark) {
+  header {
+    background: repeating-conic-gradient(var(--theme--surface--color) 0 0.0001%, color-mix(in srgb, var(--theme--surface--color) 95%, var(--theme--text--Color)) 0 0.0002%) 60vw 60vw / 100px 100px;
+  }
+}
+
+@media not (prefers-reduced-motion: reduce) {
+    a-timeline .role-panel[active] {
+        animation: role-slide-in 0.3s ease;
+    }
+
+    @supports (animation-timeline: scroll()) {
+        .scroll-accent {
+            &::before {
+                animation: var(--animation, roll-in) linear both;
+                animation-timeline: view();
+                animation-range: 0 30vh;
+            }
+        }
+    }
+
+    @supports not (animation-timeline: scroll()) {
+        .scroll-accent {
+            &::before {
+                animation: var(--animation, roll-in) .8s linear forwards;
+            }
+        }
+    }
+}
+
+/* Scroll-triggered accent bar animation */
+@keyframes roll-in {
+    0% {
+        opacity: 0;
+        transform: translateX(calc(100% * var(--animation-direction, -1)));
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes role-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(calc(var(--slide-direction, 1) * var(--theme--container--space)));
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

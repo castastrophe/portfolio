@@ -4,16 +4,16 @@ masthead: true
 prism: true
 ---
 
-<a-band layout="space-between" id="post-header">
+<a-band space-between id="post-header">
     <a href="{{ '/' | url }}" title="Return to the home page"><img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
     <div>
         <h1 class="headline">{{ title }}</h1>
         <p class="metadata">
             <span class="author">{{ author or site.author }}</span>
-            <span class="date">{{ date | formatDate({ day: 'numeric' }) }}</span>
+            <span class="date">{{ date | postDate }}</span>
             <span class="cta"><a href="{{ '/posts/' | url }}" title="Return to the posts page" class="cta-link">All posts</a></span>
         </p>
-        {% if tags.length > 0 %}<tag-group tags="{{ tags.join(',') }}" labeled></tag-group>{% endif %}
+        {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
     </div>
 </a-band>
 
@@ -101,11 +101,11 @@ prism: true
 
   .content {
     font-size: 20px;
-    
+
     strong {
       font-size: 1.4em;
-      font-weight: 900;
-      line-height: 1;
+      font-weight: var(--theme--FontWeight--black);
+      line-height: var(--theme--text--LineHeight);
     }
   }
 

@@ -1,28 +1,25 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
-        --spacing--horizontal: 1rem;
-        --spacing--vertical: .8rem;
-
         display: block;
         inline-size: max-content;
-        max-inline-size: calc(100% - var(--spacing--horizontal) * 2);
+        max-inline-size: calc(100% - var(--note--Padding, var(--theme--container--space)) * 2);
 
         box-sizing: border-box;
         background-color: color-mix(in sRGB, var(--theme--ui--Color) 10%, var(--note-background-base, var(--theme--surface--color)));
         border: 1px solid var(--theme--ui--Color);
         border-inline-start: 8px solid var(--theme--ui--Color);
         border-radius: var(--border-radius);
-        padding: var(--spacing--vertical) var(--spacing--horizontal);
+        padding: var(--note--Padding, var(--theme--container--space));
 
         font-size: 1em;
-        font-weight: 400;
+        font-weight: var(--theme--FontWeight);
 
         margin-inline-start: 0;
         inline-size: 100%;
 
         ::slotted(strong) {
-            font-weight: 800;
+            font-weight: var(--theme--FontWeight--extra-bold);
         }
     }
 
@@ -34,9 +31,9 @@ styles.replaceSync(`
         padding: 0.5em 1em;
         border-radius: var(--border-radius);
         text-decoration: none;
-        font-weight: 800;
+        font-weight: var(--theme--FontWeight--extra-bold);
         font-size: .8em;
-        line-height: 1.15;
+        line-height: var(--theme--text--LineHeight);
         margin: 0;
         border: none;
         cursor: pointer;
@@ -57,10 +54,6 @@ styles.replaceSync(`
 
         &:active {
             background-color: var(--theme--ui--Color--active);
-        }
-
-        &:last-child {
-            margin-block-end: calc(var(--spacing--vertical) * .4);
         }
     }
 `);

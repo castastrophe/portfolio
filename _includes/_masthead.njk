@@ -1,127 +1,121 @@
-<div class="masthead container">
+<a-band id="masthead" center>
     <div class="branding">
         <a class="branding-image" href="/" title="Return to the home page">
-            <img src="../img/logo.svg" alt="Allons-y Consulting logo, a colorful illustration of a coffee mug">
+            {% include "../pages/logo.svg" %}
         </a>
     </div>
-    <div class="content">
-        <h1>{{ site.title }}</h1>
-        <div class="navigation">
-            {{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}
-    
-            {% set icons = site.socials | featured %}
-            {% include "_icon-group.njk" %}
+    <div class="container">
+        <div class="content">
+            <h1>{{ site.title }}</h1>
+            <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
         </div>
+        {% set navigation = collections.all | eleventyNavigation %}
+        <nav class="navigation">
+            {% if navigation | length > 1 %}
+                <ul class="navigation-list accent--yellow">
+                    {% for item in navigation %}
+                        <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
+                            <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% set icons = candidate.socials | featured %}
+            {% include "_icon-group.njk" %}
+        </nav>
     </div>
-</div>
+</a-band>
 
 {% css %}
-.masthead {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    column-gap: calc(var(--spacing--horizontal) * 4);
-    row-gap: var(--spacing--vertical);
-    box-sizing: border-box;
-    inline-size: min(1200px, 100%);
-    max-inline-size: calc(100vw - (var(--spacing--horizontal) * 1.2));
-    min-block-size: calc(clamp(180px, 18vw, 200px) + var(--spacing--vertical) * 4);
-    margin-inline: auto;
-    padding-block: calc(var(--spacing--vertical) * 2);
-    padding-inline: calc(var(--spacing--horizontal) * .6);
-
+#masthead {
     .branding {
         --border-radius: 50%;
+        --image-size: min(calc(80px + 5vw), 120px);
+
+        align-self: stretch;
 
         .branding-image {
-            display: flex;
-            aspect-ratio: 1 / 1;
-            inline-size: clamp(180px, 18vw, 200px);
+            display: block;
+
+            margin-block-start: var(--theme--container--space);
+
+            inline-size: var(--image-size);
             block-size: auto;
-
-            img {
-                box-sizing: border-box;
-                border-radius: var(--border-radius);
-                border: 2px solid var(--theme--ui--Color--subtle);
-                inline-size: 100%;
-                block-size: 100%;
-            }
-
-            &:is(:hover, :focus, :focus-visible) img {
-                border-color: var(--theme--ui--Color);
-            }
+            aspect-ratio: 1 / 1;
+            border-radius: var(--border-radius);
         }
     }
 
     .content {
-        flex-grow: 1;
-        display: flex;
-        
-        flex-flow: column nowrap;
-        max-inline-size: 100%;
+        background: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
+        padding: var(--theme--container--space);
+        border-radius: var(--border-radius);
 
-        > h1,
-        > h2 {
-            margin-block-end: var(--spacing--vertical);
-            line-height: 1.1;
+        h1 {
+            font-size: calc(3.6em + 1vw);
+            font-weight: var(--theme--FontWeight--light);
+            line-height: var(--theme--text--LineHeight);
+            letter-spacing: -2px;
+            z-index: 1;
+            position: relative;
         }
 
-        > h1 {
-            font-size: calc(2.4em + 1vw);
-            font-weight: 800;
-
-            @media screen and (width <= 460px) {
+        @container navigation (width <= 480px) {
+            h1 {
                 font-size: calc(2.1em + 1vw);
             }
         }
 
-        > h2 {
-            font-size: calc(1em + 1vw);
-            font-weight: 100;
+        @container navigation (width <= 620px) {
+            h1 {
+                font-size: calc(2.8em + 1vw);
+            }
+
+            .icon-group {
+                display: none;
+            }
         }
     }
-}
 
-.navigation {
-    border-block-start: 2px solid var(--theme--ui--Color);
-    padding-block-start: 0.8em;
+    .container {
+        inline-size: 100%;
 
-    display: inline-flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    row-gap: var(--spacing--vertical);
-    column-gap: var(--spacing--horizontal);
-}
+        container: navigation / inline-size;
 
-.navigation {
-    display: inline-flex;
-    flex-flow: row wrap;
-    flex-grow: 1;
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: calc(var(--theme--content--space) * 1.5);
 
-    ul {
-        display: inline-flex;
-        gap: 20px;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+            border-block-start: 2px solid color-mix(in srgb, var(--theme--ui--Color) 80%, transparent);
+            padding-block-start: calc(var(--theme--container--space) * .5);
 
-    [aria-page="current"] a {
-        color: inherit;
-        text-decoration: underline;
-    }
+            ul {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: var(--theme--content--space);
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
 
-    a:focus-visible {
-        outline: 2px solid var(--theme--ui--Color--active);
-        outline-offset: var(--outline-offset, 4px);
-        border-radius: calc(var(--border-radius) / 2);
-    }
-}
+                color: var(--theme--text--Color);
+            }
 
-@media screen and (width <= 460px) {
-    .navigation + .icon-group {
-        display: none;
+            .cta-button {
+                transition: background var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out), color var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out);
+            }
+
+            ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
+                background: var(--theme--ui--Color--hover);
+            }
+
+            ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
+                --cta-button--timing: 400ms;
+                --cta-button--easing: ease-in;
+            }
+        }
     }
 }
 {% endcss %}

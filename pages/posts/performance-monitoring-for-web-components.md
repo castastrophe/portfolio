@@ -6,6 +6,7 @@ tags:
   - web components
   - performance
   - tooling
+featured: true
 ---
 
 Here's what nobody tells you about building web components: you can follow all the best practices, optimize your Shadow DOM, and keep your bundle sizes tiny, but if you're not measuring performance, you're flying blind. Sure, components perform well on your beefy MacBook Pro, but what about on a mid-range Android device over spotty 3G connection?

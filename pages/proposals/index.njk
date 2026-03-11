@@ -4,9 +4,9 @@ masthead: true
 eleventyExcludeFromCollections: true
 ---
 
-<a-band width="full" id="proposals" padding="double" layout="auto-grid">
+<a-band full id="proposals" padding="double" grid>
     <h2 class="title" slot="header">Proposals</h2>
-    <p class="header-summary" slot="header">These are proposals for talks and workshops I've given or would like to give. <a href="mailto:{{ site.contact.email | toEmail }}">Let's get in touch</a> if you're interested in discussing having one of these proposals presented at your event.</p>
+    <p class="header-summary" slot="header">These are proposals for talks and workshops I've given or would like to give. <a href="mailto:{{ site.contact.email }}">Let's get in touch</a> if you're interested in discussing having one of these proposals presented at your event.</p>
     {% for proposal in collections.proposals %}
         <a-card bordered>
             <h3 class="headline accent" slot="header"><a href="{{ proposal.url }}">{{ proposal.data.title }}</a></h3>
@@ -16,9 +16,9 @@ eleventyExcludeFromCollections: true
     {% endfor %}
 </a-band>
 
-<a-band id="cta" padding="double" layout="space-evenly">
+<a-band id="cta" padding="double" space-evenly>
     <a-note></a-note>
-    <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
+    <img src="../../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>
 
 {% css %}
@@ -30,8 +30,6 @@ eleventyExcludeFromCollections: true
   img {
     --image-size: 200px;
     --border-color: transparent;
-    shape-outside: url('../img/cartoon-thinking.png');
-    shape-margin: .5em;
   }
 
   a-note {

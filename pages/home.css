@@ -14,9 +14,9 @@ html {
   }
 }
 
-:where(a) {
+:is(a:not(.cta-button)) {
   text-decoration: none;
-  font-weight: 400;
+  font-weight: var(--theme--FontWeight);
   color: var(--theme--link--Color);
 
   &:has(img) {
@@ -28,17 +28,17 @@ html {
 
   &:hover {
     text-decoration: underline;
-    color: var(--theme--link--Color--hover, #002f3b);
+    color: var(--theme--link--Color--hover);
   }
 
   &:focus,
   &:focus-visible {
     text-decoration: underline;
-    color: var(--theme--link--Color--focus, #002f3b);
+    color: var(--theme--link--Color--focus);
   }
 
   &:visited {
-    color: var(--theme--link--Color--visited, #002f3b);
+    color: var(--theme--link--Color--visited);
   }
 
   &[name]:not([href]) {
@@ -47,7 +47,7 @@ html {
 
   &[aria-current="page"] {
     color: inherit;
-    font-weight: 600;
+    font-weight: var(--theme--FontWeight--semi-bold);
     text-decoration: underline;
   }
 
@@ -62,32 +62,39 @@ html {
   }
 }
 
-:where(p) {
+:is(p) {
   font-size: 1em;
-  font-weight: normal;
+  font-weight: var(--theme--FontWeight);
   line-height: var(--theme--text--LineHeight);
 
   margin: 0;
+
+  &:is(.extra) {
+    font-size: 1.4em;
+    font-weight: var(--theme--FontWeight--black);
+  }
 
   &:not(:last-child, :where(:has(+ tag-group))) {
     margin-block-end: 1em;
   }
 }
 
-:heading,
-:where(h1, h2, h3, h4, h5, h6),
-:where(.title, .headline) {
+.content {
+  max-inline-size: 100ch;
+}
+
+:is(h1, h2, h3, h4, h5, h6),
+:is(.title, .headline) {
   font-family: var(--theme--heading--FontFamily);
   color: var(--theme--heading--Color);
-  line-height: var(--theme--heading--LineHeight, 1.4);
+  line-height: var(--theme--heading--LineHeight);
 
   margin-block: 0;
 
-  .content &:where(:not(:last-child)) {
+  &:where(:not(:last-child)) {
     margin-block-end: var(--spacing--vertical);
   }
 
-  [featured] &,
   &:where(.accent) {
     color: var(--theme--heading--Color--accent);
   }
@@ -116,16 +123,16 @@ html {
   }
 }
 
-:where(img, embed, object, video) {
+:is(img, embed, object, video) {
   max-inline-size: 100%;
   block-size: auto;
 }
 
-:where(code, pre) {
+:is(code, pre) {
   font-family: var(--theme--code--FontFamily);
 }
 
-:where(pre) {
+:is(pre) {
   box-sizing: border-box;
   display: block;
 
@@ -141,19 +148,19 @@ html {
   }
 }
 
-:where(p>code, li>code) {
+:is(p>code, li>code) {
   background: var(--theme--surface--color);
   color: var(--theme--text--Color);
 
   font-size: .8em;
-  font-weight: 400;
+  font-weight: var(--theme--FontWeight);
   line-height: inherit;
 
   border-radius: var(--border-radius);
   padding: .2em .4em;
 }
 
-:where(ul, ol) {
+:is(ul, ol) {
   margin: 0;
 
   &:not(:last-child) {
@@ -161,26 +168,32 @@ html {
   }
 }
 
-:where(li) {
+:is(li) {
   font-size: 1em;
   margin: 0;
   line-height: 1.44;
 }
 
-:where(b, strong) {
-  font-weight: 800;
+:is(b, strong) {
+  font-weight: var(--theme--FontWeight--extra-bold);
+
+  &:is(.extra) {
+    font-weight: var(--theme--FontWeight);
+    font-size: 1.8em;
+    line-height: 1.8;
+  }
 }
 
-:where(li b, li strong) {
+:is(li b, li strong) {
   background-color: color-mix(in sRGB, var(--theme--surface--color--accent) 10%, transparent);
   padding: .2em .4em;
   border-radius: var(--border-radius);
 
   font-size: .9em;
-  font-weight: 800;
+  font-weight: var(--theme--FontWeight--extra-bold);
 }
 
-:where(img) {
+:is(img) {
   aspect-ratio: var(--aspect-ratio, 1 / 1);
   inline-size: var(--image-size, 250px);
   block-size: auto;
@@ -223,13 +236,15 @@ body {
   }
 }
 
-:where(.title) {
+:is(.title) {
+  font-family: var(--theme--heading--FontFamily);
   font-size: 1.1em;
   /* todo: convert to rem/em; was: 22px */
 
-  font-weight: 800;
+  font-weight: var(--theme--FontWeight--semi-bold);
   line-height: var(--title--LineHeight, var(--theme--heading--LineHeight));
   text-transform: var(--title--TextTransform, uppercase);
+  padding: var(--title--Padding, 0);
 
   @container card (width >=0px) {
     font-size: .8em;
@@ -239,16 +254,17 @@ body {
     box-sizing: border-box;
     display: inline-block;
 
-    padding: var(--title--Padding, .1em var(--spacing--horizontal));
+    padding: var(--title--Padding, .1em var(--theme--content--space));
     background: var(--title--Background, color-mix(in srgb, var(--theme--ui--Color) var(--title--Opacity, 10%), var(--theme--surface--color)));
     inline-size: min(var(--title--InlineSize, 80ch), 100%);
     border-radius: var(--border-radius);
   }
 }
 
-:where(.headline) {
+:is(.headline) {
+  font-family: var(--theme--heading--FontFamily);
   font-size: 1.8em;
-  font-weight: 100;
+  font-weight: var(--theme--FontWeight--thin);
   line-height: var(--theme--text--LineHeight);
 
   /* todo: convert to rem/em */
@@ -262,17 +278,19 @@ body {
 
   @container card (width >=0) {
     font-size: 1.4em;
+    margin-block-start: 0;
   }
 }
 
-:where(.headline-summary) {
+:is(.headline-summary) {
+  font-family: var(--theme--heading--FontFamily);
   font-size: 1.4em;
-  font-weight: 900;
+  font-weight: var(--theme--FontWeight--light);
   line-height: var(--theme--text--LineHeight);
 
   @container card (width >=0) {
     font-size: 1.2em;
-    font-weight: 400;
+    font-weight: var(--theme--FontWeight);
   }
 }
 
@@ -282,7 +300,9 @@ button::-moz-focus-inner {
 }
 
 svg {
-  block-size: 2.5em;
+  inline-size: 100%;
+  block-size: auto;
+  min-block-size: 2.5em;
   fill: currentColor;
   align-self: center;
 }
@@ -309,20 +329,13 @@ blockquote {
   margin-block-start: 2em;
   margin-inline-start: 0;
 
-  /* note: not yet widely supported */
-  &:has(:heading:first-child),
   /* below: fallback for older browsers */
-  &:has(h1:first-child),
-  &:has(h2:first-child),
-  &:has(h3:first-child),
-  &:has(h4:first-child),
-  &:has(h5:first-child),
-  &:has(h6:first-child) {
+  &:is(h1, h2, h3, h4, h5, h6):first-child {
     padding-block-start: 2.5rem;
   }
 
   strong {
-    font-weight: 800;
+    font-weight: var(--theme--FontWeight--extra-bold);
   }
 
   pre,
@@ -351,14 +364,14 @@ blockquote {
 .metadata {
   display: flex;
   flex-flow: row wrap;
-  gap: 0.5em;
-  margin-block-end: 1em;
+  gap: calc(var(--theme--content--space) / 2);
+  margin-block-end: var(--theme--content--space);
   border-block-end: 1px solid var(--theme--ui--Color);
 
   .author:has(+ .date)::after {
     content: '|';
     display: inline-block;
-    margin-inline-start: 0.5em;
+    margin-inline-start: var(--theme--content--space);
     color: inherit;
   }
 
@@ -400,10 +413,8 @@ blockquote {
     color: inherit;
   }
 
-  summary,
-  strong {
-    font-size: 1em;
-    font-weight: 800;
+  :is(summary, strong) {
+    font-weight: var(--theme--FontWeight--extra-bold);
   }
 
   summary {
@@ -472,7 +483,7 @@ blockquote {
       }
 
       &:first-child>li>a {
-        font-weight: bold;
+        font-weight: var(--theme--FontWeight--bold);
         line-height: 1.8;
       }
     }
@@ -485,9 +496,10 @@ div:has(> iframe) {
   position: relative;
 
   iframe {
+    aspect-ratio: 16 / 9;
     inset-inline-start: 0;
     inset-block-start: 0;
-    block-size: 100%;
+    block-size: auto;
     inline-size: 100%;
     position: absolute;
   }
@@ -498,7 +510,7 @@ div:has(> iframe) {
   -webkit-appearance: button;
   font-family: inherit;
   font-size: 100%;
-  line-height: 1.15;
+  line-height: var(--theme--text--LineHeight);
   margin: 0;
   background: none;
   border: none;
@@ -553,37 +565,37 @@ div:has(> iframe) {
 
 .cta-button {
   display: inline-block;
-  background-color: var(--theme--ui--Color);
-  color: var(--theme--surface--color) !important;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--theme--ui--Color);
+  background: var(--theme--surface--color);
+  color: inherit;
+
   padding: 0.5em 1em;
   border-radius: var(--border-radius);
   text-decoration: none;
-  font-weight: 800;
-  font-size: .8em;
-  line-height: 1.15;
   margin: 0;
-  border: none;
   cursor: pointer;
 
   &:hover {
-    background-color: var(--theme--ui--Color--hover);
+    background: var(--theme--ui--Color--hover);
   }
 
-  &:focus {
-    background-color: var(--theme--ui--Color--active);
+  &:is(:focus, :focus-visible) {
+    background: var(--theme--ui--Color--active);
+
+    &:is(.active,[aria-current]) {
+      outline-offset: var(--outline-offset);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--theme--ui--Color--active);
-    outline-offset: var(--outline-offset, 2px);
+    outline: var(--outline-width) solid var(--theme--ui--Color--active);
+    outline-offset: var(--outline-offset, var(--outline-width));
     border-radius: var(--border-radius);
   }
 
   &:active {
     background-color: var(--theme--ui--Color--active);
-  }
-
-  &:last-child {
-    margin-block-end: calc(var(--spacing--vertical) * .4);
   }
 }

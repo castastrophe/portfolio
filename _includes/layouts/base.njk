@@ -4,7 +4,7 @@ customSheets:
   - home
 ---
 
-{% include "../_background.njk" %}
+{% include "../../pages/background.svg" %}
 
 {% if masthead %}
     {% include "../_masthead.njk" %}
@@ -12,9 +12,8 @@ customSheets:
 
 <main>{{ content | safe }}</main>
 
-<!-- Contact -->
 <a-band id="contact" padding="double">
-    {% set icons = site.socials | featured %}
+    {% set icons = candidate.socials | featured %}
     {% include "../_icon-group.njk" %}
     <a href="{{ site.funding[0].url }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
         {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
@@ -27,15 +26,7 @@ customSheets:
 
 {% css %}
 #contact {
-    --spacing-horizontal: 20px;
-    --spacing-vertical: 20px;
-
     font-size: 1.3em;
     border-block-start: 2px solid color-mix(in sRGB, var(--theme--ui--Color) 80%, transparent);
-    margin-block-start: 1em;
-
-    > .icon-group {
-      flex-grow: 1;
-    }
 }
 {% endcss %}

@@ -1,100 +1,35 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
-    @property --band--Background {
-        syntax: "<color>";
-        inherits: false;
-        initial-value: transparent;
-    }
-
-    @property --band--Width {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: 100%;
-    }
-
-    @property --band--Padding--horizontal {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6));
-    }
-
-    @property --band--Padding--vertical {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: calc(var(--spacing--vertical) * var(--multiplier-vertical, 2));
-    }
-
-    @property --band--Gap--horizontal {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: var(--spacing--horizontal);
-    }
-
-    @property --band--Gap--vertical {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: var(--spacing--vertical);
-    }
-
-    @property --band--Display {
-        syntax: "<string>";
-        inherits: false;
-        initial-value: flex;
-    }
-
-    @property --band--Direction {
-        syntax: "<string>";
-        inherits: false;
-        initial-value: column;
-    }
-
-    @property --band--Wrap {
-        syntax: "<string>";
-        inherits: false;
-        initial-value: nowrap;
-    }
-
-    @property --band--AlignItems {
-        syntax: "<string>";
-        inherits: false;
-        initial-value: center;
-    }
-
-    @property --band--JustifyContent {
-        syntax: "<string>";
-        inherits: false;
-        initial-value: start;
-    }
-
-    @property --multiplier-horizontal {
-        syntax: "<number>";
-        inherits: false;
-        initial-value: .6;
-    }
-
-    @property --multiplier-vertical {
-        syntax: "<number>";
-        inherits: false;
-        initial-value: 2;
-    }
-
     :host {
         position: relative;
-        
-        scroll-margin: 10px;
+
+        scroll-margin: var(--theme--container--space);
         scroll-snap-align: start;
         scroll-snap-stop: normal;
 
         background: var(--band--Background, transparent);
 
-        inline-size: var(--band--Width, 100%);
-        max-inline-size: calc(100vw - var(--band--Padding--horizontal, calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6))) * 2);
+        inline-size: min(var(--band--Width, 1200px), 100%);
+        max-inline-size: calc(100vw - var(--band--Padding--horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, .6))) * 2);
         margin-inline: auto; /* Center the band horizontally */
 
-        padding-block: var(--band--Padding--vertical, calc(var(--spacing--vertical) * var(--multiplier-vertical, 2)));
-        padding-inline: var(--band--Padding--horizontal, calc(var(--spacing--horizontal) * var(--multiplier-horizontal, .6)));
+        padding-block: var(--band--Padding--vertical, calc(var(--theme--container--space) * var(--multiplier-vertical, 2)));
+        padding-inline: var(--band--Padding--horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, .6)));
+
+        display: var(--band--Display, flex);
+        flex-direction: var(--band--Direction, column);
+        flex-wrap: var(--band--Wrap, nowrap);
+        row-gap: var(--band--Gap--vertical, var(--theme--content--space));
+        column-gap: var(--band--Gap--horizontal, var(--theme--content--space));
+        align-items: var(--band--AlignItems, center);
+        justify-content: var(--band--JustifyContent, start);
 
         container: band / inline-size;
+
+        &,
+        slot {
+            box-sizing: border-box;
+        }
     }
 
     :host([padding="half"]) {
@@ -102,27 +37,19 @@ styles.replaceSync(`
     }
 
     :host([padding="double"]) {
-        --multiplier-vertical: 2;
-    }
-
-    /* Default layout for all regions is stacked */
-    :host,
-    slot {
-        box-sizing: border-box;
-
-        display: var(--band--Display, flex);
-        flex-direction: var(--band--Direction, column);
-        flex-wrap: var(--band--Wrap, nowrap);
-        row-gap: var(--band--Gap--vertical, var(--spacing--vertical));
-        column-gap: var(--band--Gap--horizontal, var(--spacing--horizontal));
-        align-items: var(--band--AlignItems, center);
-        justify-content: var(--band--JustifyContent, start);
+        --multiplier-vertical: 4;
     }
 
     slot:where([name="header"]) {
-        --band--AlignItems: stretch;
+        display: var(--band--header--Display, flex);
+        flex-direction: var(--band--header--Direction, column);
+        flex-wrap: var(--band--header--Wrap, nowrap);
+        row-gap: var(--band--header--Gap--vertical, var(--theme--content--space));
+        column-gap: var(--band--header--Gap--horizontal, var(--theme--content--space));
+        align-items: var(--band--header--AlignItems, stretch);
+        justify-content: var(--band--header--JustifyContent, start);
 
-        inline-size: min(80ch, 100%);
+        inline-size: min(var(--band--header--Width, 80ch), 100%);
 
         ::slotted(p) {
             background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
@@ -136,87 +63,82 @@ styles.replaceSync(`
     }
 
     /* Default slot */
-    slot:not(:has([name])) {
-        flex-grow: 1;
-        inline-size: 100%;
-        position: relative;
-    }
-
-    :host([layout="space-between"]) slot:not(:has([name])) {
-        --band--Direction: row;
-        --band--Wrap: wrap;
-        --band--JustifyContent: space-between;
-    }
-
-    :host([layout="space-evenly"]) slot:not(:has([name])) {
-        --band--Direction: row;
-        --band--Wrap: wrap;
-        --band--JustifyContent: space-evenly;
-    }
-
-    :host([layout="space-around"]) {
-        --spacing--vertical: .2em;
-        --spacing--horizontal: .2em;
-
+    slot:where(:not([name])) {
         flex-grow: 1;
 
-        slot:not(:has([name])) {
-            --band--Direction: row;
-            --band--Wrap: wrap;
-            --band--JustifyContent: center;
-            --band--AlignItems: stretch;
-            --band--Gap--vertical: calc(var(--spacing--horizontal) * 2);
-            --band--Gap--horizontal: var(--spacing--horizontal);
+        display: var(--band--body--Display, flex);
+        flex-direction: var(--band--body--Direction, column);
+        flex-wrap: var(--band--body--Wrap, nowrap);
+        row-gap: var(--band--body--Gap--vertical, var(--theme--content--space));
+        column-gap: var(--band--body--Gap--horizontal, var(--theme--content--space));
+        align-items: var(--band--body--AlignItems, center);
+        justify-content: var(--band--body--JustifyContent, start);
+        inline-size: min(var(--band--body--Width, 80ch), 100%);
+
+        :host([center]) & {
+            --band--body--Direction: row;
+            --band--body--JustifyContent: center;
+        }
+
+        :host([space-between]) & {
+            --band--body--Direction: row;
+            --band--body--JustifyContent: space-between;
+        }
+
+        :host([space-evenly]) & {
+            --band--body--Direction: row;
+            --band--body--JustifyContent: space-evenly;
+        }
+
+        :host([space-around]) & {
+            --band--body--Direction: row;
+            --band--body--JustifyContent: space-around;
+        }
+
+        :host([wrap]) & {
+            --band--body--Wrap: wrap;
+        }
+
+        :host([grid]) & {
+            --band--body--Display: grid;
+            --band--body--AlignItems: stretch;
+            --band--body--JustifyContent: space-around;
+
+            grid-template-columns: repeat(var(--columns, auto-fit), minmax(var(--item--Width, 325px), 1fr));
+
+            ::slotted(a-card) {
+                justify-self: center;
+            }
         }
     }
 
-    :host([layout="auto-grid"]) slot:not(:has([name])) {
-        --spacing--vertical: .5em;
-
-        --band--Display: grid;
-        --band--AlignItems: stretch;
-        --band--JustifyContent: space-around;
-
-        grid-template-columns: repeat(var(--grid-columns, auto-fit), minmax(var(--card-Width, 325px), 1fr));
-
-        ::slotted(a-card) {
-            justify-self: center;
-        }
+    ::slotted(.title) {
+        margin-block: 0;
     }
 
-    :host([overflow]) {
-        --band--Padding--horizontal: 0;
-        --band--Width: min(80ch, 90%);
-
-        slot:not(:has([name])) {
-            flex-flow: row nowrap;
-            overflow: auto;
-        }
+    slot:where([name="footer"]) {
+        display: var(--band--footer--Display, flex);
+        flex-direction: var(--band--footer--Direction, column);
+        flex-wrap: var(--band--footer--Wrap, nowrap);
+        row-gap: var(--band--footer--Gap--vertical, var(--theme--content--space));
+        column-gap: var(--band--footer--Gap--horizontal, var(--theme--content--space));
+        align-items: var(--band--footer--AlignItems, center);
+        justify-content: var(--band--footer--JustifyContent, start);
+        inline-size: min(var(--band--footer--Width, 80ch), 100%);
     }
 
-    :host([width="full"]) {
+    :host([full]) {
         --band--Width: 90%;
     }
 
     @media screen and (width >= 980px) {
         :host {
-            align-items: center;
-            justify-content: center;
-        }
-
-        :host([overflow]) {
-            --band--Width: 100%;
-        }
-
-        :host([overflow][layout="auto-grid"]) slot:not(:has([name])) {
-            width: 100%;
-            /* Create some gutter for the overflow scroll */
-            padding-block-end: var(--spacing--vertical, 1em);
+            justify-content: var(--band--JustifyContent, center);
         }
     }
 
     @media screen and (min-width: 1220px) {
-        :host(:not([width="full"])) {
+        :host(:not([full])) {
             max-inline-size: 1200px;
         }
     }
@@ -226,7 +148,7 @@ styles.replaceSync(`
             border: none;
         }
 
-        :host([width="full"]) {
+        :host([full]) {
             padding: 1em 0;
         }
     }

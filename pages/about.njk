@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 2
 ---
 
-<a-band id="consulting" width="full">
+<a-band full>
     <div slot="header">
         <h2 class="title">Why choose Allons-y Consulting?</h2>
     </div>
@@ -19,119 +19,31 @@ eleventyNavigation:
 </a-band>
 <a-band id="consulting">
     <h2 class="title" slot="header">Meet the team</h2>
-    <div class="bio">
-        <h3 class="headline">
-            <strong>Cassondra Roberts</strong>,
-            <span>Founder & Principal Consultant</span>
-        </h3>
-        <p class="headline-summary">Design Systems • Front-end Architecture • Web Standards</p>
-        <div class="container">
-            <a-card bordered overflow>
-                <img slot="header" src="../img/cassondra-roberts.png" alt="A photo Cassondra Roberts smiling and looking directly at the camera.">
-                <p class="cta"><a href="mailto:{{ 'cassondra -at- allons-y.llc' | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact Cassondra</a></p>
-                <div slot="footer">
-                    {% set icons = site.socials | featured %}
-                    {% include "_icon-group.njk" %}
-                </div>
-            </a-card>
-            <div class="content">
-                <p>Cassondra is a W3C CSS Working Group member and design systems engineer with over a decade of experience building enterprise-scale front-end infrastructure. She co-founded PatternFly Elements at Red Hat (adopted by Google, IBM, and Fidelity) and served as Staff Design Engineer on Adobe's Spectrum Design System, where she led the AI Working Group and pioneered workflows that reduced planning overhead by 25%.</p>
-                <p>As an open source leader and conference speaker, Cassondra specializes in the critical space between design and engineering—translating vision into production-ready, accessible code. She contributes to web standards that shape how we build interfaces and brings both cutting-edge technical knowledge and proven enterprise patterns to every project.</p>
-
-                <p><strong>Expertise:</strong></p>
-                <ul>
-                    <li>Design systems architecture and implementation</li>
-                    <li>Web components, TypeScript, modern CSS and semantic HTML</li>
-                    <li>Accessibility best practices and compliance</li>
-                    <li>W3C standards contribution (CSS Working Group)</li>
-                    <li>Open source community management</li>
-                    <li>AI-augmented engineering workflows</li>
-                    <li>Technical leadership and mentorship</li>
-                </ul>
-            </div>
-        </div>
-        <div class="projects">
-            <h4 class="headline subheadline">Recent projects</h4>
-            <div layout="row">
-                <a-card bordered overflow>
-                    <div slot="header">
-                        <h3 class="title">Adobe</h3>
-                    </div>
-                    <h4 class="headline"><a href="https://github.com/adobe/spectrum-css" title="Click to view project">Spectrum
-                        CSS</a></h4>
-                    <p>A native HTML and modern CSS library that expresses the design direction of Adobe's Spectrum design system.</p>
-                </a-card>
-                <a-card bordered overflow>
-                    <div slot="header">
-                        <h3 class="title">Adobe</h3>
-                    </div>
-                    <h4 class="headline"><a href="https://github.com/adobe/spectrum-web-components"
-                        title="Click to view project">Spectrum Web Components</a></h4>
-                    <p>A framework-agnostic component library leveraging web components to implement Adobe's Spectrum design system.
-                    </p>
-                </a-card>
-                <a-card bordered overflow>
-                    <div slot="header">
-                        <h3 class="title">Red Hat</h3>
-                    </div>
-                    <h4 class="headline"><a href="https://github.com/patternfly/patternfly-elements"
-                        title="Click to view project">PatternFly Elements</a></h4>
-                    <p>A web component implementation of the PatternFly design system. Leverages the power of custom properties to create well-scoped elements that are fully customizable.</p>
-                </a-card>
-            </div>
-        </div>
-        <div class="presentations">
-            <h4 class="headline subheadline">Recent presentations</h4>
-            <div layout="row">
-                {% for presentation in presentations | featured %}
-                <a-card overflow>
-                    <div slot="header">
-                        {% if presentation.youtube_id %}<iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>{% endif %}
-                    </div>
-                </a-card>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="bio">
-        <h3 class="headline">
-            <strong>Michael L. Roberts</strong>,
-            <span>Program Management Director</span>
-        </h3>
-        <p class="headline-summary">Enterprise Program Management • Portfolio Governance • Extensive Government Experience</p>
-        <div class="container">
-            <a-card bordered overflow>
-                <img slot="header" src="../img/michael-roberts.jpg" alt="A photo Michael Roberts smiling and looking directly at the camera.">
-                <p class="cta"><a href="mailto:{{ 'michael -at- allons-y.llc' | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact Michael</a></p>
-                <div slot="footer">
-                    {% set icons = [{"url":"https://www.linkedin.com/in/michaellroberts","classes":"fa-brands fa-linkedin-in"}] %}
-                    {% include "_icon-group.njk" %}
-                </div>
-            </a-card>
-            <div class="content">
-                <p>Michael is an accredited program manager with extensive experience leading large-scale digital transformation initiatives and complex technology portfolios. He has managed programs with budgets exceeding $354 million, led teams of federal employees and contractors, and overseen portfolios with contract ceilings totaling over $127 million.</p>
-                <p>With expertise spanning financial system modernization, enterprise architecture, and organizational change management, Michael brings strategic program leadership to Allons-y's clients. He specializes in aligning technology initiatives with business strategy, managing risk across complex portfolios, and leading global teams through large-scale transformation.</p>
-
-                <p><strong>Recent Achievements:</strong></p>
-                <ul>
-                    <li>Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration</li>
-                    <li>Led portfolio of 20+ projects with combined budget of $354M</li>
-                    <li>Directed teams of 75+ contractors and 12 federal employees</li>
-                    <li>Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives</li>
-                </ul>
-                <p><strong>Expertise:</strong></p>
-                <ul>
-                    <li>Program and portfolio management (PMP<sup>®</sup>, MPM<sup>®</sup>)</li>
-                    <li>Large-scale digital transformation</li>
-                    <li>Financial systems modernization</li>
-                    <li>Enterprise architecture and integration</li>
-                    <li>Change management and organizational strategy</li>
-                    <li>Risk management and governance</li>
-                    <li>Federal/enterprise project delivery</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% set employees = [{
+        name: "Cassondra Roberts",
+        title: "Founder & Principal Consultant",
+        skills_summary: ["Design Systems", "Front-end Architecture", "Web Standards"],
+        photo: "cassondra-roberts.png",
+        email: "cassondra -at- allons-y.llc",
+        socials: candidate.socials,
+        bio: "Cassondra is a W3C CSS Working Group member and design systems engineer with over a decade of experience building enterprise-scale front-end infrastructure. She co-founded PatternFly Elements at Red Hat (adopted by Google, IBM, and Fidelity) and served as Staff Design Engineer on Adobe's Spectrum Design System, where she led the AI Working Group and pioneered workflows that reduced planning overhead by 25%.\n\nAs an open source leader and conference speaker, Cassondra specializes in the critical space between design and engineering—translating vision into production-ready, accessible code. She contributes to web standards that shape how we build interfaces and brings both cutting-edge technical knowledge and proven enterprise patterns to every project.",
+        skills: ["Design systems architecture and implementation", "Web components, TypeScript, modern CSS and semantic HTML", "Accessibility best practices and compliance", "W3C standards contribution (CSS Working Group)", "Open source community management", "AI-augmented engineering workflows", "Technical leadership and mentorship"],
+        projects: candidate.projects,
+        presentations: presentations
+    }, {
+        name: "Michael L. Roberts",
+        title: "Program Management Director",
+        skills_summary: ["Enterprise Program Management", "Portfolio Governance", "Extensive Government Experience"],
+        photo: "michael-roberts.jpg",
+        email: "michael -at- allons-y.llc",
+        socials: [{"url":"https://www.linkedin.com/in/michaellroberts","classes":"fa-brands fa-linkedin-in"}],
+        bio: "Michael is an accredited program manager with extensive experience leading large-scale digital transformation initiatives and complex technology portfolios. He has managed programs with budgets exceeding $354 million, led teams of federal employees and contractors, and overseen portfolios with contract ceilings totaling over $127 million.\n\nWith expertise spanning financial system modernization, enterprise architecture, and organizational change management, Michael brings strategic program leadership to Allons-y's clients. He specializes in aligning technology initiatives with business strategy, managing risk across complex portfolios, and leading global teams through large-scale transformation.",
+        achievements: ["Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration", "Led portfolio of 20+ projects with combined budget of $354M", "Directed teams of 75+ contractors and 12 federal employees", "Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives"],
+        skills: ["Program and portfolio management (PMP®, MPM®)", "Large-scale digital transformation", "Financial systems modernization", "Enterprise architecture and integration", "Change management and organizational strategy", "Risk management and governance", "Federal/enterprise project delivery"]
+    }] %}
+    {% for employee in employees %}
+        {% include "_bio.njk" %}
+    {% endfor %}
 </a-band>
 
 {% js %}
@@ -143,43 +55,33 @@ eleventyNavigation:
 
 {% css %}
 #consulting {
-    --spacing--vertical: 20px;
-
-    .content {
-        font-size: 1.1em;
-        max-inline-size: 100ch;
-    }
-
-    a-card {
-        --spacing--vertical: 10px;
-    }
-
     .bio {
         border-radius: var(--border-radius);
-        padding-inline: 1em;
+        padding-inline: var(--theme--content--space);
         background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
-        margin-block-start: 1em;
+        margin-block-start: var(--theme--content--space);
 
         &:not(:first-of-type) {
-            margin-block-start: 2em;
+            margin-block-start: calc(var(--theme--content--space) * 2);
         }
 
         .container {
+            --card--Width: 250px;
+
             border-block-start: 1px solid var(--theme--ui--Color--subtle);
-            padding-block-start: 1em;
+            padding-block-start: var(--theme--container--space);
             display: flex;
             flex-flow: row wrap;
-            gap: 2em;
+            gap: var(--theme--content--space);
             align-items: start;
 
             a-card {
                 text-align: center;
-                inline-size: min(250px, 100%);
 
                 [slot="footer"] {
                     font-size: .8em;
                     border-block-start: 1px solid color-mix(in srgb, var(--theme--ui--Color) 20%, transparent);
-                    padding-block-start: .5em;
+                    padding-block-start: var(--theme--content--space);
                     inline-size: 80cqi;
                     margin-inline: auto;
                 }
@@ -187,7 +89,7 @@ eleventyNavigation:
 
             .content {
                 flex-grow: 1;
-                inline-size: calc(100% - 250px - 2em);
+                inline-size: calc(100% - var(--card--Width) - var(--theme--content--space) * 2);
                 min-inline-size: min(50ch, 100%);
             }
         }
@@ -195,16 +97,11 @@ eleventyNavigation:
 
     .projects,
     .presentations {
-        --card--Width: min(365px, 100%);
+        --card--Width: 365px;
 
         inline-size: 100%;
 
-        .subheadline {
-            font-size: 1.4em;
-            margin-block: 1.5em .5em;
-        }
-
-        div[layout="row"] {
+        [layout="row"] {
             font-size: .8em;
             display: flex;
             flex-flow: row wrap;
@@ -212,36 +109,5 @@ eleventyNavigation:
             justify-content: start;
         }
     }
-
-    .presentations {
-        div:has(> iframe) {
-            padding: 0;
-            flex-grow: 0;
-            margin-block-end: -7.5px;
-        }
-
-        iframe {
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            height: auto;
-            position: relative !important;
-        }
-    }
-}
-
-#projects {
-  @media screen and (width >=992px) {
-    --card--Width: min(max(300px, 30%), 100%);
-
-    a-card[featured] {
-      --card--Width: min(max(450px, 47%), 100%);
-    }
-  }
-}
-
-.content .extra {
-  font-size: 1.4em;
-  font-weight: 900;
-  line-height: 1;
 }
 {% endcss %}
