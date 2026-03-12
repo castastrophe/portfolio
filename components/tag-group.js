@@ -1,14 +1,9 @@
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
-        --tag-background-color: var(--theme--ui--Color);
-        --tag-background-base: var(--theme--surface--color);
-        --tag-background-opacity: 10%;
-        --tag-text-color: var(--theme--text--Color);
-
         display: flex;
         flex-flow: row nowrap;
-        gap: 0.5rem;
+        gap: 1rem;
     }
 
     .tags {
@@ -18,21 +13,22 @@ styles.replaceSync(`
         margin: 0;
     }
 
-    .tags:is([name="footer"]) {
-        margin-block-end: 1em;
-        border-block-start: 1px solid var(--theme--ui--Color--subtle);
-        padding-block-start: 0.5em;
-        flex-grow: 1;
+    @container card (width >= 0) {
+        :host([slot="footer"]) {
+            margin-block-start: 2em;
+            border-block-start: 1px solid var(--theme--ui--Color--subtle);
+            padding-block-start: 0.5em;
+        }
     }
 
     .tag {
         display: inline-block;
-        font-size: 1em;
+        font-size: inherit;
         font-weight: var(--theme--FontWeight--medium);
-        color: var(--tag-text-color);
+        color: inherit;
         padding: .3em .4em .2em;
         border-radius: var(--border-radius);
-        background-color: color-mix(in sRGB, var(--tag-background-color) var(--tag-background-opacity), var(--tag-background-base));
+        background-color: color-mix(in sRGB, var(--tag-background-color, var(--theme--ui--Color)) var(--tag-background-opacity, 10%), transparent);
 
         a {
             text-decoration: none;
@@ -46,9 +42,9 @@ styles.replaceSync(`
 
     .tag-label {
         display: none;
-        font-size: 1em;
+        font-size: inherit;
         font-weight: var(--theme--FontWeight--thin);
-        color: var(--theme--text--Color);
+        color: inherit;
         line-height: 1.8;
     }
 

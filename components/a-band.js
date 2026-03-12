@@ -8,13 +8,23 @@ styles.replaceSync(`
         scroll-snap-stop: normal;
 
         background: var(--band--Background, transparent);
-
-        inline-size: min(var(--band--Width, 1200px), 100%);
-        max-inline-size: calc(100vw - var(--band--Padding--horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, .6))) * 2);
-        margin-inline: auto; /* Center the band horizontally */
+        inline-size: 100%;
 
         padding-block: var(--band--Padding--vertical, calc(var(--theme--container--space) * var(--multiplier-vertical, 2)));
         padding-inline: var(--band--Padding--horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, .6)));
+
+        container: band / inline-size;
+
+        &,
+        :is(.container, slot) {
+            box-sizing: border-box;
+        }
+    }
+
+    .container {
+        inline-size: min(var(--band--Width, 1200px), 100%);
+        max-inline-size: calc(100vw - var(--band--Padding--horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, .6))) * 2);
+        margin-inline: auto; /* Center the band horizontally */
 
         display: var(--band--Display, flex);
         flex-direction: var(--band--Direction, column);
@@ -23,13 +33,6 @@ styles.replaceSync(`
         column-gap: var(--band--Gap--horizontal, var(--theme--content--space));
         align-items: var(--band--AlignItems, center);
         justify-content: var(--band--JustifyContent, start);
-
-        container: band / inline-size;
-
-        &,
-        slot {
-            box-sizing: border-box;
-        }
     }
 
     :host([padding="half"]) {
@@ -127,18 +130,18 @@ styles.replaceSync(`
         inline-size: min(var(--band--footer--Width, 80ch), 100%);
     }
 
-    :host([full]) {
-        --band--Width: 90%;
+    :host([full]) .container {
+        max-inline-size: 100%;
     }
 
     @media screen and (width >= 980px) {
-        :host {
+        :host .container {
             justify-content: var(--band--JustifyContent, center);
         }
     }
 
     @media screen and (min-width: 1220px) {
-        :host(:not([full])) {
+        :host(:not([full])) .container {
             max-inline-size: 1200px;
         }
     }
@@ -166,9 +169,11 @@ customElements.define(
         connectedCallback() {
             const templateElement = document.createElement("template");
             templateElement.innerHTML = `
-                <slot name="header"></slot>
-                <slot class="body"></slot>
-                <slot name="footer"></slot>`;
+                <div class="container">
+                    <slot name="header"></slot>
+                    <slot class="body"></slot>
+                    <slot name="footer"></slot>
+                </div>`;
 
 			this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
             this.shadowRoot.adoptedStyleSheets = [styles];

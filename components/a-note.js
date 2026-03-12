@@ -16,7 +16,13 @@ styles.replaceSync(`
         font-weight: var(--theme--FontWeight);
 
         margin-inline-start: 0;
+        margin-block-start: 0;
         inline-size: 100%;
+
+        *:first-child,
+        ::slotted(*:first-child) {
+            margin-block-start: 0;
+        }
 
         ::slotted(strong) {
             font-weight: var(--theme--FontWeight--extra-bold);

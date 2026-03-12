@@ -23,6 +23,7 @@ export default async function (config) {
 
 	config.addWatchTarget("pages/background.svg");
 	config.addWatchTarget("pages/logo.svg");
+	config.addWatchTarget("components/*.js");
 
 	// Layout aliases make templates more portable.
 	config.addLayoutAlias("base", "layouts/base.njk");

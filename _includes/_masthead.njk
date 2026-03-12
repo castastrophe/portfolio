@@ -1,14 +1,11 @@
-<a-band id="masthead" center>
-    <div class="branding">
-        <a class="branding-image" href="/" title="Return to the home page">
+<header id="masthead">
+    <div class="wrapper">
+        <a class="branding" href="/" title="Return to the home page">
             {% include "../pages/logo.svg" %}
         </a>
-    </div>
-    <div class="container">
-        <div class="content">
-            <h1>{{ site.title }}</h1>
-            <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
-        </div>
+        <h1>{{ site.title }}</h1>
+        <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
+
         {% set navigation = collections.all | eleventyNavigation %}
         <nav class="navigation">
             {% if navigation | length > 1 %}
@@ -23,99 +20,246 @@
             {% set icons = candidate.socials | featured %}
             {% include "_icon-group.njk" %}
         </nav>
+
     </div>
-</a-band>
+</header>
 
 {% css %}
 #masthead {
-    .branding {
-        --border-radius: 50%;
+    z-index: 1000;
+    position: relative;
+
+    background: var(--masthead--Background, transparent);
+
+    padding-block: var(--masthead--Padding--vertical, calc(var(--theme--container--space) * 2));
+    padding-inline: var(--masthead--Padding--horizontal, calc(var(--theme--container--space) * .6));
+
+    .wrapper {
         --image-size: min(calc(80px + 5vw), 120px);
 
-        align-self: stretch;
+        inline-size: min(var(--masthead--Width, 80ch), 100%);
+        max-inline-size: calc(100vw - var(--masthead--Padding--horizontal, calc(var(--theme--container--space) * .6)) * 2);
+        margin-inline: auto;
 
-        .branding-image {
-            display: block;
+        display: grid;
+        grid-template-areas: "branding headline" "branding summary" "branding navigation";
 
-            margin-block-start: var(--theme--container--space);
+        grid-template-columns: var(--image-size) 1fr;
 
-            inline-size: var(--image-size);
-            block-size: auto;
-            aspect-ratio: 1 / 1;
-            border-radius: var(--border-radius);
+        row-gap: 0;
+        column-gap: calc(var(--theme--container--space) * 2);
+    }
+
+    .branding {
+        --border-radius: 50%;
+
+        grid-area: branding;
+        display: inline-block;
+
+        margin-block-start: var(--theme--container--space);
+
+        inline-size: var(--image-size);
+        block-size: auto;
+        aspect-ratio: 1 / 1;
+        border-radius: var(--border-radius);
+    }
+
+
+    h1 {
+        font-size: calc(3.6rem + 1vw);
+        font-weight: var(--theme--FontWeight--light);
+        line-height: var(--theme--text--LineHeight);
+        letter-spacing: -2px;
+    }
+
+    .headline-summary {
+        margin-block-end: .5em;
+    }
+
+    @container navigation (width <= 480px) {
+        h1 {
+            font-size: calc(2.1rem + 1vw);
         }
     }
 
-    .content {
-        background: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
-        padding: var(--theme--container--space);
-        border-radius: var(--border-radius);
+    @container navigation (width <= 620px) {
+        h1 {
+            font-size: calc(2.8rem + 1vw);
+        }
+
+        .icon-group {
+            display: none;
+        }
+    }
+
+    .navigation {
+        grid-area: navigation;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: calc(var(--theme--content--space) * 1.5);
+
+        border-block-start: 2px solid color-mix(in srgb, var(--theme--ui--Color) 80%, transparent);
+        padding-block-start: calc(var(--theme--container--space) * .5);
+
+        ul {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: var(--theme--content--space);
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            color: var(--theme--text--Color);
+        }
+
+        .cta-button {
+            transition: background var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out), color var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out);
+        }
+
+        ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
+            background: var(--theme--ui--Color--hover);
+        }
+
+        ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
+            --cta-button--timing: 400ms;
+            --cta-button--easing: ease-in;
+        }
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    :is(#masthead, .wrapper, .branding, h1, .headline-summary, .navigation, .icon-group) {
+        animation-range: 0 50vh;
+        animation-fill-mode: forwards;
+        animation-timeline: scroll(block root);
+    }
+
+    #masthead {
+        position: sticky;
+        inset: 0;
+        animation-name: band-to-sticky-header;
+        transition: padding 0.3s ease, background-color 0.3s ease;
+
+        .wrapper {
+            animation-name: wrapper-to-sticky-header;
+        }
+
+        .branding {
+            animation-name: logo-to-sticky-header;
+        }
 
         h1 {
-            font-size: calc(3.6em + 1vw);
-            font-weight: var(--theme--FontWeight--light);
-            line-height: var(--theme--text--LineHeight);
-            letter-spacing: -2px;
-            z-index: 1;
-            position: relative;
+            animation-name: headline-to-sticky-header;
         }
 
-        @container navigation (width <= 480px) {
-            h1 {
-                font-size: calc(2.1em + 1vw);
-            }
+        .headline-summary {
+            animation-name: headline-summary-to-sticky-header;
         }
-
-        @container navigation (width <= 620px) {
-            h1 {
-                font-size: calc(2.8em + 1vw);
-            }
-
-            .icon-group {
-                display: none;
-            }
-        }
-    }
-
-    .container {
-        inline-size: 100%;
-
-        container: navigation / inline-size;
 
         .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: calc(var(--theme--content--space) * 1.5);
-
-            border-block-start: 2px solid color-mix(in srgb, var(--theme--ui--Color) 80%, transparent);
-            padding-block-start: calc(var(--theme--container--space) * .5);
-
-            ul {
-                display: inline-flex;
-                flex-wrap: wrap;
-                gap: var(--theme--content--space);
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-
-                color: var(--theme--text--Color);
-            }
-
-            .cta-button {
-                transition: background var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out), color var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out);
-            }
-
-            ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
-                background: var(--theme--ui--Color--hover);
-            }
-
-            ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
-                --cta-button--timing: 400ms;
-                --cta-button--easing: ease-in;
-            }
+            animation-name: navigation-to-sticky-header;
         }
+
+        .icon-group {
+            animation-name: icon-group-to-sticky-header;
+        }
+    }
+}
+
+@keyframes band-to-sticky-header {
+    20% {
+        padding-block: 0;
+    }
+    to {
+        background-color: color-mix(in srgb, var(--theme--surface--color) 90%, transparent);
+        padding-block: 0;
+    }
+}
+
+@keyframes wrapper-to-sticky-header {
+    20% {
+        inline-size: 100%;
+
+        grid-template-areas:
+            "branding headline navigation"
+            "branding summary navigation";
+
+        grid-template-columns: 120px 1fr max-content;
+        column-gap: var(--theme--content--space);
+     }
+    to {
+        inline-size: 100%;
+
+        grid-template-areas:
+            "branding headline navigation"
+            "branding summary navigation";
+
+        grid-template-columns: 120px 1fr max-content;
+        column-gap: var(--theme--content--space);
+    }
+}
+
+@keyframes logo-to-sticky-header {
+    20% {
+        transform: scale(.6);
+    }
+    to {
+        transform: scale(.6);
+        background: transparent;
+        margin: 0;
+    }
+}
+
+@keyframes headline-to-sticky-header {
+    20% {
+        font-size: 2.5rem;
+        align-self: end;
+    }
+    to {
+        font-size: 2.5rem;
+        align-self: end;
+    }
+}
+
+@keyframes headline-summary-to-sticky-header {
+    20% {
+        font-size: 1rem;
+        margin: 0 !important;
+        align-self: start;
+    }
+    to {
+        font-size: 1rem;
+        margin: 0 !important;
+        align-self: start;
+    }
+}
+
+@keyframes navigation-to-sticky-header {
+    20% {
+        border-block-start: 0 solid transparent;
+        justify-content: end;
+    }
+    to {
+        border-block-start: 0 solid transparent;
+        padding: 0;
+        gap: 0;
+        justify-content: end;
+    }
+}
+
+@keyframes icon-group-to-sticky-header {
+    20% {
+        opacity: 0.5;
+        inline-size: 0;
+    }
+    to {
+        opacity: 0;
+        inline-size: 0;
+        display: none;
+        visibility: hidden;
     }
 }
 {% endcss %}

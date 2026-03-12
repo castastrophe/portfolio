@@ -1,12 +1,7 @@
-<svg id="background" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
-    style="width: auto; height: 100vh; overflow: visible; position: fixed; top: 0; left: 0; z-index: -1;">
+<svg id="background" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" style="width: 100vw; height: auto; overflow: visible; position: fixed; top: 0; left: 0; z-index: -1;">
     <style>
-        :root,
-        :is(.accent--orange, .accent--blue, .accent--yellow) {
+        #background {
             --color-primary: var(--theme--surface--color--accent);
-        }
-
-        :root {
             --layer-1: 0.5;
             --layer-2: 0.45;
             --layer-3: 0.4;
@@ -14,18 +9,45 @@
             --layer-5: 0.3;
             --layer-6: 0.2;
             --layer-7: 0.1;
+            --grid-size: 40px;
+            --grid-color: light-dark(hsl(40, 12%, 94%), hsl(0, 1%, 12%));
+
+            @media (prefers-color-scheme: dark) {
+                --layer-1: 0.3;
+                --layer-2: 0.2;
+                --layer-3: 0.1;
+                --layer-4: 0.09;
+                --layer-5: 0.08;
+                --layer-6: 0.07;
+                --layer-7: 0.06;
+            }
+
+            background-size: var(--grid-size) var(--grid-size);
+            background-image: linear-gradient(to right, var(--grid-color) 1pt, transparent 1pt), linear-gradient(to bottom, var(--grid-color) 1pt, transparent 1pt);
+
+            :is(.accent--orange, .accent--blue, .accent--yellow) {
+                --color-primary: var(--theme--surface--color--accent);
+            }
+
+            :is(linearGradient, radialGradient) {
+                stop {
+                    stop-color: var(--color-primary);
+                    stop-opacity: 1;
+                }
+            }
+
         }
 
         /* Scroll-driven animations for SVG elements */
         @media not (prefers-reduced-motion: reduce) {
             @supports (animation-timeline: scroll()) {
-                :is(.pulse, .draw) {
+                #background :is(.pulse, .draw, .grow) {
                     animation-timeline: scroll(block root);
                     animation-range-start: 0%;
                     animation-range-end: 70%;
                 }
 
-                .fade {
+                #background.fade {
                     animation-timeline: scroll(block root);
                     animation-range-start: calc(var(--visible-timing, 0) * 100%);
                     animation-range-end: 100%;
@@ -33,43 +55,57 @@
             }
 
             @supports not (animation-timeline: scroll()) {
-                :is(.draw) {
-                    animation-duration: 10s;
-                }
-                :is(.pulse) {
-                    animation-duration: 5s;
-                    animation-iteration-count: infinite;
-                }
-                :is(.fade) {
-                    animation-duration: calc(var(--visible-timing, 1) * 10s);
-                }
-            }
-
-            :is(.pulse, .draw, .fade) {
-                animation-timing-function: linear;
-                animation-direction: normal;
-                transform-origin: center;
-                animation-fill-mode: forwards;
-
-                &:is(.reverse) {
-                    animation-direction: reverse;
+                #background {
+                    :is(.draw, .grow) {
+                        animation-duration: 10s;
+                    }
+                    :is(.pulse) {
+                        animation-duration: 5s;
+                        animation-iteration-count: infinite;
+                    }
+                    :is(.fade) {
+                        animation-duration: calc(var(--visible-timing, 1) * 10s);
+                    }
                 }
             }
 
-            .pulse {
-                animation-name: pulse;
-                transform-box: stroke-box;
-            }
+            #background {
+                :is(.pulse, .draw, .fade, .grow) {
+                    animation-timing-function: linear;
+                    animation-direction: normal;
+                    transform-origin: center;
+                    animation-fill-mode: forwards;
 
-            .draw {
-                stroke-dashoffset: 100vw;
-                stroke-dasharray: 100vw;
-                animation-name: draw;
-            }
+                    &:is(.reverse) {
+                        animation-direction: reverse;
+                    }
+                }
 
-            .fade {
-                animation-name: fade;
-                opacity: 0;
+                .pulse {
+                    animation-name: pulse;
+                    transform-box: stroke-box;
+                }
+
+                .draw {
+                    stroke-dashoffset: 100%;
+                    stroke-dasharray: 100%;
+                    animation-name: draw;
+                }
+
+                .fade {
+                    animation-name: fade;
+                    opacity: 0;
+                }
+
+                .grow {
+                    animation-name: grow;
+                    transform-box: stroke-box;
+
+
+                    &:is(.fade) {
+                        opacity: 0;
+                    }
+                }
             }
         }
 
@@ -80,7 +116,7 @@
         }
 
         @keyframes draw {
-            100% {
+            to {
                 stroke-dashoffset: 0;
             }
         }
@@ -91,19 +127,35 @@
             }
         }
 
-        #accentGradient {
-            stop {
-                stop-color: var(--color-primary);
-                stop-opacity: 1;
+        @keyframes grow {
+            0% {
+                transform: scale(0) translate(0, 0);
+                opacity: 0;
+                stroke-width: 0;
+            }
+            20% {
+                opacity: .8;
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+                stroke-width: var(--stroke-width-final, 2);
+                opacity: 1;
             }
         }
     </style>
 
     <defs>
-        <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"/>
-            <stop offset="100%" class="accent--yellow"/>
+        <!-- Gradient from top left to bottom right -->
+        <linearGradient id="gradient-linear" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" />
+            <stop offset="100%" class="accent--yellow" />
         </linearGradient>
+
+        <!-- Gradient from center to edges -->
+        <radialGradient id="gradient-radial" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" />
+            <stop offset="100%" class="accent--orange" />
+        </radialGradient>
 
         <!-- Glow effect -->
         <filter id="glow">
@@ -116,68 +168,68 @@
     </defs>
 
     <!-- Large, layered circle -->
-    <g class="accent--yellow">
-        <circle class="accent--orange" cx="950" cy="100" r="60" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="10" />
-        <circle cx="950" cy="100" r="80" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="3" />
-        <circle class="accent--orange" cx="950" cy="100" r="100" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2" />
-        <circle cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-5)" stroke-width="150" />
-        <circle class="accent--orange" cx="950" cy="100" r="180" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2" />
-        <circle class="accent--orange" cx="950" cy="100" r="260" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="10" />
+    <g class="accent--yellow" opacity="var(--layer-3)">
+        <circle class="accent--orange" cx="950" cy="169" r="101" fill="none" stroke="var(--color-primary)" stroke-width="10" />
+        <circle cx="950" cy="169" r="135" fill="none" stroke="var(--color-primary)" stroke-width="3" />
+        <circle class="accent--orange" cx="950" cy="169" r="169" fill="none" stroke="var(--color-primary)" stroke-width="2" />
+        <circle cx="950" cy="169" r="304" fill="none" stroke="var(--color-primary)" stroke-width="150" />
+        <circle class="accent--orange" cx="950" cy="169" r="304" fill="none" stroke="var(--color-primary)" stroke-width="2" />
+        <circle class="accent--orange" cx="950" cy="169" r="439" fill="none" stroke="var(--color-primary)" stroke-width="10" />
     </g>
 
-    <!-- Bottom, left triangle -->
-    <polygon class="accent--yellow pulse"  points="100,300 200,250 180,350" fill="var(--color-primary)" opacity="var(--layer-3)" stroke="var(--color-primary)" stroke-width="5"/>
-
     <!-- Flowing connection lines -->
-    <g class="accent--blue">
-        <path class="draw" d="M -5 80 Q 400 190 800 280 T 1205 370" fill="none" stroke="var(--color-primary)" opacity="var(--layer-3)" stroke-width="1.5" />
-        <circle class="fade" style="--visible-timing:calc(150/400)" cx="260" cy="150" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
-        <circle class="fade pulse" style="--visible-timing:calc(285/400)" cx="820" cy="285" r="12" fill="var(--color-primary)" opacity="var(--layer-3)"/>
+    <g class="accent--blue" opacity="var(--layer-4)">
+        <path class="draw" d="M 0 135 Q 400 321 800 473 T 1200 624" fill="none" stroke="var(--color-primary)" stroke-width="1.5" />
+        <circle class="fade" style="--visible-timing:calc(253/675)" cx="260" cy="253" r="8" fill="var(--color-primary)"/>
+        <circle class="fade pulse" style="--visible-timing:calc(481/675)" cx="820" cy="481" r="20" fill="var(--color-primary)"/>
     </g>
 
     <!-- Simple open circle on the left -->
-    <g class="accent--blue" style="--visible-timing:calc(1200 - 35/400)">
-        <path class="draw reverse" d="M -5 120 Q 300 -100 600 200 T 1205 215" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)" stroke-width="5" />
-        <circle class="fade" cx="180" cy="35" r="20" fill="var(--color-primary)" opacity="var(--layer-3)"/>
-        <circle class="fade pulse" cx="180" cy="35" r="30" fill="none" stroke="var(--color-primary)" opacity="var(--layer-2)" stroke-width="3"/>
-        <circle class="fade" style="--visible-timing:calc(1200 - 200/400)" cx="600" cy="200" r="8" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+    <g class="accent--blue" style="--visible-timing:calc(1200 - 59/675)" opacity="var(--layer-4)">
+        <path class="draw reverse" d="M 0 203 Q 300 -169 600 338 T 1200 363" fill="none" stroke="var(--color-primary)" stroke-width="5" />
+        <circle class="fade" cx="180" cy="59" r="34" fill="var(--color-primary)"/>
+        <circle class="fade pulse" cx="180" cy="59" r="51" fill="none" stroke="var(--color-primary)" stroke-width="3"/>
+        <circle class="fade" style="--visible-timing:calc(1200 - 338/675)" cx="600" cy="338" r="14" fill="var(--color-primary)"/>
     </g>
 
-    <g style="--visible-timing:calc(1200 - 203/400)">
-        <path class="draw reverse" d="M -5 200 Q 350 280 650 220 T 1205 240" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2.1" />
-        <circle class="fade" cx="1035" cy="203" r="5" fill="var(--color-primary)" opacity="var(--layer-1)"/>
+    <g style="--visible-timing:calc(1200 - 343/675)" opacity="var(--layer-4)">
+        <path class="draw reverse" d="M 0 338 Q 350 473 650 371 T 1200 405" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2.1" />
+        <circle class="fade" cx="1035" cy="343" r="8" fill="var(--color-primary)" opacity="var(--layer-1)"/>
     </g>
 
-    <g>
-        <path class="draw" d="M -5 360 Q 300 400 600 130 T 1205 310" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-6)" stroke-width="8" />
+    <g opacity="var(--layer-6)">
+        <path class="draw" d="M 0 608 Q 300 675 600 219 T 1200 523" fill="none" stroke="url(#gradient-linear)" stroke-width="8" />
     </g>
 
-    <g style="--visible-timing:calc(245/400)">
-        <path class="draw" d="M -5 280 Q 300 -180 600 200 T 1205 130" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-3)" stroke-width="3.5" />
-        <circle class="fade" cx="449" cy="245" r="6" fill="var(--color-primary)" opacity="var(--layer-6)"/>
-        <circle class="fade" cx="450" cy="245" r="18" fill="none" stroke="var(--color-primary)" opacity="var(--layer-4)" stroke-width="2" />
-        <circle class="fade" cx="450" cy="245" r="48" fill="none" stroke="url(#accentGradient)" opacity="var(--layer-6)" stroke-width="6" />
+    <g style="--visible-timing:calc(413/675)" opacity="var(--layer-3)">
+        <path class="draw" d="M 0 473 Q 300 -304 600 338 T 1200 219" fill="none" stroke="var(--color-primary)" stroke-width="3.5" />
+        <circle class="fade grow" cx="449" cy="413" r="5" fill="var(--color-primary)"/>
+        <circle class="fade grow" style="--stroke-width-final: 2" cx="450" cy="413" r="30" fill="none" stroke="var(--color-primary)" stroke-width="0" />
+        <circle class="fade grow" style="--stroke-width-final: 6" cx="450" cy="413" r="50" fill="none" stroke="var(--color-primary)" stroke-width="0" />
     </g>
 
     <!-- Binary code background texture -->
     <g font-family="monospace" font-size="14" fill="color-mix(in srgb, var(--theme--text--Color) 20%, transparent)">
-        <g class="binary" data-lines="20" data-columns="1" data-x="0" data-y="0" font-size="16" style="letter-spacing:.2em;" fill="url(#accentGradient)" opacity="var(--layer-6)"></g>
+        <g class="binary" data-lines="40" data-columns="1" data-x="0" data-y="60" font-size="16" style="letter-spacing:.2em;" fill="url(#gradient-linear)" opacity="var(--layer-6)"></g>
 
         <g opacity="var(--layer-4)">
-            <text x="800" y="60">The quick brown fox jumps over the lazy dog</text>
+            <text x="800" y="101">The quick brown fox jumps over the lazy dog</text>
         </g>
 
-        <g font-size="16" opacity="var(--layer-6)">
-            <text x="300" y="150">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</text>
-            <text x="300" y="180">Sed do eiusmod tempor incididunt ut labore et dolore magna</text>
-            <text x="300" y="210">aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</text>
+        <g font-size="16" opacity="var(--layer-6)" style="transform: rotate(90deg); transform-origin: top left; transform-box: stroke-box;">
+            <text x="250" y="200">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</text>
+            <text x="250" y="220">Sed do eiusmod tempor incididunt ut labore et dolore magna</text>
+            <text x="250" y="240">aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</text>
         </g>
 
-        <g class="binary" data-lines="1" data-columns="8" data-x="400" data-y="380" font-size="14" fill="url(#accentGradient)" style="letter-spacing:.2em;" opacity="var(--layer-6)"></g>
+        <g class="binary" data-lines="1" data-columns="8" data-x="400" data-y="550" font-size="14" style="letter-spacing:.2em;" opacity="var(--layer-6)"></g>
     </g>
 
-    <!-- Decorative corner elements -->
-    <polygon class="accent--orange" points="0,0 200,0 0,200" fill="url(#accentGradient)" opacity="var(--layer-1)" />
+    <!-- Decorative corner element -->
+    <polygon points="0,0 150,0 0,150" fill="url(#gradient-linear)" />
+
+    <!-- Bottom, left triangle -->
+    <polygon class="accent--yellow pulse"  points="120,500 180,400 200,550" fill="var(--color-primary)" opacity="var(--layer-1)" stroke="var(--color-primary)" stroke-width="5"/>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

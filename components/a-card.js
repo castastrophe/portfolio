@@ -96,7 +96,6 @@ styles.replaceSync(`
     :host([bordered]) {
         --card--BorderWidth: 2px;
         --card--BorderColor: var(--theme--ui--Color--subtle);
-        --card--Background: var(--theme--surface--color);
     }
 
     :host([bordered][featured]) {

@@ -91,10 +91,6 @@ html {
 
   margin-block: 0;
 
-  &:where(:not(:last-child)) {
-    margin-block-end: var(--spacing--vertical);
-  }
-
   &:where(.accent) {
     color: var(--theme--heading--Color--accent);
   }
@@ -199,7 +195,7 @@ html {
   block-size: auto;
 
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color, var(--theme--ui--Color--subtle));
+  border: 1px solid var(--border-color, transparent);
 }
 
 body {
@@ -278,7 +274,16 @@ body {
 
   @container card (width >=0) {
     font-size: 1.4em;
-    margin-block-start: 0;
+    font-weight: var(--theme--FontWeight--semi-bold);
+    margin-block-end: .2em;
+
+    &:has(+ .headline-summary) {
+      margin-block-end: .5em;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    font-weight: var(--theme--FontWeight);
   }
 }
 
@@ -490,19 +495,12 @@ blockquote {
   }
 }
 
-/* todo: should the div have a unique class? */
-div:has(> iframe) {
-  padding: 0 0 56.25%;
-  position: relative;
-
-  iframe {
-    aspect-ratio: 16 / 9;
-    inset-inline-start: 0;
-    inset-block-start: 0;
-    block-size: auto;
-    inline-size: 100%;
-    position: absolute;
-  }
+iframe {
+  aspect-ratio: 16 / 9;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  block-size: auto;
+  inline-size: 100%;
 }
 
 /* @todo: combine all the cta styling found below */
