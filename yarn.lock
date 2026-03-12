@@ -5653,6 +5653,7 @@ __metadata:
     markdown-it: "npm:^14.1.0"
     markdown-it-anchor: "npm:^9.2.0"
     netlify-cli: "npm:^24.0.1"
+    netlify-plugin-inngest: "npm:^1.0.1"
     npm-run-all2: "npm:^8.0.4"
     postcss: "npm:^8.5.6"
     postcss-each: "npm:^1.1.0"
@@ -13230,6 +13231,13 @@ __metadata:
     netlify: bin/run.js
     ntl: bin/run.js
   checksum: 10c0/a14eeac962a9d37c693bae872ba55da4e864831ae2daddb1e1b69a2441ce53e196d2525fe2b99d7c43145a6d719b57c669e43bbf65fc7c148c95ca71296b04b5
+  languageName: node
+  linkType: hard
+
+"netlify-plugin-inngest@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "netlify-plugin-inngest@npm:1.0.1"
+  checksum: 10c0/1eea22bf8490ad25530227463bc2a74e7952179ca8c1580e9731748aa2399480230011ba750221f1b6ac09c4e2c586f4d867a3b47c5291cfbcb59a431103ba67
   languageName: node
   linkType: hard
 

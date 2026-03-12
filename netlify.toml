@@ -1,3 +1,15 @@
 [[edge_functions]]
-function = "custom-content"
-path = "/resume"
+    function = "custom-content"
+    path = "/resume"
+
+[[plugins]]
+    package = "netlify-plugin-inngest"
+    [plugins.inputs]
+        host = "https://allons-y.llc"
+
+    package = "@netlify/plugin-sitemap"
+    [plugins.inputs]
+        buildDir = "public"
+        exclude = [
+            './public/resume/*.html',
+        ]
