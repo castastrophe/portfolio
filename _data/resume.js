@@ -57,5 +57,20 @@ export default async function () {
 				resume_variants rv
 	`;
 
-	return rows;
+	// Lets group skills by category so we have one category and multiple skills
+	const reorganized = rows.map((row) => {
+		if (!row.skills) return row;
+		const categories = {};
+
+		const skills = [];
+		for (const { category, items = [] } of row.skills) {
+			categories[category] = items;
+		}
+
+		for (const [category, items] of Object.entries(categories)) {
+			skills.push({ category, items });
+		}
+		return { ...row, skills: skills.filter(skill => skill.items.length > 0).sort((a, b) => a.category.localeCompare(b.category)) };
+	}, {});
+	return reorganized;
 };

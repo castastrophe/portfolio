@@ -58,7 +58,9 @@ styles.replaceSync(`
 customElements.define(
     "tag-group",
     class TagGroup extends HTMLElement {
-        static observedAttribute = ["tags", "filters", "url"];
+        static get observedAttributes() {
+            return ["tags", "filters", "url"];
+        }
 
         _tags = [];
 

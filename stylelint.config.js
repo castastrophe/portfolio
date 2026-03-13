@@ -6,7 +6,7 @@ export default {
 	plugins: [
 		"stylelint-order",
 		"stylelint-use-logical",
-		"stylelint-high-performance-animation",
+		// "stylelint-high-performance-animation",
 	],
 	rules: {
 		/** --------------------------------------------------------------

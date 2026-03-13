@@ -13,4 +13,4 @@
 
     [plugins.inputs]
         buildDir = "public"
-        exclude = './public/resume/*.html'
+        exclude = ['./public/resume/*.html']

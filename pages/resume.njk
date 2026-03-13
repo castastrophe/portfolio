@@ -221,7 +221,7 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
             </h2>
           </div>
           <div>
-          {% for entry in resume.training %}
+          {% for entry in candidate.training %}
           {% if entry.title or entry.institution %}
             <p class="education-item">
               {% if entry.title %}<strong>{{ entry.title }}</strong>{% endif %}
@@ -289,12 +289,18 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
           <ul class="skills-grid">
             {% for entry in resume.skills %}
               <li>
-                {% if entry.category %}<h3>{{ entry.category }}</h3>{% endif %}
-                <ul>
-                {% for skill in entry.items %}
-                  <li>{{ skill }}</li>
-                {% endfor %}
-                </ul>
+                {% if entry.category and entry.items.length >= 3 %}
+                  <h3>{{ entry.category }}</h3>
+                  <ul>
+                    {% for skill in entry.items %}
+                      {% if skill %}<li>{{ skill }}</li>{% endif %}
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  {% for skill in entry.items %}
+                    {% if skill %}{{ skill }}{% endif %}
+                  {% endfor %}
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
@@ -364,11 +370,12 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
 
   .skills-grid {
     &,
-    & ul {
+    ul {
       list-style: none;
       padding: 0;
     }
 
+    &:not(:has(h3)),
     ul {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

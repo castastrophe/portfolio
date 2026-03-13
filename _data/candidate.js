@@ -138,7 +138,7 @@ function formatEmployeeObject(user) {
 export default async function () {
   const sql = neon( process.env.NEON_DATABASE_URL );
   const rows = await sql`
-		SELECT name, phone, email, work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url
+		SELECT name, title, short_biography, phone, email, work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url
 		FROM employees`;
 
     const results = {
