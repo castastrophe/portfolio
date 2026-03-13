@@ -75,10 +75,10 @@
                     animation-direction: normal;
                     transform-origin: center;
                     animation-fill-mode: forwards;
+                }
 
-                    &:is(.reverse) {
-                        animation-direction: reverse;
-                    }
+                :is(.pulse, .draw, .fade, .grow):is(.reverse) {
+                    animation-direction: reverse;
                 }
 
                 .pulse {
@@ -100,11 +100,10 @@
                 .grow {
                     animation-name: grow;
                     transform-box: stroke-box;
+                }
 
-
-                    &:is(.fade) {
-                        opacity: 0;
-                    }
+                 .grow:is(.fade) {
+                    opacity: 0;
                 }
             }
         }
@@ -244,7 +243,8 @@
                   fontSize  = parseInt(binaryGroup.getAttribute('font-size') ?? 14);
 
             for (let i = 0; i < lines; i++) {
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                const url = 'http://www.w3.org/2000/svg';
+                const text = document.createElementNS(url, 'text');
                 text.setAttribute('x', x);
                 text.setAttribute('y', y + (i * fontSize) + 4);
 
@@ -253,12 +253,12 @@
                     for (let k = 0; k < 8; k++) {
                         char += Math.random() < 0.5 ? '1' : '0';
                     }
-                    text.innerHTML += `${char} `;
+                    text.textContent += `${char} `;
                 }
 
-                    binaryGroup.appendChild(text);
-                }
-            });
+                binaryGroup.appendChild(text);
+            }
+        });
     });
     </script>
 </svg>

@@ -18,7 +18,7 @@ import pluginTOC from "eleventy-plugin-toc";
 
 /** @param {import('@11ty/eleventy')} config */
 export default async function (config) {
-	dotenv.config();
+	dotenv.config({ path: ".env" });
 	config.setDataFileBaseName("index");
 
 	config.addWatchTarget("pages/background.svg");

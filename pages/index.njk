@@ -9,7 +9,7 @@ eleventyNavigation:
 <a-band id="about">
     <a-card bordered featured class="accent--blue">
         <div class="content">
-            <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly,<br/><strong class="extra"><em>&ldquo;Let's go!&rdquo;</em></strong></p>
+            <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, <strong><em>&ldquo;Let's go!&rdquo;</em></strong></p>
             <p>That's exactly the energy we bring to design systems work. We help organizations build front-end infrastructure that empowers teams—transforming design vision into production-ready code while establishing the workflows that make collaboration seamless.</p>
             <p>With expertise from Adobe, Red Hat, and the W3C CSS Working Group, we deliver enterprise-scale solutions that balance innovation with accessibility, performance, and developer experience. In addition to our technical expertise, we have available an experienced project manager with extensive government and banking experience, managing projects large and small from start to finish.</p>
         </div>
@@ -19,7 +19,7 @@ eleventyNavigation:
     </a-card>
 </a-band>
 
-<a-band id="services" padding="double" center wrap>
+<a-band id="services" thick>
     <a-card bordered overflow>
         <h4 class="title" slot="header">Design systems</h4>
         <div class="content">
@@ -71,7 +71,12 @@ eleventyNavigation:
     </a-card>
 </a-band>
 
-<a-band full id="posts" padding="half" grid>
+<a-band id="cta" space-evenly>
+    <a-note></a-note>
+    <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
+</a-band>
+
+<a-band id="posts" thin>
     <h2 class="title" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
     {% for article in collections.posts | featured | reverse %}
     <a-card bordered>
@@ -84,7 +89,7 @@ eleventyNavigation:
 </a-band>
 
 <!-- Recorded talks -->
-<a-band id="presentations" grid padding="double">
+<a-band id="presentations" thick full>
     <h2 class="title" slot="header"><a href="{{ '/presentation/' | url }}">Presentations</a></h2>
     <a-card slot="header" style="--card--Width: 100%; --card--Background: color-mix(in srgb, var(--theme--surface--color) 70%, transparent)">
         <div class="content">
@@ -95,9 +100,7 @@ eleventyNavigation:
     {% for presentation in presentations | featured %}
     <a-card bordered video>
         {% if presentation.youtube_id %}
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header"></iframe>
-        </div>
+        <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header"></iframe>
         {% endif %}
         <div class="content">
             {% if presentation.title %}
@@ -125,42 +128,6 @@ eleventyNavigation:
     </a-card>
     {% endfor %}
 </a-band>
-
-<a-band id="cta" space-evenly>
-    <a-note></a-note>
-    <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
-</a-band>
-
-{% css %}
-#services {
-    --band--body--AlignItems: stretch;
-    --band--body--Width: 100%;
-    --card--Width: min(50ch, 100%);
-    --card--BorderRadius: 8px;
-    --card--Gap--vertical: calc(var(--theme--content--space) * 2);
-
-    @media screen and (width <= 992px) {
-        --card--Width: min(40ch, 100%);
-
-        font-size: .9em;
-    }
-}
-
-#presentations {
-    --band--body--Width: 100%;
-    --band--body--AlignItems: stretch;
-    --card--Width: min(365px, 100%);
-}
-
-#posts {
-    --spacing--vertical: 2em;
-    --columns: 1;
-
-    @media screen and (width <= 992px) {
-        --grid-columns: 1;
-    }
-}
-{% endcss %}
 
 {% js %}
    import '/js/components/a-band.js';

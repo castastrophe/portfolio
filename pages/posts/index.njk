@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 3
 ---
 
-<a-band full id="posts" padding="double" full>
+<a-band id="post-listing" thick full>
     <h2 class="title" slot="header">Posts</h2>
     {% for article in collections.posts | reverse %}
     {% if article.data.title %}

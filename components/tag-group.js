@@ -16,7 +16,7 @@ styles.replaceSync(`
     @container card (width >= 0) {
         :host([slot="footer"]) {
             margin-block-start: 2em;
-            border-block-start: 1px solid var(--theme--ui--Color--subtle);
+            border-block-start: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
             padding-block-start: 0.5em;
         }
     }
@@ -27,16 +27,12 @@ styles.replaceSync(`
         font-weight: var(--theme--FontWeight--medium);
         color: inherit;
         padding: .3em .4em .2em;
-        border-radius: var(--border-radius);
+        border-radius: var(--theme--BorderRadius);
         background-color: color-mix(in sRGB, var(--tag-background-color, var(--theme--ui--Color)) var(--tag-background-opacity, 10%), transparent);
 
         a {
             text-decoration: none;
             color: inherit;
-
-            &:visited {
-                color: inherit;
-            }
         }
     }
 
@@ -45,7 +41,7 @@ styles.replaceSync(`
         font-size: inherit;
         font-weight: var(--theme--FontWeight--thin);
         color: inherit;
-        line-height: 1.8;
+        line-height: var(--theme--LineHeight--spacious);
     }
 
     :host([labeled]) {
@@ -58,9 +54,9 @@ styles.replaceSync(`
 customElements.define(
     "tag-group",
     class TagGroup extends HTMLElement {
-        static get observedAttributes() {
-            return ["tags", "filters", "url"];
-        }
+        // static get observedAttributes() {
+        //     return ["tags", "filters", "url"];
+        // }
 
         _tags = [];
 

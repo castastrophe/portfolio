@@ -29,6 +29,11 @@ jobs:
 
       - name: Validate build
         run: yarn ci
+        env:
+          INNGEST_APP_ID: ${{ secrets.INNGEST_APP_ID }}
+          NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+          NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
 
       # - name: Check for lint errors
       #   run: yarn lint

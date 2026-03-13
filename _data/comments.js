@@ -10,15 +10,18 @@ export default async () => {
 		return [];
 	}
 
-	const api = new NetlifyAPI(token);
-	const submissions = await api.listFormSubmissions({ formId: 'approved-comments', limit: 100 });
+	return [];
 
-	return submissions.map((submission) => ({
-		name: submission.name,
-		avatar: submission.email ? gravatar.url(submission.email, { s: '100', r: 'x', d: 'retro' }, true) : null,
-		comment: submission.data?.comment?.trim(),
-		website: submission.data?.website,
-		date: new Date(submission.created_at).toISOString(),
-		id: submission.id,
-	}));
+	// TODO
+	// const api = new NetlifyAPI(token);
+	// const submissions = await api.listFormSubmissions({ formId: 'approved-comments', limit: 100 });
+
+	// return submissions.map((submission) => ({
+	// 	name: submission.name,
+	// 	avatar: submission.email ? gravatar.url(submission.email, { s: '100', r: 'x', d: 'retro' }, true) : null,
+	// 	comment: submission.data?.comment?.trim(),
+	// 	website: submission.data?.website,
+	// 	date: new Date(submission.created_at).toISOString(),
+	// 	id: submission.id,
+	// }));
 };

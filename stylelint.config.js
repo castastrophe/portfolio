@@ -6,7 +6,6 @@ export default {
 	plugins: [
 		"stylelint-order",
 		"stylelint-use-logical",
-		// "stylelint-high-performance-animation",
 	],
 	rules: {
 		/** --------------------------------------------------------------
@@ -88,6 +87,7 @@ export default {
 			},
 		],
 		"selector-attribute-quotes": "always",
+		"selector-class-pattern": "[a-z]+(-.[a-z]+)*",
 		"selector-not-notation": "complex",
 		"value-keyword-case": [
 			"lower",
@@ -109,10 +109,5 @@ export default {
 		 * -------------------------------------------------------------- */
 		"csstools/use-logical": true,
 		"order/order": ["custom-properties", "declarations"],
-		/** Performance */
-		"plugin/no-low-performance-animation-properties": [
-			true,
-			{ severity: "warning" },
-		],
 	},
 };

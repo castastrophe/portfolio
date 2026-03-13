@@ -63,7 +63,7 @@
         <div layout="row">
             {% for presentation in employee.presentations %}
             {% if presentation.youtube_id and presentation.featured %}
-            <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
             {% endif %}
             {% endfor %}
         </div>

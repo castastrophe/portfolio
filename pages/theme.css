@@ -4,44 +4,61 @@
     --accent--blue: hsl(192, 70%, 40%);
     --accent--yellow: hsl(42, 100%, 70%);
 
-    --theme--surface--color: light-dark(hsl(40, 12%, 96%), hsl(0, 1%, 10%));
-    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 85%), hsl(0, 0%, 69%));
-
-    --theme--text--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-    --theme--text--FontFamily--signature: "Dancing Script", cursive;
-    --theme--text--FontFamily--dense: "EB Garamond", 'Georgia', serif;
-    --theme--text--LineHeight: 1.1;
-
     /* Roboto font weight mappings, 100-900 */
     --theme--FontWeight--thin: 100;
     --theme--FontWeight--extra-light: 200;
     --theme--FontWeight--light: 300;
     --theme--FontWeight: 400;
-    /* Dancing Script starts at 400; PT Mono only has 400 */
+    /* Dancing Script + EB Garamond starts at 400; PT Mono only has 400 */
     --theme--FontWeight--medium: 500;
     --theme--FontWeight--semi-bold: 600;
     --theme--FontWeight--bold: 700;
     /* Dancing Script ends at 700 */
     --theme--FontWeight--extra-bold: 800;
+    /* EB Garamond ends at 800 */
     --theme--FontWeight--black: 900;
+
+    --theme--LineHeight--dense: 1.1;
+    --theme--LineHeight: 1.4;
+    --theme--LineHeight--spacious: 1.8;
+
+    --theme--text--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--text--FontFamily--signature: "Dancing Script", cursive;
+    --theme--text--FontFamily--dense: "EB Garamond", 'Georgia', serif;
+    --theme--text--LineHeight: var(--theme--LineHeight);
+
+    --theme--code--FontFamily: "PT Mono", monospace;
+    --theme--code--FontSize: .8em;
+    --theme--code--LineHeight: var(--theme--LineHeight);
+
+    --theme--heading--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--heading--LineHeight: var(--theme--LineHeight--dense);
+
+    --theme--container--space: 16px;
+    --theme--content--space: 10px;
+
+    --theme--BorderRadius: 0.2em;
+    --theme--BorderRadius--circle: 50%;
+
+    --theme--OutlineOffset: 2px;
+    --theme--Outline: 1px;
+
+    --theme--BorderWidth--thin: 1px;
+    --theme--BorderWidth: 2px;
+    --theme--BorderWidth--emphasis: 8px;
+
+    --theme--container--MaxWidth: 1200px;
+    --theme--content--MaxWidth: 80ch;
+
+    --theme--surface--color: light-dark(hsl(40, 12%, 96%), hsl(0, 1%, 10%));
+
+    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 85%), hsl(0, 0%, 69%));
 
     --theme--text--Color: light-dark(hsl(40, 12%, 20%), hsl(0, 0%, 100%));
     --theme--text--Color--invert: light-dark(hsl(0, 0%, 100%), hsl(40, 12%, 20%));
     --theme--text--Color--subtle: light-dark(hsl(0, 0%, 30%), hsl(0, 0%, 70%));
 
-    --theme--code--FontFamily: "PT Mono", monospace;
-
-    --theme--heading--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
-    --theme--heading--LineHeight: 1.4;
-
-
-    --theme--container--space: 16px;
-    --theme--content--space: 10px;
-
-    --border-radius: 0.2em;
-    --outline-offset: 2px;
-    --outline-width: 1px;
-
+    --theme--heading--Color: var(--theme--text--Color);
 }
 
 .accent--orange {
@@ -63,13 +80,12 @@
     --theme--ui--Color--active: color-mix(in hsl, var(--theme--ui--Color) 40%, transparent);
 
     --theme--surface--color--accent: light-dark(color-mix(in hsl, var(--base) 90%, transparent 80%), color-mix(in hsl, var(--base) 60%, transparent));
+
     --theme--text--Color--accent: light-dark(var(--base), color-mix(in hsl, var(--base) 90%, white));
 
     --theme--link--Color: var(--theme--text--Color--accent);
     --theme--link--Color--hover: color-mix(in hsl, var(--theme--link--Color) 90%, var(--theme--text--Color));
     --theme--link--Color--focus: color-mix(in hsl, var(--theme--link--Color) 90%, var(--theme--text--Color));
-    --theme--link--Color--visited: color-mix(in hsl, var(--theme--link--Color) 90%, var(--theme--text--Color));
 
-    --theme--heading--Color: var(--theme--text--Color);
     --theme--heading--Color--accent: var(--theme--text--Color--accent);
 }

@@ -1,0 +1,234 @@
+---
+layout: base
+title: Component preview
+eleventyExcludeFromCollections: true
+---
+
+{% css %}
+	.preview {
+		--preview--spacing: var(--theme--container--space);
+
+		& h2 {
+			font-size: 1.6em;
+			border-block-end: 2px solid var(--theme--ui--Color--subtle);
+			padding-block-end: 0.3em;
+			margin-block-end: 1em;
+		}
+
+		& h3 {
+			font-size: 1.1em;
+			font-weight: var(--theme--FontWeight--medium);
+			margin-block-end: 0.5em;
+			color: var(--theme--text--Color--muted, gray);
+		}
+
+		& section {
+			margin-block-end: calc(var(--preview--spacing) * 3);
+		}
+
+		& .variants {
+			display: flex;
+			flex-direction: column;
+			gap: calc(var(--preview--spacing) * 2);
+		}
+	}
+{% endcss %}
+
+<a-band>
+	<div class="preview">
+		{# ── a-card ── #}
+		<section>
+			<h2>a-card</h2>
+			<div class="variants">
+
+				<h3>Default</h3>
+				<a-card bordered>
+					<p class="headline">Default card</p>
+					<p>This is a basic card with bordered styling and simple text content.</p>
+				</a-card>
+
+				<h3>With header image (overflow)</h3>
+				<a-card overflow bordered>
+					<img slot="header" src="https://picsum.photos/seed/preview1/800/300" alt="Sample header image" width="800" height="300" eleventy:ignore>
+					<p class="headline">Card with header image</p>
+					<p>The overflow attribute lets the image bleed to the card edges.</p>
+				</a-card>
+
+				<h3>With footer</h3>
+				<a-card bordered>
+					<p class="headline">Card with footer</p>
+					<p>This card has a footer slot with tags.</p>
+					<tag-group slot="footer" tags="HTML,CSS,JavaScript"></tag-group>
+				</a-card>
+
+				<h3>Overflow with bordered header &amp; footer</h3>
+				<a-card overflow bordered>
+					<img slot="header" src="https://picsum.photos/seed/preview2/800/250" alt="Sample header image" width="800" height="250" eleventy:ignore>
+					<p class="headline">Full card</p>
+					<p>Combines overflow, bordered, header image, and a footer.</p>
+					<tag-group slot="footer" tags="Design systems,Web components"></tag-group>
+				</a-card>
+
+				<h3>With video</h3>
+				<a-card video bordered>
+					<iframe
+						src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+						title="Sample video"
+						width="400"
+						height="225"
+						frameborder="0"
+						allowfullscreen
+						loading="lazy"
+					></iframe>
+					<div class="content">
+						<p class="headline">Card with video</p>
+						<p>The video attribute triggers a side-by-side layout at wider viewports.</p>
+					</div>
+				</a-card>
+
+				<h3>Featured</h3>
+				<a-card bordered featured>
+					<p class="headline">Featured card</p>
+					<p>The featured attribute applies an accent border color.</p>
+				</a-card>
+
+				<h3>Fill width</h3>
+				<a-card bordered full>
+					<p class="headline">Full-width card</p>
+					<p>The fill attribute stretches the card to 100% of its container.</p>
+				</a-card>
+
+			</div>
+		</section>
+
+		{# ── a-band ── #}
+		<section>
+			<h2>a-band</h2>
+			<div class="variants">
+
+				<h3>Default</h3>
+				<a-band>
+					<p>A default band centers its content with standard padding.</p>
+				</a-band>
+
+				<h3>With header &amp; footer slots</h3>
+				<a-band>
+					<h3 slot="header" class="title">Band header</h3>
+					<p>Band body content lives in the default slot.</p>
+					<p slot="footer">Footer content</p>
+				</a-band>
+
+				<h3>Grid layout</h3>
+				<a-band grid>
+					<a-card bordered><p class="headline">One</p><p>Grid item</p></a-card>
+					<a-card bordered><p class="headline">Two</p><p>Grid item</p></a-card>
+					<a-card bordered><p class="headline">Three</p><p>Grid item</p></a-card>
+				</a-band>
+
+				<h3>Space between</h3>
+				<a-band space-between>
+					<span>Left</span>
+					<span>Center</span>
+					<span>Right</span>
+				</a-band>
+
+				<h3>Full width</h3>
+				<a-band full>
+					<p>Full-width band — container stretches to the viewport edges.</p>
+				</a-band>
+
+				<h3>Half padding</h3>
+				<a-band thin>
+					<p>Band with reduced vertical padding.</p>
+				</a-band>
+
+				<h3>Double padding</h3>
+				<a-band thick>
+					<p>Band with extra vertical padding.</p>
+				</a-band>
+
+			</div>
+		</section>
+
+		{# ── a-note ── #}
+		<section>
+			<h2>a-note</h2>
+			<div class="variants">
+
+				<h3>Default (fallback content)</h3>
+				<a-note></a-note>
+
+				<h3>Custom content</h3>
+				<a-note>
+					<p><strong>Note:</strong> This is a custom note with user-provided content.</p>
+				</a-note>
+
+				<h3>With a call-to-action link</h3>
+				<a-note>
+					<p>Interested in working together?</p>
+					<a href="#">Get in touch</a>
+				</a-note>
+
+			</div>
+		</section>
+
+		{# ── tag-group ── #}
+		<section>
+			<h2>tag-group</h2>
+			<div class="variants">
+
+				<h3>Default</h3>
+				<tag-group tags="HTML,CSS,JavaScript,Web components"></tag-group>
+
+				<h3>With label</h3>
+				<tag-group labeled tags="Eleventy,Nunjucks,PostCSS"></tag-group>
+
+				<h3>With filter links</h3>
+				<tag-group filters="true" tags="Design systems,Accessibility,Performance"></tag-group>
+
+				<h3>Single tag</h3>
+				<tag-group tags="Solo"></tag-group>
+
+			</div>
+		</section>
+
+		{# ── a-timeline ── #}
+		<section>
+			<h2>a-timeline</h2>
+			<div class="variants">
+
+				<h3>Default</h3>
+				<a-timeline>
+					<div class="role-panel" data-title="Senior engineer" active>
+						<a-card bordered>
+							<p class="headline">Senior engineer</p>
+							<p>January 2023–present</p>
+						</a-card>
+					</div>
+					<div class="role-panel" data-title="Engineer">
+						<a-card bordered>
+							<p class="headline">Engineer</p>
+							<p>March 2020–December 2022</p>
+						</a-card>
+					</div>
+					<div class="role-panel" data-title="Junior engineer">
+						<a-card bordered>
+							<p class="headline">Junior engineer</p>
+							<p>June 2018–February 2020</p>
+						</a-card>
+					</div>
+				</a-timeline>
+
+			</div>
+		</section>
+
+	</div>
+</a-band>
+
+{% js %}
+	import '/js/components/a-band.js';
+	import '/js/components/a-card.js';
+	import '/js/components/a-note.js';
+	import '/js/components/a-timeline.js';
+	import '/js/components/tag-group.js';
+{% endjs %}

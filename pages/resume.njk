@@ -18,44 +18,6 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
   </td>
 </tr>
 
-{% css %}
-  #cover-letter {
-    text-wrap: balance;
-    max-inline-size: 80ch;
-
-    @media print {
-      break-after: always;
-    }
-
-    .content p {
-      margin-block-end: 1rem;
-    }
-
-    .addressee,
-    .signature {
-      font-family: var(--theme--heading--FontFamily);
-      font-size: 1.2rem;
-      font-weight: var(--theme--FontWeight--semi-bold);
-
-      display: inline-block;
-    }
-
-    .signature {
-      font-weight: var(--theme--FontWeight);
-
-      .name {
-        font-family: var(--theme--text--FontFamily--signature);
-        font-size: 2rem;
-        font-weight: var(--theme--FontWeight--thin);
-      }
-    }
-
-    @media not print {
-      margin-block-end: 20vh;
-    }
-  }
-{% endcss %}
-
 {% if resume.about %}
   <tr>
     <td>
@@ -69,16 +31,6 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
       </section>
     </td>
   </tr>
-
-  {% css %}
-    #about {
-      text-wrap: balance;
-
-      @media print {
-        break-before: always;
-      }
-    }
-  {% endcss %}
 {% endif %}
 
 {% if resume.experience %}
@@ -144,75 +96,12 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
       </section>
     </td>
   </tr>
-  {% css %}
-    .job-company,
-    .job-header {
-      font-family: var(--theme--heading--FontFamily);
-    }
-
-    .job-company {
-      font-size: 1.1rem;
-      font-weight: var(--theme--FontWeight);
-      margin-block-end: 0.2rem;
-    }
-
-    .job-header {
-      font-size: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-block-end: 1rem;
-    }
-
-    .job-title {
-      font-weight: var(--theme--FontWeight--bold);
-    }
-
-    .job-dates {
-      font-weight: var(--theme--FontWeight--light);
-
-      span:has(+ span)::after {
-        content: "–";
-        margin-inline: 0.5rem;
-      }
-    }
-
-    .job-summary {
-      text-wrap: pretty;
-      font-weight: var(--theme--FontWeight--thin);
-      margin: 0.5rem 0;
-    }
-
-    .job-highlights {
-      list-style: disc;
-      margin-inline-start: 1.5rem;
-
-      li:not(:last-child) {
-        margin-block-end: 0.25rem;
-      }
-    }
-
-  @media print {
-    .job-item {
-        break-inside: avoid;
-
-      &:not(.featured) {
-        display: none;
-      }
-    }
-
-    .job-highlights {
-      break-inside: avoid;
-    }
-  }
-  {% endcss %}
 {% endif %}
 
 <tr>
   <td>
     <div class="columns">
-      <div class="columns-item">
+      <div>
 
         <section id="education">
           <div class="section-header">
@@ -278,7 +167,7 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
 
       </div>
 
-      <div class="columns-item">
+      <div>
 
         <section id="skills">
           <div class="section-header">
@@ -310,85 +199,6 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
     </div>
   </td>
 </tr>
-
-{% css %}
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    break-inside: avoid;
-
-    /* Animate section titles from right to left on even sections */
-    .columns-item:nth-child(even) .section-title {
-        --animation-direction: 1;
-        transform-origin: right;
-
-        &::before {
-            inset-inline-end: inherit;
-            inset-inline-start: -0.5rem;
-        }
-    }
-  }
-
-  .education-item {
-    font-size: 1.2rem;
-
-    @media print {
-      font-size: 1rem;
-    }
-
-    strong {
-      font-family: var(--theme--heading--FontFamily);
-    }
-  }
-
-  .contact-grid {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-
-    @media print {
-      gap: .3rem;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        @media print {
-          font-size: 1rem;
-        }
-
-        svg {
-            width: 1em;
-            height: 1em;
-            flex-shrink: 0;
-        }
-    }
-  }
-
-  .skills-grid {
-    &,
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    &:not(:has(h3)),
-    ul {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      row-gap: 1rem;
-      column-gap: 0.8rem;
-    }
-
-    li {
-      line-height: var(--theme--text--LineHeight);
-      margin-block-end: 0;
-    }
-  }
-{% endcss %}
 
 {% js %}
   // Update the job header title when a timeline role is selected

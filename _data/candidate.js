@@ -141,12 +141,13 @@ export default async function () {
 		SELECT name, title, short_biography, phone, email, work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url
 		FROM employees`;
 
-    const results = {
-      ...formatEmployeeObject(rows.find(isMe)),
-      "employees": rows.filter(row => !isMe(row)).map(formatEmployeeObject),
+    const me = rows.find(isMe) ? formatEmployeeObject(rows.find(isMe)) : {};
+    const employees = rows.filter(row => !isMe(row)).map(formatEmployeeObject);
+
+    return {
+      ...me,
+      "employees": employees,
       "training": EDUCATION,
       "projects": PROJECTS,
     };
-
-  return results;
 };

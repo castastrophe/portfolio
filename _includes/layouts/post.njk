@@ -2,6 +2,10 @@
 layout: base
 masthead: false
 prism: true
+customScripts:
+  - posts
+customSheets:
+  - posts
 ---
 
 <a-band space-between id="post-header">
@@ -18,12 +22,10 @@ prism: true
 </a-band>
 
 <a-band id="post-content" full>
-    <aside>
-        <details class="table-of-contents">
-            <summary>Table of contents</summary>
-            {{ content | toc | safe }}
-        </details>
-    </aside>
+    <details class="table-of-contents sticky">
+        <summary>Table of contents</summary>
+        {{ content | toc | safe }}
+    </details>
 
     <div class="content">{{ content | md | safe }}</div>
 
@@ -32,96 +34,3 @@ prism: true
       <a class="cta-button" href="{{ site.contact.scheduler }}">Let's connect!</a>
     </a-note>
 </a-band>
-
-{% js %}
-    import '/js/components/a-band.js';
-    import '/js/components/a-note.js';
-    import '/js/components/tag-group.js';
-
-    // Initialize scroll-based animations
-    document.addEventListener('DOMContentLoaded', () => {
-      const detailEl = document.querySelector('.table-of-contents');
-      if (detailEl) {
-          const summaryEl = detailEl.querySelector('summary');
-          summaryEl.addEventListener("click", () => {
-            // toggle the detail container on click
-            detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
-          });
-
-          detailEl.querySelectorAll('a').forEach(link => {
-            link.addEventListener("click", () => {
-                // close the detail container on click after a short delay
-                setTimeout(() => {
-                detailEl.toggleAttribute("open", detailEl.hasAttribute("open"));
-                }, 100);
-            });
-          });
-
-          // close the detail container on click outside of the detail container or the summary
-          document.addEventListener("click", (evt) => {
-            if (detailEl.hasAttribute("open") && (evt.target !== detailEl && evt.target !== summaryEl)) {
-                detailEl.toggleAttribute("open", false);
-            }
-          }, { capture: true });
-      }
-    });
-{% endjs %}
-
-{% css %}
-#post-header {
-  --spacing-horizontal: 20px;
-  --image-size: max(150px, 20%);
-
-  margin-block-start: 2em;
-
-  a:has(img) {
-    --border-radius: 50%;
-    --outline-offset: -1px;
-
-    cursor: pointer;
-    display: flex;
-    max-inline-size: var(--image-size);
-    block-size: auto;
-    margin-block-start: -10px;
-    margin-inline-end: 10px;
-  }
-
-  img {
-    aspect-ratio: var(--aspect-ratio, 1 / 1);
-    inline-size: 100%;
-    block-size: auto;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--theme--ui--Color--subtle);
-  }
-
-  .date {
-    font-weight: var(--theme--FontWeight--light);
-  }
-}
-
-#post-content {
-  aside {
-    inline-size: 100%;
-  }
-
-  .content {
-    font-size: 20px;
-    background-color: color-mix(in srgb, var(--theme--surface--color) 70%, transparent);
-    padding: var(--theme--container--space);
-    border-radius: var(--border-radius);
-    margin-inline: calc(var(--theme--container--space) * -1);
-  }
-
-  hr {
-    border-color: color-mix(in sRGB, var(--theme--ui--Color) 50%, transparent);
-  }
-
-  a-note {
-    margin-block-start: 2em;
-
-    .cta-button {
-      margin-block-start: 1em;
-    }
-  }
-}
-{% endcss %}

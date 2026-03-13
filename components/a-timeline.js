@@ -27,9 +27,9 @@ styles.replaceSync(`
 		display: block;
 		inline-size: 1rem;
 		block-size: 1rem;
-		border-radius: 50%;
+		border-radius: var(--theme--BorderRadius--circle);
 		background: var(--theme--ui--Color--accent);
-		border: 2px solid var(--theme--ui--Color--accent);
+		border: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--accent);
 		transition: transform 0.2s ease, background-color 0.2s ease;
 
 		&:not(.active) {
@@ -46,9 +46,9 @@ styles.replaceSync(`
 		}
 
 		&:is(:focus, :focus-visible) {
-			outline: 2px solid var(--theme--ui--Color--accent);
-			outline-offset: 2px;
-			border-radius: 50%;
+			outline: var(--theme--BorderWidth) solid var(--theme--ui--Color--accent);
+			outline-offset: var(--theme--OutlineOffset);
+			border-radius: var(--theme--BorderRadius--circle);
 		}
 	}
 

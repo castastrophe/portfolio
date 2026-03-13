@@ -1,109 +1,88 @@
-<header id="masthead">
-    <div class="wrapper">
-        <a class="branding" href="/" title="Return to the home page">
-            {% include "../pages/logo.svg" %}
-        </a>
-        <h1>{{ site.title }}</h1>
-        <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
+<a-band id="masthead" collapsed accent>
+    <a class="branding" href="/" title="Return to the home page" slot="header">
+        {% include "../pages/logo.svg" %}
+    </a>
+    <h1 class="headline">{{ site.title }}</h1>
+    <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
 
-        {% set navigation = collections.all | eleventyNavigation %}
-        <nav class="navigation">
-            {% if navigation | length > 1 %}
-                <ul class="navigation-list accent--yellow">
-                    {% for item in navigation %}
-                        <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
-                            <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% set icons = candidate.socials %}
-            {% include "_icon-group.njk" %}
-        </nav>
-
+    {% set navigation = collections.all | eleventyNavigation %}
+    {% if navigation | length > 1 %}
+    <nav class="navigation" slot="footer">
+        <ul class="navigation-list accent--yellow" slot="footer">
+            {% for item in navigation %}
+                <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
+                    <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+    <div slot="footer">
+        {% set icons = candidate.socials %}
+        {% include "_icon-group.njk" %}
     </div>
-</header>
+</a-band>
 
 {% css %}
 #masthead {
+    --image-size: min(calc(80px + 5cqi), 120px);
+    --image--BorderRadius: var(--theme--BorderRadius--circle);
+
+    --band--Width: var(--theme--content--MaxWidth);
+    --band--body--Direction: column;
+    --band--body--Wrap: nowrap;
+    --band--body--Gap--vertical: 0;
+    --band--body--JustifyContent: start;
+    --band--body--AlignItems: start;
+    --band--footer--Direction: row;
+    --band--footer--Wrap: nowrap;
+    --band--footer--Gap--vertical: 0;
+    --band--footer--JustifyContent: space-between;
+    --band--footer--AlignItems: center;
+    --band--AlignItems: start;
+
+    --band--Grid--areas: "header body" "header body" "footer footer";
+    --band--Grid--columns: var(--image-size) 1fr;
+    --band--Grid--rows: auto auto auto;
+
     z-index: 1000;
-    position: relative;
-
-    background: var(--masthead--Background, transparent);
-
-    padding-block: var(--masthead--Padding--vertical, calc(var(--theme--container--space) * 2));
-    padding-inline: var(--masthead--Padding--horizontal, calc(var(--theme--container--space) * .6));
-
-    .wrapper {
-        --image-size: min(calc(80px + 5vw), 120px);
-
-        inline-size: min(var(--masthead--Width, 80ch), 100%);
-        max-inline-size: calc(100vw - var(--masthead--Padding--horizontal, calc(var(--theme--container--space) * .6)) * 2);
-        margin-inline: auto;
-
-        display: grid;
-        grid-template-areas: "branding headline" "branding summary" "branding navigation";
-
-        grid-template-columns: var(--image-size) 1fr;
-
-        row-gap: 0;
-        column-gap: calc(var(--theme--container--space) * 2);
-    }
 
     .branding {
-        --border-radius: 50%;
-
-        grid-area: branding;
-        display: inline-block;
-
-        margin-block-start: var(--theme--container--space);
-
-        inline-size: var(--image-size);
-        block-size: auto;
-        aspect-ratio: 1 / 1;
-        border-radius: var(--border-radius);
+        margin-block: calc(var(--theme--content--space) * -2);
+        max-inline-size: var(--image-size);
     }
 
-
-    h1 {
-        font-size: calc(3.6rem + 1vw);
-        font-weight: var(--theme--FontWeight--light);
-        line-height: var(--theme--text--LineHeight);
+    .headline {
+        font-size: calc(3.2rem + 1cqi);
         letter-spacing: -2px;
+        line-height: var(--theme--LineHeight--dense);
+
+        @container box (width <= 500px) {
+            font-size: 2.5rem;
+        }
     }
 
     .headline-summary {
-        margin-block-end: .5em;
-    }
-
-    @container navigation (width <= 480px) {
-        h1 {
-            font-size: calc(2.1rem + 1vw);
+        @container box (width <= 500px) {
+            font-size: 1.4rem;
+            font-weight: var(--theme--FontWeight--light);
         }
     }
 
-    @container navigation (width <= 620px) {
-        h1 {
-            font-size: calc(2.8rem + 1vw);
-        }
+    @container box (inline-size >= 1200px) {
+        --band--Grid--areas: "header body" "header body" "header footer";
+    }
 
+    @container box (inline-size <= 620px) {
         .icon-group {
             display: none;
         }
     }
 
     .navigation {
-        grid-area: navigation;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: calc(var(--theme--content--space) * 1.5);
-
-        border-block-start: 2px solid color-mix(in srgb, var(--theme--ui--Color) 80%, transparent);
-        padding-block-start: calc(var(--theme--container--space) * .5);
-
+        @container box (width <= 500px) {
+            font-size: 1rem;
+        }
         ul {
             display: inline-flex;
             flex-wrap: wrap;
@@ -227,12 +206,12 @@
 @keyframes headline-summary-to-sticky-header {
     20% {
         font-size: 1rem;
-        margin: 0 !important;
+        margin: 0;
         align-self: start;
     }
     to {
         font-size: 1rem;
-        margin: 0 !important;
+        margin: 0;
         align-self: start;
     }
 }

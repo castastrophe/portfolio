@@ -21,7 +21,7 @@ eleventyNavigation:
         tag-group {
             font-size: .8em;
             margin-block-start: 1em;
-            border-block-start: 1px solid var(--theme--ui--Color--subtle);
+            border-block-start: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
             padding-block-start: .5em;
         }
     }
@@ -38,11 +38,9 @@ eleventyNavigation:
         </div>
     </a-card>
     {% for presentation in presentations %}
-        <a-card bordered video>
+        <a-card bordered video fill>
             {% if presentation.youtube_id %}
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header"></iframe>
             {% endif %}
             <div class="content">
                 <h3 class="title">{{ presentation.title }}</h3>
@@ -62,7 +60,7 @@ eleventyNavigation:
     {% endfor %}
 </a-band>
 
-<a-band padding="half">
+<a-band thin>
     <a-note style="align-self: center"></a-note>
 </a-band>
 

@@ -6,16 +6,13 @@ eleventyNavigation:
   order: 2
 ---
 
-<a-band full id="intro">
-    <div slot="header">
-        <h2 class="title">Why choose Allons-y Consulting?</h2>
-    </div>
-    <div class="content">
-        <p class="header-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, <strong>"Let's go!"</strong> That's exactly the energy we bring to design systems and digital transformation work.</p>
-        <p><strong class="extra">We help organizations build front-end infrastructure that scales and manage complex technical initiatives that drive business outcomes.</strong></p>
-        <p class="header-summary">Founded in 2025, we combine deep technical expertise in design systems and web standards with proven program management capabilities. Whether you need someone to architect your component library, lead a multi-million dollar digital transformation, or bridge the gap between design, engineering, and business strategy—we deliver results.</p>
-        <p class="header-summary">We believe the best technology is invisible&emdash;it empowers teams to do their best work without getting in the way. We specialize in creating infrastructure, establishing workflows, and leading initiatives that make complex problems feel manageable.</p>
-    </div>
+<a-band id="intro" double>
+    <a-card class="content">
+        <p class="extra"><strong>We partner with organizations large and small to build sustainable, accessible front-end infrastructure that scales.</strong></p>
+        <p>We've managed complex technical initiatives that resulted in highly profitable and impactful outcomes. From scaling a barebones design system into a mature enterprise-level solution to leading a multi-million dollar government contracts, we've seen it all. No task is too big or too small when you have the right partner with the right mindset and expertise.</p>
+        <p>Founded in 2025, we combine deep technical expertise in design systems and web standards with proven program management capabilities. Whether you need someone to architect your component library, lead a complex digital transformation with lots of moving parts, or bridge the gap between design, engineering, and business strategy—we deliver results.</p>
+        <p>We believe the best technology is invisible&emdash;it empowers teams to do their best work without getting in the way. We specialize in creating infrastructure, establishing workflows, and leading initiatives that make complex problems feel manageable. We leverage AI-augmented engineering workflows to accelerate development and improve quality while reducing costs and can empower your teams to do the same.</p>
+    </a-card>
 </a-band>
 
 <a-band id="consulting" full>
@@ -50,91 +47,3 @@ eleventyNavigation:
         {% include "_bio.njk" %}
     {% endfor %}
 </a-band>
-
-{% js %}
-   import '/js/components/a-band.js';
-   import '/js/components/a-card.js';
-   import '/js/components/a-note.js';
-   import '/js/components/tag-group.js';
-{% endjs %}
-
-{% css %}
-#intro {
-    --band--Background: color-mix(in srgb, var(--theme--surface--color) 90%, transparent);
-}
-
-#consulting {
-    --band--body--AlignItems: stretch;
-
-    .bio {
-        border: 1px solid var(--theme--ui--Color--subtle);
-        box-shadow: 5px 5px 10px 0 color-mix(in srgb, var(--theme--text--Color) 10%, transparent);
-        border-radius: var(--border-radius);
-
-        padding: var(--theme--container--space);
-        padding-block-end: calc(var(--theme--container--space) * 2);
-        background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
-        margin-block-start: var(--theme--content--space);
-
-        &:not(:first-of-type) {
-            margin-block-start: calc(var(--theme--content--space) * 2);
-        }
-
-        .headline-summary {
-            font-size: 1.2em;
-        }
-
-        .container {
-            --card--Width: 250px;
-            --card--header--BorderWidth: 5px;
-            --border-radius: 2rem 0;
-
-            border-block-start: 1px solid var(--theme--ui--Color--subtle);
-            padding-block-start: var(--theme--container--space);
-            display: flex;
-            flex-flow: row wrap;
-            gap: var(--theme--content--space);
-            align-items: start;
-
-            a-card {
-                text-align: center;
-
-                [slot="footer"] {
-                    font-size: .8em;
-                    border-block-start: 1px solid color-mix(in srgb, var(--theme--ui--Color) 20%, transparent);
-                    padding-block-start: var(--theme--content--space);
-                    inline-size: 80cqi;
-                    margin-inline: auto;
-                }
-            }
-
-            .content {
-                flex-grow: 1;
-                inline-size: calc(100% - var(--card--Width) - var(--theme--content--space) * 2);
-                min-inline-size: min(50ch, 100%);
-            }
-        }
-    }
-
-    .projects,
-    .presentations {
-        --card--Width: 365px;
-
-        inline-size: 100%;
-        padding-block-start: calc(var(--theme--container--space) * 2);
-
-        [layout="row"] {
-            padding-block-start: var(--theme--content--space);
-            font-size: .8em;
-
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(var(--card--Width), 1fr));
-            gap: var(--theme--content--space);
-        }
-    }
-
-    .presentations {
-        --card--Width: 200px;
-    }
-}
-{% endcss %}
