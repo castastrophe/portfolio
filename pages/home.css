@@ -74,7 +74,7 @@ html {
     font-weight: var(--theme--FontWeight--black);
   }
 
-  &:not(:last-child, :where(:has(+ tag-group))) {
+  .content &:not(:last-child, :last-of-type) {
     margin-block-end: 1em;
   }
 }
@@ -176,7 +176,6 @@ html {
   &:is(.extra) {
     font-weight: var(--theme--FontWeight);
     font-size: 1.8em;
-    line-height: 1.8;
   }
 }
 
@@ -374,7 +373,7 @@ blockquote {
   border-block-end: 1px solid var(--theme--ui--Color);
 
   .author:has(+ .date)::after {
-    content: '|';
+    content: '•';
     display: inline-block;
     margin-inline-start: var(--theme--content--space);
     color: inherit;

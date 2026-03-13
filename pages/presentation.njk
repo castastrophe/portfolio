@@ -8,35 +8,35 @@ eleventyNavigation:
 
 {% css %}
     #presentation {
-        div[slot="header"] {
-            --spacing--vertical: .5em;
-
-            margin-block-end: 2em;
+        .cta-button[slot="footer"] {
+            margin-block-start: 1em;
         }
 
-        div[slot="footer"] {
+        .content {
             display: flex;
-            margin-block-start: 1em;
+            flex-direction: column;
             justify-content: end;
         }
 
         tag-group {
             font-size: .8em;
+            margin-block-start: 1em;
+            border-block-start: 1px solid var(--theme--ui--Color--subtle);
+            padding-block-start: .5em;
         }
     }
 {% endcss %}
 
 <a-band full id="presentation">
-    <div slot="header">
-        <h2 class="title">Presentations</h2>
-        <a-card bordered>
-            <p class="header-summary">Below are some of the presentations or interviews I've given at various events, conferences, podcasts, and streams over the years.</p>
-            <p class="header-summary">Connecting with individuals and organizations to share knowledge and experience is one of my favorite parts of this work. I'd love to hear about your event or podcast to see how we can work together.</p>
-            <div slot="footer">
-                <a class="cta cta-button" target="_blank" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-            </div>
-        </a-card>
-    </div>
+    <h2 class="title" slot="header">Presentations</h2>
+    <a-card bordered>
+        <div class="content">
+            <p>Below are some of the presentations or interviews I've given at various events, conferences, podcasts, and streams over the years.</p>
+            <p>Connecting with individuals and organizations to share knowledge and experience is one of my favorite parts of this work. I'd love to hear about your event or podcast to see how we can work together.</p>
+        </div>
+        <a class="cta-button" slot="footer" target="_blank" href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
+        </div>
+    </a-card>
     {% for presentation in presentations %}
         <a-card bordered video>
             {% if presentation.youtube_id %}

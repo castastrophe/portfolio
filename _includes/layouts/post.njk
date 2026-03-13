@@ -1,6 +1,6 @@
 ---
 layout: base
-masthead: true
+masthead: false
 prism: true
 ---
 
@@ -17,7 +17,7 @@ prism: true
     </div>
 </a-band>
 
-<a-band id="post-content">
+<a-band id="post-content" full>
     <aside>
         <details class="table-of-contents">
             <summary>Table of contents</summary>
@@ -28,11 +28,10 @@ prism: true
     <div class="content">{{ content | md | safe }}</div>
 
     <a-note>
-        <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
-        <a href="{{ site.contact.scheduler }}">Let's connect!</a>
+      <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
+      <a class="cta-button" href="{{ site.contact.scheduler }}">Let's connect!</a>
     </a-note>
 </a-band>
-
 
 {% js %}
     import '/js/components/a-band.js';
@@ -94,19 +93,23 @@ prism: true
     border-radius: var(--border-radius);
     border: 1px solid var(--theme--ui--Color--subtle);
   }
+
+  .date {
+    font-weight: var(--theme--FontWeight--light);
+  }
 }
 
 #post-content {
-  --band-Background: color-mix(in sRGB, var(--theme--surface--color) 90%, transparent);
+  aside {
+    inline-size: 100%;
+  }
 
   .content {
     font-size: 20px;
-
-    strong {
-      font-size: 1.4em;
-      font-weight: var(--theme--FontWeight--black);
-      line-height: var(--theme--text--LineHeight);
-    }
+    background-color: color-mix(in srgb, var(--theme--surface--color) 70%, transparent);
+    padding: var(--theme--container--space);
+    border-radius: var(--border-radius);
+    margin-inline: calc(var(--theme--container--space) * -1);
   }
 
   hr {
@@ -115,6 +118,10 @@ prism: true
 
   a-note {
     margin-block-start: 2em;
+
+    .cta-button {
+      margin-block-start: 1em;
+    }
   }
 }
 {% endcss %}

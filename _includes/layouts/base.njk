@@ -13,7 +13,7 @@ customSheets:
 <main>{{ content | safe }}</main>
 
 <a-band id="contact" full space-between padding="half">
-    {% set icons = candidate.socials | featured %}
+    {% set icons = candidate.socials %}
     {% include "../_icon-group.njk" %}
     <a href="{{ site.funding[0].url }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
         {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}

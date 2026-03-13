@@ -40,26 +40,36 @@ styles.replaceSync(`
         flex-grow: 1;
     }
 
+    slot:where([name="footer"]) {
+        margin-block-start: auto;
+        padding-block-start: var(--card--Padding, var(--static--padding));
+    }
+
     :host(:where(:not([overflow]))) slot {
         padding-inline: var(--card--Padding, var(--static--padding));
     }
 
     :host([video]) {
         --card--video--Width: 400px;
-        --card--Width: calc(80ch + var(--card--video--Width));
+        --card--Width: 100%;
     }
 
     @container card (width < 800px) {
-        :host([video]) ::slotted(.video-container) {
-            margin-inline: calc(var(--card--Padding, var(--static--padding)) * -1);
-            margin-block-start: calc(var(--card--Padding, var(--static--padding)) * -1);
+        :host([video]) {
+            ::slotted(.video-container) {
+                margin-inline: calc(var(--card--Padding, var(--static--padding)) * -1);
+                margin-block-start: calc(var(--card--Padding, var(--static--padding)) * -1);
+            }
         }
     }
 
     @container card (width >= 800px) {
-        :host([video]) slot:where(:not([name])) {
-            flex-flow: row nowrap;
-            column-gap: var(--theme--content--space);
+        :host([video]) {
+            slot:where(:not([name])) {
+                display: flex;
+                flex-flow: row nowrap;
+                column-gap: var(--theme--container--space);
+            }
 
             ::slotted(.video-container) {
                 inline-size: min(var(--card--video--Width), 100%);
@@ -116,13 +126,14 @@ styles.replaceSync(`
             padding-inline: var(--card--Padding, var(--static--padding));
         }
     }
+
     :host([overflow][bordered]) {
         --card--BorderColor: transparent;
         --card--Gap--vertical: 0;
 
         slot:where([name="header"]) {
-            border: var(--card--BorderWidth, 2px) solid var(--theme--ui--Color);
-            background: color-mix(in srgb, var(--theme--ui--Color) 20%, var(--theme--surface--color));
+            border: var(--card--header--BorderWidth, var(--card--BorderWidth, 2px)) solid var(--theme--ui--Color);
+            background: var(--card--header--Background, color-mix(in srgb, var(--theme--ui--Color) 20%, var(--theme--surface--color)));
         }
 
         slot:where([name="footer"], :not([name])) {
@@ -133,6 +144,7 @@ styles.replaceSync(`
 
         slot:where([name="footer"]) {
             border-block-end: var(--card--BorderWidth, 2px) solid var(--theme--ui--Color--subtle);
+            padding-block-start: 0;
             padding-block-end: var(--card--Padding, var(--static--padding));
             border-end-start-radius: var(--card--BorderRadius, 0);
             border-end-end-radius: var(--card--BorderRadius, 0);

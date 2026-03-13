@@ -40,6 +40,7 @@
         "npm:markdown-it-anchor@^9.2.0",
         "npm:markdown-it@^14.1.0",
         "npm:netlify-cli@^24.0.1",
+        "npm:netlify-plugin-inngest@^1.0.1",
         "npm:npm-run-all2@^8.0.4",
         "npm:postcss-each@^1.1.0",
         "npm:postcss-extend@^1.0.5",

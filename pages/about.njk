@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 2
 ---
 
-<a-band full>
+<a-band full id="intro">
     <div slot="header">
         <h2 class="title">Why choose Allons-y Consulting?</h2>
     </div>
@@ -17,31 +17,36 @@ eleventyNavigation:
         <p class="header-summary">We believe the best technology is invisible&emdash;it empowers teams to do their best work without getting in the way. We specialize in creating infrastructure, establishing workflows, and leading initiatives that make complex problems feel manageable.</p>
     </div>
 </a-band>
-<a-band id="consulting">
+
+<a-band id="consulting" full>
     <h2 class="title" slot="header">Meet the team</h2>
-    {% set employees = [{
-        name: "Cassondra Roberts",
-        title: "Founder & Principal Consultant",
+    {% set employee = {
+        name: candidate.name,
+        title: candidate.title,
         skills_summary: ["Design Systems", "Front-end Architecture", "Web Standards"],
         photo: "cassondra-roberts.png",
-        email: "cassondra -at- allons-y.llc",
+        email: candidate.email,
         socials: candidate.socials,
-        bio: "Cassondra is a W3C CSS Working Group member and design systems engineer with over a decade of experience building enterprise-scale front-end infrastructure. She co-founded PatternFly Elements at Red Hat (adopted by Google, IBM, and Fidelity) and served as Staff Design Engineer on Adobe's Spectrum Design System, where she led the AI Working Group and pioneered workflows that reduced planning overhead by 25%.\n\nAs an open source leader and conference speaker, Cassondra specializes in the critical space between design and engineering—translating vision into production-ready, accessible code. She contributes to web standards that shape how we build interfaces and brings both cutting-edge technical knowledge and proven enterprise patterns to every project.",
+        bio: candidate.bio,
         skills: ["Design systems architecture and implementation", "Web components, TypeScript, modern CSS and semantic HTML", "Accessibility best practices and compliance", "W3C standards contribution (CSS Working Group)", "Open source community management", "AI-augmented engineering workflows", "Technical leadership and mentorship"],
         projects: candidate.projects,
         presentations: presentations
-    }, {
-        name: "Michael L. Roberts",
-        title: "Program Management Director",
-        skills_summary: ["Enterprise Program Management", "Portfolio Governance", "Extensive Government Experience"],
-        photo: "michael-roberts.jpg",
-        email: "michael -at- allons-y.llc",
-        socials: [{"url":"https://www.linkedin.com/in/michaellroberts","classes":"fa-brands fa-linkedin-in"}],
-        bio: "Michael is an accredited program manager with extensive experience leading large-scale digital transformation initiatives and complex technology portfolios. He has managed programs with budgets exceeding $354 million, led teams of federal employees and contractors, and overseen portfolios with contract ceilings totaling over $127 million.\n\nWith expertise spanning financial system modernization, enterprise architecture, and organizational change management, Michael brings strategic program leadership to Allons-y's clients. He specializes in aligning technology initiatives with business strategy, managing risk across complex portfolios, and leading global teams through large-scale transformation.",
-        achievements: ["Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration", "Led portfolio of 20+ projects with combined budget of $354M", "Directed teams of 75+ contractors and 12 federal employees", "Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives"],
-        skills: ["Program and portfolio management (PMP®, MPM®)", "Large-scale digital transformation", "Financial systems modernization", "Enterprise architecture and integration", "Change management and organizational strategy", "Risk management and governance", "Federal/enterprise project delivery"]
-    }] %}
-    {% for employee in employees %}
+    } %}
+    {% include "_bio.njk" %}
+
+    {% for employee in candidate.employees %}
+        {% set employee = {
+            accent: "blue",
+            name: employee.name,
+            title: employee.title,
+            skills_summary: ["Enterprise Program Management", "Portfolio Governance", "Extensive Government Experience"],
+            photo: "michael-roberts.jpg",
+            email: employee.email,
+            socials: employee.socials,
+            bio: employee.bio,
+            achievements: ["Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration", "Led portfolio of 20+ projects with combined budget of $354M", "Directed teams of 75+ contractors and 12 federal employees", "Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives"],
+            skills: ["Program and portfolio management (PMP®, MPM®)", "Large-scale digital transformation", "Financial systems modernization", "Enterprise architecture and integration", "Change management and organizational strategy", "Risk management and governance", "Federal/enterprise project delivery"]
+        } %}
         {% include "_bio.njk" %}
     {% endfor %}
 </a-band>
@@ -54,10 +59,20 @@ eleventyNavigation:
 {% endjs %}
 
 {% css %}
+#intro {
+    --band--Background: color-mix(in srgb, var(--theme--surface--color) 90%, transparent);
+}
+
 #consulting {
+    --band--body--AlignItems: stretch;
+
     .bio {
+        border: 1px solid var(--theme--ui--Color--subtle);
+        box-shadow: 5px 5px 10px 0 color-mix(in srgb, var(--theme--text--Color) 10%, transparent);
         border-radius: var(--border-radius);
-        padding-inline: var(--theme--content--space);
+
+        padding: var(--theme--container--space);
+        padding-block-end: calc(var(--theme--container--space) * 2);
         background-color: color-mix(in srgb, var(--theme--surface--color) 80%, transparent);
         margin-block-start: var(--theme--content--space);
 
@@ -65,8 +80,14 @@ eleventyNavigation:
             margin-block-start: calc(var(--theme--content--space) * 2);
         }
 
+        .headline-summary {
+            font-size: 1.2em;
+        }
+
         .container {
             --card--Width: 250px;
+            --card--header--BorderWidth: 5px;
+            --border-radius: 2rem 0;
 
             border-block-start: 1px solid var(--theme--ui--Color--subtle);
             padding-block-start: var(--theme--container--space);
@@ -100,14 +121,20 @@ eleventyNavigation:
         --card--Width: 365px;
 
         inline-size: 100%;
+        padding-block-start: calc(var(--theme--container--space) * 2);
 
         [layout="row"] {
+            padding-block-start: var(--theme--content--space);
             font-size: .8em;
-            display: flex;
-            flex-flow: row wrap;
-            gap: 1.25em;
-            justify-content: start;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(var(--card--Width), 1fr));
+            gap: var(--theme--content--space);
         }
+    }
+
+    .presentations {
+        --card--Width: 200px;
     }
 }
 {% endcss %}

@@ -1,17 +1,21 @@
-<div class="bio">
+<div class="bio" id="{{ employee.name | slugify }}" role="region" tabindex="0">
     <h3 class="headline">
-        <strong>{{ employee.name }}</strong>,
-        <span>{{ employee.title }}</span>
+        <strong>{{ employee.name }}</strong>{% if employee.title %}, <span>{{ employee.title }}</span>{% endif %}
     </h3>
-    <p class="headline-summary">{{ employee.skills_summary | join(' • ') }}</p>
+    {% if employee.skills_summary.length > 0 %}<p class="headline-summary">{{ employee.skills_summary | join(' • ') }}</p>{% endif %}
     <div class="container">
-        <a-card bordered overflow>
+        <a-card bordered overflow {% if employee.accent %} class="accent--{{ employee.accent }}"{% endif %}>
+            <span slot="header" class="emphasis-mark"></span>
+            {% if employee.photo %}
             <img slot="header" src="../img/{{ employee.photo }}" alt="A photo {{ employee.name }} smiling and looking directly at the camera.">
-            <p class="cta"><a href="mailto:{{ employee.email | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a></p>
+            {% endif %}
+            {% if employee.email %}<p class="cta"><a href="mailto:{{ employee.email | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a></p>{% endif %}
+            {% if employee.socials.length > 0 %}
             <div slot="footer">
-                {% set icons = employee.socials | featured %}
+                {% set icons = employee.socials %}
                 {% include "_icon-group.njk" %}
             </div>
+            {% endif %}
         </a-card>
         <div class="content">
             <p>{{ employee.bio | md | safe }}</p>
@@ -35,12 +39,13 @@
             {% endif %}
         </div>
     </div>
+
     {% if employee.projects.length > 0 %}
     <div class="projects">
         <h4 class="headline-summary">Recent projects</h4>
         <div layout="row">
-            {% for project in employee.projects | featured %}
-            <a-card bordered overflow>
+            {% for project in employee.projects %}
+            <a-card bordered>
                 <div slot="header">
                     <h3 class="title">{{ project.title }}</h3>
                 </div>
@@ -51,16 +56,15 @@
         </div>
     </div>
     {% endif %}
+
     {% if employee.presentations.length > 0 %}
     <div class="presentations">
         <h4 class="headline-summary">Recent presentations</h4>
         <div layout="row">
-            {% for presentation in employee.presentations | featured if presentation.youtube_id %}
-            <a-card overflow video>
-                <div slot="header">
-                    <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </a-card>
+            {% for presentation in employee.presentations %}
+            {% if presentation.youtube_id and presentation.featured %}
+            <iframe src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

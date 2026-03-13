@@ -4,12 +4,13 @@
 
 [[plugins]]
     package = "netlify-plugin-inngest"
+
     [plugins.inputs]
         host = "https://allons-y.llc"
 
+[[plugins]]
     package = "@netlify/plugin-sitemap"
+
     [plugins.inputs]
         buildDir = "public"
-        exclude = [
-            './public/resume/*.html',
-        ]
+        exclude = './public/resume/*.html'
