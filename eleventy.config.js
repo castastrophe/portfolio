@@ -1,7 +1,5 @@
 import path from "node:path";
-import { writeFile } from "node:fs/promises";
 
-import postcss from "postcss";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
 import dotenv from "dotenv";
@@ -11,57 +9,91 @@ import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import Image, { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import eleventyNavigation from "@11ty/eleventy-navigation";
 
-import brokenLinks from "eleventy-plugin-broken-links";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
 
-/** @param {import('@11ty/eleventy')} config */
+import customFilters from "./utilities/filters/index.js";
+import { processCSS } from "./utilities/transforms/index.js";
+
+/** @param {import('@11ty/eleventy').TemplateConfig} config */
 export default async function (config) {
 	dotenv.config({ path: ".env" });
+
+	const NODE_MODULES_PATH = 'node_modules';
+	const isProduction = process.env.ELEVENTY_ENV === 'production';
+	const CONTENT_DIRS = ['posts', 'proposals'];
+
 	config.setDataFileBaseName("index");
-
-	config.addWatchTarget("pages/background.svg");
-	config.addWatchTarget("pages/logo.svg");
-	config.addWatchTarget("components/*.js");
-
-	// Layout aliases make templates more portable.
-	config.addLayoutAlias("base", "layouts/base.njk");
-	config.addLayoutAlias("foundation", "layouts/foundation.njk");
-	config.addLayoutAlias("post", "layouts/post.njk");
-	config.addLayoutAlias("proposal", "layouts/proposal.njk");
-	config.addLayoutAlias("resume", "layouts/resume.njk");
-
 	config.ignores.add("README.md");
 	config.ignores.add("**/CLAUDE.md");
 
+	config.setInputDirectory("pages");
+	config.setOutputDirectory("public");
+	// these are relative to input directory...
+	config.setIncludesDirectory("../_includes");
+	config.setLayoutsDirectory("../_includes/layouts");
+	config.setDataDirectory("../_data");
+
+	// config.setMarkdownTemplateEngine("njk");
+	// config.setHtmlTemplateEngine("njk");
+
+	config.setServerOptions({
+		// Open the browser automatically
+		open: true,
+		browser: "firefox",
+		domDiff: false
+	});
+
+	/** Shared configurations and setups */
+	const DATE_LANG = 'en-GB';
+	const postcssConfig = await loadConfig({ env: isProduction ? 'production' : 'development' });
+	const tocConfig = { tags: ['h2', 'h3'], ul: false };
+	const prismPlugins = [ "toolbar", "copy-to-clipboard"];
+	const imageOptions = {
+		urlPath: "/images/",
+		outputDir: "./public/images/",
+		formats: ["webp", "png"],
+		failOnError: true,
+	};
+	const Normalize = Prism.plugins.NormalizeWhitespace;
+	const markdown = markdownIt({
+		html: true,
+		breaks: false,
+		linkify: true,
+		xhtmlOut: true,
+		highlight: (code, lang) => {
+			const normalized = Normalize.normalize(code);
+			console.log(normalized);
+			return Prism.highlight(normalized, Prism.languages[lang], lang);
+		}
+	}).use(markdownItAnchor);
+
+	/* -------- PLUGINS -------- */
+	config.addPlugin(InputPathToUrlTransformPlugin);
+	config.addPlugin(syntaxHighlight);
+	config.addPlugin(pluginTOC, tocConfig);
+	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
 	config.addPlugin(eleventyNavigation);
 
-	const styles = await loadConfig({ env: process.env.ELEVENTY_ENV });
-	const processCSS = async function (content, inputPath, outputPath) {
-		const parsed = path.parse(inputPath);
+	/* External watch targets */
+	config.addWatchTarget("components/*.js");
 
-		return postcss(styles.plugins).process(content, {
-			...styles.options,
-			from: inputPath,
-			to: outputPath
-		}).then(async result => {
-			// Write the map file to the output directory
-			if (result.map) {
-				await writeFile(path.join(path.dirname(outputPath), "css", parsed.name + ".css.map"), result.map.toString());
-			}
+	// Layout aliases make templates more portable.
+	config.addLayoutAlias("base", "base.njk");
+	config.addLayoutAlias("foundation", "foundation.njk");
+	config.addLayoutAlias("post", "post.njk");
+	config.addLayoutAlias("proposal", "proposal.njk");
+	config.addLayoutAlias("resume", "resume.njk");
 
-			return result.css;
-		});
-	};
-
+	/* ------------- STYLES ------------- */
 	config.addBundle("css", {
 		toFileDirectory: "css",
 		transforms: [
 			async function (content) {
 				if (!content?.trim()) return content;
 				try {
-					return await processCSS(content, this.page.inputPath, this.page?.outputPath);
+					return processCSS(content, this.page.inputPath, this.page?.outputPath, postcssConfig);
 				} catch (err) {
 					console.warn(`[css] ${this.page.inputPath}: ${err.message}`);
 					return content;
@@ -75,9 +107,15 @@ export default async function (config) {
 		outputFileExtension: 'css',
 		// output to "css/" directory
 		toFileDirectory: "css",
-		compile: async (inputContent, inputPath) => {
+		compile: async (content, inputPath) => {
 			return async ({ page }) => {
-				return processCSS(inputContent, inputPath, page?.outputPath);
+				if (!content?.trim()) return content;
+				try {
+					return processCSS(content, inputPath, page?.outputPath, postcssConfig);
+				} catch (err) {
+					console.warn(`[css] ${inputPath}: ${err.message}`);
+					return content;
+				}
 			};
 		},
 		compileOptions: {
@@ -87,52 +125,19 @@ export default async function (config) {
 		}
 	});
 
-	config.addBundle("js", {
-		toFileDirectory: "js",
-		transforms: [
-			async function (content) {
-				return content;
-			}
-		]
-	});
+	/* ------------- SCRIPTS ------------- */
+	config.addBundle("js", { toFileDirectory: "js" });
 
-	const markdown = markdownIt({
-		html: true,
-		breaks: true,
-		linkify: true,
-	});
-
-	config.setLibrary('md', markdown.use(markdownItAnchor));
+	// Set-up the markdown library with custom config settings above
+	config.setLibrary('md', markdown);
 
 	// Create collections for content inside directories
-	['posts', 'proposals'].forEach(collection => {
+	CONTENT_DIRS.forEach(collection => {
 		config.addCollection(collection, function (collectionApi) {
 			// Exclude the index file from the collection
 			return collectionApi.getFilteredByGlob(`pages/${collection}/*`).filter(item => item.url !== `/${collection}/`);
 		});
 	});
-
-	config.addPlugin(InputPathToUrlTransformPlugin);
-	config.addPlugin(syntaxHighlight);
-	config.addPlugin(brokenLinks, {
-		broken: "warn",
-		forbidden: "warn",
-		redirects: "warn",
-	});
-	config.addPlugin(pluginTOC, {
-		tags: ['h2', 'h3'],
-		ul: false,
-	});
-
-	const imageOptions = {
-		urlPath: "/images/",
-		outputDir: "./public/images/",
-		formats: ["webp", "png"],
-		failOnError: true,
-	};
-
-	// Resume: Eleventy image optimization
-	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
 
 	config.addShortcode("image", async function (src, alt, widths = [320, 320], sizes = "") {
 		return Image(src, {
@@ -146,125 +151,17 @@ export default async function (config) {
 		});
 	});
 
-	/**
-	 * Convert a string date to an ISO string for use in HTML metadata
-	 * @param {string} date - The date to convert
-	 * @returns {string} The ISO string
-	 */
-	config.addFilter("toISOString", (date) => {
-		return date ? new Date(date).toISOString() : '';
-	});
-
-	/**
-	 * Convert a string date to a year for use in HTML metadata
-	 * @param {string} date - The date to convert
-	 * @returns {string} The year
-	 */
-	config.addFilter("yearFormat", (date) => {
-		return date ? new Date(date).getFullYear() : '';
-	});
-
-	/**
-	 * Convert a string date to a month and year for use in HTML metadata
-	 * @param {string} date - The date to convert
-	 * @returns {string} The month and year
-	 */
-	config.addFilter("shortDate", (date) => {
-		if (date === 'present') return date;
-		return date ? new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
-	});
-
-	/**
-	 * Convert e-mail with alias'ed @ symbol ("-at-") to a valid e-mail address
-	 * @param {string} email - The e-mail address to convert
-	 * @returns {string} The converted e-mail address
-	 */
-	config.addFilter("toEmail", (email) => {
-		return email ? email.replace(/-at-/g, '@').replace(/\s/g, '').toLowerCase() : '';
-	});
-
-	/**
-	 * Filter to get featured items from a collection
-	 * @param {object[]} value - The collection to filter
-	 * @returns {object[]} The featured items
-	 */
-	config.addFilter("featured", function (value) {
-		return value?.filter(item => {
-			if (item.data?.featured) return true;
-			if (item.data?.tags?.includes('featured')) return true;
-			if (item.featured) return true;
-			return false;
-		});
-	});
-
-	// Group experience entries by company for timeline display
-	config.addFilter("groupByCompany", function(experience) {
-		if (!experience?.length) return [];
-
-		const groups = new Map();
-
-		for (const job of experience) {
-			const key = job.company;
-			if (!groups.has(key)) {
-				groups.set(key, {
-					company: key,
-					category: job.category,
-					featured: false,
-					roles: []
-				});
-			}
-			const group = groups.get(key);
-			group.roles.push(job);
-			if (job.featured) group.featured = true;
-		}
-
-		for (const group of groups.values()) {
-			// Sort roles by start-date descending (most recent first)
-			group.roles.sort((a, b) => {
-				const dateA = a["start-date"] || "";
-				const dateB = b["start-date"] || "";
-				if (dateA === "present") return -1;
-				if (dateB === "present") return 1;
-				return dateB.localeCompare(dateA);
-			});
-
-			// Compute company-wide date range
-			let earliest = null;
-			let latest = null;
-
-			for (const role of group.roles) {
-				const start = role["start-date"];
-				const end = role["end-date"];
-
-				if (start && start !== "present") {
-					if (!earliest || start < earliest) earliest = start;
-				}
-
-				if (end === "present") {
-					latest = "present";
-				} else if (end && latest !== "present") {
-					if (!latest || end > latest) latest = end;
-				}
-			}
-
-			group["start-date"] = earliest;
-			group["end-date"] = latest;
-		}
-
-		return Array.from(groups.values());
-	});
-
-	// Resume filters
-	config.addFilter("first", (string) => {
-		return string?.split(' ')?.[0];
-	});
-	config.addFilter("last", (string) => {
-		return string?.split(' ')?.[string.split(' ').length - 1];
-	});
-	config.addFilter("clean", (string) => {
-		return string?.replace(/\s/g, '');
-	});
-
+	/* ------------- FILTERS ------------- */
+	config.addFilter("toISOString", customFilters.toISOString);
+	config.addFilter("year", customFilters.yearFormat);
+	config.addFilter("long", (date) => customFilters.customDateFormat(date, { day: 'numeric', month: 'long', year: 'numeric' }, DATE_LANG));
+	config.addFilter("short", (date) => customFilters.customDateFormat(date, { month: 'short', year: 'numeric' }, DATE_LANG));
+	config.addFilter("featured", customFilters.featured);
+	config.addFilter("groupByCompany", customFilters.groupByCompany);
+	config.addFilter("first", customFilters.firstWord);
+	config.addFilter("last", customFilters.lastWord);
+	config.addFilter("clean", customFilters.trimWhitespace);
+	config.addFilter("digitsOnly", customFilters.digitsOnly);
 	config.addFilter("md", (string) => {
 		if (!string || typeof string !== 'string') return string;
 
@@ -275,42 +172,26 @@ export default async function (config) {
 		return markdown.render(paragraphs.join(''));
 	});
 
-	/**
-	 * Filter to format a date for use in blog posts
-	 * @param {string} date - The date to format
-	 * @returns {string} The formatted date
-	 */
-	config.addFilter("postDate", (date) => {
-		return date ? new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-	});
+	/* Copy assets directly to the publish directory */
+	const dependencyAssets = {
+		[`${NODE_MODULES_PATH}/prismjs/themes/prism.${isProduction ? 'min.css' : 'css'}`]: `css/prism.css`,
+		[`${NODE_MODULES_PATH}/prism-themes/themes/prism-one-light.${isProduction ? 'min.css' : 'css'}`]: `css/prism-one-light.css`,
+		[`${NODE_MODULES_PATH}/prism-themes/themes/prism-one-dark.${isProduction ? 'min.css' : 'css'}`]: `css/prism-one-dark.css`,
 
-	/**
-	 * Filter to get only digits from a string
-	 * @param {string} string - The string to filter
-	 * @returns {string} The string with only digits
-	 */
-	config.addFilter("digitsOnly", (string) => {
-		return string?.replace(/\D/g, '');
-	});
-
+		[`${NODE_MODULES_PATH}/prismjs/prism.js`]: "js/prism.js",
+		...prismPlugins.reduce((plugins,plugin) => {
+			plugins[`${NODE_MODULES_PATH}/prismjs/plugins/${plugin}/prism-${plugin}.${isProduction ? 'min.js' : 'js'}`] = `js/prism-${plugin}.js`;
+			return plugins;
+		}, {}),
+	};
 	config.addPassthroughCopy({
-		"node_modules/prismjs/themes/prism.css": "css/prism.css",
-		"node_modules/prism-themes/themes/prism-one-light.css": "css/prism-one-light.css",
-		"node_modules/prism-themes/themes/prism-one-dark.css": "css/prism-one-dark.css",
-		"node_modules/prismjs/prism.js": "js/prism.js",
+		...dependencyAssets,
 		"pages/favicon.*": "/",
 		"pages/**/*.js": "js/",
 		"components/*.js": "js/components/"
 	});
 
-	config.setServerOptions({
-		// Open the browser automatically
-		open: true,
-		browser: "firefox",
-		domDiff: false
-	});
-
-	if (process.env.ELEVENTY_ENV === 'production') {
+	if (isProduction) {
 		config.addTransform('htmlmin', (content, outputPath) => {
 			if (!outputPath.endsWith('.html')) return content;
 
@@ -323,14 +204,4 @@ export default async function (config) {
 			});
 		});
 	}
-
-	return {
-		dir: {
-			input: "pages",
-			output: "public",
-			includes: "../_includes",
-			data: "../_data",
-		},
-		templateFormats: ["html", "njk", "md", "11ty.js", "11ty.json"],
-	};
 };

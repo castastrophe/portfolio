@@ -63,8 +63,8 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
                 <span class="job-dates">
                   {% set startDate = group["start-date"] %}
                   {% set endDate = group["end-date"] %}
-                  {% if startDate %}<span>{{ startDate | shortDate }}</span>{% endif %}
-                  {% if endDate %}<span>{{ endDate | shortDate }}</span>{% endif %}
+                  {% if startDate %}<span>{{ startDate | short }}</span>{% endif %}
+                  {% if endDate %}<span>{{ endDate | short }}</span>{% endif %}
                 </span>
                 {% endif %}
               </div>
@@ -122,13 +122,13 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
               {% if startDate or endDate %}
               <span class="education-dates">
                 {% if startDate %}
-                  <span>{{ startDate | yearFormat }}</span>
+                  <span>{{ startDate | year }}</span>
                 {% endif %}
                 {% if startDate and endDate %}
                   <span class="separator">–</span>
                 {% endif %}
                 {% if endDate %}
-                  <span>{{ endDate | yearFormat }}</span>
+                  <span>{{ endDate | year }}</span>
                 {% endif %}
               </span>
               {% endif %}
@@ -149,8 +149,8 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
               {% set href = '//' + contact.value | clean %}
               {% set content = contact.value | clean %}
               {% if contact.type == 'email' %}
-                {% set href = 'mailto:' + contact.value | toEmail %}
-                {% set content = contact.value | toEmail %}
+                {% set href = 'mailto:' + contact.value %}
+                {% set content = contact.value %}
               {% elif contact.type == 'phone' %}
                 {% set href = 'tel:' + contact.value | digitsOnly %}
                 {% set content = contact.value | digitsOnly %}

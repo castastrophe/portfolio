@@ -1,5 +1,5 @@
-<a-band id="masthead" collapsed accent>
-    <a class="branding" href="/" title="Return to the home page" slot="header">
+<a-band id="masthead" collapsed accent class="masthead">
+    <a class="branding" href="{{ '/' | url }}" title="Return to the home page" slot="header">
         {% include "../pages/logo.svg" %}
     </a>
     <h1 class="headline">{{ site.title }}</h1>
@@ -25,33 +25,6 @@
 
 {% css %}
 #masthead {
-    --image-size: min(calc(80px + 5cqi), 120px);
-    --image--BorderRadius: var(--theme--BorderRadius--circle);
-
-    --band--Width: var(--theme--content--MaxWidth);
-    --band--body--Direction: column;
-    --band--body--Wrap: nowrap;
-    --band--body--Gap--vertical: 0;
-    --band--body--JustifyContent: start;
-    --band--body--AlignItems: start;
-    --band--footer--Direction: row;
-    --band--footer--Wrap: nowrap;
-    --band--footer--Gap--vertical: 0;
-    --band--footer--JustifyContent: space-between;
-    --band--footer--AlignItems: center;
-    --band--AlignItems: start;
-
-    --band--Grid--areas: "header body" "header body" "footer footer";
-    --band--Grid--columns: var(--image-size) 1fr;
-    --band--Grid--rows: auto auto auto;
-
-    z-index: 1000;
-
-    .branding {
-        margin-block: calc(var(--theme--content--space) * -2);
-        max-inline-size: var(--image-size);
-    }
-
     .headline {
         font-size: calc(3.2rem + 1cqi);
         letter-spacing: -2px;
@@ -67,10 +40,6 @@
             font-size: 1.4rem;
             font-weight: var(--theme--FontWeight--light);
         }
-    }
-
-    @container box (inline-size >= 1200px) {
-        --band--Grid--areas: "header body" "header body" "header footer";
     }
 
     @container box (inline-size <= 620px) {

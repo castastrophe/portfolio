@@ -19,6 +19,7 @@ export default {
 		"no-duplicate-selectors": null,
 		"number-max-precision": null,
 		"custom-property-pattern": null,
+		"max-nesting-depth": null,
 
 		/** --------------------------------------------------------------
 		 * Customized rule settings
@@ -71,7 +72,6 @@ export default {
 				severity: "warning",
 			},
 		],
-		"max-nesting-depth": [3, { severity: "warning" }],
 		"property-no-unknown": [
 			true,
 			{

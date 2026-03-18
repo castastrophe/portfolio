@@ -6,13 +6,13 @@ eleventyNavigation:
   order: 3
 ---
 
-<a-band id="post-listing" thick full>
+<a-band id="post-listing" thick>
     <h2 class="title" slot="header">Posts</h2>
     {% for article in collections.posts | reverse %}
     {% if article.data.title %}
         <a-card bordered>
             <div slot="header">
-                <p class="date">{{ article.data.date | postDate }}</p>
+                <p class="date">{{ article.data.date | long }}</p>
                 <h3 class="headline accent"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
             </div>
             <p class="content">{{ article.data.description }}</p>
@@ -20,23 +20,13 @@ eleventyNavigation:
         </a-card>
     {% endif %}
     {% endfor %}
+    <a-note style="align-self: center" slot="footer"></a-note>
+    <img slot="footer" src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>
-
-<a-band id="cta">
-    <a-note></a-note>
-</a-band>
-
-{% js %}
-   import '/js/components/a-band.js';
-   import '/js/components/a-card.js';
-   import '/js/components/a-note.js';
-   import '/js/components/tag-group.js';
-{% endjs %}
 
 {% css %}
 .date {
     font-weight: var(--theme--FontWeight--light);
-    margin-block-end: var(--theme--content--space);
 }
 .headline {
     margin-block-end: var(--theme--content--space);

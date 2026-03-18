@@ -27,12 +27,17 @@
     --theme--text--FontFamily--dense: "EB Garamond", 'Georgia', serif;
     --theme--text--LineHeight: var(--theme--LineHeight);
 
+    --theme--text--Color: light-dark(hsl(40, 12%, 20%), hsl(0, 0%, 100%));
+    --theme--text--Color--invert: light-dark(hsl(0, 0%, 100%), hsl(40, 12%, 20%));
+    --theme--text--Color--subtle: light-dark(hsl(40, 10%, 30%), hsl(0, 0%, 70%));
+
     --theme--code--FontFamily: "PT Mono", monospace;
     --theme--code--FontSize: .8em;
     --theme--code--LineHeight: var(--theme--LineHeight);
 
     --theme--heading--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
     --theme--heading--LineHeight: var(--theme--LineHeight--dense);
+    --theme--heading--Color: var(--theme--text--Color);
 
     --theme--container--space: 16px;
     --theme--content--space: 10px;
@@ -50,15 +55,18 @@
     --theme--container--MaxWidth: 1200px;
     --theme--content--MaxWidth: 80ch;
 
+    --theme--container--shadow: 0 20px 25px -5px;
+    --theme--container--shadow-color: light-dark(hsl(40, 10%, 10%), hsl(0, 0%, 10%));
+
+    --theme--container--shadow--light: 0 10px 10px -5px;
+    --theme--container--shadow-color--light: light-dark(hsl(40, 10%, 4%), hsl(0, 0%, 4%));
+
     --theme--surface--color: light-dark(hsl(40, 12%, 96%), hsl(0, 1%, 10%));
+    --theme--surface--color--emphasis: light-dark(hsl(40, 12%, 93%), hsl(0, 1%, 18%));
 
-    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 85%), hsl(0, 0%, 69%));
+    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 90%), hsl(0, 0%, 40%));
 
-    --theme--text--Color: light-dark(hsl(40, 12%, 20%), hsl(0, 0%, 100%));
-    --theme--text--Color--invert: light-dark(hsl(0, 0%, 100%), hsl(40, 12%, 20%));
-    --theme--text--Color--subtle: light-dark(hsl(0, 0%, 30%), hsl(0, 0%, 70%));
-
-    --theme--heading--Color: var(--theme--text--Color);
+    --prism-default-background: light-dark(#f9f9f9, #272b33);
 }
 
 .accent--orange {
@@ -79,7 +87,7 @@
     --theme--ui--Color--hover: color-mix(in hsl, var(--theme--ui--Color) 40%, transparent);
     --theme--ui--Color--active: color-mix(in hsl, var(--theme--ui--Color) 40%, transparent);
 
-    --theme--surface--color--accent: light-dark(color-mix(in hsl, var(--base) 90%, transparent 80%), color-mix(in hsl, var(--base) 60%, transparent));
+    --theme--surface--color--accent: light-dark(color-mix(in hsl, var(--base) 20%, transparent), color-mix(in hsl, var(--base) 60%, transparent));
 
     --theme--text--Color--accent: light-dark(var(--base), color-mix(in hsl, var(--base) 90%, white));
 

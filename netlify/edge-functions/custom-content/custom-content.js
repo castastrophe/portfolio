@@ -7,19 +7,19 @@
  * @returns {import('@netlify/functions').Handler} The response object
  */
 export default async function (request, context) {
-  const url = new URL(request.url)
-  const slug = url.searchParams.get('v');
+  const url = new URL(request.url);
+  const slug = url.searchParams.get("v");
   const cookies = context.cookies;
 
   // A query parameter to clear the cookies if wanted
-  if (url.searchParams.get('cookies') === 'clear') {
-    cookies.delete('customized-content');
+  if (url.searchParams.get("cookies") === "clear") {
+    cookies.delete("customized-content");
   }
 
   // If no slug is provided, check if the cookie is set
   if (!slug) {
-    const cookie = cookies.get('customized-content');
-    if (cookie && cookie !== 'undefined' && cookie !== 'null') {
+    const cookie = cookies.get("customized-content");
+    if (cookie && cookie !== "undefined" && cookie !== "null") {
       return getAlternateContent(context, cookie);
     }
 
@@ -31,7 +31,7 @@ export default async function (request, context) {
 
   // Start by setting a new cookie with the slug value
   cookies.set({
-    name: 'customized-content',
+    name: "customized-content",
     slug,
   });
 
@@ -45,7 +45,7 @@ export default async function (request, context) {
  * @type {import('@netlify/functions').Config}
  */
 export const config = {
-  path: "/resume/"
+  path: "/resume/",
 };
 
 

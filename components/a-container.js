@@ -7,10 +7,15 @@ export default class AContainer extends HTMLElement {
         const containerName = prefix && prefix !== "container" ? `box ${prefix}` : "box";
         return `
     :host {
+        --default-background: transparent;
+        --default-grid-areas: "header" "body" "footer";
+        --default-padding-vertical: calc(var(--theme--container--space) * var(--multiplier-vertical, 1));
+        --default-padding-horizontal: calc(var(--theme--container--space) * var(--multiplier-horizontal, 1));
+
         display: block;
         box-sizing: border-box;
 
-        background: var(--${identifier}Background, var(--default-background, transparent));
+        background: var(--${identifier}Background, var(--default-background));
 
         container-name: ${containerName};
         container-type: inline-size;
@@ -23,22 +28,20 @@ export default class AContainer extends HTMLElement {
     }
 
     .container {
-        --default-grid-areas: "header" "body" "footer";
-
         box-sizing: border-box;
         inline-size: min(var(--${identifier}Width, var(--theme--container--MaxWidth)), 100%);
         block-size: 100%; /* Ensure the container takes up the full height of its parent */
         margin-inline: auto; /* Center the container horizontally */
 
-        padding-block: var(--${identifier}Padding--vertical, var(--default-padding-vertical, calc(var(--theme--container--space) * var(--multiplier-vertical, 1))));
-        padding-inline: var(--${identifier}Padding--horizontal, var(--default-padding-horizontal, calc(var(--theme--container--space) * var(--multiplier-horizontal, 1))));
+        padding-block: var(--${identifier}Padding--vertical, var(--default-padding-vertical));
+        padding-inline: var(--${identifier}Padding--horizontal, var(--default-padding-horizontal));
 
         display: var(--${identifier}Display, grid);
         grid-template-areas: var(--${identifier}Grid--areas, var(--default-grid-areas));
         grid-template-columns: var(--${identifier}Grid--columns, 1fr);
         grid-template-rows: var(--${identifier}Grid--rows, auto 1fr auto);
-        row-gap: var(--${identifier}Gap--vertical, var(--theme--content--space));
-        column-gap: var(--${identifier}Gap--horizontal, var(--theme--content--space));
+        row-gap: var(--${identifier}Gap--vertical, calc(var(--theme--content--space) * var(--multiplier-vertical, 1)));
+        column-gap: var(--${identifier}Gap--horizontal, calc(var(--theme--content--space) * var(--multiplier-horizontal, 2)));
         align-items: var(--${identifier}AlignItems, center);
         justify-content: var(--${identifier}JustifyContent, stretch);
     }
@@ -54,9 +57,10 @@ export default class AContainer extends HTMLElement {
             row-gap: var(--${identifier}${region}--Gap--vertical, var(--theme--content--space));
             column-gap: var(--${identifier}${region}--Gap--horizontal, var(--theme--content--space));
             align-items: var(--${identifier}${region}--AlignItems, stretch);
-            justify-content: var(--${identifier}${region}--JustifyContent, center);
+            justify-content: var(--${identifier}${region}--JustifyContent, start);
 
             inline-size: min(var(--${identifier}${region}--Width, 100%), 100%);
+            ${region === "body" ? 'block-size: 100%;' : ''}
             margin-inline: auto;
 
             grid-area: ${region};

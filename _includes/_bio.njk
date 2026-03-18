@@ -9,7 +9,7 @@
             {% if employee.photo %}
             <img slot="header" src="../img/{{ employee.photo }}" alt="A photo {{ employee.name }} smiling and looking directly at the camera.">
             {% endif %}
-            {% if employee.email %}<p class="cta"><a href="mailto:{{ employee.email | toEmail }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a></p>{% endif %}
+            {% if employee.email %}<p class="cta"><a href="mailto:{{ employee.email }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a></p>{% endif %}
             {% if employee.socials.length > 0 %}
             <div slot="footer">
                 {% set icons = employee.socials %}

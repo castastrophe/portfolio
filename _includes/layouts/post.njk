@@ -8,28 +8,30 @@ customSheets:
   - posts
 ---
 
-<a-band space-between id="post-header">
-    <a href="{{ '/' | url }}" title="Return to the home page"><img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded"></a>
-    <div>
-        <h1 class="headline">{{ title }}</h1>
-        <p class="metadata">
-            <span class="author">{{ author or site.author }}</span>
-            <span class="date">{{ date | postDate }}</span>
-            <span class="cta"><a href="{{ '/posts/' | url }}" title="Return to the posts page" class="cta-link">All posts</a></span>
-        </p>
-        {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
-    </div>
+<a-band id="post-header" class="masthead" collapsed accent>
+    <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
+      <img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
+    </a>
+      <h1 class="headline">{{ title }}</h1>
+      <p class="metadata">
+          <span class="author">{{ author or site.author }}</span>
+          <span class="date">{{ date | long }}</span>
+          <span class="cta"><a href="{{ '/posts/' | url }}" title="Return to the posts page" class="cta-link">All posts</a></span>
+      </p>
+      {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
 </a-band>
 
-<a-band id="post-content" full>
-    <details class="table-of-contents sticky">
-        <summary>Table of contents</summary>
-        {{ content | toc | safe }}
-    </details>
+<a-band id="post-content" full class="sticky shadow">
+  <details class="table-of-contents" open>
+      <summary>Table of contents</summary>
+      {{ content | toc | safe }}
+  </details>
+</a-band>
 
+<a-band id="post-content">
     <div class="content">{{ content | md | safe }}</div>
 
-    <a-note>
+    <a-note slot="footer">
       <p>Did you find this post helpful? I'm available for full-time, consulting, speaking, workshops, or training.</p>
       <a class="cta-button" href="{{ site.contact.scheduler }}">Let's connect!</a>
     </a-note>

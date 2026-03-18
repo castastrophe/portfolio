@@ -12,6 +12,8 @@ styles.replaceSync(`
     }
 
     slot:where([name="header"]:not([empty])) {
+        --title--FontSize: 1.4rem;
+
         justify-content: var(--band--header--JustifyContent, start);
         inline-size: min(var(--band--header--Width, var(--theme--content--MaxWidth)), 100%);
         padding-block: calc(var(--theme--content--space) * 2);
@@ -20,6 +22,7 @@ styles.replaceSync(`
     slot:where(:not([name]):not([empty])) {
         flex-direction: var(--band--body--Direction, row);
         flex-wrap: var(--band--body--Wrap, wrap);
+        justify-content: var(--band--body--JustifyContent, center);
     }
 
     slot:where([name="footer"]:not([empty])) {
@@ -71,8 +74,10 @@ styles.replaceSync(`
     }
 
     :host([grid]) {
+        --band--body--Display: grid;
+        --band--body--JustifyContent: center;
+
         slot:where(:not([name])) {
-            display: grid;
             grid-template-columns: repeat(var(--columns, auto-fill), minmax(var(--item--Width, var(--theme--content--MaxWidth)), 1fr));
         }
     }

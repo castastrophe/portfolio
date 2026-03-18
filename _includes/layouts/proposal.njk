@@ -27,12 +27,6 @@ masthead: true
     </a-note>
 </a-band>
 
-{% js %}
-   import '/js/components/a-band.js';
-   import '/js/components/a-note.js';
-   import '/js/components/tag-group.js';
-{% endjs %}
-
 {% css %}
 #proposal {
     .headline {
@@ -43,7 +37,7 @@ masthead: true
 #proposal-content {
     .content {
         background-color: var(--theme--surface--color);
-        padding: 1em;
+        padding: 1rem;
         border-radius: var(--theme--BorderRadius);
         box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--text--Color) 10%, transparent);
 
@@ -61,7 +55,7 @@ masthead: true
             &::after {
                 content: '';
                 display: block;
-                background-color: color-mix(in srgb, var(--theme--ui--Color) 10%, transparent);
+                background-color: var(--theme--surface--color--accent);
                 height: .8em;
                 width: 100%;
                 inset-block-start: -0.05em;

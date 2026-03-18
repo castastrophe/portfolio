@@ -1,7 +1,5 @@
 #post-header {
-    --spacing-horizontal: 20px;
     --image-size: max(150px, 20%);
-    margin-block-start: 2em;
 
     a:has(img) {
         --theme--BorderRadius: var(--theme--BorderRadius--circle);
@@ -28,10 +26,6 @@
 }
 
 #post-content {
-    .table-of-contents {
-        inline-size: 100%;
-    }
-
     .content {
         font-size: 20px;
         background-color: color-mix(in srgb, var(--theme--surface--color) 70%, transparent);

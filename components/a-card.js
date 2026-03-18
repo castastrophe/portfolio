@@ -13,53 +13,64 @@ styles.replaceSync(`
         max-inline-size: min(var(--card--Width, var(--theme--content--MaxWidth)), 100%);
     }
 
+    slot:where([name="footer"]) {
+        font-size: 1rem;
+    }
+
     :host([overflow]) {
+        --header--item--Width: calc(100% + var(--card--Padding--horizontal, var(--default-padding-horizontal)) * 2);
+
         overflow: hidden;
 
         slot[name="header"]:not([empty]) {
-            background: color-mix(in srgb, var(--theme--ui--Color) 20%, var(--theme--surface--color));
+            --title--Padding: var(--theme--content--space) var(--card--Padding--horizontal, var(--default-padding-horizontal));
 
-            padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
-            padding-block: var(--card--Padding--horizontal, var(--default-padding-horizontal));
-
-            margin-block-start: calc(var(--card--Padding--vertical, var(--default-padding-vertical)) * -1);
-            margin-inline: calc(var(--card--Padding--horizontal, var(--default-padding-horizontal)) * -1);
-            inline-size: calc(100% + var(--card--Padding--horizontal, var(--default-padding-horizontal)) * 2);
-        }
-    }
-
-    :host([video]) {
-        /* Used to limit the width of the video iframe in the card */
-        max-inline-size: min(var(--card--Width, var(--item--Width)), 100%);
-        overflow: hidden;
-
-        ::slotted(iframe) {
-            --video--Width: 100cqi;
+            background: var(--theme--surface--color--accent);
 
             margin-block-start: calc(var(--card--Padding--vertical, var(--default-padding-vertical)) * -1);
             margin-inline: calc(var(--card--Padding--horizontal, var(--default-padding-horizontal)) * -1);
-        }
-    }
+            inline-size: var(--header--item--Width);
 
-    @container card (width >= 800px) {
-        :host([video]) {
-            --card--header--Width: var(--video--Width);
-            --card--body--Width: max-content;
-            --card--Gap--horizontal: calc(var(--theme--content--space) * 2);
+            ::slotted(*:is(iframe, picture, image)) {
+                --video--Width: var(--header--item--Width);
+                --image-size: var(--header--item--Width);
 
-            --card--Display: grid;
+                margin-block-start: calc(var(--card--Padding--vertical, var(--default-padding-vertical)) * -1);
+                margin-inline: calc(var(--card--Padding--horizontal, var(--default-padding-horizontal)) * -1);
+                inline-size: var(--header--item--Width);
+            }
 
-            .container {
-                grid-template-areas: "header body" "header footer";
-                grid-template-columns: var(--video--Width) 1fr;
-                grid-template-rows: 1fr auto;
+            ::slotted(*:not(:is(iframe, picture, image))) {
+                padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
+            }
+
+            ::slotted(*:not(:is(iframe, picture, image)):first-child) {
+                padding-block: var(--card--Padding--vertical, var(--default-padding-vertical));
             }
         }
     }
 
-    ::slotted(tag-group) {
-        font-size: .8em;
-        margin-block-start: var(--theme--content--space);
+    :host([video]) {
+        --card--Padding--horizontal: calc(var(--theme--content--space) * 2);
+
+        slot[name="header"]:not([empty]) {
+            background: none;
+        }
+
+        slot:where(:not([name]):not([empty])) {
+            --item--Width: min(365px, 100%);
+
+            font-size: max(.8rem, 10px);
+        }
+    }
+
+    @container card (width >= 600px) {
+        :host([video]) .container {
+            --card--Grid--areas: "header body" "header footer";
+            --card--Grid--columns: var(--item--Width, 300px) 1fr;
+            --card--Grid--rows: 1fr auto;
+            --card--Gap--horizontal: calc(var(--theme--content--space) * 4);
+        }
     }
 
     :host([bordered]) {
@@ -67,7 +78,7 @@ styles.replaceSync(`
     }
 
     :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--ui--Color) 60%, var(--theme--surface--color));
+        --card--BorderColor: color-mix(in srgb, var(--theme--ui--Color) 40%, var(--theme--surface--color));
     }
 
     @media print {

@@ -42,7 +42,7 @@ header {
 
 /* Stylized highlight for selected text */
 ::selection {
-    background: color-mix(in srgb, var(--theme--ui--Color--accent) 30%, transparent);
+    background: color-mix(in hsl, var(--theme--surface--color--accent) 80%, transparent);
     border-radius: 0.25rem;
     color: black;
 }
