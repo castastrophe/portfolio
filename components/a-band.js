@@ -88,7 +88,7 @@ customElements.define(
 	class ABand extends AContainer {
 		constructor() {
 			super("band");
-            this.setAttribute("role", "region");
+            if (!this.hasAttribute("role")) this.setAttribute("role", "region");
         }
 
         connectedCallback() {

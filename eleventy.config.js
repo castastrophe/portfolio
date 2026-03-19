@@ -3,6 +3,7 @@ import path from "node:path";
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
 import dotenv from "dotenv";
+import prettier from 'prettier';
 
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
@@ -189,6 +190,20 @@ export default async function (config) {
 		"pages/favicon.*": "/",
 		"pages/**/*.js": "js/",
 		"components/*.js": "js/components/"
+	});
+
+	config.addTransform("prettier", function (content) {
+		if ((this.page.outputPath || "").endsWith(".html")) {
+			return prettier.format(content, {
+				bracketSameLine: true,
+				printWidth: 512,
+				parser: "html",
+				tabWidth: 2
+			});
+		}
+
+		// If not an HTML output, return content as-is
+		return content;
 	});
 
 	if (isProduction) {

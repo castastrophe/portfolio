@@ -19,10 +19,6 @@
         border-radius: var(--theme--BorderRadius);
         border: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
     }
-
-    .date {
-        font-weight: var(--theme--FontWeight--light);
-    }
 }
 
 #post-content {

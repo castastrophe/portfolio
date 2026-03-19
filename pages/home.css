@@ -505,6 +505,10 @@ blockquote {
   }
 }
 
+.date {
+  font-weight: var(--theme--FontWeight--light);
+}
+
 .sticky {
   container-type: scroll-state;
   position: sticky;

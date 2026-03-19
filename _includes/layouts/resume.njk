@@ -16,36 +16,38 @@ eleventyComputed:
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {% endset %}
 
-<!-- I know, a table layout?! However, it's the only way to ensure that the header appears at the top of every page when printed. -->
-<table>
-  <thead>
-    <tr>
-      <th>
-        <header>
-          <div class="photo">
-            {% image "img/cassondra-roberts.png", "A photo of {{ candidate.name }}, a red-haired woman with a smile" %}
-          </div>
-          <div>
-            <h1 class="candidate-name">
-              <span>{{ candidate.name | first }}</span>
-              <br/>
-              <span>{{ candidate.name | last }}</span>
-            </h1>
-            {% if resume.tagline %}
-            <p class="subtitle" data-replace-key="tagline">{{ resume.tagline }}</p>
-            {% endif %}
-          </div>
-        </header>
-      </th>
-    </tr>
-  </thead>
-  <tbody>{{ content | safe }}</tbody>
-</table>
+<main role="main">
+  <!-- I know, a table layout?! However, it's the only way to ensure that the header appears at the top of every page when printed. -->
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <header>
+            <div class="photo">
+              {% image "img/cassondra-roberts.png", "A photo of {{ candidate.name }}, a red-haired woman with a smile" %}
+            </div>
+            <div>
+              <h1 class="candidate-name">
+                <span>{{ candidate.name | first }}</span>
+                <br/>
+                <span>{{ candidate.name | last }}</span>
+              </h1>
+              {% if resume.tagline %}
+              <p class="subtitle" data-replace-key="tagline">{{ resume.tagline }}</p>
+              {% endif %}
+            </div>
+          </header>
+        </th>
+      </tr>
+    </thead>
+    <tbody>{{ content | safe }}</tbody>
+  </table>
 
-<button type="button" class="print" aria-label="Print to PDF" onclick="window.print()">
-  <span class="fa-solid fa-file-pdf" aria-hidden="true"></span>
-  <span class="print-button-text">Export</span>
-</button>
+  <button type="button" class="print" aria-label="Print to PDF" onclick="window.print()">
+    <span class="fa-solid fa-file-pdf" aria-hidden="true"></span>
+    <span class="print-button-text">Export</span>
+  </button>
+</main>
 
 {% js %}
   // Show print button after scrolling stops

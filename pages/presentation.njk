@@ -19,7 +19,7 @@ eleventyNavigation:
     {% for presentation in presentations %}
         <a-card bordered video overflow>
             {% if presentation.youtube_id %}
-            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header"></iframe>
+            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header" title="{{ presentation.description }}"></iframe>
             {% endif %}
             <div class="content">
                 <h3 class="title">{{ presentation.title }}</h3>

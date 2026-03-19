@@ -95,3 +95,42 @@ This project follows the **Chicago Manual of Style** with the following project-
 ### CSS Conventions
 
 - Use `text-transform: uppercase` in CSS for visual capitalization rather than uppercase content in source files
+
+## Testing
+
+### Commands
+
+```bash
+yarn test              # Run all tests once
+yarn test:watch        # Run tests in watch mode
+```
+
+### Architecture
+
+Tests live in `test/` and run via **Vitest** (v4+) with the **happy-dom** environment. Vitest config is in `vitest.config.js`.
+
+- **`test/a11y.test.js`** — Accessibility audit for every built HTML page in `public/`. It recursively collects all `.html` files, parses each one into a happy-dom `Window`, injects axe-core, and runs an audit against WCAG 2.1 AA + best-practice rules. Each page gets its own `describe` block; each individual violation becomes a separate `it()` labelled with impact level, rule ID, and the offending element — so failures are immediately actionable in the Vitest output.
+
+### Key dependencies
+
+- **Vitest** — https://vitest.dev — test runner and assertion library
+- **happy-dom** — https://github.com/capricorn86/happy-dom — lightweight DOM implementation (used as the Vitest environment)
+- **axe-core** v4 — https://github.com/dequelabs/axe-core — Deque's accessibility rules engine; the canonical implementation of WCAG 2.x checks
+
+### Rules disabled for happy-dom compatibility
+
+`color-contrast` and `meta-viewport` are turned off because they require a real CSS cascade and computed styles that happy-dom does not simulate. All other WCAG 2.1 AA and best-practice rules run normally.
+
+### HTML pre-processing and happy-dom workarounds
+
+Three happy-dom limitations require pre-processing before each page is audited:
+
+1. **Inline SVGs are stripped** — happy-dom's HTML parser enters SVG/XML mode on any `<svg>` tag and never returns to HTML context, silently dropping all subsequent elements (including `<main>`, headings, form fields, etc.) from the DOM. SVG content is irrelevant to the a11y rules being tested.
+
+2. **CSS-invalid element IDs are sanitized** — the markdown-it anchor plugin generates heading IDs from raw heading text, which can include apostrophes, `%`-encoded characters, and spaces (e.g. `id="what's-the-harm%3F"`). axe-core calls `querySelectorAll` internally with the raw ID value, and happy-dom throws a `SyntaxError` for selectors containing these characters. Any character outside `[a-zA-Z0-9_-]` is replaced with a hyphen before parsing.
+
+3. **`iframes: false` is passed to `axe.run()`** — happy-dom's `postMessage`-based frame communication throws "Respondable target must be a frame in the current window" when axe tries to inject itself into `<iframe>` elements (e.g. YouTube embeds).
+
+### Important: run `yarn build` before `yarn test`
+
+The accessibility tests read from `public/` (the Eleventy build output). If `public/` is empty or stale the tests will fail with a clear message telling you to build first.

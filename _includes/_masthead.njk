@@ -1,4 +1,4 @@
-<a-band id="masthead" collapsed accent class="masthead">
+<a-band id="masthead" collapsed accent class="masthead" role="banner">
     <a class="branding" href="{{ '/' | url }}" title="Return to the home page" slot="header">
         {% include "../pages/logo.svg" %}
     </a>
@@ -7,7 +7,7 @@
 
     {% set navigation = collections.all | eleventyNavigation %}
     {% if navigation | length > 1 %}
-    <nav class="navigation" slot="footer">
+    <nav class="navigation" slot="footer" role="navigation">
         <ul class="navigation-list accent--yellow" slot="footer">
             {% for item in navigation %}
                 <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>

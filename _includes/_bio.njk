@@ -1,4 +1,4 @@
-<div class="bio" id="{{ employee.name | slugify }}" role="region" tabindex="0">
+<div class="bio" id="{{ employee.name | slugify }}" tabindex="0">
     <h3 class="headline">
         <strong>{{ employee.name }}</strong>{% if employee.title %}, <span>{{ employee.title }}</span>{% endif %}
     </h3>
@@ -63,7 +63,7 @@
         <div layout="row">
             {% for presentation in employee.presentations %}
             {% if presentation.youtube_id and presentation.featured %}
-            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen title="{{ presentation.description }}"></iframe>
             {% endif %}
             {% endfor %}
         </div>

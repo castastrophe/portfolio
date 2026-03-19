@@ -29,7 +29,7 @@ The web can be unforgiving. Users expect instant responses with limited attentio
 
 Before we dive into implementation, let's talk about what the User Timing API actually does. It provides high-precision timestamps that are part of the browser's performance timeline, and it does this through two simple concepts: marks and measures.
 
-**Marks** are timestamps you place at specific points in your code. Think of them as performance breadcrumbs--they tell you when something happened.
+**Marks** are timestamps you place at specific points in your code. Think of them as performance breadcrumbs—they tell you when something happened.
 
 **Measures** calculate the elapsed time between two marks. They're the answer to "how long did that take?"
 
