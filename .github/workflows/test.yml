@@ -1,4 +1,4 @@
-name: Build validation
+name: Tests validation
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Validate build
+      - name: Run a fresh build
         run: yarn ci
         env:
           INNGEST_APP_ID: ${{ secrets.INNGEST_APP_ID }}
@@ -35,5 +35,5 @@ jobs:
           NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
           NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
 
-      - name: Check for uncommitted changes
-        run: git diff --exit-code
+      - name: Run tests
+        run: yarn test

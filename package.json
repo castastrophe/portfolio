@@ -21,8 +21,7 @@
     "clean": "rimraf public",
     "start": "yarn build --serve",
     "dev": "netlify dev",
-    "test": "yarn clean && NODE_OPTIONS='--no-deprecation' vitest run",
-    "test:bench": "NODE_OPTIONS='--no-deprecation' vitest bench",
+    "test": "NODE_OPTIONS='--no-deprecation' vitest run",
     "test:watch": "NODE_OPTIONS='--no-deprecation' vitest watch"
   },
   "devDependencies": {
