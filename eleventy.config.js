@@ -192,13 +192,13 @@ export default async function (config) {
 	};
 	config.addPassthroughCopy({
 		...dependencyAssets,
-		"pages/favicon.*": "/",
-		"pages/**/*.js": "js/",
+		"pages/assets/favicon.*": "/",
+		"pages/js/*.js": "js/",
 		"components/*.js": "js/components/"
 	});
 
 	config.addTransform("prettier", function (content) {
-		if ((this.page.outputPath || "").endsWith(".html")) {
+		if ([".html", ".xml", ".svg"].includes(path.extname(this.page.outputPath || ""))) {
 			return prettier.format(content, {
 				bracketSameLine: true,
 				printWidth: 512,
