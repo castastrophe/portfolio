@@ -1,9 +1,12 @@
 ---
 layout: base
-masthead: true
 isListing: true
 eleventyExcludeFromCollections: true
 ---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
 
 <a-band full id="proposals" thick grid>
     <h2 class="title" slot="header">Proposals</h2>
@@ -17,7 +20,4 @@ eleventyExcludeFromCollections: true
     {% endfor %}
 </a-band>
 
-<a-band id="cta" thick space-evenly>
-    <a-note></a-note>
-    <img src="../../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
-</a-band>
+{% include "_cta-band.njk" %}

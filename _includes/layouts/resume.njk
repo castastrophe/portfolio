@@ -10,13 +10,26 @@ eleventyComputed:
   author: "{{ candidate.name }}"
 ---
 
+<header id="header-sticky" class="sticky shadow" hidden>
+  <div class="photo"></div>
+  <div>
+    <h1 class="candidate-name">
+      <span>{{ candidate.name | first }}</span>
+      <span>{{ candidate.name | last }}</span>
+    </h1>
+    {% if resume.tagline %}
+    <p class="subtitle">{{ resume.tagline }}</p>
+    {% endif %}
+  </div>
+</header>
+
 <main role="main">
   <!-- I know, a table layout?! However, it's the only way to ensure that the header appears at the top of every page when printed. -->
   <table>
     <thead>
       <tr>
         <th>
-          <header>
+          <header id="header">
             <div class="photo">
               {% image "img/cassondra-roberts.png", "A photo of {{ candidate.name }}, a red-haired woman with a smile" %}
             </div>
@@ -27,7 +40,7 @@ eleventyComputed:
                 <span>{{ candidate.name | last }}</span>
               </h1>
               {% if resume.tagline %}
-              <p class="subtitle" data-replace-key="tagline">{{ resume.tagline }}</p>
+              <p class="subtitle">{{ resume.tagline }}</p>
               {% endif %}
             </div>
           </header>
@@ -44,6 +57,28 @@ eleventyComputed:
 </main>
 
 {% js %}
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.getElementById("header");
+  const fixedHeader = document.getElementById("header-sticky");
+  let fixedHeight;
+
+  function checkStickyHeader() {
+    if(window.scrollY > header.offsetHeight) {
+      fixedHeader.removeAttribute('hidden');
+      if (!fixedHeight || fixedHeight !== fixedHeader.offsetHeight) {
+        fixedHeight = fixedHeader.offsetHeight;
+        document.body.setAttribute("data-sticky-height", fixedHeight);
+        document.body.style.setProperty("scroll-padding-block-start", fixedHeight + "px");
+      }
+    } else {
+      fixedHeader.setAttribute('hidden', '');
+    }
+  }
+
+  if (header && fixedHeader) {
+    checkStickyHeader();
+  }
+
   // Show print button after scrolling stops
   const printButton = document.querySelector('button.print');
   let scrollTimeout;
@@ -59,6 +94,9 @@ eleventyComputed:
 
   window.addEventListener('scroll', () => {
     hasScrolled = true;
+
+    if (header && fixedHeader) checkStickyHeader();
+
     hideButton();
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(showButton, 800);
@@ -66,4 +104,5 @@ eleventyComputed:
 
   // Show button on initial load after a delay
   setTimeout(showButton, 1500);
+});
 {% endjs %}

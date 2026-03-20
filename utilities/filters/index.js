@@ -117,7 +117,7 @@ export const groupByCompany = function(experience) {
  * @param {string} string
  * @returns {string}
  */
-export const firstWord = (string) => string?.split('\s')?.[0];
+export const firstWord = (string) => String(string)?.trim()?.split(' ')?.[0];
 
 /**
  * Splits out the last word of a string
@@ -125,7 +125,7 @@ export const firstWord = (string) => string?.split('\s')?.[0];
  * @returns {string}
  */
 export const lastWord = (string) => {
-    const words = string?.split('\s');
+    const words = string?.trim()?.split(' ');
     return words?.[words.length - 1];
 };
 

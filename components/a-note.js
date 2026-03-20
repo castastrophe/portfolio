@@ -6,18 +6,14 @@ styles.replaceSync(`
         max-inline-size: calc(100% - var(--note--Padding, var(--theme--container--space)) * 2);
 
         box-sizing: border-box;
-        background-color: var(--note--Background, var(--theme--surface--color--accent));
-        border: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color);
-        border-inline-start: var(--theme--BorderWidth--emphasis) solid var(--theme--ui--Color);
+        background-color: var(--note--Background, var(--theme--surface--color));
+        border: var(--theme--BorderWidth) solid var(--theme--ui--color);
+        border-inline-start: var(--theme--BorderWidth--emphasis) solid var(--theme--ui--color);
         border-radius: var(--theme--BorderRadius);
         padding: var(--note--Padding, var(--theme--container--space));
 
-        margin-inline-start: 0;
-        margin-block-start: 0;
-
-        *:first-child,
-        ::slotted(*:first-child) {
-            margin-block-start: 0;
+        ::slotted(*:not(:last-child)) {
+            margin-block-end: .2em !important;
         }
     }
 `);
@@ -34,10 +30,7 @@ customElements.define(
         connectedCallback() {
             const templateElement = document.createElement("template");
             templateElement.innerHTML = `
-                <slot>
-                    <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
-                    <a href="https://fantastical.app/cassondra/inquiries">Book a free call</a>
-                </slot>`;
+                <slot></slot>`;
 
             this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
             this.shadowRoot.adoptedStyleSheets = [styles];

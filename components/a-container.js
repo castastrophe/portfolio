@@ -7,15 +7,12 @@ export default class AContainer extends HTMLElement {
         const containerName = prefix && prefix !== "container" ? `box ${prefix}` : "box";
         return `
     :host {
-        --default-background: transparent;
         --default-grid-areas: "header" "body" "footer";
-        --default-padding-vertical: calc(var(--theme--container--space) * var(--multiplier-vertical, 1));
-        --default-padding-horizontal: calc(var(--theme--container--space) * var(--multiplier-horizontal, 1));
 
         display: block;
         box-sizing: border-box;
 
-        background: var(--${identifier}Background, var(--default-background));
+        background: var(--${identifier}Background, var(--default-background, transparent));
 
         container-name: ${containerName};
         container-type: inline-size;
@@ -31,10 +28,6 @@ export default class AContainer extends HTMLElement {
         box-sizing: border-box;
         inline-size: min(var(--${identifier}Width, var(--theme--container--MaxWidth)), 100%);
         block-size: 100%; /* Ensure the container takes up the full height of its parent */
-        margin-inline: auto; /* Center the container horizontally */
-
-        padding-block: var(--${identifier}Padding--vertical, var(--default-padding-vertical));
-        padding-inline: var(--${identifier}Padding--horizontal, var(--default-padding-horizontal));
 
         display: var(--${identifier}Display, grid);
         grid-template-areas: var(--${identifier}Grid--areas, var(--default-grid-areas));
@@ -67,12 +60,20 @@ export default class AContainer extends HTMLElement {
         }`;
     }).join("\n")}
 
+    slot:where([name="header"]:not([empty])) {
+        border-block-end: var(--${identifier}header--BorderWidth, 0) solid var(--band--header--BorderColor, var(--theme--ui--color--subtle));
+    }
+
+    slot:where([name="footer"]:not([empty])) {
+        border-block-start: var(--${identifier}footer--BorderWidth, 0) solid var(--band--footer--BorderColor, var(--theme--ui--color--subtle));
+    }
+
     :host([full]) {
         --${identifier}Width: 100%;
     }`;
     };
 
-    constructor(tagName = "container") {
+    constructor(tagName = "box") {
         super();
         this.attachShadow({ mode: "open" });
 
@@ -132,3 +133,5 @@ export default class AContainer extends HTMLElement {
         this.#observer.disconnect();
     }
 }
+
+customElements.define("a-box", AContainer);

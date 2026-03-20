@@ -1,18 +1,20 @@
-<a-band id="header" collapsed accent class="masthead" role="banner">
+<a-band id="header" collapsed accent class="masthead accent--yellow" role="banner">
     <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
         {% include "../pages/assets/logo.svg" %}
     </a>
-    <h1 class="headline company-name">{{ site.title }}</h1>
-    <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
+    <div>
+        <h1 class="headline company-name">{{ site.title }}</h1>
+        <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
+    </div>
 
     {% set navigation = collections.all | eleventyNavigation %}
     {% if navigation | length > 1 %}
     <nav class="navigation" slot="footer" role="navigation">
-        <ul class="navigation-list accent--yellow" slot="footer">
+        <ul class="navigation-list" slot="footer">
             {% for item in navigation %}
                 <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
                     <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
-                </li>
+               </li>
             {% endfor %}
         </ul>
     </nav>
@@ -23,25 +25,52 @@
     </div>
 </a-band>
 
+<a-band id="header-sticky" collapsed class="masthead sticky shadow" hidden>
+    <div class="flex">
+        <a href="{{ '/' | url }}" title="Return to the home page">
+            {% include "../pages/assets/logo.svg" %}
+        </a>
+        <h1 class="headline company-name">{{ site.title }}</h1>
+    </div>
+
+    {% set navigation = collections.all | eleventyNavigation %}
+    {% if navigation | length > 1 %}
+    <nav class="navigation" slot="footer" role="navigation">
+        <ul class="navigation-list accent--yellow" slot="footer">
+            {% for item in navigation %}
+                <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
+                    <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
+               </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+</a-band>
+
 {% js %}
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.getElementById("header");
-    const stickyID = "sticky-header";
-    const scrollStart = 240;
+    const fixedHeader = document.getElementById("header-sticky");
+    let fixedHeight;
 
-    if (header) {
+    function checkStickyHeader() {
+        if(window.scrollY > header.offsetHeight) {
+            fixedHeader.removeAttribute('hidden');
+            if (!fixedHeight || fixedHeight !== fixedHeader.offsetHeight) {
+                fixedHeight = fixedHeader.offsetHeight;
+                document.body.setAttribute("data-sticky-height", fixedHeight);
+                document.body.style.setProperty("scroll-padding-block-start", fixedHeight + "px");
+            }
+        } else {
+            fixedHeader.setAttribute('hidden', '');
+        }
+    }
+
+    if (header && fixedHeader) {
+        checkStickyHeader();
+
         window.addEventListener("scroll", (event) => {
-            const stickyHeader = document.getElementById(stickyID);
-
-            if(window.scrollY > scrollStart && !stickyHeader) {
-                const clone = header.cloneNode(true);
-                clone.id = stickyID;
-                clone.setAttribute('stuck', '');
-                header.insertAdjacentElement("afterend", clone);
-            }
-            else if (window.scrollY <= scrollStart && stickyHeader) {
-                stickyHeader.remove();
-            }
+            checkStickyHeader();
         });
     }
 });

@@ -3,12 +3,23 @@ import AContainer from "./a-container.js";
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
+        --default-padding-vertical: calc(var(--theme--container--space) * var(--multiplier-vertical, 1));
+        --default-padding-horizontal: calc(var(--theme--container--space) * var(--multiplier-horizontal, 1));
+
         @scope (scope root) to (scope slot) {
             --multiplier-vertical: 2;
             --multiplier-horizontal: .5;
         }
 
         position: relative;
+    }
+
+    .container {
+        margin-inline: auto; /* Center the container horizontally */
+
+        padding-block: var(--band--Padding--vertical, var(--default-padding-vertical));
+        padding-inline: var(--band--Padding--horizontal, var(--default-padding-horizontal));
+
     }
 
     slot:where([name="header"]:not([empty])) {
@@ -28,13 +39,14 @@ styles.replaceSync(`
     slot:where([name="footer"]:not([empty])) {
         justify-content: var(--band--footer--JustifyContent, start);
         inline-size: min(var(--band--footer--Width, var(--theme--content--MaxWidth)), 100%);
-        border-block-start: var(--theme--BorderWidth) solid var(--band--footer--BorderColor, var(--theme--ui--Color--subtle));
         padding-block-start: var(--theme--content--space);
+
+        border-width: var(--band--footer--BorderWidth, var(--theme--BorderWidth));
     }
 
     :host([accent]) {
         slot:where([name="footer"]:not([empty])) {
-            border-color: var(--band--footer--BorderColor, var(--theme--ui--Color));
+            border-color: var(--band--footer--BorderColor, var(--theme--ui--color));
         }
     }
 
@@ -78,7 +90,7 @@ styles.replaceSync(`
         --band--body--JustifyContent: center;
 
         slot:where(:not([name])) {
-            grid-template-columns: repeat(var(--columns, auto-fill), minmax(var(--item--Width, var(--theme--content--MaxWidth)), 1fr));
+            grid-template-columns: repeat(var(--columns, auto-fill), minmax(var(--card--Width, var(--theme--content--MaxWidth)), 1fr));
         }
     }
 `);

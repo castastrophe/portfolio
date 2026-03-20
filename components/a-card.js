@@ -7,14 +7,23 @@ styles.replaceSync(`
         --default-padding-vertical: calc(var(--theme--content--space) * var(--multiplier-vertical, 2));
         --default-padding-horizontal: calc(var(--theme--content--space) * var(--multiplier-horizontal, 1));
 
-        border: var(--card--BorderWidth, 0) solid var(--card--BorderColor, var(--theme--ui--Color--subtle));
+        border: var(--card--BorderWidth, 0) solid var(--card--BorderColor, var(--theme--ui--color--subtle));
         border-radius: var(--card--BorderRadius, var(--theme--BorderRadius));
 
-        max-inline-size: min(var(--item--Width, var(--theme--content--MaxWidth)), 100%);
+        max-inline-size: min(var(--card--Width, var(--theme--content--MaxWidth)), 100%);
     }
 
-    slot:where([name="footer"]) {
-        font-size: 1rem;
+    .container {
+        margin-inline: auto; /* Center the container horizontally */
+
+        padding-block: var(--card--Padding--vertical, var(--default-padding-vertical));
+        padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
+    }
+
+    slot:where([name="footer"]:not([empty])) {
+        font-size: 1em;
+        border-block-start: var(--card--footer--BorderWidth, var(--theme--BorderWidth)) solid var(--card--footer--BorderColor, var(--theme--ui--color--subtle));
+        padding-block-start: var(--theme--content--space);
     }
 
     :host([overflow]) {
@@ -58,16 +67,16 @@ styles.replaceSync(`
         }
 
         slot:where(:not([name]):not([empty])) {
-            --item--Width: min(365px, 100%);
+            --video--Width: 365px;
 
-            font-size: max(.8rem, 10px);
+            font-size: max(.8em, 10px);
         }
     }
 
     @container card (width >= 600px) {
         :host([video]) .container {
             --card--Grid--areas: "header body" "header footer";
-            --card--Grid--columns: var(--item--Width, 300px) 1fr;
+            --card--Grid--columns: var(--card--Width, 300px) 1fr;
             --card--Grid--rows: 1fr auto;
             --card--Gap--horizontal: calc(var(--theme--content--space) * 4);
         }
@@ -78,7 +87,7 @@ styles.replaceSync(`
     }
 
     :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--ui--Color) 40%, var(--theme--surface--color));
+        --card--BorderColor: color-mix(in srgb, var(--theme--ui--color) 40%, var(--theme--surface--color));
     }
 
     @media print {

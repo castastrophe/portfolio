@@ -1,7 +1,10 @@
 ---
 layout: base
-masthead: true
 ---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
 
 <a-band space-between id="proposal">
     <h1 class="headline">{{ title }}</h1>
@@ -37,7 +40,7 @@ masthead: true
 #proposal-content {
     .content {
         background-color: var(--theme--surface--color);
-        padding: 1rem;
+        padding: 1em;
         border-radius: var(--theme--BorderRadius);
         box-shadow: 0 0 10px 0 color-mix(in sRGB, var(--theme--text--Color) 10%, transparent);
 

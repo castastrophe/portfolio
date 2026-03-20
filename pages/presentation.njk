@@ -1,11 +1,14 @@
 ---
 layout: base
-masthead: true
 isListing: true
 eleventyNavigation:
   key: Presentations
   order: 4
 ---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
 
 <a-band full id="presentation" center>
     <h2 class="title" slot="header">Presentations</h2>
@@ -41,5 +44,8 @@ eleventyNavigation:
 </a-band>
 
 <a-band thin>
-    <a-note style="align-self: center"></a-note>
+    <a-note style="align-self: center">
+        <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
+        <p><a class="cta-link" href="{{ site.contact.scheduler }}">Book a free call</a></p>
+    </a-note>
 </a-band>

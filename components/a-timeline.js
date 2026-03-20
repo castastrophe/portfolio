@@ -12,24 +12,24 @@ styles.replaceSync(`
 	.connector {
 		flex: 1;
 		block-size: 2px;
-		background: color-mix(in srgb, var(--theme--ui--Color--accent) 90%, black);
-		min-inline-size: 0.75rem;
+		background: color-mix(in srgb, var(--theme--ui--color) 90%, black);
+		min-inline-size: 0.75em;
 
 		&:first-child,
 		&:last-child {
-			max-inline-size: 4rem;
+			max-inline-size: 4em;
 		}
 	}
 
 	.dot {
-		margin: 0.5rem;
+		margin: 0.5em;
 
 		display: block;
-		inline-size: 1rem;
-		block-size: 1rem;
+		inline-size: 1em;
+		block-size: 1em;
 		border-radius: var(--theme--BorderRadius--circle);
-		background: var(--theme--ui--Color--accent);
-		border: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--accent);
+		background: var(--theme--ui--color);
+		border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color);
 		transition: transform 0.2s ease, background-color 0.2s ease;
 
 		&:not(.active) {
@@ -46,7 +46,7 @@ styles.replaceSync(`
 		}
 
 		&:is(:focus, :focus-visible) {
-			outline: var(--theme--BorderWidth) solid var(--theme--ui--Color--accent);
+			outline: var(--theme--BorderWidth) solid var(--theme--ui--color);
 			outline-offset: var(--theme--OutlineOffset);
 			border-radius: var(--theme--BorderRadius--circle);
 		}

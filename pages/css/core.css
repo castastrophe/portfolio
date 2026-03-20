@@ -1,0 +1,101 @@
+html {
+    backface-visibility: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    font-optical-sizing: auto;
+    color: var(--theme--text--Color);
+    scroll-snap-type: y proximity;
+    scroll-snap-align: start;
+    scroll-margin-block-start: 2rem;
+    scroll-snap-stop: always;
+    overflow-x: hidden;
+
+    @supports (scroll-padding-block-start: attr(data-sticky-height px, 20px)) {
+      scroll-padding-block-start: attr(data-sticky-height px, 20px);
+    }
+
+    @media print {
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
+/* Stylized highlight for selected text */
+::selection {
+    background: color-mix(in hsl, var(--theme--surface--color--accent) 80%, transparent);
+    border-radius: 0.25em;
+    color: var(--theme--text--Color);
+}
+
+:where(a) {
+    text-decoration: none;
+    font-weight: var(--theme--FontWeight);
+    color: var(--theme--link--Color);
+
+    &:has(img, svg) {
+        /* Ensures the link fits to the image and has the correct aspect ratio */
+        display: flex;
+        aspect-ratio: var(--aspect-ratio, 1 / 1);
+        inline-size: var(--image-size, 250px);
+        line-height: 1;
+    }
+
+    &:hover {
+        text-decoration: underline;
+        color: var(--theme--link--Color--hover);
+    }
+
+    &:is(:focus, :focus-visible) {
+        text-decoration: underline;
+        color: var(--theme--link--Color--focus);
+    }
+
+    &[name]:not([href]) {
+        color: inherit;
+    }
+
+    &[aria-current="page"] {
+        color: inherit;
+        font-weight: var(--theme--FontWeight--semi-bold);
+        text-decoration: underline;
+    }
+
+    img {
+        cursor: pointer;
+    }
+
+    &:is(:focus, :focus-visible) {
+        outline: 1px solid var(--theme--ui--color--active);
+        outline-offset: var(--theme--OutlineOffset, 1px);
+        border-radius: var(--theme--BorderRadius);
+    }
+}
+
+:where(a:visited) {
+    color: var(--theme--link--Color);
+}
+
+:is(.sticky) {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 100;
+
+    transition: transform .8s ease;
+
+    @starting-style {
+      transform: translateY(-100%);
+    }
+}
+
+:is([hidden]) {
+    display: none;
+}
+
+:is(.shadow) {
+  box-shadow: var(--theme--container--shadow) var(--theme--container--shadow-color), var(--theme--container--shadow--light) var(--theme--container--shadow-color--light);
+}

@@ -1,6 +1,5 @@
 ---
 layout: base
-masthead: false
 prism: true
 customScripts:
   - posts
@@ -8,6 +7,8 @@ customSheets:
   - posts
 ---
 
+
+{% block masthead %}
 <a-band id="post-header" class="masthead" collapsed accent>
     <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
       <img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
@@ -20,6 +21,7 @@ customSheets:
       </p>
       {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
 </a-band>
+{% endblock %}
 
 <a-band id="post-content" full class="sticky shadow">
   <details class="table-of-contents" open>

@@ -1,4 +1,4 @@
-<a-card bordered overflow>
+<a-card bordered overflow class="video-card">
     {% if presentation.youtube_id %}
     <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header" title="{{ presentation.description }}"></iframe>
     {% endif %}

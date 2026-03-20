@@ -3,37 +3,26 @@ styles.replaceSync(`
     :host {
         display: flex;
         flex-flow: row nowrap;
-        gap: 1rem;
+        gap: .6em;
     }
 
     .tags {
+        font-size: .9em;
+
         display: flex;
         flex-flow: row wrap;
-        gap: .5rem;
+        gap: .5em;
         margin: 0;
-    }
-
-    @container card (width >= 0) {
-        :host([slot="footer"]) {
-            margin-block-start: 1rem;
-            border-block-start: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
-            padding-block-start: 0.5em;
-        }
     }
 
     .tag {
         display: inline-block;
-        font-size: inherit;
-        font-weight: var(--theme--FontWeight--medium);
-        color: inherit;
-        padding: .3em .4em .2em;
+        padding: .2em .4em;
         border-radius: var(--theme--BorderRadius);
-        background-color: color-mix(in sRGB, var(--tag-background-color, var(--theme--ui--Color)) var(--tag-background-opacity, 10%), transparent);
+        background-color: color-mix(in sRGB, var(--tag-background-color, var(--theme--ui--color)) var(--tag-background-opacity, 10%), transparent);
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        text-decoration: none;
+        color: inherit;
     }
 
     .tag-label {
@@ -116,9 +105,7 @@ customElements.define(
         render() {
             this.shadowRoot.innerHTML = "";
 
-            if (this.tags.length === 0) {
-                return;
-            }
+            if (this.tags.length === 0) return;
 
             const label = document.createElement("span");
             label.classList.add("tag-label");
@@ -128,20 +115,16 @@ customElements.define(
             const tags = document.createElement("p");
             tags.classList.add("tags");
             this.tags.forEach((label) => {
-                const span = document.createElement("span");
-                span.classList.add("tag");
+                const tag = document.createElement(this.showLink ? "a" : "span");
+                tag.classList.add("tag");
 
+                // cursor todo: create dynamic tag filtering URL functionality to collection landing pages
                 if (this.showLink) {
-                    const a = document.createElement("a");
-                    // cursor todo: create dynamic tag filtering URL functionality to collection landing pages
-                    a.href = `/?tag=${label}`;
-                    a.textContent = label;
-                    span.appendChild(a);
-                } else {
-                    span.textContent = label;
+                    tag.href = `/?tag=${label}`;
                 }
 
-                tags.appendChild(span);
+                tag.textContent = label;
+                tags.appendChild(tag);
             });
 
             this.shadowRoot.appendChild(tags);

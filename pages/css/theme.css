@@ -1,8 +1,10 @@
 :root {
-    --base: hsl(336, 65%, 50%);
+    --accent--red: hsl(336, 65%, 50%);
     --accent--orange: hsl(24, 100%, 65%);
     --accent--blue: hsl(192, 70%, 40%);
-    --accent--yellow: hsl(42, 100%, 70%);
+    --accent--yellow: light-dark(hsl(42, 100%, 71%), hsla(42, 100%, 60%));
+
+    --base: var(--accent--red);
 
     /* Roboto font weight mappings, 100-900 */
     --theme--FontWeight--thin: 100;
@@ -50,21 +52,21 @@
 
     --theme--BorderWidth--thin: 1px;
     --theme--BorderWidth: 2px;
-    --theme--BorderWidth--emphasis: 8px;
+    --theme--BorderWidth--emphasis: 10px;
 
     --theme--container--MaxWidth: 1200px;
     --theme--content--MaxWidth: 80ch;
 
-    --theme--container--shadow: 0 20px 25px -5px;
-    --theme--container--shadow-color: light-dark(hsl(40, 10%, 10%), hsl(0, 0%, 10%));
+    --theme--container--shadow: 0 10px 15px -10px;
+    --theme--container--shadow-color: light-dark(hsl(0, 0%, 60%), hsl(0, 0%, 30%));
 
-    --theme--container--shadow--light: 0 10px 10px -5px;
-    --theme--container--shadow-color--light: light-dark(hsl(40, 10%, 4%), hsl(0, 0%, 4%));
+    --theme--container--shadow--light: 0 5px 5px -10px;
+    --theme--container--shadow-color--light: light-dark(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
 
-    --theme--surface--color: light-dark(hsl(40, 12%, 96%), hsl(0, 1%, 10%));
+    --theme--surface--color: light-dark(hsl(0, 0%, 98%), hsl(0, 0%, 10%));
     --theme--surface--color--emphasis: light-dark(hsl(40, 12%, 93%), hsl(0, 1%, 18%));
 
-    --theme--ui--Color--subtle: light-dark(hsl(0, 0%, 90%), hsl(0, 0%, 40%));
+    --theme--ui--color--subtle: light-dark(hsl(0, 0%, 90%), hsl(0, 0%, 40%));
 
     --prism-default-background: light-dark(#f9f9f9, #272b33);
 }
@@ -81,19 +83,23 @@
     --base: var(--accent--yellow);
 }
 
-:root,
-:is(.accent--orange, .accent--blue, .accent--yellow) {
-    --theme--ui--Color: light-dark(var(--base), color-mix(in hsl, var(--base) 80%, white));
-    --theme--ui--Color--hover: color-mix(in hsl, var(--theme--ui--Color) 40%, transparent);
-    --theme--ui--Color--active: color-mix(in hsl, var(--theme--ui--Color) 40%, transparent);
+.accent--reset {
+    --base: var(--accent--red);
+}
 
-    --theme--surface--color--accent: light-dark(color-mix(in hsl, var(--base) 20%, transparent), color-mix(in hsl, var(--base) 60%, transparent));
+:root,
+:is(.accent--orange, .accent--blue, .accent--yellow, .accent--reset) {
+    --theme--ui--color: light-dark(var(--base), color-mix(in hsl, var(--base) 80%, white));
+    --theme--ui--color--hover: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
+    --theme--ui--color--active: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
+
+    --theme--surface--color--accent: light-dark(color-mix(in oklch, var(--base) 20%, var(--theme--surface--color) 70%), color-mix(in hsl, var(--base) 60%, transparent));
 
     --theme--text--Color--accent: light-dark(var(--base), color-mix(in hsl, var(--base) 90%, white));
 
     --theme--link--Color: var(--theme--text--Color--accent);
-    --theme--link--Color--hover: color-mix(in hsl, var(--theme--link--Color) 90%, var(--theme--text--Color));
-    --theme--link--Color--focus: color-mix(in hsl, var(--theme--link--Color) 90%, var(--theme--text--Color));
+    --theme--link--Color--hover: color-mix(in oklch, var(--theme--link--Color) 90%, var(--theme--text--Color));
+    --theme--link--Color--focus: color-mix(in oklch, var(--theme--link--Color) 90%, var(--theme--text--Color));
 
     --theme--heading--Color--accent: var(--theme--text--Color--accent);
 }

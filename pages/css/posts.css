@@ -17,7 +17,7 @@
         inline-size: 100%;
         block-size: auto;
         border-radius: var(--theme--BorderRadius);
-        border: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
+        border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
     }
 }
 
@@ -31,7 +31,7 @@
     }
 
     hr {
-        border-color: color-mix(in sRGB, var(--theme--ui--Color) 50%, transparent);
+        border-color: color-mix(in sRGB, var(--theme--ui--color) 50%, transparent);
     }
 
     a-note {
