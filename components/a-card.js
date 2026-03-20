@@ -10,7 +10,7 @@ styles.replaceSync(`
         border: var(--card--BorderWidth, 0) solid var(--card--BorderColor, var(--theme--ui--Color--subtle));
         border-radius: var(--card--BorderRadius, var(--theme--BorderRadius));
 
-        max-inline-size: min(var(--card--Width, var(--theme--content--MaxWidth)), 100%);
+        max-inline-size: min(var(--item--Width, var(--theme--content--MaxWidth)), 100%);
     }
 
     slot:where([name="footer"]) {

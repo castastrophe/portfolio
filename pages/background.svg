@@ -1,7 +1,8 @@
 <svg id="background" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
     <style>
         #background {
-            --color-primary: var(--theme--surface--color--accent);
+            --color-primary: var(--theme--surface--color--accent, light-dark(color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 20%, transparent), color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 60%, transparent)));
+
             --layer-1: 0.5;
             --layer-2: 0.45;
             --layer-3: 0.4;
@@ -20,8 +21,20 @@
                 --layer-7: 0.06;
             }
 
+            .accent--orange {
+                --base: var(--accent--orange, hsl(24, 100%, 65%));
+            }
+
+            .accent--blue {
+                --base: var(--accent--blue, hsl(192, 70%, 40%));
+            }
+
+            .accent--yellow {
+                --base: var(--accent--yellow, hsl(42, 100%, 70%));
+            }
+
             :is(.accent--orange, .accent--blue, .accent--yellow) {
-                --color-primary: var(--theme--surface--color--accent);
+                --color-primary: var(--theme--surface--color--accent, light-dark(color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 20%, transparent), color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 60%, transparent)));
             }
 
             :is(linearGradient, radialGradient) {
@@ -30,7 +43,6 @@
                     stop-opacity: 1;
                 }
             }
-
         }
 
         /* Scroll-driven animations for SVG elements */
@@ -224,36 +236,4 @@
 
     <!-- Bottom, left triangle -->
     <polygon class="accent--yellow pulse"  points="120,500 180,400 200,550" fill="var(--color-primary)" opacity="var(--layer-1)" stroke="var(--color-primary)" stroke-width="5"/>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const backgroundSVG = document.getElementById('background');
-        // Create random binary sets for each text element
-        const binaryGroups = backgroundSVG.querySelectorAll('.binary');
-        binaryGroups.forEach(binaryGroup => {
-            const lines     = parseInt(binaryGroup.dataset.lines ?? 1),
-                  columns   = parseInt(binaryGroup.dataset.columns ?? 2),
-                  x         = parseInt(binaryGroup.dataset.x ?? 0),
-                  y         = parseInt(binaryGroup.dataset.y ?? 0),
-                  fontSize  = parseInt(binaryGroup.getAttribute('font-size') ?? 14);
-
-            for (let i = 0; i < lines; i++) {
-                const url = 'http://www.w3.org/2000/svg';
-                const text = document.createElementNS(url, 'text');
-                text.setAttribute('x', x);
-                text.setAttribute('y', y + (i * fontSize) + 4);
-
-                for (let j = 0; j < columns; j++) {
-                    let char = '';
-                    for (let k = 0; k < 8; k++) {
-                        char += Math.random() < 0.5 ? '1' : '0';
-                    }
-                    text.textContent += `${char} `;
-                }
-
-                binaryGroup.appendChild(text);
-            }
-        });
-    });
-    </script>
 </svg>

@@ -15,7 +15,7 @@ styles.replaceSync(`
 
     @container card (width >= 0) {
         :host([slot="footer"]) {
-            margin-block-start: 2em;
+            margin-block-start: 1rem;
             border-block-start: var(--theme--BorderWidth--thin) solid var(--theme--ui--Color--subtle);
             padding-block-start: 0.5em;
         }

@@ -1,8 +1,8 @@
-<a-band id="masthead" collapsed accent class="masthead" role="banner">
-    <a class="branding" href="{{ '/' | url }}" title="Return to the home page" slot="header">
+<a-band id="header" collapsed accent class="masthead" role="banner">
+    <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
         {% include "../pages/logo.svg" %}
     </a>
-    <h1 class="headline">{{ site.title }}</h1>
+    <h1 class="headline company-name">{{ site.title }}</h1>
     <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
 
     {% set navigation = collections.all | eleventyNavigation %}
@@ -23,191 +23,26 @@
     </div>
 </a-band>
 
-{% css %}
-#masthead {
-    .headline {
-        font-size: calc(3.2rem + 1cqi);
-        letter-spacing: -2px;
-        line-height: var(--theme--LineHeight--dense);
+{% js %}
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.getElementById("header");
+    const stickyID = "sticky-header";
+    const scrollStart = 240;
 
-        @container box (width <= 500px) {
-            font-size: 2.5rem;
-        }
+    if (header) {
+        window.addEventListener("scroll", (event) => {
+            const stickyHeader = document.getElementById(stickyID);
+
+            if(window.scrollY > scrollStart && !stickyHeader) {
+                const clone = header.cloneNode(true);
+                clone.id = stickyID;
+                clone.setAttribute('stuck', '');
+                header.insertAdjacentElement("afterend", clone);
+            }
+            else if (window.scrollY <= scrollStart && stickyHeader) {
+                stickyHeader.remove();
+            }
+        });
     }
-
-    .headline-summary {
-        @container box (width <= 500px) {
-            font-size: 1.4rem;
-            font-weight: var(--theme--FontWeight--light);
-        }
-    }
-
-    @container box (inline-size <= 620px) {
-        .icon-group {
-            display: none;
-        }
-    }
-
-    .navigation {
-        @container box (width <= 500px) {
-            font-size: 1rem;
-        }
-        ul {
-            display: inline-flex;
-            flex-wrap: wrap;
-            gap: var(--theme--content--space);
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-
-            color: var(--theme--text--Color);
-        }
-
-        .cta-button {
-            transition: background var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out), color var(--cta-button--timing, 200ms) var(--cta-button--easing, ease-out);
-        }
-
-        ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
-            background: var(--theme--ui--Color--hover);
-        }
-
-        ul:not(:has(a:hover)) [aria-current="page"] .cta-button {
-            --cta-button--timing: 400ms;
-            --cta-button--easing: ease-in;
-        }
-    }
-}
-
-@supports (animation-timeline: scroll()) {
-    :is(#masthead, .wrapper, .branding, h1, .headline-summary, .navigation, .icon-group) {
-        animation-range: 0 50vh;
-        animation-fill-mode: forwards;
-        animation-timeline: scroll(block root);
-    }
-
-    #masthead {
-        position: sticky;
-        inset: 0;
-        animation-name: band-to-sticky-header;
-        transition: padding 0.3s ease, background-color 0.3s ease;
-
-        .wrapper {
-            animation-name: wrapper-to-sticky-header;
-        }
-
-        .branding {
-            animation-name: logo-to-sticky-header;
-        }
-
-        h1 {
-            animation-name: headline-to-sticky-header;
-        }
-
-        .headline-summary {
-            animation-name: headline-summary-to-sticky-header;
-        }
-
-        .navigation {
-            animation-name: navigation-to-sticky-header;
-        }
-
-        .icon-group {
-            animation-name: icon-group-to-sticky-header;
-        }
-    }
-}
-
-@keyframes band-to-sticky-header {
-    20% {
-        padding-block: 0;
-    }
-    to {
-        background-color: color-mix(in srgb, var(--theme--surface--color) 90%, transparent);
-        padding-block: 0;
-    }
-}
-
-@keyframes wrapper-to-sticky-header {
-    20% {
-        inline-size: 100%;
-
-        grid-template-areas:
-            "branding headline navigation"
-            "branding summary navigation";
-
-        grid-template-columns: 120px 1fr max-content;
-        column-gap: var(--theme--content--space);
-     }
-    to {
-        inline-size: 100%;
-
-        grid-template-areas:
-            "branding headline navigation"
-            "branding summary navigation";
-
-        grid-template-columns: 120px 1fr max-content;
-        column-gap: var(--theme--content--space);
-    }
-}
-
-@keyframes logo-to-sticky-header {
-    20% {
-        transform: scale(.6);
-    }
-    to {
-        transform: scale(.6);
-        background: transparent;
-        margin: 0;
-    }
-}
-
-@keyframes headline-to-sticky-header {
-    20% {
-        font-size: 2.5rem;
-        align-self: end;
-    }
-    to {
-        font-size: 2.5rem;
-        align-self: end;
-    }
-}
-
-@keyframes headline-summary-to-sticky-header {
-    20% {
-        font-size: 1rem;
-        margin: 0;
-        align-self: start;
-    }
-    to {
-        font-size: 1rem;
-        margin: 0;
-        align-self: start;
-    }
-}
-
-@keyframes navigation-to-sticky-header {
-    20% {
-        border-block-start: 0 solid transparent;
-        justify-content: end;
-    }
-    to {
-        border-block-start: 0 solid transparent;
-        padding: 0;
-        gap: 0;
-        justify-content: end;
-    }
-}
-
-@keyframes icon-group-to-sticky-header {
-    20% {
-        opacity: 0.5;
-        inline-size: 0;
-    }
-    to {
-        opacity: 0;
-        inline-size: 0;
-        display: none;
-        visibility: hidden;
-    }
-}
-{% endcss %}
+});
+{% endjs %}

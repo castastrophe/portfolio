@@ -3,14 +3,6 @@ export default ({ env }) => ({
     map: env === "production" ? false : true,
     plugins: {
         /* --------------------------------------------------- */
-        /* ------------------- IMPORTS ---------------- */
-        /** @link https://github.com/postcss/postcss-import#postcss-import */
-        'postcss-import': {},
-        /* --------------------------------------------------- */
-        /* ------------------- UTILITIES ---------------- */
-        'postcss-extend': {},
-        'postcss-each': {},
-        /* --------------------------------------------------- */
         /* ------------------- POLYFILLS --------------------- */
         /**
          * @note stage 2 (default); stage 4 === stable

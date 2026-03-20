@@ -92,7 +92,8 @@ export default async function (config) {
 		toFileDirectory: "css",
 		transforms: [
 			async function (content) {
-				if (!content?.trim()) return content;
+				if (!content || !content.trim()) return content;
+
 				try {
 					return processCSS(content, this.page.inputPath, this.page?.outputPath, postcssConfig);
 				} catch (err) {
@@ -110,7 +111,11 @@ export default async function (config) {
 		toFileDirectory: "css",
 		compile: async (content, inputPath) => {
 			return async ({ page }) => {
-				if (!content?.trim()) return content;
+				const filename = path.basename(inputPath);
+				if (filename.charAt(0) === "_") return;
+
+				if (!content || !content.trim()) return content;
+
 				try {
 					return processCSS(content, inputPath, page?.outputPath, postcssConfig);
 				} catch (err) {

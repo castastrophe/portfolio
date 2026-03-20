@@ -35,6 +35,7 @@
         --outline-weight: 5;
         --opacity: .7;
 
+        transform-box: stroke-box;
         transform: translateX(-5px) translateY(-5px);
       }
 

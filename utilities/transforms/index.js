@@ -12,6 +12,7 @@ import postcss from "postcss";
  * @returns {string}
  */
 export async function processCSS(content, inputPath, outputPath, config = {}) {
+    console.log(inputPath);
     const parsed = path.parse(inputPath);
 
     return postcss(config.plugins ?? []).process(content, {
