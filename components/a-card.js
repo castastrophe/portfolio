@@ -5,7 +5,7 @@ styles.replaceSync(`
     :host {
         --default-background: var(--theme--surface--color);
         --default-padding-vertical: calc(var(--theme--content--space) * var(--multiplier-vertical, 2));
-        --default-padding-horizontal: calc(var(--theme--content--space) * var(--multiplier-horizontal, 1));
+        --default-padding-horizontal: calc(var(--theme--content--space) * var(--multiplier-horizontal, 1) + 1cqi);
 
         border: var(--card--BorderWidth, 0) solid var(--card--BorderColor, var(--theme--ui--color--subtle));
         border-radius: var(--card--BorderRadius, var(--theme--BorderRadius));
