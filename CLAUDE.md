@@ -18,7 +18,7 @@ Personal portfolio site for Allons-y Consulting built with Eleventy (11ty).
 - **Static site generator**: Eleventy (11ty) 3.x
 - **Data format**: YAML for resume content
 - **Environment variables**: `.env` file
-- **Database**: Neon (PostgreSQL)
+- **Database**: MySQL
 
 ## Commands
 

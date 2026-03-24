@@ -1,4 +1,4 @@
-import { neon } from "@neondatabase/serverless";
+import DatabaseConnection from "../utilities/mysql/index.js";
 
 const ME = 'Cassondra Roberts';
 
@@ -136,18 +136,33 @@ function formatEmployeeObject(user) {
   };
 }
 export default async function () {
-  const sql = neon( process.env.NEON_DATABASE_URL );
-  const rows = await sql`
-		SELECT name, title, short_biography, phone, email, work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url
-		FROM employees`;
+  const connection = new DatabaseConnection({
+		host     : process.env.MYSQL_HOST,
+		port     : process.env.MYSQL_PORT,
+		user     : process.env.MYSQL_USER,
+		password : process.env.MYSQL_PASS,
+		database : process.env.MYSQL_DB,
+	});
 
-    const me = rows.find(isMe) ? formatEmployeeObject(rows.find(isMe)) : {};
-    const employees = rows.filter(row => !isMe(row)).map(formatEmployeeObject);
+  if (!connection) return {};
 
-    return {
-      ...me,
-      "employees": employees,
-      "training": EDUCATION,
-      "projects": PROJECTS,
-    };
+  const QUERY = 'SELECT full_name, title, short_biography, phone, email_personal as email, email_professional as work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url FROM employees';
+
+  const rows = await connection.query(QUERY).catch((err) => {
+    console.error(err);
+  });
+
+  await connection.close();
+
+  if (!rows) return {};
+
+  const me = rows.find(isMe) ? formatEmployeeObject(rows.find(isMe)) : {};
+  const employees = rows.filter(row => !isMe(row)).map(formatEmployeeObject);
+
+  return {
+    ...me,
+    "employees": employees,
+    "training": EDUCATION,
+    "projects": PROJECTS,
+  };
 };
