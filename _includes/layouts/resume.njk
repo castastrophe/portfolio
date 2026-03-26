@@ -11,15 +11,17 @@ eleventyComputed:
 ---
 
 <header id="header-sticky" class="sticky shadow" hidden>
-  <div class="photo"></div>
-  <div>
-    <h1 class="candidate-name">
-      <span>{{ candidate.name | first }}</span>
-      <span>{{ candidate.name | last }}</span>
-    </h1>
-    {% if resume.tagline %}
-    <p class="subtitle">{{ resume.tagline }}</p>
-    {% endif %}
+  <div class="container">
+    <div class="photo"></div>
+    <div>
+      <h1 class="candidate-name">
+        <span>{{ candidate.name | first }}</span>
+        <span>{{ candidate.name | last }}</span>
+      </h1>
+      {% if resume.tagline %}
+      <p class="subtitle">{{ resume.tagline }}</p>
+      {% endif %}
+    </div>
   </div>
 </header>
 
