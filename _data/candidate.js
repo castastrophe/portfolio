@@ -28,14 +28,14 @@ const EDUCATION = [
   }
 ];
 
-const isMe = (user) => user.name === ME;
+const isMe = (user) => user.full_name === ME;
 
 function formatEmployeeObject(user) {
   const rel = isMe(user) ? "me" : null;
   const contact = [];
   const socials = [];
 
-  for (const key of ['social_url', 'phone', 'email', 'portfolio_url', 'github_url', 'codepen_url', 'linkedin_url', 'youtube_url']) {
+  for (const key of ['social_url', 'phone', 'email_professional', 'portfolio_url', 'github_url', 'codepen_url', 'linkedin_url', 'youtube_url']) {
     if (!Object.keys(user).includes(key)) continue;
     const value = user[key];
     if (!value) continue;
@@ -49,7 +49,7 @@ function formatEmployeeObject(user) {
           "icon": "fa-solid fa-phone"
         });
         break;
-      case 'email':
+      case 'email_professional':
         contact.push({
           "type": "email",
           "value": value,
@@ -127,9 +127,9 @@ function formatEmployeeObject(user) {
   }
 
   return {
-    name: user.name,
+    name: user.full_name,
     title: user.title,
-    email: user.work_email,
+    email: user.email_professional,
     "contact": contact,
     "socials": socials,
     bio: user.short_biography,
@@ -146,9 +146,9 @@ export default async function () {
 
   if (!connection) return {};
 
-  const QUERY = 'SELECT full_name, title, short_biography, phone, email_personal as email, email_professional as work_email, portfolio_url, github_url, linkedin_url, codepen_url, social_url, youtube_url FROM employees';
+  const QUERY = 'SELECT * FROM employees';
 
-  const rows = await connection.query(QUERY).catch((err) => {
+  const [rows] = await connection.query(QUERY).catch((err) => {
     console.error(err);
   });
 

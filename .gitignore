@@ -51,3 +51,6 @@ public
 
 # Local Netlify folder
 .netlify
+
+# Claude
+.claude/worktrees/*
