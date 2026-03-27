@@ -18,7 +18,8 @@ Personal portfolio site for Allons-y Consulting built with Eleventy (11ty).
 - **Static site generator**: Eleventy (11ty) 3.x
 - **Data format**: YAML for resume content
 - **Environment variables**: `.env` file
-- **Database**: MySQL
+- **Database**: MySQL 8.0 (Docker)
+- **Container orchestration**: Docker Compose
 
 ## Commands
 
@@ -28,6 +29,8 @@ yarn start          # Development server with hot reload (opens Firefox)
 yarn build          # Production build
 yarn ci             # Clean + build (used in CI)
 yarn clean          # Remove public/ directory
+docker compose up -d    # Start MySQL database container
+docker compose down     # Stop MySQL database container
 ```
 
 ## Architecture
@@ -46,6 +49,12 @@ yarn clean          # Remove public/ directory
 ### Collections
 - `posts` - Blog posts from `pages/posts/*`
 - `proposals` - Proposals from `pages/proposals/*`
+
+### Database
+
+- Connection config is read from `.env` — copy `.env.example` to get started
+- Data is persisted in the `mysql-data` Docker named volume (never written to the project directory)
+- **Known issue**: `_data/resume.js` still uses PostgreSQL-specific syntax (`array_agg`, `json_agg`, `json_build_object`, `array_position`, `ANY()`, `to_char`) left over from a prior Neon/Postgres setup. These functions do not exist in MySQL and will cause the build to fail. They need to be rewritten using MySQL 8.0 equivalents (`JSON_ARRAYAGG`, `JSON_OBJECT`, `FIND_IN_SET`, etc.) before database-driven pages will render correctly.
 
 ### CSS Processing
 PostCSS pipeline configured in `postcss.config.js`:
