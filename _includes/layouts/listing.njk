@@ -1,0 +1,33 @@
+---
+layout: base
+tags:
+    - listing
+---
+
+{% include "_masthead.njk" %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+    <a-band class="listing" thick>
+    <div slot="header">
+        <h2 class="title highlight">{{ title }}</h2>
+            {{ content | safe }}
+        </div>
+
+        {% for collection in collections[key] %}
+        {% set page = collection.page %}
+        {% set data = collection.data %}
+        {% if data.title %}
+            <a-card bordered>
+                <div slot="header">
+                    {% if page.date %}<p class="date">{{ page.date | long }}</p>{% endif %}
+                    <h3 class="headline accent">{% if page.url %}<a href="{{ page.url }}">{% endif %}{{ data.title }}{% if page.url %}</a>{% endif %}</h3>
+                </div>
+                {% if data.description %}<p class="content">{{ data.description }}</p>{% endif %}
+                {% if data.tags.length > 0 %}<tag-group tags="{{ data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+            </a-card>
+        {% endif %}
+        {% endfor %}
+    </a-band>
+
+    {% include "_cta-band.njk" %}
+</main>

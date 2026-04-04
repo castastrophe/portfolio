@@ -1,0 +1,41 @@
+---
+layout: base
+prism: true
+customScripts:
+  - items
+customSheets:
+  - items
+---
+
+<a-band class="item-header masthead" collapsed accent role="banner" aria-labelledby="title">
+    <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
+      <img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
+    </a>
+    <h1 class="headline" id="title">{{ title }}</h1>
+    <p class="metadata">
+        {% if author or site.author %}<span class="author">written by <span class="name">{{ author or site.author }}</span></span>{% endif %}
+        {% if date %}<span class="date">{{ date | long }}</span>{% endif %}
+        {% if listing_page %}<span class="cta"><a href="{{ '..' | url }}" title="Return to the {{ listing_page }} page" class="cta-link">All {{ listing_page }}</a></span>{% endif %}
+    </p>
+    {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
+</a-band>
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+  <a-band class="sticky" collapsed>
+    <details class="table-of-contents">
+        <summary>Table of contents</summary>
+        {{ content | toc | safe }}
+    </details>
+  </a-band>
+
+  <a-band class="item-body">
+    <div class="content">{{ content | md | safe }}</div>
+
+    {% if sales_pitch %}
+    <a-note slot="footer">
+        <p>{{ sales_pitch }}</p>
+        <a class="cta-button" href="{{ site.contact.scheduler }}">Let's connect</a>
+    </a-note>
+    {% endif %}
+  </a-band>
+</main>

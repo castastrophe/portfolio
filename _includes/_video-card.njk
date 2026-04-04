@@ -1,0 +1,42 @@
+<a-card bordered overflow class="video-card">
+    {% if presentation.youtube_id %}
+    <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen slot="header" title="{{ presentation.description }}"></iframe>
+    {% endif %}
+
+    {% if not videoOnly %}
+    <div class="content">
+        {% if presentation.title %}
+        <h3 class="title">{{ presentation.title }}</h3>
+        {% endif %}
+
+        {% if presentation.headline %}
+        <h4 class="headline">
+            {% if presentation.youtube_id %}
+            <a href="https://www.youtube.com/embed/{{ presentation.youtube_id }}" title="Click to watch this interview">{{ presentation.headline }}</a>
+            {% else %}
+            {{ presentation.headline }}
+            {% endif %}
+        </h4>
+        {% endif %}
+
+        {% if presentation.description %}
+        <p>{{ presentation.description }}</p>
+        {% endif %}
+
+        {% if presentation.resources %}
+        <h5>Resources</h5>
+        <ul>
+            {% for resource in presentation.resources %}
+            <li>
+                <a class="cta-link" target="_blank" href="{{ resource.url }}">{{ resource.cta }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if presentation.tags.length > 0 %}
+    <tag-group tags="{{ presentation.tags | join(',') }}" labeled slot="footer"></tag-group>
+    {% endif %}
+</a-card>

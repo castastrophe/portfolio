@@ -24,6 +24,7 @@ node_modules/
 .cache
 .eslintcache
 .stylelintcache
+.netlify
 
 # Output of 'npm pack'
 *.tgz
@@ -33,6 +34,9 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Blob seed script (contains private content data — never commit)
+utilities/data/seed.js
 
 # publish directory
 public
@@ -47,3 +51,9 @@ public
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Local Netlify folder
+.netlify
+
+# Claude
+.claude/worktrees/*

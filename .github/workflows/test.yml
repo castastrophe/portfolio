@@ -1,4 +1,4 @@
-name: Build validation
+name: Tests validation
 
 on:
   pull_request:
@@ -27,12 +27,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Validate build
+      - name: Run a fresh build
         run: yarn ci
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
           NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
 
-      - name: Check for uncommitted changes
-        run: git diff --exit-code
+      - name: Run tests
+        run: yarn test

@@ -1,0 +1,210 @@
+---
+layout: resume
+eleventyExcludeFromCollections: true
+indexed: false
+pagination:
+  data: resume
+  size: 1
+  alias: resume
+permalink: "resume/{{ resume.slug | slugify }}.html"
+---
+
+<tr>
+  <td>
+    <section id="cover-letter" stacked>
+      <p class="addressee">Dear <span>{{ resume.addressee | default('Hiring Manager') }}</span>,</p>
+      {% if resume.cover_letter %}<div class="content">{{ resume.cover_letter | md | safe }}</div>{% endif %}
+      <p class="signature">Best regards,<br><span class="name">{{ candidate.name }}</span></p>
+    </section>
+  </td>
+</tr>
+
+{% if resume.about %}
+  <tr>
+    <td>
+      <section id="about">
+        <div class="section-header">
+          <h2 class="section-title scroll-accent">
+            <a href="#about">About me</a>
+          </h2>
+        </div>
+        <div class="content focused">{{ resume.about | md | safe }}</div>
+      </section>
+    </td>
+  </tr>
+{% endif %}
+
+{% if resume.experience %}
+  <tr>
+    <td>
+      <section id="experience">
+        <div class="section-header">
+          <h2 class="section-title scroll-accent">
+            <a href="#experience">Experience</a>
+          </h2>
+        </div>
+
+        <div stacked>
+          {% set grouped = resume.experience | groupByCompany %}
+          {% for group in grouped %}
+            <div class="job-item{% if group.featured %} featured{% endif %}">
+              {% if group.company %}
+              <div class="job-company">
+                  <span>{{ group.company }}</span>
+              </div>
+              {% endif %}
+
+              <div class="job-header">
+                {% if group.roles %}
+                <span class="job-title">
+                    <span{% if group.roles.length > 1 %} class="job-title-role"{% endif %}>{{ group.roles[0].title }}</span>
+                </span>
+                {% endif %}
+                {% if group["start-date"] or group["end-date"] %}
+                <span class="job-dates">
+                  {% set startDate = group["start-date"] %}
+                  {% set endDate = group["end-date"] %}
+                  {% if startDate %}<span>{{ startDate | short }}</span>{% endif %}
+                  {% if endDate %}<span>{{ endDate | short }}</span>{% endif %}
+                </span>
+                {% endif %}
+              </div>
+
+              {% if group.roles.length > 1 %}
+                  <a-timeline>
+                      {% for role in group.roles %}
+                          <div class="role-panel" {% if loop.first %} active {% endif %} data-title="{{ role.title }}">
+                              <p class="job-summary">{{ role.summary | md | safe }}</p>
+                              <ul class="job-highlights">
+                                  {% for highlight in role.highlights %}
+                                      <li>{{ highlight }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </div>
+                      {% endfor %}
+                  </a-timeline>
+              {% else %}
+                  <p class="job-summary">{{ group.roles[0].summary | md | safe }}</p>
+                  <ul class="job-highlights">
+                      {% for highlight in group.roles[0].highlights %}
+                          <li>{{ highlight }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </td>
+  </tr>
+{% endif %}
+
+<tr>
+  <td>
+    <div class="columns">
+      <div>
+
+        <section id="education">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#education">Education</a>
+            </h2>
+          </div>
+          <div>
+          {% for entry in candidate.training %}
+          {% if entry.title or entry.institution %}
+            <p class="education-item">
+              {% if entry.title %}<strong>{{ entry.title }}</strong>{% endif %}
+              {% if entry.title and entry.institution %}<br class="separator"/>{% endif %}
+              {% if entry.institution %}<span>{{ entry.institution }}</span>{% endif %}{% if entry.institution and (entry["start-date"] or entry["end-date"]) %}<span class="separator">, </span>{% endif %}
+
+              {% set startDate = entry["start-date"] %}
+              {% set endDate = entry["end-date"] %}
+              {% if startDate or endDate %}
+              <span class="education-dates">
+                {% if startDate %}
+                  <span>{{ startDate | year }}</span>
+                {% endif %}
+                {% if startDate and endDate %}
+                  <span class="separator">–</span>
+                {% endif %}
+                {% if endDate %}
+                  <span>{{ endDate | year }}</span>
+                {% endif %}
+              </span>
+              {% endif %}
+            </p>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </section>
+
+        <section id="contact">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#contact">Contact</a>
+            </h2>
+          </div>
+          <div class="contact-grid">
+            {% for contact in candidate.contact %}
+              {% set href = '//' + contact.value | clean %}
+              {% set content = contact.value | clean %}
+              {% if contact.type == 'email' %}
+                {% set href = 'mailto:' + contact.value %}
+                {% set content = contact.value %}
+              {% elif contact.type == 'phone' %}
+                {% set href = 'tel:' + contact.value | digitsOnly %}
+                {% set content = contact.value | digitsOnly %}
+              {% endif %}
+
+              <div class="contact-item">
+                {% if contact.icon %}<span class="{{ contact.icon }}" aria-hidden="true"></span>{% endif %}
+                {% if contact.label %}<span class="visually-hidden">{{ contact.label }}</span>{% endif %}
+                {% if href %}<a href="{{ href }}">{{ content }}</a>{% else %}{{ content }}{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+
+      </div>
+
+      <div>
+
+        <section id="skills">
+          <div class="section-header">
+            <h2 class="section-title scroll-accent">
+              <a href="#skills">Skills</a>
+            </h2>
+          </div>
+          <ul class="skills-grid">
+            {% for entry in resume.skills %}
+              <li>
+                {% if entry.category and entry.items.length >= 3 %}
+                  <h3>{{ entry.category }}</h3>
+                  <ul>
+                    {% for skill in entry.items %}
+                      {% if skill %}<li>{{ skill }}</li>{% endif %}
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  {% for skill in entry.items %}
+                    {% if skill %}{{ skill }}{% endif %}
+                  {% endfor %}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </td>
+</tr>
+
+{% js %}
+  // Update the job header title when a timeline role is selected
+  document.addEventListener('role-change', (e) => {
+    const header = e.target.closest('.job-item')?.querySelector('.job-title-role');
+    if (header) header.textContent = e.detail.title;
+  });
+{% endjs %}

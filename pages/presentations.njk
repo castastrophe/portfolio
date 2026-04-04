@@ -1,0 +1,55 @@
+---
+layout: base
+title: Presentations
+tags:
+    - listing
+eleventyNavigation:
+  key: Presentations
+  order: 4
+---
+
+{% block header %}
+{% include "_masthead.njk" %}
+{% endblock %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+    <a-band class="listing" thick>
+        <div slot="header">
+            <h2 class="title highlight">{{ title }}</h2>
+
+            <a-card bordered slot="header" style="--multiplier-vertical: 1; --card--body--Gap--vertical: calc(var(--theme--content--space) * 2)">
+                <div class="content">
+                    <p>Below are some of the presentations or interviews I've given at various events, conferences, podcasts, and streams over the years.</p>
+                    <p>Connecting with individuals and organizations to share knowledge and experience is one of my favorite parts of this work. I'd love to hear about your event or podcast to see how we can work together.</p>
+                </div>
+                <a class="cta-button" target="_blank" href="{{ site.contact.scheduler }}">Book a free call</a>
+            </a-card>
+        </div>
+
+        {% for item in presentations %}
+        {% if item.youtube_id %}
+        <a-card bordered video overflow>
+            {% if item.youtube_id %}
+            <iframe class="video" src="https://www.youtube.com/embed/{{ item.youtube_id }}" frameborder="0" allowfullscreen slot="header" title="{{ item.description }}"></iframe>
+            {% endif %}
+            <div class="content">
+                <h3 class="title">{{ item.title }}</h3>
+                <h4 class="headline"><a :href="`https://www.youtube.com/embed/${item.youtube_id}`"
+                        title="Click to watch this interview">{{ item.headline }}</a></h4>
+                <p>{{ item.description }}</p>
+                {% if item.resources %}
+                <p class="cta">
+                    {% for resource in item.resources %}
+                    <a class="cta-link" target="_blank" href="{{ resource.url }}">{{ resource.cta }}</a>
+                    {% endfor %}
+                </p>
+                {% endif %}
+                {% if item.tags.length > 0 %}<tag-group tags="{{ item.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+            </div>
+        </a-card>
+        {% endif %}
+        {% endfor %}
+    </a-band>
+
+    {% include "_cta-band.njk" %}
+</main>

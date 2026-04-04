@@ -1,0 +1,110 @@
+:root {
+    --accent--red: hsl(336, 65%, 50%);
+    --accent--orange: hsl(24, 100%, 65%);
+    --accent--blue: hsl(192, 70%, 40%);
+    --accent--yellow: light-dark(hsl(42, 100%, 71%), hsla(42, 100%, 60%));
+
+    --base: var(--accent--red);
+
+    /* Roboto font weight mappings, 100-900 */
+    --theme--FontWeight--thin: 100;
+    --theme--FontWeight--extra-light: 200;
+    --theme--FontWeight--light: 300;
+    --theme--FontWeight: 400;
+    /* Dancing Script + EB Garamond starts at 400; PT Mono only has 400 */
+    --theme--FontWeight--medium: 500;
+    --theme--FontWeight--semi-bold: 600;
+    --theme--FontWeight--bold: 700;
+    /* Dancing Script ends at 700 */
+    --theme--FontWeight--extra-bold: 800;
+    /* EB Garamond ends at 800 */
+    --theme--FontWeight--black: 900;
+
+    --theme--LineHeight--dense: 1.1;
+    --theme--LineHeight: 1.4;
+    --theme--LineHeight--spacious: 1.8;
+
+    --theme--text--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--text--FontFamily--signature: "Dancing Script", cursive;
+    --theme--text--FontFamily--dense: "EB Garamond", 'Georgia', serif;
+    --theme--text--LineHeight: var(--theme--LineHeight);
+
+    --theme--text--Color: light-dark(hsl(40, 12%, 20%), hsl(0, 0%, 100%));
+    --theme--text--Color--invert: light-dark(hsl(0, 0%, 100%), hsl(40, 12%, 20%));
+    --theme--text--Color--subtle: light-dark(hsl(40, 10%, 30%), hsl(0, 0%, 70%));
+
+    --theme--code--FontFamily: "PT Mono", monospace;
+    --theme--code--FontSize: .8em;
+    --theme--code--LineHeight: var(--theme--LineHeight);
+
+    --theme--heading--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
+    --theme--heading--LineHeight: var(--theme--LineHeight--dense);
+    --theme--heading--Color: var(--theme--text--Color);
+
+    --theme--container--space: 16px;
+    --theme--content--space: 10px;
+
+    --theme--BorderRadius: 0.2em;
+    --theme--BorderRadius--circle: 50%;
+
+    --theme--OutlineOffset: 2px;
+    --theme--Outline: 1px;
+
+    --theme--BorderWidth--thin: 1px;
+    --theme--BorderWidth: 2px;
+    --theme--BorderWidth--emphasis: 10px;
+
+    --theme--container--MaxWidth: 1200px;
+    --theme--content--MaxWidth: 80ch;
+
+    --theme--container--shadow: 0 10px 15px -10px;
+    --theme--container--shadow-color: light-dark(hsl(0, 0%, 60%), hsl(0, 0%, 30%));
+
+    --theme--container--shadow--light: 0 5px 5px -10px;
+    --theme--container--shadow-color--light: light-dark(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
+
+    --theme--surface--color: light-dark(hsl(0, 0%, 98%), hsl(0, 0%, 10%));
+    --theme--surface--color--emphasis: light-dark(hsl(40, 12%, 93%), hsl(0, 1%, 18%));
+
+    --theme--ui--color--subtle: light-dark(hsl(0, 0%, 90%), hsl(0, 0%, 40%));
+
+    --prism-default-background: light-dark(#f9f9f9, #272b33);
+
+    @media screen and (width <= 768px) {
+        --theme--container--space: 10px;
+        --theme--container--MaxWidth: 100%;
+    }
+}
+
+.accent--orange {
+    --base: var(--accent--orange);
+}
+
+.accent--blue {
+    --base: var(--accent--blue);
+}
+
+.accent--yellow {
+    --base: var(--accent--yellow);
+}
+
+.accent--reset {
+    --base: var(--accent--red);
+}
+
+:root,
+:is(.accent--orange, .accent--blue, .accent--yellow, .accent--reset) {
+    --theme--ui--color: light-dark(var(--base), color-mix(in hsl, var(--base) 80%, white));
+    --theme--ui--color--hover: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
+    --theme--ui--color--active: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
+
+    --theme--surface--color--accent: light-dark(color-mix(in oklch, var(--base) 20%, var(--theme--surface--color) 70%), color-mix(in hsl, var(--base) 60%, transparent));
+
+    --theme--text--Color--accent: light-dark(var(--base), color-mix(in hsl, var(--base) 90%, white));
+
+    --theme--link--Color: var(--theme--text--Color--accent);
+    --theme--link--Color--hover: color-mix(in oklch, var(--theme--link--Color) 90%, var(--theme--text--Color));
+    --theme--link--Color--focus: color-mix(in oklch, var(--theme--link--Color) 90%, var(--theme--text--Color));
+
+    --theme--heading--Color--accent: var(--theme--text--Color--accent);
+}
