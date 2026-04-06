@@ -35,7 +35,7 @@
     "cssnano": "^7.1.2",
     "eleventy-plugin-broken-links": "^2.2.1",
     "eleventy-plugin-toc": "^1.1.5",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "esmify": "^2.1.1",
     "html-minifier": "^4.0.0",
     "husky": "^9.1.7",
