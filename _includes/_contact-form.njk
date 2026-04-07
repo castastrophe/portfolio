@@ -1,0 +1,27 @@
+<h3>Let's connect</h3>
+
+<p>Allons-y is ready to help your team build scalable design systems and improve your front-end architecture. We're available for full-time, consulting, speaking, workshops, or training. Please fill out the form below to inquire about services and availability.</p>
+
+<form name="contact" netlify-honeypot="bot-field" method="POST" netlify>
+  <p>
+    <input name="path" type="hidden" value="{{ page.url }}"/>
+    <label for="full-name">Name</label>
+    <input name="full-name" id="full-name" required="required"/>
+  </p>
+  <p>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required="required"/>
+  </p>
+  <p>
+    <label for="comment">Message</label>
+    <textarea name="message" id="message" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+  </p>
+  <p hidden>
+    <label for="bot-field" class="visually-hidden">Bot field</label>
+    <input type="text" name="bot-field" id="bot-field" style="display: none;"/>
+  </p>
+  <input type="hidden" name="subject" value="New lead from %{formName} (%{submissionId})" />
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>

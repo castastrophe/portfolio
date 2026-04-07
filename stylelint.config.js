@@ -6,7 +6,6 @@ export default {
 	plugins: [
 		"stylelint-order",
 		"stylelint-use-logical",
-		"stylelint-high-performance-animation",
 	],
 	rules: {
 		/** --------------------------------------------------------------
@@ -20,6 +19,7 @@ export default {
 		"no-duplicate-selectors": null,
 		"number-max-precision": null,
 		"custom-property-pattern": null,
+		"max-nesting-depth": null,
 
 		/** --------------------------------------------------------------
 		 * Customized rule settings
@@ -72,7 +72,6 @@ export default {
 				severity: "warning",
 			},
 		],
-		"max-nesting-depth": [3, { severity: "warning" }],
 		"property-no-unknown": [
 			true,
 			{
@@ -88,6 +87,7 @@ export default {
 			},
 		],
 		"selector-attribute-quotes": "always",
+		"selector-class-pattern": "[a-z]+(-.[a-z]+)*",
 		"selector-not-notation": "complex",
 		"value-keyword-case": [
 			"lower",
@@ -109,10 +109,5 @@ export default {
 		 * -------------------------------------------------------------- */
 		"csstools/use-logical": true,
 		"order/order": ["custom-properties", "declarations"],
-		/** Performance */
-		"plugin/no-low-performance-animation-properties": [
-			true,
-			{ severity: "warning" },
-		],
 	},
 };

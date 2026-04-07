@@ -1,0 +1,75 @@
+---
+layout: base
+date: Last Modified
+priority: "1.0"
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+    <a-band id="about">
+        <a-card bordered featured class="accent--blue">
+            <div class="content">
+                <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, <strong><em>&ldquo;Let's go!&rdquo;</em></strong></p>
+                <p>That's exactly the energy we bring to design systems work. We help organizations build front-end infrastructure that empowers teams—transforming design vision into production-ready code while establishing the workflows that make collaboration seamless.</p>
+                <p>With expertise from Adobe, Red Hat, and the W3C CSS Working Group, we deliver enterprise-scale solutions that balance innovation with accessibility, performance, and developer experience. In addition to our technical expertise, we have available an experienced project manager with extensive government and banking experience, managing projects large and small from start to finish.</p>
+            </div>
+            <p><a class="cta-link" href="{{ '/about/' | url }}">Learn more about us</a></p>
+        </a-card>
+    </a-band>
+
+    {% if services.length > 0 %}
+    <a-band id="services" thick>
+        {% for service in services %}
+        <a-card bordered overflow>
+            <h2 class="title" slot="header" id="{{ service.category | url }}-{{ loop.index }}">{{ service.category }}</h2>
+            <div class="content">
+                <p>{{ service.description }}</p>
+            </div>
+        </a-card>
+        {% endfor %}
+        <a-card bordered featured overflow class="contact-card">
+            <h2 class="title" slot="header">Let's talk</h2>
+            <div class="content">
+                <p>To discuss how we can work together, please book a free call with us.</p>
+            </div>
+            <p slot="footer">
+                <a class="cta-button" href="{{ site.contact.scheduler }}">Book a free call</a>
+            </p>
+        </a-card>
+    </a-band>
+    {% endif %}
+
+    {% set accent="blue" %}
+    {% include "_cta-band.njk" %}
+
+    <a-band id="posts" thin>
+        <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
+        {% for article in collections.posts | featured | reverse %}
+        <a-card bordered>
+            <h3 class="headline accent" slot="header"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
+            <p class="date" slot="header">{{ article.data.date | long }}</p>
+            {% if article.data.description %}<p>{{ article.data.description }}</p>{% endif %}
+            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+        </a-card>
+        {% endfor %}
+    </a-band>
+
+    <!-- Recorded talks -->
+    <a-band id="presentations" thick class="accent--blue">
+        <h2 class="title highlight" slot="header"><a href="{{ '/presentation/' | url }}">Presentations</a></h2>
+        <a-card slot="header" full>
+            <p class="header-summary">Presentations or interviews I've given at various events, conferences, podcasts, and streams.</p>
+            <p class="header-summary">Connecting with individuals and organizations to share my knowledge and experiences is one of my favorite parts of my job. I'd love to hear about your event or podcast to see how we can work together. <a href="{{ site.contact.scheduler }}">Grab a free call</a> to discuss your needs.</p>
+        </a-card>
+
+        {% for presentation in presentations | featured %}
+            {% include "_video-card.njk" %}
+        {% endfor %}
+    </a-band>
+</main>

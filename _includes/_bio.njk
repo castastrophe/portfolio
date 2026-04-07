@@ -1,0 +1,125 @@
+<a-card class="decorative" id="{{ employee.name | slugify }}" tabindex="0">
+    {% if employee.photo %}
+    <div slot="header">
+        <img class="mobile-headshot" src="../img/{{ employee.photo }}" alt="A photo {{ employee.name }} smiling and looking directly at the camera.">
+    </div>
+    {% endif %}
+    <div slot="header" class="lead">
+        <h3 class="headline">
+            <strong class="employee-name">{{ employee.name }}</strong>{% if employee.title %}, <span class="employee-title">{{ employee.title }}</span>{% endif %}
+        </h3>
+        {% if employee.skills_summary.length > 0 %}
+        <p class="headline-summary">{{ employee.skills_summary | join(' • ') }}</p>
+        {% endif %}
+    </div>
+
+    <div class="mobile-contacts flex">
+        {% if employee.socials.length > 0 %}
+        {% set slot = "footer" %}
+        {% set icons = employee.socials %}
+        {% include "_icon-group.njk" %}
+        {% endif %}
+
+        {% if employee.email %}
+        <p class="cta">
+            <a href="mailto:{{ employee.email }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a>
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="floated">
+        <a-card class="headshot-card float" bordered overflow {% if employee.accent %} class="accent--{{ employee.accent }}"{% endif %}>
+            {% if employee.photo %}
+            <img src="../img/{{ employee.photo }}" alt="A photo {{ employee.name }} smiling and looking directly at the camera.">
+            {% endif %}
+            {% if employee.email %}
+            <p class="cta">
+                <a href="mailto:{{ employee.email }}"><span class="fa-solid fa-envelope"></span> Contact {{ employee.name | first }}</a>
+            </p>
+            {% endif %}
+            {% if employee.socials.length > 0 %}
+                {% set slot = "footer" %}
+                {% set icons = employee.socials %}
+                {% include "_icon-group.njk" %}
+            {% endif %}
+        </a-card>
+
+        <div class="content">
+            {{ employee.bio | md | safe }}
+        </div>
+
+        {% set hasAchievements = employee.achievements.length > 0 %}
+        {% set hasSkills = employee.skills.length > 0 %}
+
+        {% if hasAchievements and hasSkills %}
+        <a-box class="row">
+            <div class="content">
+                <p><strong>Recent Achievements:</strong></p>
+                <ul>
+                    {% for achievement in employee.achievements %}
+                    <li>{{ achievement }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="content">
+                <p><strong>Expertise:</strong></p>
+                <ul>
+                    {% for skill in employee.skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </a-box>
+        {% else %}
+            {% if hasAchievements %}
+            <div class="content">
+                <p><strong>Recent Achievements:</strong></p>
+                <ul>
+                    {% for achievement in employee.achievements %}
+                    <li>{{ achievement }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if hasSkills %}
+            <div class="content">
+                <p><strong>Expertise:</strong></p>
+                <ul>
+                    {% for skill in employee.skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% if employee.projects.length > 0 %}
+    <a-box class="projects">
+        <h4 class="headline-summary" slot="header">Recent projects</h4>
+        {% for project in employee.projects %}
+        <a-card bordered>
+            <tag-group slot="header" tags="{{ project.title }}"></tag-group>
+            <h4 class="headline" slot="header"><a href="{{ project.url }}" title="Click to view project">{{ project.headline }}</a></h4>
+            <p>{{ project.description }}</p>
+            <p slot="footer"><a class="cta-link" href="{{ project.url }}">View the project</a>
+        </a-card>
+        {% endfor %}
+    </a-box>
+    {% endif %}
+
+    {% if employee.presentations.length > 0 %}
+    <a-box class="presentations">
+        <h4 class="headline-summary" slot="header">Recent presentations</h4>
+        <div class="row">
+            {% for presentation in employee.presentations %}
+            {% if presentation.youtube_id and presentation.featured %}
+            <iframe class="video" src="https://www.youtube.com/embed/{{ presentation.youtube_id }}" frameborder="0" allowfullscreen title="{{ presentation.description }}"></iframe>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </a-box>
+    {% endif %}
+</a-card>

@@ -1,0 +1,55 @@
+---
+layout: base
+date: Last Modified
+eleventyNavigation:
+  key: About
+  order: 2
+---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+    <a-band id="intro" double>
+        <div class="content">
+            <p class="extra"><strong>We partner with organizations large and small to build sustainable, accessible front-end infrastructure that scales.</strong></p>
+            <p>We've managed complex technical initiatives that resulted in highly profitable and impactful outcomes. From scaling a barebones design system into a mature enterprise-level solution to leading a multi-million dollar government contracts, we've seen it all. No task is too big or too small when you have the right partner with the right mindset and expertise.</p>
+            <p>Founded in 2025, we combine deep technical expertise in design systems and web standards with proven program management capabilities. Whether you need someone to architect your component library, lead a complex digital transformation with lots of moving parts, or bridge the gap between design, engineering, and business strategy—we deliver results.</p>
+            <p>We believe the best technology is invisible—it empowers teams to do their best work without getting in the way. We specialize in creating infrastructure, establishing workflows, and leading initiatives that make complex problems feel manageable. We leverage AI-augmented engineering workflows to accelerate development and improve quality while reducing costs and can empower your teams to do the same.</p>
+        </div>
+    </a-band>
+
+    <a-band id="consulting">
+        <h2 class="title highlight accent--yellow" slot="header">Meet the team</h2>
+        {% set employee = {
+            name: candidate.name,
+            title: candidate.title,
+            skills_summary: ["Design Systems", "Front-end Architecture", "Web Standards"],
+            photo: "cassondra-roberts.png",
+            email: candidate.email,
+            socials: candidate.socials,
+            bio: candidate.bio,
+            skills: ["Design systems architecture and implementation", "Web components, TypeScript, modern CSS and semantic HTML", "Accessibility best practices and compliance", "W3C standards contribution (CSS Working Group)", "Open source community management", "AI-augmented engineering workflows", "Technical leadership and mentorship"],
+            projects: candidate.projects,
+            presentations: presentations
+        } %}
+        {% include "_bio.njk" %}
+
+        {% for employee in candidate.employees %}
+            {% set employee = {
+                accent: "blue",
+                name: employee.name,
+                title: employee.title,
+                skills_summary: ["Enterprise Program Management", "Portfolio Governance", "Extensive Government Experience"],
+                photo: "michael-roberts.jpg",
+                email: employee.email,
+                socials: employee.socials,
+                bio: employee.bio,
+                achievements: ["Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration", "Led portfolio of 20+ projects with combined budget of $354M", "Directed teams of 75+ contractors and 12 federal employees", "Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives"],
+                skills: ["Program and portfolio management (PMP®, MPM®)", "Large-scale digital transformation", "Financial systems modernization", "Enterprise architecture and integration", "Change management and organizational strategy", "Risk management and governance", "Federal/enterprise project delivery"]
+            } %}
+            {% include "_bio.njk" %}
+        {% endfor %}
+    </a-band>
+</main>

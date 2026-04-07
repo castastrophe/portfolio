@@ -2,7 +2,6 @@
 title: "Sisyphus Had It Easy: Navigating the Web Component Styling Landscape"
 description: "A short presentation of different approaches to styling web components and a framework for deciding which way will best serve your project."
 tags: web-components, css
-layout: layouts/proposal.webc
 ---
 
 ## Abstract
