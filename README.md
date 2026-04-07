@@ -28,26 +28,16 @@ This repository is the source code for [allons-y.llc](https://allons-y.llc) — 
 | Styling | [PostCSS](https://postcss.org/) with modern CSS features |
 | Scripting | JavaScript (ES modules, bundled for the browser) |
 | Hosting | [Netlify](https://www.netlify.com/) |
-| Database | MySQL 8.0 (Docker) |
+| Data | Netlify Blobs |
 | Runtime | Node.js 24 / Yarn 4 |
 
 ---
 
 ## Local Development
 
-### Database
+### Data
 
-The site pulls content from a MySQL database at build time. A Docker Compose setup is included to run it locally.
-
-```bash
-# Copy the environment template and fill in your credentials
-cp .env.example .env
-
-# Start the database container
-docker compose up -d
-```
-
-The database data is persisted in a named Docker volume and is never written to the project directory.
+The site pulls content from Netlify Blobs at build time.
 
 ### Site
 
