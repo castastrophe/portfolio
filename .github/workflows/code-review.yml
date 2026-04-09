@@ -6,7 +6,8 @@ on:
 
 jobs:
   code-review:
-    if: github.event.pull_request.user.login == 'castastrophe'
+    # only run if the pull request is from the repository owner and the PR is not a draft
+    if: github.event.pull_request.user.login == github.repository_owner && github.event.pull_request.draft == false
 
     runs-on: ubuntu-latest
     permissions:
