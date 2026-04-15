@@ -1,8 +1,6 @@
 ---
 layout: base
 prism: true
-customScripts:
-  - items
 customSheets:
   - items
 ---
@@ -19,17 +17,15 @@ customSheets:
     </p>
     {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
 </a-band>
+{% endblock %}
 
-<main id="main-content" aria-label="Main content" tabindex="-1">
-  <a-band class="sticky" collapsed>
-    <details class="table-of-contents">
-        <summary>Table of contents</summary>
-        {{ content | toc | safe }}
-    </details>
-  </a-band>
-
-  <a-band class="item-body">
-    <div class="content">{{ content | md | safe }}</div>
+<a-band class="item-body">
+  <div class="item-layout">
+    <aside class="toc-aside" aria-label="On this page">
+      {{ content | toc | safe }}
+    </aside>
+    <div class="content">{{ content | safe }}</div>
+  </div>
 
     {% if sales_pitch %}
     <a-note slot="footer">

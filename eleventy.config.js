@@ -50,7 +50,7 @@ export default async function (config) {
 	const DATE_LANG = 'en-GB';
 	const postcssConfig = await loadConfig({ env: isProduction ? 'production' : 'development' });
 	const tocConfig = { tags: ['h2', 'h3'], ul: false };
-	const prismPlugins = [ "toolbar", "copy-to-clipboard"];
+	const prismPlugins = [ "toolbar", "copy-to-clipboard", "line-numbers", "normalize-whitespace"];
 	const imageOptions = {
 		urlPath: "/images/",
 		outputDir: "./public/images/",
@@ -182,6 +182,7 @@ export default async function (config) {
 		[`${NODE_MODULES_PATH}/prismjs/themes/prism.${isProduction ? 'min.css' : 'css'}`]: `css/prism.css`,
 		[`${NODE_MODULES_PATH}/prism-themes/themes/prism-one-light.${isProduction ? 'min.css' : 'css'}`]: `css/prism-one-light.css`,
 		[`${NODE_MODULES_PATH}/prism-themes/themes/prism-one-dark.${isProduction ? 'min.css' : 'css'}`]: `css/prism-one-dark.css`,
+		[`${NODE_MODULES_PATH}/prismjs/plugins/line-numbers/prism-line-numbers.${isProduction ? 'min.css' : 'css'}`]: `css/prism-line-numbers.css`,
 
 		[`${NODE_MODULES_PATH}/prismjs/prism.js`]: "js/prism.js",
 		...prismPlugins.reduce((plugins,plugin) => {

@@ -48,17 +48,17 @@ eleventyNavigation:
     {% set accent="blue" %}
     {% include "_cta-band.njk" %}
 
-    <a-band id="posts" thin>
-        <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
-        {% for article in collections.posts | featured | reverse %}
-        <a-card bordered>
-            <h3 class="headline accent" slot="header"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
-            <p class="date" slot="header">{{ article.data.date | long }}</p>
-            {% if article.data.description %}<p>{{ article.data.description }}</p>{% endif %}
-            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
-        </a-card>
-        {% endfor %}
-    </a-band>
+<a-band id="posts" thin>
+    <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
+    {% for article in collections.posts | featured | reverse %}
+    <a-card bordered style="--card--header--Gap--vertical: 0;">
+        <h3 class="headline accent" slot="header"><a href="{{ article.url }}">{{ article.data.title }}</a></h3>
+        <p class="date" slot="header">{{ article.data.date | long }}</p>
+        {% if article.data.description %}<p class="content" style="margin-block: .5em;">{{ article.data.description }}</p>{% endif %}
+        {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+    </a-card>
+    {% endfor %}
+</a-band>
 
     <!-- Recorded talks -->
     <a-band id="presentations" thick class="accent--blue">
