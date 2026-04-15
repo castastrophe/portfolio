@@ -1,18 +1,11 @@
-<a-band id="header-sticky" collapsed class="masthead sticky" hidden aria-hidden="true">
-    <div class="flex">
-        <a href="{{ '/' | url }}" title="Return to the home page" tabindex="-1">
-            {% include "../pages/assets/logo.svg" %}
-        </a>
-        <h1 class="headline company-name">{{ site.title }}</h1>
-    </div>
-
+<a-band id="header-sticky" collapsed class="masthead sticky" hidden>
     {% set navigation = collections.all | eleventyNavigation %}
     {% if navigation | length > 1 %}
-    <div class="navigation" slot="footer">
-        <ul class="navigation-list accent--yellow" slot="footer">
+    <nav class="navigation" role="navigation">
+        <ul class="navigation-list accent--yellow">
             {% for item in navigation %}
                 <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
-                    <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}" tabindex="-1">{{ item.title }}</a>
+                    <a class="cta-button{% if loop.index % 2 == 0 %} accent--orange{% endif %}" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
                </li>
             {% endfor %}
         </ul>
@@ -60,9 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 fixedHeight = fixedHeader.offsetHeight;
                 document.body.setAttribute("data-sticky-height", fixedHeight);
                 document.body.style.setProperty("scroll-padding-block-start", fixedHeight + "px");
+                document.body.style.setProperty("--sticky-height", fixedHeight + "px");
             }
         } else {
             fixedHeader.setAttribute('hidden', '');
+            document.body.style.setProperty("--sticky-height", "0px");
         }
     }
 

@@ -13,7 +13,7 @@ tags:
             {{ content | safe }}
         </div>
 
-        {% for collection in collections[key] %}
+        {% for collection in collections[key] | reverse %}
         {% set page = collection.page %}
         {% set data = collection.data %}
         {% if data.title %}

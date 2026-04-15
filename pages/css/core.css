@@ -1,6 +1,5 @@
 html {
     backface-visibility: hidden;
-    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
 
@@ -9,10 +8,6 @@ body {
     margin: 0;
     font-optical-sizing: auto;
     color: var(--theme--text--Color);
-    scroll-snap-type: y proximity;
-    scroll-snap-align: start;
-    scroll-margin-block-start: 2rem;
-    scroll-snap-stop: always;
     overflow-x: hidden;
 
     @media print {
@@ -30,6 +25,7 @@ body {
 
 :where(a) {
     text-decoration: none;
+    text-underline-offset: .2ex;
     font-weight: var(--theme--FontWeight);
     color: var(--theme--link--Color);
 
@@ -43,11 +39,13 @@ body {
 
     &:hover {
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--hover);
         color: var(--theme--link--Color--hover);
     }
 
     &:is(:focus, :focus-visible) {
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--focus);
         color: var(--theme--link--Color--focus);
     }
 
@@ -59,6 +57,7 @@ body {
         color: inherit;
         font-weight: var(--theme--FontWeight--semi-bold);
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--active);
     }
 
     img {

@@ -1,5 +1,5 @@
 :where(p) {
-  font-size: inherit;
+  font-size: clamp(1rem,.96rem + .22vw,1.125rem);
   font-weight: var(--theme--FontWeight);
   line-height: var(--theme--text--LineHeight);
 
@@ -15,6 +15,13 @@
     :is(b, strong) {
       font-weight: var(--theme--FontWeight--medium);
     }
+  }
+
+  :is(.underline) {
+    font-style:normal;
+    text-decoration: underline;
+    text-decoration-color: var(--theme--ui--color);
+    text-decoration-thickness: .2ex;
   }
 }
 
@@ -274,7 +281,7 @@ body {
 :where(.content) {
   max-inline-size: 80ch;
 
-  :is(p:not(:last-child, :last-of-type, :has(+ :is(ol, ul)))) {
+  :is(p, h1, h2, h3, h4, h5, h6, div, hr):not(:last-child, :last-of-type, :has(+ :is(ol, ul))) {
     margin-block-end: 1em;
   }
 }
@@ -424,7 +431,8 @@ details {
   background-color: var(--theme--surface--color);
   color: var(--theme--text--Color);
   border-radius: var(--theme--BorderRadius);
-  inline-size: var(--theme--content--MaxWidth);
+  min-inline-size: var(--theme--content--MaxWidth);
+  inline-size: 100%;
   max-inline-size: 100%;
 
   summary {
@@ -477,23 +485,26 @@ details {
       padding: var(--theme--content--space) 1em 1em;
       overflow-y: auto;
 
-      /* todo: style the scroller? */
-
       :is(ol, ul) a {
         color: var(--theme--text--Color);
       }
 
       ol {
+        counter-reset: item;
         padding-inline-start: 1em;
-        list-style-type: none;
-
-        &:first-child {
-          padding-inline-start: 0;
-        }
 
         &:first-child>li>a {
           font-weight: var(--theme--FontWeight--bold);
           line-height: var(--theme--LineHeight);
+        }
+
+        li {
+          counter-increment: item;
+
+          &::marker {
+            content: counters(item, ".") "  ";
+            color: var(--theme--text--Color--accent);
+          }
         }
       }
     }
@@ -615,7 +626,7 @@ a-box {
   }
 
   @media screen and (width >= 1200px) {
-    --band--Grid--areas: "header body" "header footer";
+    --band--Grid--areas: "header body" ". footer";
     --band--Gap--vertical: 2px;
   }
 
@@ -630,24 +641,31 @@ a-box {
   }
 
   &:is(.sticky) {
-    --multiplier-vertical: .5;
-
-    --band--Background: var(--theme--surface--color);
-    --band--Grid--areas: "body footer";
-    --band--Grid--columns: 1fr auto;
+    --band--Background: color-mix(in srgb, var(--theme--surface--color) 10%, transparent);
+    --band--Grid--areas: "body";
+    --band--Grid--columns: 1fr;
     --band--Grid--rows: 1fr;
     --band--AlignItems: center;
-    --band--body--JustifyContent: start;
+    --band--body--JustifyContent: center;
     --band--Width: 100%;
     --band--footer--BorderColor: transparent;
 
-    --headline--FontSize: 2em;
+    --headline--FontSize: 1.6em;
     --headline-summary--FontSize: 1em;
 
-    --image-size: 40px;
+    --image-size: 3.4em;
+
+    backdrop-filter: blur(1px);
+
+    @media screen and (width <= 680px) {
+      --band--Grid--areas: "body footer";
+      --band--Grid--columns: 1fr auto;
+      --band--footer--JustifyContent: center;
+    }
 
     .headline {
       margin-block-end: 0;
+      line-height: 1;
     }
 
     .headline-summary {
@@ -655,20 +673,12 @@ a-box {
     }
 
     .navigation {
-      font-size: .9em;
+      font-size: .8em;
       margin-block-start: calc(-1 * var(--theme--content--space));
-    }
 
-    @container (width <= 680px) {
-      --band--Grid--areas: "header footer";
-      --band--Grid--columns: var(--image-size) 1fr;
-    }
-
-    @container (width <= 530px) {
-      --band--header--Width: 0;
-      --band--body--Width: 0;
-      --band--Grid--areas: "footer";
-      --band--Grid--columns: 1fr;
+      .navigation-item {
+        background-color: var(--theme--surface--color);
+      }
     }
   }
 }
@@ -864,8 +874,12 @@ div[slot="header"]:has(.mobile-headshot),
 
 .cta-link {
   font-size: 1.1em;
+  text-decoration: underline;
+  text-underline-offset: .2ex;
+  text-decoration-color: var(--theme--link--Color);
+  text-decoration-thickness: .2ex;
 
-  &::after {
+  &:is([href^="http"])::after {
     display: inline-block;
     content: '↬';
     margin-inline-start: 0.25em;
@@ -945,7 +959,7 @@ div[slot="header"]:has(.mobile-headshot),
 }
 
 :is(pre[class*="language-"]) {
-  font-family: var(--theme--code--FontFamily) !important;
+  font-family: var(--theme--code--FontFamily);
   font-size: var(--theme--code--FontSize) !important;
   padding: var(--theme--content--space) !important;
 
@@ -956,97 +970,48 @@ div[slot="header"]:has(.mobile-headshot),
 }
 
 
-:is(.line-numbers) {
-  --line-number-width: 3ch;
+/* Theme overrides for Prism line-numbers plugin (base layout from prism-line-numbers.css) */
+.line-numbers-rows {
+  border-inline-end: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle) !important;
 
-  pre {
-    position: relative;
-    counter-reset: line-number;
-
-    padding-inline-start: calc(var(--theme--content--space) + var(--line-number-width));
-  }
-
-  /* adjust as needed */
-  &:has(.line-numbers-row:nth-child(10)) {
-    --line-number-width: 4ch;
-  }
-
-  &:has(.line-numbers-row:nth-child(100)) {
-    --line-number-width: 5ch;
-  }
-
-  .line-numbers-row {
-    position: absolute;
-    pointer-events: none;
-    inset-block-start: 0;
-    font-size: 100%;
-    inset-inline-start: calc(var(--line-number-width) * -1);
-    inline-size: var(--line-number-width);
-    letter-spacing: -1px;
-    border-inline-end: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
-    user-select: none;
-
-    span {
-      display: block;
-      counter-increment: line-number;
-
-      &::before {
-        content: counter(line-number);
-        display: block;
-        color: var(--theme--ui--color--subtle);
-        min-inline-size: 4ch;
-        padding-inline-end: var(--theme--content--space);
-      }
-    }
+  > span::before {
+    color: var(--theme--text--Color--subtle);
   }
 }
 
 /* Custom styles for Prism Toolbar plugin */
 :is(.code-toolbar) {
+  position: relative;
+  overflow: hidden;
+
   background-color: var(--prism-default-background);
 
   border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
   border-radius: var(--theme--BorderRadius);
 
-  display: grid;
-  grid-template-areas: "code" "toolbar";
-  grid-template-rows: 1fr auto;
-  gap: 0;
-
   > * {
     background-color: transparent !important;
     margin: 0 !important;
     border-width: 0 !important;
-
-    &:first-child {
-      margin-block-start: 0;
-      border-end-start-radius: 0;
-      border-end-end-radius: 0;
-      border-block-end-width: 0;
-    }
-
-    &:last-child {
-      border-end-start-radius: var(--theme--BorderRadius);
-      border-end-end-radius: var(--theme--BorderRadius);
-      border-block-start-width: 0 !important;
-    }
   }
 
+  /* Reserve space at the top so the first line of code clears the toolbar */
   > pre[class*="language-"] {
-    grid-area: code;
+    padding-block-start: 2.5rem !important;
   }
 
   .toolbar {
-    grid-area: toolbar;
-
-    padding: calc(var(--theme--content--space) * .5) var(--theme--content--space) !important;
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
 
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: end;
     gap: var(--theme--content--space);
-    overflow: hidden;
+
+    padding-block: calc(var(--theme--content--space) * 0.4);
+    padding-inline: var(--theme--content--space);
 
     .toolbar-item {
       margin: 0 !important;
@@ -1056,25 +1021,26 @@ div[slot="header"]:has(.mobile-headshot),
   :is(.copy-to-clipboard-button) {
     display: inline-grid;
     place-items: center;
-    border-width: var(--theme--BorderWidth--thin);
-    border-style: solid;
-    border-color: color-mix(in hsl, currentColor, transparent 60%);
-    background-color: color-mix(in hsl, var(--prism-default-background), var(--theme--surface--color) 10%) !important;
+    border: var(--theme--BorderWidth--thin) solid color-mix(in oklch, currentColor 40%, transparent);
+    background-color: color-mix(in oklch, var(--prism-default-background) 90%, var(--theme--surface--color)) !important;
     color: var(--theme--text--Color) !important;
-    font-size: 1em !important;
+    font-family: var(--theme--text--FontFamily);
+    font-size: 0.75rem;
 
-    padding: .5em !important;
+    padding-block: 0.25em !important;
+    padding-inline: 0.6em !important;
     border-radius: var(--theme--BorderRadius) !important;
     text-decoration: none;
     margin: 0 !important;
     cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
 
     &:hover {
       border-color: var(--theme--ui--color);
-      background-color: color-mix(in hsl, var(--prism-default-background), var(--theme--surface--color) 30%) !important;
+      background-color: color-mix(in oklch, var(--prism-default-background) 70%, var(--theme--surface--color)) !important;
     }
 
-    &:is(:focus, :focus-visible) {
+    &:focus-visible {
       outline: var(--theme--Outline) solid var(--theme--ui--color);
       outline-offset: var(--theme--OutlineOffset);
     }
