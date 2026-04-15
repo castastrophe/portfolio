@@ -110,6 +110,17 @@ This project follows the **Chicago Manual of Style** with the following project-
   - Incorrect: "January 2014 - July 2021" or "Jan 2014-Jul 2021"
 - **Serial comma**: Use the Oxford comma in lists
 
+### Design aesthetics
+
+Brand colors
+
+Core brand color: hsl(336, 65%, 50%) / #d22d6f
+Brand color: hsl(24, 100%, 65%) / #ff944d
+Brand color: hsl(192, 70%, 40%) / #1f91ad
+Brand color: hsl(42, 100%, 71%) / #ffd36b
+
+Always leverage the existing components and styles when possible, only adding new ones when necessary to achieve the desired design aesthetic.
+
 ### CSS Conventions
 
 - Use `text-transform: uppercase` in CSS for visual capitalization rather than uppercase content in source files

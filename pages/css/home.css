@@ -49,6 +49,11 @@
   }
 }
 
+/* Don't allow line-breaking for the brand text */
+.brand {
+  white-space: nowrap;
+}
+
 :is(img, embed, object, video) {
   max-inline-size: 100%;
   block-size: auto;
