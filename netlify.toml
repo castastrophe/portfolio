@@ -1,4 +1,79 @@
+# Security headers for all pages
+[[headers]]
+    for = "/*"
+    [headers.values]
+        X-Frame-Options = "DENY"
+        X-Content-Type-Options = "nosniff"
+        X-XSS-Protection = "1; mode=block"
+        Referrer-Policy = "strict-origin-when-cross-origin"
+        Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Block WordPress scanner paths — anyone hitting these is an automated scanner.
+# Two rules needed: one for root-level wp- paths, one for sub-paths.
+[[redirects]]
+    from = "/wp-*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+[[redirects]]
+    from = "/wp-*/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+# Block git config/history exposure
+[[redirects]]
+    from = "/.git"
+    to = "/404.html"
+    status = 404
+    force = true
+
+[[redirects]]
+    from = "/.git/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+# Block environment file exposure
+[[redirects]]
+    from = "/.env"
+    to = "/404.html"
+    status = 404
+    force = true
+
+[[redirects]]
+    from = "/.env.*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+# Block XML-RPC (brute-force attack vector)
+[[redirects]]
+    from = "/xmlrpc.php"
+    to = "/404.html"
+    status = 404
+    force = true
+
+# Block phpMyAdmin scanners
+[[redirects]]
+    from = "/phpmyadmin"
+    to = "/404.html"
+    status = 404
+    force = true
+
+[[redirects]]
+    from = "/phpmyadmin/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+# Catch-all SPA fallback with built-in rate limiting (60 requests/minute per IP)
 [[redirects]]
     from = "/*"
     to = "/index.html"
     status = 200
+    [redirects.rate_limit]
+        window_limit = 60
+        window_size = 60
+        aggregate_by = ["ip"]

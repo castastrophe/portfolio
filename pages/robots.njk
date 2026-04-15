@@ -1,0 +1,23 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+User-agent: *
+Allow: /
+
+# Private pages — not intended for indexing
+Disallow: /resume/
+Disallow: /proposals/
+Disallow: /preview/
+
+# Paths that don't exist on this site — scanners, save yourself the trip
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-includes/
+Disallow: /wp-content/
+Disallow: /xmlrpc.php
+Disallow: /.git/
+Disallow: /.env
+Disallow: /phpmyadmin/
+
+Sitemap: {{ site.url }}/sitemap.xml
