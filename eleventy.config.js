@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs";
 
 import loadConfig from "postcss-load-config";
 import { minify } from "html-minifier";
@@ -12,6 +13,7 @@ import eleventyNavigation from "@11ty/eleventy-navigation";
 
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
+import markdownItAnchorSections from "markdown-it-anchor-sections";
 import pluginTOC from "eleventy-plugin-toc";
 
 import customFilters from "./utilities/filters/index.js";
@@ -49,8 +51,6 @@ export default async function (config) {
 	/** Shared configurations and setups */
 	const DATE_LANG = 'en-GB';
 	const postcssConfig = await loadConfig({ env: isProduction ? 'production' : 'development' });
-	const tocConfig = { tags: ['h2', 'h3'], ul: false };
-	const prismPlugins = [ "toolbar", "copy-to-clipboard"];
 	const imageOptions = {
 		urlPath: "/images/",
 		outputDir: "./public/images/",
@@ -60,20 +60,20 @@ export default async function (config) {
 	const Normalize = Prism.plugins.NormalizeWhitespace;
 	const markdown = markdownIt({
 		html: true,
+		xhtmlOut: true,
 		breaks: false,
 		linkify: true,
-		xhtmlOut: true,
+		slugify: (str) => encodeURIComponent(String(str).toLowerCase()?.replace(/[\.\)\(\]\[\?!\s]/g, '-')?.replace(/[^a-z0-9]+/g, '-')?.replace(/-+/g, '-')?.replace(/^-+|-+$/g, '')?.replace(/-+/g, '-')),
 		highlight: (code, lang) => {
 			const normalized = Normalize.normalize(code);
-			console.log(normalized);
 			return Prism.highlight(normalized, Prism.languages[lang], lang);
 		}
-	}).use(markdownItAnchor);
+	}).use(markdownItAnchor).use(markdownItAnchorSections);
 
 	/* -------- PLUGINS -------- */
 	config.addPlugin(InputPathToUrlTransformPlugin);
 	config.addPlugin(syntaxHighlight);
-	config.addPlugin(pluginTOC, tocConfig);
+	config.addPlugin(pluginTOC, { ul: false });
 	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
 	config.addPlugin(eleventyNavigation);
 
@@ -167,6 +167,16 @@ export default async function (config) {
 	config.addFilter("clean", customFilters.trimWhitespace);
 	config.addFilter("keys", customFilters.keys);
 	config.addFilter("digitsOnly", customFilters.digitsOnly);
+	const COLLECTION_TAGS = new Set(["posts", "proposals", "listing"]);
+	config.addFilter("contentTags", (tags) => (tags || []).filter(tag => !COLLECTION_TAGS.has(tag)));
+	config.addFilter("allTags", (collection) => {
+		const tags = new Set();
+		(collection || []).forEach(item => {
+			(item.data.tags || []).filter(tag => !COLLECTION_TAGS.has(tag)).forEach(tag => tags.add(tag));
+		});
+		return [...tags].sort();
+	});
+
 	config.addFilter("md", (string) => {
 		if (!string || typeof string !== 'string') return string;
 
@@ -184,15 +194,18 @@ export default async function (config) {
 		[`${NODE_MODULES_PATH}/prism-themes/themes/prism-one-dark.${isProduction ? 'min.css' : 'css'}`]: `css/prism-one-dark.css`,
 
 		[`${NODE_MODULES_PATH}/prismjs/prism.js`]: "js/prism.js",
-		...prismPlugins.reduce((plugins,plugin) => {
-			plugins[`${NODE_MODULES_PATH}/prismjs/plugins/${plugin}/prism-${plugin}.${isProduction ? 'min.js' : 'js'}`] = `js/prism-${plugin}.js`;
+		...[ "toolbar", "copy-to-clipboard", "line-numbers", "normalize-whitespace"].reduce((plugins,plugin) => {
+			const pluginPath = `${NODE_MODULES_PATH}/prismjs/plugins/${plugin}/prism-${plugin}.${isProduction ? 'min.js' : 'js'}`;
+			if (fs.existsSync(path.resolve(pluginPath))) {
+				plugins[pluginPath] = `js/prism-${plugin}.js`;
+			}
 			return plugins;
 		}, {}),
 	};
 	config.addPassthroughCopy({
 		...dependencyAssets,
 		"pages/assets/favicon.*": "/",
-		"pages/js/*.js": "js/",
+		"pages/js/*[!11tydata].js": "js/",
 		"components/*.js": "js/components/"
 	});
 

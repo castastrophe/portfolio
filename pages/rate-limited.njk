@@ -1,0 +1,20 @@
+---
+layout: base
+title: Slow down!
+description: To keep this service running smoothly for everyone, we limit how many requests you can make. Please wait 60 seconds and try again.
+permalink: /rate-limited.html
+indexed: false
+---
+
+{% block masthead %}
+    {% include "_masthead.njk" %}
+{% endblock %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+    <a-band id="rate-limited" double>
+        <h2 class="title highlight" slot="header">Slow down!</h2>
+        <a-card class="content">
+            <p>To keep this service running smoothly for everyone, we limit how many requests you can make. Please wait 60 seconds and try again.</p>
+        </a-card>
+    </a-band>
+</main>

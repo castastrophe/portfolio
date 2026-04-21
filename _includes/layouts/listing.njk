@@ -2,28 +2,45 @@
 layout: base
 tags:
     - listing
+customScripts:
+    - listing
 ---
 
 {% include "_masthead.njk" %}
 
+{% set allTags = collections[key] | allTags %}
+{% set listingUrl = page.url %}
+
 <main id="main-content" aria-label="Main content" tabindex="-1">
     <a-band class="listing" thick>
-    <div slot="header">
-        <h2 class="title highlight">{{ title }}</h2>
+        <div slot="header">
+            <h2 class="title highlight">{{ title }}</h2>
             {{ content | safe }}
         </div>
 
-        {% for collection in collections[key] %}
-        {% set page = collection.page %}
-        {% set data = collection.data %}
+        {% if allTags.length > 0 %}
+        <a-container>
+            <nav class="tag-filters" aria-label="Filter by tag">
+                <a href="{{ listingUrl }}" class="tag-filter" data-tag="">All</a>
+                {% for tag in allTags %}
+                <a href="{{ listingUrl }}?tag={{ tag | urlencode }}" class="tag-filter" data-tag="{{ tag }}">{{ tag }}</a>
+                {% endfor %}
+            </nav>
+        </a-container>
+        {% endif %}
+
+        {% for item in collections[key] | reverse %}
+        {% set itemPage = item.page %}
+        {% set data = item.data %}
+        {% set itemTags = data.tags | contentTags %}
         {% if data.title %}
-            <a-card bordered>
+            <a-card bordered data-tags="{{ itemTags | join(',') }}">
                 <div slot="header">
-                    {% if page.date %}<p class="date">{{ page.date | long }}</p>{% endif %}
-                    <h3 class="headline accent">{% if page.url %}<a href="{{ page.url }}">{% endif %}{{ data.title }}{% if page.url %}</a>{% endif %}</h3>
+                    {% if itemPage.date %}<p class="date">{{ itemPage.date | long }}</p>{% endif %}
+                    <h3 class="headline accent">{% if itemPage.url %}<a href="{{ itemPage.url }}">{% endif %}{{ data.title }}{% if itemPage.url %}</a>{% endif %}</h3>
                 </div>
                 {% if data.description %}<p class="content">{{ data.description }}</p>{% endif %}
-                {% if data.tags.length > 0 %}<tag-group tags="{{ data.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+                {% if itemTags.length > 0 %}<tag-group tags="{{ itemTags | join(',') }}" filters url="{{ listingUrl }}" labeled slot="footer"></tag-group>{% endif %}
             </a-card>
         {% endif %}
         {% endfor %}
@@ -31,3 +48,37 @@ tags:
 
     {% include "_cta-band.njk" %}
 </main>
+
+{% css %}
+.tag-filters {
+    display: flex;
+    flex-flow: row wrap;
+    gap: .5em;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tag-filter {
+    display: inline-block;
+    padding: .2em .6em;
+    border-radius: var(--theme--BorderRadius);
+    background-color: color-mix(in sRGB, var(--theme--ui--color) 10%, transparent);
+    border: var(--theme--BorderWidth--thin) solid transparent;
+    text-decoration: none;
+    color: inherit;
+    font-size: .9em;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.tag-filter:hover {
+    background-color: color-mix(in sRGB, var(--theme--ui--color) 20%, transparent);
+}
+
+.tag-filter[aria-current="true"] {
+    background-color: var(--theme--ui--color);
+    color: white;
+    border-color: var(--theme--ui--color);
+}
+{% endcss %}

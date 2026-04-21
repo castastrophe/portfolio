@@ -1,6 +1,5 @@
 html {
     backface-visibility: hidden;
-    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
 
@@ -11,7 +10,7 @@ body {
     color: var(--theme--text--Color);
     scroll-snap-type: y proximity;
     scroll-snap-align: start;
-    scroll-margin-block-start: 2rem;
+    scroll-padding-block-start: 30px;
     scroll-snap-stop: always;
     overflow-x: hidden;
 

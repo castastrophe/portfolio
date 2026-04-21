@@ -2,6 +2,7 @@
 [[headers]]
     for = "/*"
     [headers.values]
+        Authorization = "Bearer ABUSIVE-TOKEN"
         X-Frame-Options = "DENY"
         X-Content-Type-Options = "nosniff"
         X-XSS-Protection = "1; mode=block"
@@ -71,9 +72,11 @@
 # Catch-all SPA fallback with built-in rate limiting (60 requests/minute per IP)
 [[redirects]]
     from = "/*"
-    to = "/index.html"
+    to = "/:splat"
     status = 200
     [redirects.rate_limit]
-        window_limit = 60
+        action = "rewrite"
+        to = "/rate-limited.html"
+        window_limit = 100
         window_size = 60
-        aggregate_by = ["ip"]
+        aggregate_by = ["ip","domain"]
