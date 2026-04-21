@@ -25,6 +25,10 @@ styles.replaceSync(`
         color: inherit;
     }
 
+    :host([caps]) .tag {
+        text-transform: uppercase;
+    }
+
     .tag-label {
         display: none;
         font-size: inherit;
@@ -43,15 +47,18 @@ styles.replaceSync(`
 customElements.define(
     "tag-group",
     class TagGroup extends HTMLElement {
-        // static get observedAttributes() {
-        //     return ["tags", "filters", "url"];
-        // }
+        static get observedAttributes() {
+            return ["tags", "filters", "url"];
+        }
 
         _tags = [];
 
+        get url() {
+            return this.getAttribute("url") || "";
+        }
+
         get showLink() {
-            const hasAttribute = this.getAttribute("filters") === "true";
-            return hasAttribute ? true : false;
+            return this.hasAttribute("filters") ? true : false;
         }
 
         set showLink(value) {
@@ -60,15 +67,13 @@ customElements.define(
                 return;
             }
 
-            if (value) this.setAttribute("filters", "true");
+            if (value) this.setAttribute("filters", "");
             else this.removeAttribute("filters");
         }
 
 
         get tags() {
-            const tag_string = this.getAttribute("tags");
-            if (!tag_string || typeof tag_string !== "string") return [];
-            return tag_string.split(",").map(tag => tag.trim());
+            return this._tags;
         }
 
         set tags(value) {
@@ -89,11 +94,11 @@ customElements.define(
                 else this._tags = value.split(",").map(tag => tag.trim());
             } else this._tags = value;
 
-            if (this._tags.length > 0) {
-                this.setAttribute("tags", this._tags.join(","));
-            } else {
-                this.removeAttribute("tags");
-            }
+            // if (this._tags.length > 0) {
+            //     this.setAttribute("tags", this._tags.join(","));
+            // } else {
+            //     this.removeAttribute("tags");
+            // }
         }
 
         constructor() {
@@ -118,9 +123,8 @@ customElements.define(
                 const tag = document.createElement(this.showLink ? "a" : "span");
                 tag.classList.add("tag");
 
-                // cursor todo: create dynamic tag filtering URL functionality to collection landing pages
                 if (this.showLink) {
-                    tag.href = `/?tag=${label}`;
+                    tag.href = `${this.url}?tag=${encodeURIComponent(label)}`;
                 }
 
                 tag.textContent = label;
@@ -136,12 +140,15 @@ customElements.define(
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
-            if (name === "tags" || name === "filters") {
-                if (name === "tags") this.tags = newValue;
-                else if (name === "filters") this.showLink = !!(newValue);
-
-                this.render();
+            if (name === "tags") {
+                if (!newValue || typeof newValue !== "string") {
+                    this.tags = [];
+                } else {
+                    this.tags = newValue.split(",").map(tag => tag.trim());
+                }
             }
+            else if (name === "filters") this.showLink = !!(newValue);
+            this.render();
         }
     },
 );

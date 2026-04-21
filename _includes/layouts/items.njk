@@ -17,21 +17,24 @@ customSheets:
         {% if date %}<span class="date">{{ date | long }}</span>{% endif %}
         {% if listing_page %}<span class="cta"><a href="{{ '..' | url }}" title="Return to the {{ listing_page }} page" class="cta-link">All {{ listing_page }}</a></span>{% endif %}
     </p>
-    {% if tags.length > 0 %}<tag-group tags="{{ tags | join(',') }}" labeled></tag-group>{% endif %}
+    {% set contentTags = tags | contentTags %}
+    {% if contentTags.length > 0 %}<tag-group tags="{{ contentTags | join(',') }}" labeled filters url="{{ listing_url }}"></tag-group>{% endif %}
 </a-band>
 
-<a-band class="item-body">
+<main id="main-content" aria-label="Main content" tabindex="-1">
+  <a-band class="item-body">
   <div class="item-layout">
-    <aside class="toc-aside" aria-label="On this page">
-      {{ content | toc | safe }}
+    <aside class="table-of-contents">
+        <h2 class="title">Table of contents</h2>
+        {{ content | toc | safe }}
     </aside>
-    <div class="content">{{ content | safe }}</div>
+    <div class="content">{{ content | md | safe }}</div>
   </div>
 
     {% if sales_pitch %}
     <a-note slot="footer">
         <p>{{ sales_pitch }}</p>
-        <a class="cta-button" href="{{ site.contact.scheduler }}">Let's connect</a>
+        <a class="cta-button" href="mailto:{{ site.contact.email }}">Let's connect</a>
     </a-note>
     {% endif %}
   </a-band>

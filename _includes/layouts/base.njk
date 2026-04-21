@@ -33,4 +33,12 @@ customScripts:
         {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
     </a>
 </a-band>
+{% css %}
+#contact {
+    --band--footer--Direction: row;
+    --band--footer--AlignItems: center;
+    --band--footer--JustifyContent: space-between;
+    --image-size: 180px;
+}
+{% endcss %}
 {% endblock %}

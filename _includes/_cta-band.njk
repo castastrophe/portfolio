@@ -1,7 +1,25 @@
 <a-band id="cta" thick space-evenly{% if accent %} class="accent--{{ accent }}"{% endif %}>
     <a-note>
         <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
-        <p><a class="cta-link" href="{{ site.contact.scheduler }}">Book a free call</a></p>
+        <p><a class="cta-link" href="mailto:{{ site.contact.email }}">Email us</a></p>
     </a-note>
     <img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">
 </a-band>
+
+{% css %}
+#cta {
+  --band--body--Wrap: nowrap;
+  --band--body--Width: auto;
+  --image-size: 200px;
+
+  a-note {
+    align-self: center;
+
+    @media screen and (width <= 768px) {
+      + picture {
+        display: none;
+      }
+    }
+  }
+}
+{% endcss %}

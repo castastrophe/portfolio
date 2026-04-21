@@ -101,7 +101,7 @@
         <h4 class="headline-summary" slot="header">Recent projects</h4>
         {% for project in employee.projects %}
         <a-card bordered>
-            <tag-group slot="header" tags="{{ project.title }}"></tag-group>
+            <tag-group slot="header" tags="{{ project.title }}" caps></tag-group>
             <h4 class="headline" slot="header"><a href="{{ project.url }}" title="Click to view project">{{ project.headline }}</a></h4>
             <p>{{ project.description }}</p>
             <p slot="footer"><a class="cta-link" href="{{ project.url }}">View the project</a>
