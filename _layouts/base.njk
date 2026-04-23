@@ -38,6 +38,13 @@ customScripts:
     --band--footer--AlignItems: center;
     --band--footer--JustifyContent: space-between;
     --image-size: 180px;
+
+    @media screen and (width <= 612px) {
+        --band--footer--Direction: column;
+        --band--footer--JustifyContent: center;
+        --band--footer--AlignItems: center;
+        --image-size: min(180px, 100%);
+    }
 }
 {% endcss %}
 {% endblock %}
