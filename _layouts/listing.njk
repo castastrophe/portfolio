@@ -6,7 +6,7 @@ customScripts:
     - listing
 ---
 
-{% include "_masthead.njk" %}
+{% include "masthead.njk" %}
 
 {% set allTags = collections[key] | allTags %}
 {% set listingUrl = page.url %}
@@ -46,7 +46,7 @@ customScripts:
         {% endfor %}
     </a-band>
 
-    {% include "_cta-band.njk" %}
+    {% include "cta-band.njk" %}
 </main>
 
 {% css %}

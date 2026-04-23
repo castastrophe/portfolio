@@ -1,3 +1,5 @@
+import posthtml from 'posthtml';
+
 const dateIsPresent = (date) => date === "present" || date === null || !date;
 
 /**
@@ -136,6 +138,48 @@ export const lastWord = (string) => {
  */
 export const stripWhitespace = (string) => string?.replace(/\s/g, '');
 
+
+/**
+ * Removes unsafe tags from HTML for RSS feeds
+ * @param {string} html - The HTML to clean
+ * @returns {string} The cleaned HTML
+ */
+export const cleanForRSS = async (html) => {
+    const modifier = posthtml().use((tree) => {
+      if (!Array.isArray(tree) || !tree.length) {
+        return tree;
+      }
+      tree.walk((node) => {
+        const classes =
+          node.attrs?.class?.split(' ')?.map((c) => c.trim().toLowerCase()) || [];
+        const isPermalink = node.tag === 'a' && classes.includes('header-anchor');
+        const isUnsafe = [
+          'comment',
+          'embed',
+          'link',
+          'listing',
+          'meta',
+          'noscript',
+          'object',
+          'plaintext',
+          'script',
+          'xmp',
+        ].includes(node.tag);
+        /* i.e., 'is-land', 'lite-youtube', etc. */
+        const isCustom = [].includes(node.tag);
+        if (isPermalink || isUnsafe || isCustom) {
+          node.tag = false;
+          node.content = [];
+        }
+        return node;
+      });
+      return tree;
+    });
+
+    const result = await modifier.process(html);
+    return result.html;
+  };
+
 /**
  * Removes all whitespace in a string
  * @param {string} string
@@ -162,6 +206,7 @@ export default {
     lastWord,
     keys,
     stripWhitespace,
+    cleanForRSS,
     trimWhitespace,
     digitsOnly
 };

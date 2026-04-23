@@ -41,14 +41,15 @@ yarn clean          # Remove public/ directory
 
 ### Template System
 
-- Layout alias: `base` → `layouts/base.njk`
-- Web components imported from `pages/components/*.js`
+- Layout alias: `base` → `_layouts/base.njk`
+- Web components imported from `components/*.js`
 - Markdown files processed with markdown-it and anchor plugin
 
 ### Collections
 
 - `posts` - Blog posts from `pages/posts/*`
 - `proposals` - Proposals from `pages/proposals/*`
+- `presentations` - Presentations form `pages/presentations/*`
 
 ### Content data (Netlify Blobs)
 
