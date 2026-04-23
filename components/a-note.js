@@ -3,7 +3,7 @@ styles.replaceSync(`
     :host {
         display: block;
         inline-size: max-content;
-        max-inline-size: calc(100% - var(--note--Padding, var(--theme--container--space)) * 2);
+        max-inline-size: 100%;
 
         box-sizing: border-box;
         background-color: var(--note--Background, var(--theme--surface--color));
