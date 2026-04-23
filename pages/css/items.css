@@ -25,10 +25,6 @@
     .headline {
         line-height: var(--theme--LineHeight--dense);
     }
-
-    + .sticky details {
-        inline-size: calc(100% - var(--theme--container--space) * 2);
-    }
 }
 
 :is(.item-body) {

@@ -15,21 +15,6 @@ eleventyComputed:
 {% extends "_layouts/foundation.njk" %}
 
 {% block header %}
-<div id="header-sticky" class="sticky" hidden aria-hidden="true">
-  <div class="container">
-    <div class="photo"></div>
-    <div>
-      <h1 class="candidate-name">
-        <span>{{ candidate.name | first }}</span>
-        <span>{{ candidate.name | last }}</span>
-      </h1>
-      {% if resume.tagline %}
-      <p class="subtitle">{{ resume.tagline }}</p>
-      {% endif %}
-    </div>
-  </div>
-</div>
-
 <a href="#main-content" class="skip-link cta-button">Skip to content</a>
 {% endblock %}
 
@@ -70,31 +55,9 @@ eleventyComputed:
 
 {% js %}
 document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("header");
-  const fixedHeader = document.getElementById("header-sticky");
-  let fixedHeight;
-
-  function checkStickyHeader() {
-    if(window.scrollY > header.offsetHeight) {
-      fixedHeader.removeAttribute('hidden');
-      if (!fixedHeight || fixedHeight !== fixedHeader.offsetHeight) {
-        fixedHeight = fixedHeader.offsetHeight;
-        document.body.setAttribute("data-sticky-height", fixedHeight);
-        document.body.style.setProperty("scroll-padding-block-start", fixedHeight + "px");
-      }
-    } else {
-      fixedHeader.setAttribute('hidden', '');
-    }
-  }
-
-  if (header && fixedHeader) {
-    checkStickyHeader();
-  }
-
   // Show print button after scrolling stops
   const printButton = document.querySelector('button.print');
   let scrollTimeout;
-  let hasScrolled = false;
 
   function showButton() {
     printButton.classList.add('visible');
@@ -105,10 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener('scroll', () => {
-    hasScrolled = true;
-
-    if (header && fixedHeader) checkStickyHeader();
-
     hideButton();
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(showButton, 800);
