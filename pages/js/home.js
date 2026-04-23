@@ -35,7 +35,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Flag sticky elements as active
-
 });
