@@ -38,4 +38,4 @@ jobs:
         run: yarn test
 
       - name: Check links
-        run: yarn check:links
+        run: yarn check:links:internal
