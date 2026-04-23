@@ -153,7 +153,7 @@ body {
     inset: 0;
     z-index: -2;
 
-    inline-size: 100vw;
+    inline-size: 100%;
     block-size: 100vh;
     background-color: transparent;
 
@@ -175,7 +175,7 @@ body {
 }
 
 #background {
-  inline-size: 100vw;
+  inline-size: 100%;
   block-size: auto;
   position: fixed;
   inset-inline-start: 0;
@@ -269,6 +269,10 @@ body {
 
 .employee-title {
   white-space: nowrap;
+
+  @media screen and (width <= 612px) {
+    white-space: normal;
+  }
 }
 
 :is(.headline-summary) {
