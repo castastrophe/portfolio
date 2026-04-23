@@ -682,6 +682,18 @@ a-box {
       --cta-button--timing: 400ms;
       --cta-button--easing: ease-in;
   }
+
+  @media screen and (width <= 612px) {
+    font-size: .7em;
+
+    ul {
+      gap: calc(var(--theme--content--space) / 2);
+    }
+
+    .cta-button {
+      padding: 0.4em 0.6em;
+    }
+  }
 }
 
 :is(.listing) {
