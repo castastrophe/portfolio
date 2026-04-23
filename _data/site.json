@@ -1,12 +1,14 @@
 {
 	"title": "Allons-y Consulting",
     "tagline": ["Design systems", "Front-end", "Project management"],
-	"description": "Allons-y Consulting is a small consulting shop that specializes in building scalable design systems in code.",
+	"description": "Building scalable front-end infrastructure and design systems for organizations of all sizes",
 	"language": "en",
     "author": "Cassondra Roberts",
-    "keywords": "css, web development, portfolio",
+    "keywords": "css, web development, design systems, portfolio",
     "themeColor": "#DD18B3",
-    "url": "https://allons-y.llc",
+    "url": "https://allons-y.llc/",
+    "feed": "/feed.atom",
+    "banner": "./img/banner.png",
     "contact": {
         "email": "consulting@allons-y.llc"
     },

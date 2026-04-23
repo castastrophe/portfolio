@@ -1,0 +1,33 @@
+name: Link validation
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Run every Monday at 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use Node LTS version
+        uses: actions/setup-node@v6
+        with:
+          cache: yarn
+          node-version: 24
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Check links
+        run: yarn check:links:external

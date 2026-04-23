@@ -1,0 +1,25 @@
+---
+indexed: false
+prism: true
+customSheets:
+  - deck
+---
+
+{% extends "_layouts/foundation.njk" %}
+
+{# No site header — the slide-deck component renders its own minimal back-link #}
+{% block header %}{% endblock %}
+
+{% block content %}
+{{ content | safe }}
+{% endblock %}
+
+{# Replace the standard footer content with just the slide component scripts.
+   The Prism scripts and bundle JS from foundation.njk still load via the
+   surrounding <footer> element outside this block. #}
+{% block footer %}
+<script type="module" src="{{ '/js/components/slide-deck.js' | url }}"></script>
+<script type="module" src="{{ '/js/components/slide-item.js' | url }}"></script>
+<script type="module" src="{{ '/js/components/slide-code.js' | url }}"></script>
+<script type="module" src="{{ '/js/components/slide-demo.js' | url }}"></script>
+{% endblock %}

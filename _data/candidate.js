@@ -60,7 +60,7 @@ function formatEmployeeObject(user) {
       case 'portfolio_url':
         contact.push({
           "type": "url",
-          "value": value,
+          "value": `https://${value}`,
           "label": "Website",
           "icon": "fa-solid fa-globe"
         });
@@ -68,12 +68,12 @@ function formatEmployeeObject(user) {
       case 'github_url':
         contact.push({
           "type": "url",
-          "value": user.github_url,
+          "value": `https://${user.github_url}`,
           "label": "GitHub",
           "icon": "fa-brands fa-github"
         });
         socials.push({
-          "url": user.github_url,
+          "url": `https://${user.github_url}`,
           "classes": "fa-brands fa-github",
           "label": "GitHub",
           "rel": rel
@@ -82,12 +82,12 @@ function formatEmployeeObject(user) {
       case 'codepen_url':
         contact.push({
           "type": "url",
-          "value": user.codepen_url,
+          "value": `https://${user.codepen_url}`,
           "label": "Codepen",
           "icon": "fa-brands fa-codepen"
         });
         socials.push({
-          "url": user.codepen_url,
+          "url": `https://${user.codepen_url}`,
           "classes": "fa-brands fa-codepen",
           "label": "Codepen",
           "rel": rel
@@ -95,7 +95,7 @@ function formatEmployeeObject(user) {
         break;
       case 'youtube_url':
         socials.push({
-          "url": user.youtube_url,
+          "url": `https://${user.youtube_url}`,
           "classes": "fa-brands fa-youtube",
           "label": "YouTube",
           "rel": rel
@@ -103,21 +103,15 @@ function formatEmployeeObject(user) {
         break;
       case 'social_url':
         socials.push({
-          "url": user.social_url,
+          "url": `https://${user.social_url}`,
           "classes": "fa-brands fa-mastodon",
           "label": "Mastodon",
-          "rel": rel
+          "rel": rel,
         });
         break;
       case 'linkedin_url':
-        contact.push({
-          "type": "url",
-          "value": user.linkedin_url,
-          "label": "LinkedIn",
-          "icon": "fa-brands fa-linkedin"
-        });
         socials.push({
-          "url": user.linkedin_url,
+          "url": `https://${user.linkedin_url}`,
           "classes": "fa-brands fa-linkedin-in",
           "label": "LinkedIn",
           "rel": rel

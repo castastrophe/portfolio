@@ -7,7 +7,7 @@ eleventyNavigation:
 ---
 
 {% block masthead %}
-    {% include "_masthead.njk" %}
+    {% include "masthead.njk" %}
 {% endblock %}
 
 <main id="main-content" aria-label="Main content" tabindex="-1">
@@ -34,7 +34,7 @@ eleventyNavigation:
             projects: candidate.projects,
             presentations: presentations
         } %}
-        {% include "_bio.njk" %}
+        {% include "bio.njk" %}
 
         {% for employee in candidate.employees %}
             {% set employee = {
@@ -49,7 +49,7 @@ eleventyNavigation:
                 achievements: ["Managed consolidated upgrade of Momentum Financials including G-Invoicing implementation and Treasury IPP integration", "Led portfolio of 20+ projects with combined budget of $354M", "Directed teams of 75+ contractors and 12 federal employees", "Oversaw enterprise-wide financial systems, payroll modernization, and compliance initiatives"],
                 skills: ["Program and portfolio management (PMP®, MPM®)", "Large-scale digital transformation", "Financial systems modernization", "Enterprise architecture and integration", "Change management and organizational strategy", "Risk management and governance", "Federal/enterprise project delivery"]
             } %}
-            {% include "_bio.njk" %}
+            {% include "bio.njk" %}
         {% endfor %}
     </a-band>
 </main>
