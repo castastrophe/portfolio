@@ -284,8 +284,7 @@ body {
 }
 
 :where(.content) {
-  min-inline-size: 80ch;
-  max-inline-size: 100%;
+  max-inline-size: min(80ch, 100%);
 
   > * {
     margin-block-end: 1em;
@@ -483,34 +482,6 @@ details {
   &:where([open]) summary::after {
     transform: rotate(-135deg);
   }
-
-  /* Used in posts and proposals */
-  &:is(.table-of-contents) {
-    nav {
-      padding: var(--theme--content--space) 1em 1em;
-      overflow-y: auto;
-
-      /* todo: style the scroller? */
-
-      :is(ol, ul) a {
-        color: var(--theme--text--Color);
-      }
-
-      ol {
-        padding-inline-start: 1em;
-        list-style-type: none;
-
-        &:first-child {
-          padding-inline-start: 0;
-        }
-
-        &:first-child>li>a {
-          font-weight: var(--theme--FontWeight--bold);
-          line-height: var(--theme--LineHeight);
-        }
-      }
-    }
-  }
 }
 
 /* Create more space where a highlighted title appears with a card in the header */
@@ -681,8 +652,6 @@ a-box {
   }
 
   @media screen and (width <= 612px) {
-    font-size: .7em;
-
     ul {
       gap: calc(var(--theme--content--space) / 2);
     }
