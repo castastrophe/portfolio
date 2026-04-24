@@ -930,15 +930,12 @@ div[slot="header"]:has(.mobile-headshot),
 
 /* Custom styles for Prism Toolbar plugin */
 :is(.code-toolbar) {
-  background-color: transparent;
+  background-color: color-mix(in sRGB, var(--prism-default-background) 20%, light-dark(white, black));
 
   border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
   border-radius: var(--theme--BorderRadius);
 
-  display: grid;
-  grid-template-areas: "code toolbar";
-  grid-template-rows: auto 1fr;
-  gap: 0;
+  position: relative;
 
   &:not(:last-child) {
     margin-block-end: 1em;
@@ -950,25 +947,20 @@ div[slot="header"]:has(.mobile-headshot),
     border-width: 0 !important;
   }
 
-  > pre[class*="language-"] {
-    grid-area: code;
-  }
-
   [class*="language-"]:is(code, pre) {
     background-color: transparent;
   }
 
   .toolbar {
-    grid-area: toolbar;
-
-    padding: var(--theme--content--space) !important;
-    padding-inline-start: 0 !important;
+    position: absolute;
+    inset-block-start: var(--theme--content--space);
+    inset-inline-end: var(--theme--content--space);
+    z-index: 1;
 
     display: flex;
     flex-flow: row nowrap;
     justify-content: end;
     gap: var(--theme--content--space);
-    overflow: hidden;
 
     .toolbar-item {
       margin: 0 !important;
