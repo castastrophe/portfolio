@@ -2,9 +2,7 @@ const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
         display: block;
-        inline-size: fit-content;
-        max-inline-size: 100%;
-        min-inline-size: 0;
+        inline-size: min(fit-content, 100%);
 
         box-sizing: border-box;
         background-color: var(--note--Background, var(--theme--surface--color));
@@ -12,8 +10,6 @@ styles.replaceSync(`
         border-inline-start: var(--theme--BorderWidth--emphasis) solid var(--theme--ui--color);
         border-radius: var(--theme--BorderRadius);
         padding: var(--note--Padding, var(--theme--container--space));
-
-        overflow-wrap: anywhere;
     }
 
     ::slotted(*:not(:last-child)) {
