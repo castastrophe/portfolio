@@ -258,10 +258,6 @@ body {
     font-weight: var(--theme--FontWeight);
   }
 
-  &:has(+ p) {
-    margin-block-end: 0;
-  }
-
   &.company-name {
     margin-block-start: 0;
   }
@@ -288,7 +284,12 @@ body {
 }
 
 :where(.content) {
-  inline-size: min(80ch, 100%);
+  min-inline-size: 80ch;
+  max-inline-size: 100%;
+
+  > * {
+    margin-block-end: 1em;
+  }
 }
 
 :is(.columns) {
