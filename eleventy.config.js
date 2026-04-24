@@ -54,6 +54,7 @@ export default async function ( config ) {
 	const postcssConfig = await loadConfig( { env: isProduction ? 'production' : 'development' } );
 	const imageOptions = {
 		urlPath: "/images/",
+		outputDir: "./public/images/",
 		formats: [ "webp", "png" ],
 		failOnError: true,
 	};
@@ -172,6 +173,7 @@ export default async function ( config ) {
 				imgAttributes: {
 					alt,
 					sizes,
+					"eleventy:ignore": "",
 				}
 			}
 		} );
@@ -242,6 +244,13 @@ export default async function ( config ) {
 		"pages/assets/favicon.*": "/",
 		"pages/js/*[!11tydata].js": "js/",
 		"components/*.js": "js/components/"
+	} );
+
+	// Strip eleventy:ignore markers left on <img> tags inside <picture>
+	// elements (the transform plugin only cleans the attribute on bare <img>s).
+	config.addTransform( "cleanEleventyAttrs", function ( content ) {
+		if ( !this.page.outputPath?.endsWith( ".html" ) ) return content;
+		return content.replace( /\s+eleventy:ignore=""/g, "" );
 	} );
 
 	config.addTransform( "prettier", function ( content ) {
