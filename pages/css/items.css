@@ -1,59 +1,101 @@
-:is(.item-header) {
+/* ============================================================
+   ITEM HEADER — masthead at the top of a post/proposal
+   ============================================================ */
+
+.item-header {
     --image-size: max(150px, 20%);
-    --headline--FontSize: 2.6em;
 
-    a:has(img) {
-        --theme--BorderRadius: var(--theme--BorderRadius--circle);
-        --theme--OutlineOffset: calc(var(--theme--Outline) * -1);
+    /* Note: this is the mobile-first layout */
+    --band--Grid--areas: "header body" ". footer";
+    --band--Grid--columns: var(--image-size) 1fr;
+    --band--Grid--rows: 1fr auto;
+    --band--Width: 930px;
+    --band--Gap--vertical: 2px;
 
-        cursor: pointer;
-        display: flex;
-        max-inline-size: var(--image-size);
-        block-size: auto;
-        margin-block-start: -10px;
-        margin-inline-end: 10px;
-    }
+    --band--body--JustifyContent: start;
+    --band--body--AlignItems: center;
 
-    img {
-        aspect-ratio: var(--aspect-ratio, 1 / 1);
-        inline-size: 100%;
-        block-size: auto;
-        border-radius: var(--theme--BorderRadius);
-        border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
-    }
+    --band--footer--JustifyContent: center;
+    --band--footer--AlignItems: start;
 
     .headline {
         line-height: var(--theme--LineHeight--dense);
+        margin-block: 0;
+    }
+
+    @media screen and (width <= 720px) {
+      --image-size: min(120px, 100%);
+      --band--Grid--areas: "header body body" "footer footer footer";
     }
 }
 
-:is(.item-body) {
-    --band--body--Wrap: nowrap;
+/* ============================================================
+   ITEM LAYOUT — two-column grid (sidebar TOC + main content)
+   ============================================================ */
+
+.item-layout {
+    inline-size: 100%;
 
     .table-of-contents {
-        position: sticky;
-        max-block-size: 70vh;
-        inset: 0;
+        display: none;
+    }
+}
 
-        nav > ol {
-            padding-inline-start: 0;
+@media (width >= 1100px) {
+    /* .item-layout {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: calc(var(--theme--container--space) * 2);
+        align-items: start;
+    } */
+
+    /* .table-of-contents {
+        display: block;
+        position: sticky;
+        inset-block-start: calc(var(--sticky-height, 0px) + var(--theme--container--space));
+        max-block-size: calc(100dvh - var(--sticky-height, 0px) - var(--theme--container--space) * 2);
+        overflow-y: auto;
+        font-size: 0.875rem;
+        line-height: var(--theme--LineHeight--dense);
+
+        nav ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        ol {
-            list-style-type: none;
-            padding-inline-start: 1.5rem;
+        nav ol ol {
+            padding-inline-start: 1em;
+        }
 
-            li {
-                font-size: .9em;
+        nav a {
+            display: block;
+            padding-block: 0.25em;
+            color: var(--theme--text--Color--subtle);
 
-                a:not(:is(:hover, :focus, :focus-visible)) { color: inherit; }
+            &:hover {
+                color: var(--theme--link--Color--hover);
+            }
+
+            &[aria-current="true"] {
+                color: var(--theme--link--Color--active);
+                font-weight: var(--theme--FontWeight--semi-bold);
             }
         }
-    }
+    } */
+}
+
+/* ============================================================
+   ITEM BODY — content area, inline table of contents, notes
+   ============================================================ */
+
+.item-body {
+    --band--Display: block;
 
     .content {
-        font-size: 20px;
+        max-inline-size: 930px;
         background-color: color-mix(in srgb, var(--theme--surface--color) 70%, transparent);
+        font-size: 20px;
         padding: var(--theme--container--space);
         border-radius: var(--theme--BorderRadius);
     }
@@ -63,6 +105,7 @@
     }
 
     a-note {
+        max-inline-size: 930px;
         margin-block-start: 2em;
 
         .cta-button {

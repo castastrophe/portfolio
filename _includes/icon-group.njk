@@ -20,7 +20,7 @@
 
 <div class="icon-group"{% if icons.length < 2 %} style="align-self: start"{% endif %}{% if slot %} slot="{{ slot }}"{% endif %}>
     {% for icon in icons | default(site.socials) %}
-    <a href="{{ icon.url | url }}" aria-label="{{ icon.label}} ">
+    <a href="{{ icon.url | validateURL }}" rel="{{ icon.rel }}" aria-label="{{ icon.label}} ">
         <span class="{{ icon.classes }}"></span>
     </a>
     {% endfor %}

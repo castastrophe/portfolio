@@ -160,7 +160,7 @@ permalink: "resume/{{ resume.slug | slugify }}.html"
               <div class="contact-item">
                 {% if contact.icon %}<span class="{{ contact.icon }}" aria-hidden="true"></span>{% endif %}
                 {% if contact.label %}<span class="visually-hidden">{{ contact.label }}</span>{% endif %}
-                {% if href %}<a href="{{ href }}">{{ content }}</a>{% else %}{{ content }}{% endif %}
+                {% if href %}<a href="{{ href | validateURL }}">{{ content }}</a>{% else %}{{ content }}{% endif %}
               </div>
             {% endfor %}
           </div>

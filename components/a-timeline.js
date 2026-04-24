@@ -70,6 +70,7 @@ customElements.define(
 	class ATimeline extends HTMLElement {
 		#activeIndex = 0;
 		#dots = [];
+		#keydownHandler = null;
 
 		constructor() {
 			super();
@@ -85,6 +86,8 @@ customElements.define(
 		}
 
 		connectedCallback() {
+			if (this.shadowRoot.firstChild) return;
+
 			this.shadowRoot.adoptedStyleSheets = [styles];
 
 			const panels = this.querySelectorAll(".role-panel");
@@ -93,19 +96,16 @@ customElements.define(
 			this.setAttribute("role", "tablist");
 			this.setAttribute("aria-label", "Role history");
 
-			// Build timeline navigation
 			const nav = document.createElement("nav");
 			nav.classList.add("timeline");
 
-			const preconnector = this.createConnector(-1);
-			nav.appendChild(preconnector);
+			nav.appendChild(this.createConnector(-1));
 
 			panels.forEach((panel, i) => {
 				const title = panel.dataset.title || `Role ${i + 1}`;
 
 				if (i > 0) {
-					const connector = this.createConnector(i);
-					nav.appendChild(connector);
+					nav.appendChild(this.createConnector(i));
 				}
 
 				const dot = document.createElement("button");
@@ -116,10 +116,7 @@ customElements.define(
 				dot.title = title;
 				dot.dataset.index = i;
 
-				// Click handler
-				dot.addEventListener("click", (e) => {
-					this.#activate(Number(i));
-				});
+				dot.addEventListener("click", () => this.#activate(i));
 
 				if (i === 0) dot.classList.add("active");
 
@@ -127,16 +124,14 @@ customElements.define(
 				this.#dots.push(dot);
 			});
 
-			const postconnector = this.createConnector(panels.length);
-			nav.appendChild(postconnector);
+			nav.appendChild(this.createConnector(panels.length));
 
 			const slot = document.createElement("slot");
 
 			this.shadowRoot.appendChild(nav);
 			this.shadowRoot.appendChild(slot);
 
-			// Keyboard navigation (roving tabindex)
-			this.addEventListener("keydown", (e) => {
+			this.#keydownHandler = (e) => {
 				const current = this.#activeIndex;
 				let next;
 
@@ -160,7 +155,16 @@ customElements.define(
 				e.preventDefault();
 				this.#dots[next].focus();
 				this.#activate(next);
-			});
+			};
+
+			this.addEventListener("keydown", this.#keydownHandler);
+		}
+
+		disconnectedCallback() {
+			if (this.#keydownHandler) {
+				this.removeEventListener("keydown", this.#keydownHandler);
+				this.#keydownHandler = null;
+			}
 		}
 
 		#activate(index) {
@@ -170,7 +174,6 @@ customElements.define(
 			const direction = index > this.#activeIndex ? 1 : -1;
 			this.#activeIndex = index;
 
-			// Update dots
 			this.#dots.forEach((dot, i) => {
 				const isActive = i === index;
 				dot.classList.toggle("active", isActive);
@@ -178,7 +181,6 @@ customElements.define(
 				dot.setAttribute("tabindex", isActive ? "0" : "-1");
 			});
 
-			// Update panels
 			panels.forEach((panel, i) => {
 				if (i === index) {
 					panel.setAttribute("active", "");
@@ -189,7 +191,6 @@ customElements.define(
 				}
 			});
 
-			// Dispatch event for header title update
 			const title = panels[index]?.dataset.title || "";
 			this.dispatchEvent(
 				new CustomEvent("role-change", {

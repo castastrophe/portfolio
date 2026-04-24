@@ -36,3 +36,6 @@ jobs:
 
       - name: Run tests
         run: yarn test
+
+      - name: Check links
+        run: yarn check:links:internal

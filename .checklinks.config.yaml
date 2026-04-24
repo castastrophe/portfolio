@@ -6,6 +6,7 @@ url: https://allons-y.llc
 # URL patterns to suppress — plain substrings, not globs
 excludedKeywords:
   - localhost
+  - allons-y.llc
   - stackoverflow.com
   - codepen.io
   - linkedin.com
@@ -37,3 +38,5 @@ internal:
     - .css.map
     - .js.map
     - feed.atom
+    - fonts.googleapis.com
+    - fonts.gstatic.com

@@ -7,28 +7,20 @@ indexed: false
 ---
 
 {% css %}
-#not-found .content {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
 .police-box-container {
     flex-shrink: 0;
     inline-size: min(200px, 40vw);
-    animation: police-box-in-flight 4s linear 0.3s both;
+    animation: pulse 2s infinite, in-flight 8s both;
 
     @media screen and (width <= 1059px) {
         display: none;
     }
-}
 
-.police-box-container img,
-.police-box-container picture {
-    display: block;
-    inline-size: 100%;
-    block-size: auto;
+    &:is(img,picture) {
+        display: block;
+        inline-size: 100%;
+        block-size: auto;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -36,56 +28,10 @@ indexed: false
         animation: none;
     }
 }
-
-@keyframes police-box-in-flight {
-    /* Materializes far upper-right, tiny and tilted */
-    0% {
-        translate: 120vw -40vh;
-        rotate: 20deg;
-        scale: 0.08;
-        opacity: 0;
-    }
-
-    /* Snap into visibility — it's suddenly just there */
-    6% {
-        opacity: 1;
-    }
-
-    /* Crosses the screen; the police-box is notoriously hard to steer */
-    50% {
-        translate: -10px 15px;
-        rotate: -8deg;
-        scale: 0.85;
-    }
-
-    /* Overshoots the landing spot with a flash of materialization light */
-    65% {
-        translate: 4px -8px;
-        rotate: 4deg;
-        scale: 1.08;
-        filter: brightness(-.2) drop-shadow(0 0 28px var(--theme--ui--color));
-    }
-
-    /* Settles back, engines winding down */
-    80% {
-        translate: 0 3px;
-        rotate: -1deg;
-        scale: 0.96;
-        filter: brightness(-0.8);
-    }
-
-    /* One last glow as the dematerialization circuit powers off */
-    90% {
-        filter: brightness(1.2) drop-shadow(0 0 14px var(--theme--ui--color));
-    }
-
-    /* Parked. Mostly straight. */
-    100% {
-        translate: 0 0;
-        rotate: 0deg;
-        scale: 1;
-        filter: brightness(1) drop-shadow(0 0 6px var(--theme--ui--color));
-    }
+#not-found {
+    --band--body--Wrap: nowrap;
+    --band--body--Gap--horizontal: 0;
+    --card--Width: 60ch;
 }
 {% endcss %}
 
@@ -99,9 +45,11 @@ indexed: false
         <div class="police-box-container accent--orange" aria-hidden="true">
             <img src="../img/police-box.png" alt="" loading="eager">
         </div>
-        <a-card class="content">
-            <p>Well, this is awkward. The page you're looking for has either wandered off into an alternate timeline, regenerated into something else entirely, or simply never existed in this universe.</p>
-            <p>The good news: you've got the whole site to explore. <em class="brand">Allons-y!</em></p>
+        <a-card bordered style="z-index: 2">
+            <div class="content">
+                <p>Well... this is awkward. The page you're looking for has wandered into an alternate timeline...or regenerated! Or maybe it never existed in <em class="underline">this</em> universe?</p>
+                <p><strong>The good news:</strong> you've got the whole site to explore. <em class="brand">Allons-y!</em></p>
+            </div>
             <p slot="footer"><a href="/" class="cta-link">Take me somewhere that exists</a></p>
         </a-card>
     </a-band>

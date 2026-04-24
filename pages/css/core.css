@@ -1,6 +1,11 @@
+/* ============================================================
+   BASE — html & body resets
+   ============================================================ */
+
 html {
     backface-visibility: hidden;
     scroll-behavior: smooth;
+    scroll-padding-block-start: var(--theme--container--space);
 }
 
 body {
@@ -8,11 +13,9 @@ body {
     margin: 0;
     font-optical-sizing: auto;
     color: var(--theme--text--Color);
-    scroll-snap-type: y proximity;
-    scroll-snap-align: start;
-    scroll-padding-block-start: 30px;
-    scroll-snap-stop: always;
     overflow-x: hidden;
+
+    scroll-snap-type: y mandatory;
 
     @media print {
         font-size: 16px;
@@ -20,15 +23,23 @@ body {
     }
 }
 
-/* Stylized highlight for selected text */
+/* ============================================================
+   SELECTION — styled text highlight
+   ============================================================ */
+
 ::selection {
     background: color-mix(in hsl, var(--theme--surface--color--accent) 80%, transparent);
     border-radius: 0.25em;
     color: var(--theme--text--Color);
 }
 
+/* ============================================================
+   LINKS — base anchor styles & states
+   ============================================================ */
+
 :where(a) {
     text-decoration: none;
+    text-underline-offset: .2ex;
     font-weight: var(--theme--FontWeight);
     color: var(--theme--link--Color);
 
@@ -42,12 +53,17 @@ body {
 
     &:hover {
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--hover);
         color: var(--theme--link--Color--hover);
     }
 
     &:is(:focus, :focus-visible) {
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--focus);
         color: var(--theme--link--Color--focus);
+        outline: 1px solid var(--theme--ui--color--active);
+        outline-offset: var(--theme--OutlineOffset, 1px);
+        border-radius: var(--theme--BorderRadius);
     }
 
     &[name]:not([href]) {
@@ -58,16 +74,11 @@ body {
         color: inherit;
         font-weight: var(--theme--FontWeight--semi-bold);
         text-decoration: underline;
+        text-decoration-color: var(--theme--link--Color--active);
     }
 
     img {
         cursor: pointer;
-    }
-
-    &:is(:focus, :focus-visible) {
-        outline: 1px solid var(--theme--ui--color--active);
-        outline-offset: var(--theme--OutlineOffset, 1px);
-        border-radius: var(--theme--BorderRadius);
     }
 }
 
@@ -77,6 +88,20 @@ body {
 
 :is([hidden]) {
     display: none;
+}
+
+/* Screen-reader-only text: visually hidden, still read aloud.
+   Used by the markdown-it-anchor permalink assistive labels. */
+:is(.sr-only, .visually-hidden) {
+    position: absolute;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
 }
 
 :is(.shadow) {

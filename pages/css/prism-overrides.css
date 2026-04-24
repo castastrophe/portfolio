@@ -1,0 +1,47 @@
+/* ============================================================
+   INLINE CODE — code spans inside prose
+   ============================================================ */
+:is(p, li) > code {
+  background: var(--theme--surface--color);
+  color: var(--theme--text--Color);
+  font-size: var(--theme--code--FontSize);
+  font-weight: var(--theme--FontWeight);
+  line-height: inherit;
+  border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
+  border-radius: var(--theme--BorderRadius);
+  padding: .2em .4em;
+}
+
+/* ============================================================
+   CODE BLOCKS — pre, Prism syntax highlighting, toolbar
+   ============================================================ */
+pre[class|="language"] {
+  font-size: .9em;
+  contain: inline-size;
+  padding: var(--theme--content--space) !important;
+  border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
+}
+
+/* ============================================================
+   LINE NUMBERS — line-numbers plugin
+   ============================================================ */
+pre[class|="language"]:has(.highlight-line) {
+  counter-reset: linenumber;
+
+  .highlight-line {
+    position: relative;
+    counter-increment: linenumber;
+
+    &::before {
+      content: counter(linenumber);
+      display: inline-block;
+      color: #999;
+      padding-inline-end: 0.6em;
+      margin-inline-end: 0.6em;
+      text-align: end;
+      inline-size: 1.4em;
+      letter-spacing: -1px;
+      border-right: var(--theme--BorderWidth--thin) solid currentColor;
+    }
+  }
+}

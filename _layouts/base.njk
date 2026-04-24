@@ -3,6 +3,7 @@ customSheets:
   - theme
   - animation
   - core
+  - prism-overrides
   - home
 customScripts:
   - home
@@ -28,7 +29,7 @@ customScripts:
     <div slot="footer">
         {% include "icon-group.njk" %}
     </div>
-    <a slot="footer" href="{{ site.funding[0].url }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
+    <a slot="footer" href="{{ site.funding[0].url | validateURL }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
         {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
     </a>
 </a-band>
@@ -37,7 +38,13 @@ customScripts:
     --band--footer--Direction: row;
     --band--footer--AlignItems: center;
     --band--footer--JustifyContent: space-between;
-    --image-size: 180px;
+    --image-size: min(180px, 100%);
+
+    @media screen and (width <= 612px) {
+        --band--footer--Direction: column;
+        --band--footer--JustifyContent: center;
+        --band--footer--AlignItems: center;
+    }
 }
 {% endcss %}
 {% endblock %}

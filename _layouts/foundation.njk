@@ -57,24 +57,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=PT+Mono&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     {# Load custom stylesheets and bundles #}
-    <style>
-        {% for customSheet in customSheets %}
-        @import "{{ '/css/' + customSheet + '.css' | url }}";
-        {% endfor %}
-        {% if prism %}
-        @import "{{ '/css/prism.css' | url }}";
-        @import "{{ '/css/prism-one-light.css' | url }}";
-        @import "{{ '/css/prism-one-dark.css' | url }}" media="(prefers-color-scheme: dark)";
-        {% endif %}
+    {% for customSheet in customSheets %}
+        <link rel="stylesheet" href="{{ '/css/' + customSheet + '.css' | url }}">
+    {% endfor %}
 
-        {% getBundle "css" %}
-    </style>
+    {% if prism %}
+    <link rel="stylesheet" href="{{ '/css/prism-one-light.css' | url }}">
+    <link rel="stylesheet" href="{{ '/css/prism-one-dark.css' | url }}" media="(prefers-color-scheme: dark)">
+    {% endif %}
+
+    <style>{% getBundle "css" %}</style>
 
     {# Load Font Awesome #}
     <script src="https://kit.fontawesome.com/42e99b4632.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="line-numbers">
     {% block background %}{{ background | safe }}{% endblock %}
 
     {% block header %}{{ header | safe }}{% endblock %}
@@ -85,20 +83,11 @@
         {% block footer %}{{ footer | safe }}{% endblock %}
 
         {# Load Prism and custom scripts #}
-        <script type="module">
-            {% for customScript in customScripts %}
-            import "{{ '/js/' + customScript + '.js' | url }}";
-            {% endfor %}
-            {% if prism %}
-            import "{{ '/js/prism.js' | url }}";
-            import "{{ '/js/prism-toolbar.js' | url }}";
-            import "{{ '/js/prism-copy-to-clipboard.js' | url }}";
-            import "{{ '/js/prism-line-numbers.js' | url }}";
-            import "{{ '/js/prism-normalize-whitespace.js' | url }}";
-            {% endif %}
+        {% for customScript in customScripts %}
+        <script type="module" src="{{ '/js/' + customScript + '.js' | url }}"></script>
+        {% endfor %}
 
-            {% getBundle "js" %}
-        </script>
+        <script type="module">{% getBundle "js" %}</script>
     </footer>
 </body>
 

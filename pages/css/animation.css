@@ -1,4 +1,8 @@
-/* Scroll-triggered accent bar animation */
+/* ============================================================
+   ANIMATIONS — keyframes used across the site
+   ============================================================ */
+
+/* Scroll-triggered accent bar: slides in from off-screen on the block axis */
 @keyframes roll-in {
     0% {
         opacity: 0;
@@ -14,6 +18,7 @@
     }
 }
 
+/* Role carousel panel slide-in on tab change */
 @keyframes role-slide-in {
     from {
         opacity: 0;
@@ -23,5 +28,61 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+/* Generic blink / pulse — used for loading indicators */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* TARDIS landing sequence */
+@keyframes in-flight {
+    /* Materializes far upper-right, tiny and tilted */
+    0% {
+        translate: 100vw -50vh;
+        rotate: 20deg;
+        scale: 0.08;
+    }
+
+    /* Crosses the screen; the police-box is notoriously hard to steer */
+    50% {
+        translate: -10px 15px;
+        rotate: -8deg;
+        scale: 0.85;
+    }
+
+    /* Overshoots the landing spot with a flash of materialization light */
+    65% {
+        translate: 4px -8px;
+        rotate: 4deg;
+        scale: 1.08;
+    }
+
+    /* Settles back, engines winding down */
+    80% {
+        translate: 0 3px;
+        rotate: -1deg;
+        scale: 0.96;
+        filter: brightness(1);
+    }
+
+    /* One last glow as the dematerialization circuit powers off */
+    90% {
+        filter: brightness(1.2);
+    }
+
+    /* Parked. Mostly straight. */
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: brightness(1);
     }
 }

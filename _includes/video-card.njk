@@ -28,7 +28,7 @@
         <ul>
             {% for resource in presentation.resources %}
             <li>
-                <a class="cta-link" target="_blank" href="{{ resource.url }}">{{ resource.cta }}</a>
+                <a class="cta-link" target="_blank" href="{{ resource.url | validateURL }}">{{ resource.cta }}</a>
             </li>
             {% endfor %}
         </ul>
@@ -37,6 +37,6 @@
     {% endif %}
 
     {% if presentation.tags.length > 0 %}
-    <tag-group tags="{{ presentation.tags | join(',') }}" labeled slot="footer"></tag-group>
+    <tag-group tags="{{ presentation.tags | join(',') }}" labeled url="{{ '/presentations/' | validateURL }}" filters slot="footer"></tag-group>
     {% endif %}
 </a-card>

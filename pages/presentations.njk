@@ -34,17 +34,17 @@ eleventyNavigation:
             {% endif %}
             <div class="content">
                 <h3 class="title">{{ item.title }}</h3>
-                <h4 class="headline"><a :href="`https://www.youtube.com/embed/${item.youtube_id}`"
+                <h4 class="headline"><a href="https://www.youtube.com/watch?v={{ item.youtube_id }}"
                         title="Click to watch this interview">{{ item.headline }}</a></h4>
                 <p>{{ item.description }}</p>
                 {% if item.resources %}
                 <p class="cta">
                     {% for resource in item.resources %}
-                    <a class="cta-link" target="_blank" href="{{ resource.url }}">{{ resource.cta }}</a>
+                    <a class="cta-link" target="_blank" href="{{ resource.url | validateURL }}">{{ resource.cta }}</a>
                     {% endfor %}
                 </p>
                 {% endif %}
-                {% if item.tags.length > 0 %}<tag-group tags="{{ item.tags | join(',') }}" labeled slot="footer"></tag-group>{% endif %}
+                {% if item.tags.length > 0 %}<tag-group tags="{{ item.tags | join(',') }}" labeled url="{{ page.url | validateURL }}" filters slot="footer"></tag-group>{% endif %}
             </div>
         </a-card>
         {% endif %}
