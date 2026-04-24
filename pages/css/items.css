@@ -41,13 +41,9 @@
 }
 
 :is(.item-body) {
-    --band--body--Wrap: nowrap;
+    --band--body--Direction: column;
 
     .table-of-contents {
-        position: sticky;
-        max-block-size: 70vh;
-        inset: 0;
-
         nav > ol {
             padding-inline-start: 0;
         }
