@@ -37,3 +37,5 @@ internal:
     - .css.map
     - .js.map
     - feed.atom
+    - fonts.googleapis.com
+    - fonts.gstatic.com

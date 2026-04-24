@@ -164,7 +164,6 @@ export default async function (config) {
 	config.addShortcode("image", async function (src, alt, widths = [320, 320], sizes = "") {
 		return Image(src, {
 			...imageOptions,
-			urlPath: "../public/images/",
 			widths,
 			returnType: "html",
 			htmlOptions: {
@@ -175,7 +174,7 @@ export default async function (config) {
 
 	/* ------------- FILTERS ------------- */
 	config.addFilter('imgSrc', async (src, format = 'webp') => {
-		const metadata = await Image(src, { ...imageOptions, urlPath: "../public/images/" });
+		const metadata = await Image(src, imageOptions);
 		return metadata[format]?.[0]?.url;
 	});
 

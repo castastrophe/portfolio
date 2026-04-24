@@ -64,7 +64,7 @@
         {% if prism %}
         @import "{{ '/css/prism.css' | url }}";
         @import "{{ '/css/prism-one-light.css' | url }}";
-        @import "{{ '/css/prism-one-dark.css' | url }}" media="(prefers-color-scheme: dark)";
+        @import "{{ '/css/prism-one-dark.css' | url }}" (prefers-color-scheme: dark);
         {% endif %}
 
         {% getBundle "css" %}
