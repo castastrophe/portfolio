@@ -930,7 +930,7 @@ div[slot="header"]:has(.mobile-headshot),
 
 /* Custom styles for Prism Toolbar plugin */
 :is(.code-toolbar) {
-  background-color: color-mix(in sRGB, var(--prism-default-background) 20%, light-dark(white, black));
+  background-color: transparent;
 
   border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
   border-radius: var(--theme--BorderRadius);
