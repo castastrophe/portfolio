@@ -32,8 +32,6 @@
         --band--header--JustifyContent: center;
         --band--body--JustifyContent: center;
 
-        text-align: center;
-
         a:has(img) {
             margin-inline: auto;
         }
