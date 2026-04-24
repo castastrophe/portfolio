@@ -91,7 +91,13 @@ export default async function (config) {
 	config.addPlugin(syntaxHighlight);
 	config.addPlugin(rss);
 	config.addPlugin(pluginTOC, { ul: false });
-	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
+	config.addPlugin(eleventyImageTransformPlugin, {
+		...imageOptions,
+		// Skip <img> tags whose src is already an emitted /images/ URL
+		// (from the image shortcode / imgSrc filter); the plugin would
+		// otherwise try to stat pages/images/… and fail.
+		failOnError: false,
+	});
 	config.addPlugin(eleventyNavigation);
 
 	/* External watch targets */
