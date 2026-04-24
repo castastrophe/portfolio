@@ -44,6 +44,9 @@
     --band--body--Direction: column;
 
     .table-of-contents {
+        /* @todo: fix how generated */
+        display: none;
+        
         nav > ol {
             padding-inline-start: 0;
         }
@@ -59,9 +62,7 @@
             }
         }
 
-        @media screen and (width <= 612px) {
-            display: none;
-        }
+
     }
 
     .content {
