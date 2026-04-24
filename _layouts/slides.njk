@@ -9,7 +9,7 @@ customSheets:
 
 <a-band class="item-header masthead" collapsed accent role="banner" aria-labelledby="title">
     <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
-      <img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
+      {% image "img/cartoon-self.png", "Animated caricature of the author", [150, 150] %}
     </a>
     <h1 class="headline" id="title">{{ title }}</h1>
     <p class="metadata">

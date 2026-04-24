@@ -1,4 +1,4 @@
-<svg id="background" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+<svg id="background" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <style>
         #background {
             --color-primary: var(--theme--surface--color--accent, light-dark(color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 20%, transparent), color-mix(in hsl, var(--base, hsl(336, 65%, 50%)) 60%, transparent)));

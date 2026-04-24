@@ -35,8 +35,9 @@ eleventyNavigation:
         {% endfor %}
         <a-card bordered featured overflow class="contact-card accent--reset">
             <h2 class="title" slot="header">Let's talk</h2>
-            <div class="content">
-                <p>To discuss how we can work together, please email us at <a href="mailto:{{ site.contact.email }}">consulting@allons-y.llc</a>.</p>
+            <div class="content" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
+                {% image "img/cartoon-thinking.png", "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
+                <p>To discuss what we can do together, please email us at <a href="mailto:{{ site.contact.email }}">consulting@allons-y.llc</a>.</p>
             </div>
         </a-card>
     </a-band>
@@ -45,17 +46,17 @@ eleventyNavigation:
     {% set accent="blue" %}
     {% include "cta-band.njk" %}
 
-<a-band id="posts" thin>
-    <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
-    {% for article in collections.posts | featured | reverse %}
-    <a-card bordered style="--card--header--Gap--vertical: 0;">
-        <h3 class="headline accent" slot="header"><a href="{{ article.url | validateURL }}">{{ article.data.title }}</a></h3>
-        <p class="date" slot="header">{{ article.data.date | long }}</p>
-        {% if article.data.description %}<p class="content" style="margin-block: .5em;">{{ article.data.description }}</p>{% endif %}
-        {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled url="{{ '/posts/' | validateURL }}" filters slot="footer"></tag-group>{% endif %}
-    </a-card>
-    {% endfor %}
-</a-band>
+    <a-band id="posts" thin>
+        <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
+        {% for article in collections.posts | featured | reverse %}
+        <a-card bordered style="--card--header--Gap--vertical: 0;">
+            <h3 class="headline accent" slot="header"><a href="{{ article.url | validateURL }}">{{ article.data.title }}</a></h3>
+            <p class="date" slot="header">{{ article.data.date | long }}</p>
+            {% if article.data.description %}<p class="content" style="margin-block: .5em;">{{ article.data.description }}</p>{% endif %}
+            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled url="{{ '/posts/' | validateURL }}" filters slot="footer"></tag-group>{% endif %}
+        </a-card>
+        {% endfor %}
+    </a-band>
 
     <!-- Recorded talks -->
     <a-band id="presentations" thick class="accent--blue">

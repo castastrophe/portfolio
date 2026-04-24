@@ -238,13 +238,12 @@ button::-moz-focus-inner {
 }
 
 :is(.headline) {
-  font-family: var(--theme--heading--FontFamily);
-  font-size: var(--headline--FontSize, 2em);
+  font-size: var(--headline--FontSize, calc(1.6em + 2.4vw));
   font-weight: var(--theme--FontWeight--light);
   line-height: var(--theme--text--LineHeight);
 
   @container (width <= 500px) {
-    --headline--FontSize: 1.3em;
+    --headline--FontSize: calc(1.2em + 2.6cqi);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -252,11 +251,7 @@ button::-moz-focus-inner {
   }
 
   &.company-name {
-    margin-block-start: 0;
-  }
-
-  &.company-name {
-    margin-block-start: 0;
+    margin-block: 0;
   }
 }
 
@@ -746,6 +741,31 @@ a-card {
   &:is(.contact-card) {
     --card--footer--BorderWidth: 0;
     --card--body--JustifyContent: center;
+    --image-size: 180px;
+
+    .content p:first-of-type {
+      margin-block-start: 10%;
+    }
+
+    picture {
+      float: inline-end;
+      margin-block-end: 0;
+
+      img {
+        shape-outside: var(--image-url);
+        shape-image-threshold: 0.5;
+        shape-margin: 0.1em;
+      }
+    }
+
+    @media screen and (width <= 768px) {
+      .content p:first-of-type {
+        margin-block-start: 0;
+      }
+      picture {
+        display: none;
+      }
+    }
   }
 
   &:is(.headshot-card) {

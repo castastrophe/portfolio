@@ -21,10 +21,10 @@
         }
     ],
     "socials": [
-        { "url": "https://front-end.social/@castastrophe", "classes": "fa-brands fa-mastodon", "label": "Mastodon", "rel":"me", "featured": true },
-        { "url": "https://www.linkedin.com/in/castastrophe", "classes": "fa-brands fa-linkedin-in", "label": "LinkedIn", "rel":"me", "featured": true },
-        { "url": "https://github.com/castastrophe", "classes": "fa-brands fa-github", "label": "GitHub", "rel":"me", "featured": true },
-        { "url": "https://codepen.io/castastrophe", "classes": "fa-brands fa-codepen", "label": "Codepen", "rel":"me", "featured": true },
-        { "url": "https://www.youtube.com/@castastrophe", "classes": "fa-brands fa-youtube", "label": "YouTube", "rel":"me", "featured": true }
+        { "url": "https://front-end.social/@castastrophe", "classes": "fa-brands fa-mastodon", "label": "Mastodon" },
+        { "url": "https://www.linkedin.com/in/castastrophe", "classes": "fa-brands fa-linkedin-in", "label": "LinkedIn" },
+        { "url": "https://github.com/castastrophe", "classes": "fa-brands fa-github", "label": "GitHub" },
+        { "url": "https://codepen.io/castastrophe", "classes": "fa-brands fa-codepen", "label": "Codepen" },
+        { "url": "https://www.youtube.com/@castastrophe", "classes": "fa-brands fa-youtube", "label": "YouTube" }
     ]
 }

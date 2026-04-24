@@ -8,34 +8,26 @@ customSheets:
   - items
 ---
 
-<a-band class="item-header masthead" collapsed accent role="banner" aria-labelledby="title">
-    <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
-      <img src="../../img/cartoon-self.png" alt="Animated caricature of the author" data-type="rounded">
-    </a>
-    <h1 class="headline" id="title">{{ title }}</h1>
-    <p class="metadata">
-        {% if author or site.author %}<span class="author">written by <span class="name">{{ author or site.author }}</span></span>{% endif %}
-        {% if date %}<span class="date">{{ date | long }}</span>{% endif %}
-        {% if listing_page %}<span class="cta"><a href="{{ '..' | url }}" title="Return to the {{ listing_page }} page" class="cta-link">All {{ listing_page }}</a></span>{% endif %}
-    </p>
-    {% set contentTags = tags | contentTags %}
-    {% if contentTags.length > 0 %}<tag-group tags="{{ contentTags | join(',') }}" labeled filters url="{{ listing_url | validateURL }}"></tag-group>{% endif %}
+<a-band class="item-header" collapsed accent role="banner" aria-labelledby="title">
+  <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
+    {% image "img/cartoon-self.png", "Animated caricature of the author", [150, 150] %}
+  </a>
+  <h1 class="headline" id="title">{{ title }}</h1>
+  <p class="metadata">
+      {% if author or site.author %}<span class="author">written by <span class="name">{{ author or site.author }}</span></span>{% endif %}
+      {% if date %}<span class="date">{{ date | long }}</span>{% endif %}
+      {% if listing_page %}<span class="cta"><a href="{{ '..' | url }}" title="Return to the {{ listing_page }} page" class="cta-link">All {{ listing_page }}</a></span>{% endif %}
+  </p>
+  {% set contentTags = tags | contentTags %}
+  {% if contentTags.length > 0 %}<tag-group tags="{{ contentTags | join(',') }}" labeled filters url="{{ listing_url | validateURL }}" slot="footer"></tag-group>{% endif %}
 </a-band>
 
 <main id="main-content" aria-label="Main content" tabindex="-1">
   <a-band class="item-body">
-  <div class="item-layout">
-    {% set tableOfContents = content | toc | safe %}
-    {% if tableOfContents %}
-        <aside class="table-of-contents">
-            <h2 class="title">Table of contents</h2>
-            {{ tableOfContents }}
-        </aside>
-    {% endif %}
     <div class="content">{{ content | md | safe }}</div>
-  </div>
 
     {% if sales_pitch %}
+    {# TODO: replace this with a form or other contact method #}
     <a-note slot="footer">
         <p>{{ sales_pitch }}</p>
         {% if site.contact.email %}<a class="cta-button" href="mailto:{{ site.contact.email }}">Let's connect</a>{% endif %}
