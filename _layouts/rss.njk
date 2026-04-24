@@ -1,0 +1,71 @@
+{%- set posts = collections.posts | reverse -%}
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title }}</title>
+  <subtitle>{{ site.description }}</subtitle>
+  <link href="{{ page.url | htmlBaseUrl(site.url) }}" rel="self"/>
+  <link href="{{ site.url }}"/>
+  <updated>{{ posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>{{ site.url }}</id>
+  <rights>© {{ 'today' | year }} {{ site.title }}</rights>
+  <icon>{{ '/favicon.ico' | htmlBaseUrl(site.url) }}</icon>
+  <logo>{{ site.banner | imgSrc('png') | htmlBaseUrl(site.url) }}</logo>
+  <author>
+    <name>{{ site.title }}</name>
+    <email>{{ site.contact.email }}</email>
+  </author>
+  {%- for post in posts %}
+  {%- if post.content or post.data.summary %}
+  {%- set absolutePostUrl = post.url | htmlBaseUrl(site.url) -%}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ absolutePostUrl }}"/>
+    <updated>{{ post.page.date | dateToRfc3339 }}</updated>
+    <id>{{ absolutePostUrl }}</id>
+    <author>
+        <name>{{ site.author }}</name>
+        <uri>{{ '/about' | htmlBaseUrl(site.url) }}</uri>
+    </author>
+
+    <content type="html">
+      {%- if post.data.image.src -%}
+        {%- filter escape -%}
+          <img src="{{ (site.images + post.data.image.src) | imgSrc | htmlBaseUrl(site.url) }}" alt="{{ post.data.image.alt }}"/>
+        {%- endfilter -%}
+      {%- endif -%}
+
+      {%- if post.data.summary -%}
+      {{ post.data.summary | md | transformWithHtmlBase(absolutePostUrl) }}
+      {%- endif -%}
+
+      {%- filter escape -%}
+      <p>
+        {%- if post.data.action.text -%}
+            {%- if post.data.action.url -%}
+            <a href="{{ post.data.action.url }}">{{ post.data.action.text | safe }}</a>
+            {%- else -%}
+            <span>{{ post.data.action.text | safe }}</span>
+            {%- endif -%}
+        {%- elif post.data.venue and post.data.canonical -%}
+            {%- if post.data.canonical -%}
+            <a href="{{ post.data.canonical }}">{{ ['See for yourself at', post.data.venue, '»'] | join(' ') | safe }}</a>
+            {%- else -%}
+            <span>{{ ['See for yourself at', post.data.venue, '»'] | join(' ') | safe }}</span>
+            {%- endif -%}
+        {%- endif -%}
+      </p>
+      {%- endfilter -%}
+
+      {%- if post.content -%}
+        {{ post.content | cleanForRSS | transformWithHtmlBase(absolutePostUrl) }}
+      {%- endif -%}
+    </content>
+
+    {%- for tag in post.data.tags %}
+    <category term='{{ tag }}' />
+    {%- endfor %}
+  </entry>
+  {% endif -%}
+  {% endfor -%}
+</feed>

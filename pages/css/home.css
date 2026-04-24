@@ -8,7 +8,7 @@ body {
 
   font-size: 18px;
 
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-padding-block-start: 20px;
 
   overflow-y: auto;
@@ -49,10 +49,10 @@ body {
 }
 
 #background {
-  inline-size: 100vw;
+  inline-size: 100%;
   block-size: auto;
   position: fixed;
-  inset-inline-start: 0;
+  inset-inline: 0;
   inset-block-start: 0;
   z-index: -1;
 }
@@ -251,8 +251,8 @@ button::-moz-focus-inner {
     font-weight: var(--theme--FontWeight);
   }
 
-  &:has(+ p) {
-    margin-block-end: 0;
+  &.company-name {
+    margin-block-start: 0;
   }
 
   &.company-name {
@@ -262,6 +262,10 @@ button::-moz-focus-inner {
 
 .employee-title {
   white-space: nowrap;
+
+  @media screen and (width <= 612px) {
+    white-space: normal;
+  }
 }
 
 :is(.headline-summary) {
@@ -428,37 +432,6 @@ details {
   &:where([open]) summary::after {
     transform: rotate(-135deg);
   }
-
-  /* Used in posts and proposals */
-  &:is(.table-of-contents) {
-    nav {
-      padding: var(--theme--content--space) 1em 1em;
-      overflow-y: auto;
-
-      :is(ol, ul) a {
-        color: var(--theme--text--Color);
-      }
-
-      ol {
-        counter-reset: item;
-        padding-inline-start: 1em;
-
-        &:first-child>li>a {
-          font-weight: var(--theme--FontWeight--bold);
-          line-height: var(--theme--LineHeight);
-        }
-
-        li {
-          counter-increment: item;
-
-          &::marker {
-            content: counters(item, ".") "  ";
-            color: var(--theme--text--Color--accent);
-          }
-        }
-      }
-    }
-  }
 }
 
 /* ============================================================
@@ -466,13 +439,9 @@ details {
    ============================================================ */
 
 :where(.content) {
-  max-inline-size: 80ch;
+  max-inline-size: min(80ch, 100%);
 
-  :is(p, h1, h2, h3, h4, h5, h6, div, hr):where(:not(:last-child, :last-of-type, :has(+ :is(ol, ul)))) {
-    margin-block-end: 1em;
-  }
-
-  :is(h1, h2, h3, h4, h5, h6) + :is(p, h1, h2, h3, h4, h5, h6, hr) {
+  > *:not(:last-child) {
     margin-block-end: 1em;
   }
 

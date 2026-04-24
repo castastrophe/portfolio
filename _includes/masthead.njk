@@ -1,0 +1,25 @@
+<a-band id="header" collapsed accent class="masthead accent--yellow" role="banner" aria-labelledby="title">
+    <a href="{{ '/' | url }}" title="Return to the home page" slot="header">
+        {% include "../pages/assets/logo.svg" %}
+    </a>
+    <div>
+        <h1 class="headline company-name" id="title">{{ site.title }}</h1>
+        <p class="headline-summary">{{ site.tagline | join(' • ') }}</p>
+    </div>
+
+    {% set navigation = collections.all | eleventyNavigation %}
+    {% if navigation | length > 1 %}
+    <nav class="navigation" slot="footer" role="navigation">
+        <ul class="navigation-list" slot="footer">
+            {% for item in navigation %}
+                <li class="navigation-item" {% if item.url == page.url %}aria-current="page"{% endif %}>
+                    <a class="cta-button" href="{{ item.url }}" aria-label="{{ item.title }}">{{ item.title }}</a>
+               </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+    <div slot="footer">
+        {% include "icon-group.njk" %}
+    </div>
+</a-band>

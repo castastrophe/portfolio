@@ -11,7 +11,9 @@
 
     <meta name="theme-color" content="{{ site.themeColor }}">
     <meta name="color-scheme" content="light dark">
-    <title>{{ title or site.title }}</title>
+
+    {% set title_parts = [site.title, title] if (page.url == '/') else [title, site.title] %}
+    <title>{{ title_parts | join(' | ') }}</title>
     <meta name="description" content="{{ description or site.description }}">
     <meta name="keywords" content="{{ keywords or site.keywords }}">
     <meta name="author" content="{{ site.author }}">
@@ -25,10 +27,13 @@
     {% endif %}
 
     <!-- Open Graph data -->
+    <meta property="og:locale" content="{{ site.language }}" />
     <meta property="og:title" content="{{ title or site.title }}">
     <meta property="og:url" content="{{ site.url }}">
     <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:image" content="{{ site.banner | imgSrc('png') | htmlBaseUrl(site.url) }}" />
     <meta property="og:site_name" content="{{ site.title }}">
+    <meta name="fediverse:creator" content="@castastrophe@front-end.social" />
 
     {% if isPost %}
     <meta property="og:type" content="article">
@@ -43,23 +48,29 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/favicon.svg">
 
+    {% for link in site.socials %}
+    <link href="{{ link.url }}" rel="me"/>
+    {% endfor %}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=PT+Mono&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    {% for customSheet in customSheets %}
-    <link rel="stylesheet" href="{{ '/css/' + customSheet + '.css' | url }}">
-    {% endfor %}
+    {# Load custom stylesheets and bundles #}
+    <style>
+        {% for customSheet in customSheets %}
+        @import "{{ '/css/' + customSheet + '.css' | url }}";
+        {% endfor %}
+        {% if prism %}
+        @import "{{ '/css/prism.css' | url }}";
+        @import "{{ '/css/prism-one-light.css' | url }}";
+        @import "{{ '/css/prism-one-dark.css' | url }}" (prefers-color-scheme: dark);
+        {% endif %}
 
-    {% if prism %}
-    <link rel="stylesheet" href="{{ '/css/prism.css' | url }}"/>
-    <link rel="stylesheet" href="{{ '/css/prism-one-light.css' | url }}"/>
-    <link rel="stylesheet" href="{{ '/css/prism-one-dark.css' | url }}" media="(prefers-color-scheme: dark)"/>
-    <link rel="stylesheet" href="{{ '/css/prism-line-numbers.css' | url }}"/>
-    {% endif %}
+        {% getBundle "css" %}
+    </style>
 
-    <style>{% getBundle "css" %}</style>
-
+    {# Load Font Awesome #}
     <script src="https://kit.fontawesome.com/42e99b4632.js" crossorigin="anonymous"></script>
 </head>
 
@@ -73,18 +84,21 @@
     <footer>
         {% block footer %}{{ footer | safe }}{% endblock %}
 
-        {% if prism %}
-        <script type="module" src="{{ '/js/prism.js' | url }}"></script>
-        <script type="module" src="{{ '/js/prism-toolbar.js' | url }}"></script>
-        <script type="module" src="{{ '/js/prism-copy-to-clipboard.js' | url }}"></script>
-        <script type="module" src="{{ '/js/prism-line-numbers.js' | url }}"></script>
-        <script type="module" src="{{ '/js/prism-normalize-whitespace.js' | url }}"></script>
-        {% endif %}
+        {# Load Prism and custom scripts #}
+        <script type="module">
+            {% for customScript in customScripts %}
+            import "{{ '/js/' + customScript + '.js' | url }}";
+            {% endfor %}
+            {% if prism %}
+            import "{{ '/js/prism.js' | url }}";
+            import "{{ '/js/prism-toolbar.js' | url }}";
+            import "{{ '/js/prism-copy-to-clipboard.js' | url }}";
+            import "{{ '/js/prism-line-numbers.js' | url }}";
+            import "{{ '/js/prism-normalize-whitespace.js' | url }}";
+            {% endif %}
 
-        {% for customScript in customScripts %}
-        <script type="module" src="{{ '/js/' + customScript + '.js' | url }}"></script>
-        {% endfor %}
-        <script type="module" src="{% getBundleFileUrl 'js' %}"></script>
+            {% getBundle "js" %}
+        </script>
     </footer>
 </body>
 

@@ -9,10 +9,10 @@ customScripts:
   - home
 ---
 
-{% extends "layouts/foundation.njk" %}
+{% extends "_layouts/foundation.njk" %}
 
 {% block background %}
-{% include "../../pages/assets/background.svg" %}
+{% include "../pages/assets/background.svg" %}
 {% endblock %}
 
 {% block header %}
@@ -27,8 +27,7 @@ customScripts:
 {% block footer %}
 <a-band id="contact" full thin>
     <div slot="footer">
-        {% set icons = candidate.socials %}
-        {% include "../_icon-group.njk" %}
+        {% include "icon-group.njk" %}
     </div>
     <a slot="footer" href="{{ site.funding[0].url | validateURL }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
         {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
@@ -39,7 +38,13 @@ customScripts:
     --band--footer--Direction: row;
     --band--footer--AlignItems: center;
     --band--footer--JustifyContent: space-between;
-    --image-size: 180px;
+    --image-size: min(180px, 100%);
+
+    @media screen and (width <= 612px) {
+        --band--footer--Direction: column;
+        --band--footer--JustifyContent: center;
+        --band--footer--AlignItems: center;
+    }
 }
 {% endcss %}
 {% endblock %}

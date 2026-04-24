@@ -8,16 +8,19 @@ import prettier from 'prettier';
 
 import { InputPathToUrlTransformPlugin } from "@11ty/eleventy";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import rss from "@11ty/eleventy-plugin-rss";
 import Image, { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import eleventyNavigation from "@11ty/eleventy-navigation";
 
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItAnchorSections from "markdown-it-anchor-sections";
+import markdownItMark from "markdown-it-mark";
+import markdownItFootnote from "markdown-it-footnote";
 import pluginTOC from "eleventy-plugin-toc";
 
-import customFilters from "./utilities/filters/index.js";
-import { processCSS } from "./utilities/transforms/index.js";
+import filters from "#filters";
+import transforms from "#transforms";
 
 /** @param {import('@11ty/eleventy').TemplateConfig} config */
 export default async function (config) {
@@ -35,7 +38,7 @@ export default async function (config) {
 	config.setOutputDirectory("public");
 	// these are relative to input directory...
 	config.setIncludesDirectory("../_includes");
-	config.setLayoutsDirectory("../_includes/layouts");
+	config.setLayoutsDirectory("../_layouts");
 	config.setDataDirectory("../_data");
 
 	// config.setMarkdownTemplateEngine("njk");
@@ -68,13 +71,33 @@ export default async function (config) {
 			const normalized = Normalize.normalize(code);
 			return Prism.highlight(normalized, Prism.languages[lang], lang);
 		}
-	}).use(markdownItAnchor).use(markdownItAnchorSections);
+	}).use(markdownItAnchor, {
+		level: [2],
+		permalink: markdownItAnchor.permalink.linkAfterHeader({
+		  class: 'header-anchor',
+		  symbol: '<i class="fa-solid fa-link"></i>',
+		  style: 'visually-hidden',
+		  assistiveText: (title) => `Copy permalink to “${title}”`,
+		  visuallyHiddenClass: 'sr-only',
+		  wrapper: ['<div class="anchor-link-wrapper">', '</div>'],
+		  placement: 'before',
+		}),
+	}).use(markdownItAnchorSections)
+	.use(markdownItMark)
+	.use(markdownItFootnote);
 
 	/* -------- PLUGINS -------- */
 	config.addPlugin(InputPathToUrlTransformPlugin);
 	config.addPlugin(syntaxHighlight);
+	config.addPlugin(rss);
 	config.addPlugin(pluginTOC, { ul: false });
-	config.addPlugin(eleventyImageTransformPlugin, imageOptions);
+	config.addPlugin(eleventyImageTransformPlugin, {
+		...imageOptions,
+		// Skip <img> tags whose src is already an emitted /images/ URL
+		// (from the image shortcode / imgSrc filter); the plugin would
+		// otherwise try to stat pages/images/… and fail.
+		failOnError: false,
+	});
 	config.addPlugin(eleventyNavigation);
 
 	/* External watch targets */
@@ -84,6 +107,7 @@ export default async function (config) {
 	config.addLayoutAlias("base", "base.njk");
 	config.addLayoutAlias("items", "items.njk");
 	config.addLayoutAlias("resume", "resume.njk");
+	config.addLayoutAlias("deck", "deck.njk");
 
 	/* ------------- STYLES ------------- */
 	config.addBundle("css", {
@@ -93,7 +117,7 @@ export default async function (config) {
 				if (!content || !content.trim()) return content;
 
 				try {
-					return processCSS(content, this.page.inputPath, this.page?.outputPath, postcssConfig);
+					return transforms.processCSS(content, this.page.inputPath, this.page?.outputPath, postcssConfig);
 				} catch (err) {
 					console.warn(`[css] ${this.page.inputPath}: ${err.message}`);
 					return content;
@@ -115,7 +139,7 @@ export default async function (config) {
 				if (!content || !content.trim()) return content;
 
 				try {
-					return processCSS(content, inputPath, page?.outputPath, postcssConfig);
+					return transforms.processCSS(content, inputPath, page?.outputPath, postcssConfig);
 				} catch (err) {
 					console.warn(`[css] ${inputPath}: ${err.message}`);
 					return content;
@@ -146,7 +170,6 @@ export default async function (config) {
 	config.addShortcode("image", async function (src, alt, widths = [320, 320], sizes = "") {
 		return Image(src, {
 			...imageOptions,
-			urlPath: "../public/images/",
 			widths,
 			returnType: "html",
 			htmlOptions: {
@@ -156,18 +179,24 @@ export default async function (config) {
 	});
 
 	/* ------------- FILTERS ------------- */
-	config.addFilter("toISOString", customFilters.toISOString);
-	config.addFilter("year", customFilters.yearFormat);
-	config.addFilter("long", (date) => customFilters.customDateFormat(date, { day: 'numeric', month: 'long', year: 'numeric' }, DATE_LANG));
-	config.addFilter("short", (date) => customFilters.customDateFormat(date, { month: 'short', year: 'numeric' }, DATE_LANG));
-	config.addFilter("featured", customFilters.featured);
-	config.addFilter("groupByCompany", customFilters.groupByCompany);
-	config.addFilter("first", customFilters.firstWord);
-	config.addFilter("last", customFilters.lastWord);
-	config.addFilter("clean", customFilters.trimWhitespace);
-	config.addFilter("keys", customFilters.keys);
-	config.addFilter("digitsOnly", customFilters.digitsOnly);
-	config.addFilter("validateURL", customFilters.validateURL);
+	config.addFilter('imgSrc', async (src, format = 'webp') => {
+		const metadata = await Image(src, imageOptions);
+		return metadata[format]?.[0]?.url;
+	});
+
+	config.addFilter("toISOString", filters.toISOString);
+	config.addFilter("year", filters.yearFormat);
+	config.addFilter("long", (date) => filters.customDateFormat(date, { day: 'numeric', month: 'long', year: 'numeric' }, DATE_LANG));
+	config.addFilter("short", (date) => filters.customDateFormat(date, { month: 'short', year: 'numeric' }, DATE_LANG));
+	config.addFilter("featured", filters.featured);
+	config.addFilter("groupByCompany", filters.groupByCompany);
+	config.addFilter("first", filters.firstWord);
+	config.addFilter("last", filters.lastWord);
+	config.addFilter("clean", filters.trimWhitespace);
+	config.addFilter("cleanForRSS", filters.cleanForRSS);
+	config.addFilter("keys", filters.keys);
+	config.addFilter("digitsOnly", filters.digitsOnly);
+
 	const COLLECTION_TAGS = new Set(["posts", "proposals", "listing"]);
 	config.addFilter("contentTags", (tags) => (tags || []).filter(tag => !COLLECTION_TAGS.has(tag)));
 	config.addFilter("allTags", (collection) => {
@@ -178,6 +207,7 @@ export default async function (config) {
 		return [...tags].sort();
 	});
 
+	config.addFilter("validateURL", customFilters.validateURL);
 	config.addFilter("md", (string) => {
 		if (!string || typeof string !== 'string') return string;
 

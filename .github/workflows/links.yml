@@ -1,14 +1,16 @@
-name: Tests validation
+name: Link validation
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   push:
     branches:
       - main
+  schedule:
+    # Run every Monday at 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
 
 jobs:
-  build-validation:
+  check-links:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +29,5 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Run a fresh build
-        run: yarn ci
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-          NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
-
-      - name: Run tests
-        run: yarn test
-
       - name: Check links
-        run: yarn check:links:internal
+        run: yarn check:links:external

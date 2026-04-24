@@ -83,29 +83,22 @@ body {
     color: var(--theme--link--Color);
 }
 
-/* ============================================================
-   UTILITIES — reusable helper classes
-   ============================================================ */
-
-:is(.sticky) {
-    container-type: scroll-state;
-    position: sticky;
-    inset-block-start: 0;
-    z-index: 100;
-
-    transition: transform .8s ease;
-
-    @starting-style {
-      transform: translateY(-100%);
-    }
-
-    @container scroll-state(stuck: top) {
-        box-shadow: var(--theme--container--shadow) var(--theme--container--shadow-color), var(--theme--container--shadow--light) var(--theme--container--shadow-color--light);
-    }
-}
-
 :is([hidden]) {
     display: none;
+}
+
+/* Screen-reader-only text: visually hidden, still read aloud.
+   Used by the markdown-it-anchor permalink assistive labels. */
+:is(.sr-only, .visually-hidden) {
+    position: absolute;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
 }
 
 :is(.shadow) {

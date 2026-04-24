@@ -29,6 +29,17 @@
     .headline {
         line-height: var(--theme--LineHeight--dense);
     }
+
+    @media screen and (width <= 612px) {
+        --band--Grid--areas: "header" "body" "footer";
+        --band--Grid--columns: 1fr;
+        --band--header--JustifyContent: center;
+        --band--body--JustifyContent: center;
+
+        a:has(img) {
+            margin-inline: auto;
+        }
+    }
 }
 
 /* ============================================================
@@ -38,7 +49,7 @@
 .item-layout {
     inline-size: 100%;
 
-    .toc-aside {
+    .table-of-contents {
         display: none;
     }
 }
@@ -51,7 +62,7 @@
         align-items: start;
     }
 
-    .toc-aside {
+    /* .table-of-contents {
         display: block;
         position: sticky;
         inset-block-start: calc(var(--sticky-height, 0px) + var(--theme--container--space));
@@ -84,7 +95,7 @@
                 font-weight: var(--theme--FontWeight--semi-bold);
             }
         }
-    }
+    } */
 }
 
 /* ============================================================

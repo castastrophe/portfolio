@@ -17,7 +17,7 @@
         {% if employee.socials.length > 0 %}
         {% set slot = "footer" %}
         {% set icons = employee.socials %}
-        {% include "_icon-group.njk" %}
+        {% include "icon-group.njk" %}
         {% endif %}
 
         {% if employee.email %}
@@ -40,7 +40,7 @@
             {% if employee.socials.length > 0 %}
                 {% set slot = "footer" %}
                 {% set icons = employee.socials %}
-                {% include "_icon-group.njk" %}
+                {% include "icon-group.njk" %}
             {% endif %}
         </a-card>
 

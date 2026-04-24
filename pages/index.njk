@@ -8,7 +8,7 @@ eleventyNavigation:
 ---
 
 {% block masthead %}
-    {% include "_masthead.njk" %}
+    {% include "masthead.njk" %}
 {% endblock %}
 
 <main id="main-content" aria-label="Main content" tabindex="-1">
@@ -43,7 +43,7 @@ eleventyNavigation:
     {% endif %}
 
     {% set accent="blue" %}
-    {% include "_cta-band.njk" %}
+    {% include "cta-band.njk" %}
 
 <a-band id="posts" thin>
     <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
@@ -66,7 +66,7 @@ eleventyNavigation:
         </a-card>
 
         {% for presentation in presentations | featured %}
-            {% include "_video-card.njk" %}
+            {% include "video-card.njk" %}
         {% endfor %}
     </a-band>
 </main>

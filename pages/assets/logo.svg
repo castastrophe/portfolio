@@ -1,109 +1,203 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg viewBox="0 0 512 512" version="1.1" id="logo" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" style="max-inline-size: 200px;">
-  <title>Allons-y Consulting logo</title>
-  <desc>A colorful illustration of a coffee mug</desc>
+<svg
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="logo"
+   xml:space="preserve"
+   style="max-width:200px"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4.3 (0d15f750, 2025-12-25)"
+   inkscape:export-filename="../../img/logo.png"
+   inkscape:export-xdpi="1500"
+   inkscape:export-ydpi="1500"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs10"><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Blur"
+     id="filter10"
+     x="-0.26611014"
+     y="-0.00068698745"
+     width="1.5322203"
+     height="1.001374"><feGaussianBlur
+       stdDeviation="0.71 0.01"
+       result="fbSourceGraphic"
+       id="feGaussianBlur10" /><feColorMatrix
+       result="fbSourceGraphicAlpha"
+       in="fbSourceGraphic"
+       values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+       id="feColorMatrix10" /><feGaussianBlur
+       id="feGaussianBlur11"
+       stdDeviation="3 0.01"
+       result="blur"
+       in="fbSourceGraphic" /></filter></defs><sodipodi:namedview
+   id="namedview10"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="1.0982578"
+   inkscape:cx="312.7681"
+   inkscape:cy="208.96733"
+   inkscape:window-width="2011"
+   inkscape:window-height="1094"
+   inkscape:window-x="0"
+   inkscape:window-y="30"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="mug" />
+  <title
+   id="title1">Allons-y Consulting logo</title>
+  <desc
+   id="desc1">A colorful illustration of a coffee mug</desc>
 
 
-  <style>
-    :root {
-      --color1: hsl(24, 100%, 65%);
-      --color2: hsl(192, 70%, 70%);
-      --color3: hsl(336, 65%, 50%);
-      --color4: hsl(42, 100%, 70%);
-    }
-    #logo {
-      ellipse,
-      path {
-        display: inline;
-        fill: none;
-        stroke-width: 0;
-      }
+  <style
+   id="style1">ellipse,
+path {
+display: inline;
+fill: none;
+stroke-width: 0;
+}
 
-      .with-outline {
-        stroke: var(--outline-color, #33394e);
-        stroke-width: var(--outline-weight, 2);
-        stroke-linecap: round;
-        stroke-opacity: var(--opacity, 1);
-      }
+.with-outline {
+stroke: #000000;
+stroke-opacity: 0.69999999;
+stroke-width: 2;
+stroke-linecap: round;
+}
 
-      .thick {
-        stroke-width: calc(var(--outline-weight, 2) * 2);
-      }
+.thick {
+stroke-width: 4;
+}
 
-      .swirl {
-        --outline-color: color-mix(in srgb, var(--coffee, #c2b1a6) 90%, black 60%);
-        --outline-weight: 5;
-        --opacity: .7;
+.swirl {
+stroke-color: color-mix(in srgb, #c2b1a6 90%, black 60%);
+stroke-width: 5;
+stroke-opacity: .7;
 
-        transform-box: stroke-box;
-        transform: translateX(-5px) translateY(-5px);
-      }
+transform-box: stroke-box;
+transform: translateX(-5px) translateY(-5px);
+}
 
-      .subtle {
-        --outline-color: color-mix(in srgb, var(--coffee, #c2b1a6) 90%, black 90%);
-        --outline-weight: 10;
-        --opacity: .1;
-      }
+.subtle {
+stroke: color-mix(in srgb, #c2b1a6 90%, black 90%);
+stroke-width: 10;
+stroke-opacity: .1;
+}
 
-      .with-fill {
-        fill: var(--fill, #e7e3d6);
-        fill-opacity: var(--opacity, 1);
-      }
+.with-fill {
+fill: #e7e3d6;
+fill-opacity: 1;
+}
 
-      .color1 {
-        --fill: var(--color1);
-      }
+.color1 {
+fill: hsl(24, 100%, 65%);
+}
 
-      .color2 {
-        --fill: var(--color2);
-      }
+.color2 {
+fill: hsl(192, 70%, 70%);
+}
 
-      .color3 {
-        --fill: var(--color3);
-      }
+.color3 {
+fill: hsl(336, 65%, 50%);
+}
 
-      .color4 {
-        --fill: var(--color4);
-      }
+.color4 {
+fill: hsl(42, 100%, 70%);
+}
 
-      .shade1 {
-        --fill: color-mix(in srgb, #e7e3d6 100%, black 10%);
-      }
+.shade1 {
+fill: color-mix(in srgb, #e7e3d6 100%, black 10%);
+}
 
-      .coffee {
-        --fill: var(--coffee, #c2b1a6);
-      }
-
-      .blur {
-        filter: blur(3px);
-      }
-
-      .with-shadow {
-        filter: drop-shadow(22px 35px 3px rgb(0 0 0 / 0.1));
-      }
-    }
+.coffee {
+fill: #c2b1a6;
+}
   </style>
-  <g id="saucer" aria-label="saucer illustration">
-    <ellipse class="with-outline thick with-fill" cy="256" cx="256" ry="246" rx="246" />
-    <ellipse class="with-outline with-fill color1" cy="256" cx="256" ry="226" rx="226" />
-    <path class="with-fill color4" d="M 256,256 l -16.71,-224.38 a 225 225 0 0 1 98.12,14.63 Z" />
-    <path class="with-fill color3" d="M 256,256 l 81.41,-209.75 a 225 225 0 0 1 110.84,92.85 Z" />
-    <path class="with-fill color2" d="M 256,256 l 192.25,-116.90 a 225 225 0 0 1 -14.46,254.81 Z" />
-    <path class="with-fill color3" d="M 256,256 l 177.79,137.91 a 225 225 0 0 1 -121.40,79.91 Z" />
-    <path class="with-fill color2" d="M 256,256 l 56.39,217.82 a 225 225 0 0 1 -92.93,4.19 Z" />
-    <path class="with-fill color4" d="M 256,256 l -36.54,222.01 a 225 225 0 0 1 -165.94,-123.89 Z" />
+  <g
+   id="saucer"
+   aria-label="saucer illustration">
+    <ellipse
+   class="with-outline thick with-fill"
+   cy="256"
+   cx="256"
+   ry="246"
+   rx="246"
+   id="ellipse1" />
+    <ellipse
+   class="with-outline with-fill color1"
+   cy="256"
+   cx="256"
+   ry="226"
+   rx="226"
+   id="ellipse2" />
+    <path
+   class="with-fill color4"
+   d="M 256,256 l -16.71,-224.38 a 225 225 0 0 1 98.12,14.63 Z"
+   id="path2" />
+    <path
+   class="with-fill color3"
+   d="M 256,256 l 81.41,-209.75 a 225 225 0 0 1 110.84,92.85 Z"
+   id="path3" />
+    <path
+   class="with-fill color2"
+   d="M 256,256 l 192.25,-116.90 a 225 225 0 0 1 -14.46,254.81 Z"
+   id="path4" />
+    <path
+   class="with-fill color3"
+   d="M 256,256 l 177.79,137.91 a 225 225 0 0 1 -121.40,79.91 Z"
+   id="path5" />
+    <path
+   class="with-fill color2"
+   d="M 256,256 l 56.39,217.82 a 225 225 0 0 1 -92.93,4.19 Z"
+   id="path6" />
+    <path
+   class="with-fill color4"
+   d="M 256,256 l -36.54,222.01 a 225 225 0 0 1 -165.94,-123.89 Z"
+   id="path7" />
   </g>
-  <g id="mug" aria-label="mug illustration">
-    <ellipse data-description="mug shadow" class="with-fill with-shadow" cy="256" cx="256" ry="160" rx="160" />
-    <path data-description="handle" class="with-outline thick with-fill"
-      d="M 400,183.4 q 39.5,-9 80,-10 q 9.4,21 11,44 q -38.3,22.9 -80,38.5" />
-    <path data-description="handle shadow" class="with-fill shade1 blur"
-      d="M 399,185.4 l 20,-3.9 a 160 160 0 0 1 16,62.5 l -26,9.9" />
-    <ellipse data-description="mug rim" class="with-outline thick with-fill with-inset-shadow" cy="256" cx="256"
-      ry="160" rx="160" />
-    <ellipse data-description="coffee inside mug" class="with-outline with-fill coffee" cy="256" cx="256" ry="130"
-      rx="130" />
-    <path class="with-outline swirl"
-      d="M 262.96,299.39 C 242.12,306.49 220.05,292.92 213.66,272.57 205.75,247.34 222.23,220.98 246.94,213.69 276.63,204.93 307.39,224.40 315.59,253.52 325.17,287.76 302.70,322.96 269.07,332.06 230.28,342.54 190.53,316.95 180.54,278.78 169.19,235.37 197.87,191.06 240.66,180.16 c 48.08,-12.24 96.99,19.59 108.80,67.03 3.43,13.77 3.70,28.28 0.88,42.17" />
+  <g
+   id="mug"
+   aria-label="mug illustration">
+    <ellipse
+   data-description="mug shadow"
+   class="with-fill with-shadow"
+   cy="256"
+   cx="256"
+   ry="160"
+   rx="160"
+   id="ellipse7" />
+    <path
+   data-description="handle"
+   class="with-outline thick with-fill"
+   d="M 400,183.4 q 39.5,-9 80,-10 q 9.4,21 11,44 q -38.3,22.9 -80,38.5"
+   id="path8" />
+    
+    <ellipse
+   data-description="mug rim"
+   class="with-outline thick with-fill with-inset-shadow"
+   cy="256"
+   cx="256"
+   ry="160"
+   rx="160"
+   id="ellipse9" />
+    <ellipse
+   data-description="coffee inside mug"
+   class="with-outline with-fill coffee"
+   cy="256"
+   cx="256"
+   id="ellipse10"
+   ry="130"
+   rx="130" />
+    <path
+   class="with-outline swirl"
+   d="m 256.39992,295.78063 c -20.84,7.1 -42.91,-6.47 -49.3,-26.82 -7.91,-25.23 8.57,-51.59 33.28,-58.88 29.69,-8.76 60.45,10.71 68.65,39.83 9.58,34.24 -12.89,69.44 -46.52,78.54 -38.79,10.48 -78.54,-15.11 -88.53,-53.28 -11.35,-43.41 17.33,-87.72 60.12,-98.62 48.08,-12.24 96.99,19.59 108.8,67.03 3.43,13.77 3.7,28.28 0.88,42.17"
+   id="path10"
+   style="stroke:#000000;stroke-opacity:0.69999999" />
   </g>
 </svg>
