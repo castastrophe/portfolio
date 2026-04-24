@@ -2,8 +2,9 @@ const styles = new CSSStyleSheet();
 styles.replaceSync(`
     :host {
         display: block;
-        inline-size: max-content;
+        inline-size: fit-content;
         max-inline-size: 100%;
+        min-inline-size: 0;
 
         box-sizing: border-box;
         background-color: var(--note--Background, var(--theme--surface--color));
@@ -12,9 +13,11 @@ styles.replaceSync(`
         border-radius: var(--theme--BorderRadius);
         padding: var(--note--Padding, var(--theme--container--space));
 
-        ::slotted(*:not(:last-child)) {
-            margin-block-end: .2em !important;
-        }
+        overflow-wrap: anywhere;
+    }
+
+    ::slotted(*:not(:last-child)) {
+        margin-block-end: .2em !important;
     }
 `);
 
