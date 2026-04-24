@@ -288,11 +288,7 @@ body {
 }
 
 :where(.content) {
-  max-inline-size: min(80ch, 100%);
-
-  :is(p:not(:last-child, :last-of-type, :has(+ :is(ol, ul)))) {
-    margin-block-end: 1em;
-  }
+  inline-size: min(80ch, 100%);
 }
 
 :is(.columns) {
