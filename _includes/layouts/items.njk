@@ -4,6 +4,7 @@ prism: true
 customScripts:
   - items
 customSheets:
+  - prism-overrides
   - items
 ---
 
@@ -18,23 +19,26 @@ customSheets:
         {% if listing_page %}<span class="cta"><a href="{{ '..' | url }}" title="Return to the {{ listing_page }} page" class="cta-link">All {{ listing_page }}</a></span>{% endif %}
     </p>
     {% set contentTags = tags | contentTags %}
-    {% if contentTags.length > 0 %}<tag-group tags="{{ contentTags | join(',') }}" labeled filters url="{{ listing_url }}"></tag-group>{% endif %}
+    {% if contentTags.length > 0 %}<tag-group tags="{{ contentTags | join(',') }}" labeled filters url="{{ listing_url | validateURL }}"></tag-group>{% endif %}
 </a-band>
 
 <main id="main-content" aria-label="Main content" tabindex="-1">
   <a-band class="item-body">
   <div class="item-layout">
-    <aside class="table-of-contents">
-        <h2 class="title">Table of contents</h2>
-        {{ content | toc | safe }}
-    </aside>
+    {% set tableOfContents = content | toc | safe %}
+    {% if tableOfContents %}
+        <aside class="table-of-contents">
+            <h2 class="title">Table of contents</h2>
+            {{ tableOfContents }}
+        </aside>
+    {% endif %}
     <div class="content">{{ content | md | safe }}</div>
   </div>
 
     {% if sales_pitch %}
     <a-note slot="footer">
         <p>{{ sales_pitch }}</p>
-        <a class="cta-button" href="mailto:{{ site.contact.email }}">Let's connect</a>
+        {% if site.contact.email %}<a class="cta-button" href="mailto:{{ site.contact.email }}">Let's connect</a>{% endif %}
     </a-note>
     {% endif %}
   </a-band>

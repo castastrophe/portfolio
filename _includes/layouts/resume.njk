@@ -41,7 +41,8 @@ eleventyComputed:
       <th>
         <header id="header" role="banner">
           <div class="photo">
-            {% image "img/cassondra-roberts.png", "A photo of {{ candidate.name }}, a red-haired woman with a smile" %}
+            {% set photoAlt = "A photo of " + candidate.name + ", a red-haired woman with a smile" %}
+            {% image "img/cassondra-roberts.png", photoAlt %}
           </div>
           <div>
             <h1 class="candidate-name">
@@ -62,7 +63,7 @@ eleventyComputed:
 {% endblock %}
 
 {% block footer %}
-<button type="button" class="print" aria-label="Print to PDF" onclick="window.print()" >
+<button type="button" class="print" aria-label="Print to PDF">
   <span class="fa-solid fa-file-pdf" aria-hidden="true"></span>
   <span class="print-button-text">Export</span>
 </button>
@@ -91,8 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     checkStickyHeader();
   }
 
-  // Show print button after scrolling stops
+  // Wire up print button
   const printButton = document.querySelector('button.print');
+  printButton?.addEventListener('click', () => window.print());
+
+  // Show print button after scrolling stops
   let scrollTimeout;
   let hasScrolled = false;
 

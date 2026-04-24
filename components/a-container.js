@@ -1,11 +1,10 @@
 export default class AContainer extends HTMLElement {
-    #observer;
-    #tagName;
+	#tagName;
 
-    stylesTemplate = (prefix = "") => {
-        const identifier = prefix ? `${prefix}--` : "";
-        const containerName = prefix && prefix !== "container" ? `box ${prefix}` : "box";
-        return `
+	stylesTemplate = (prefix = "") => {
+		const identifier = prefix ? `${prefix}--` : "";
+		const containerName = prefix && prefix !== "container" ? `box ${prefix}` : "box";
+		return `
     :host {
         --default-grid-areas: "header" "body" "footer";
 
@@ -27,7 +26,7 @@ export default class AContainer extends HTMLElement {
     .container {
         box-sizing: border-box;
         inline-size: min(var(--${identifier}Width, var(--theme--container--MaxWidth)), 100%);
-        block-size: 100%; /* Ensure the container takes up the full height of its parent */
+        block-size: 100%;
 
         display: var(--${identifier}Display, grid);
         grid-template-areas: var(--${identifier}Grid--areas, var(--default-grid-areas));
@@ -40,8 +39,8 @@ export default class AContainer extends HTMLElement {
     }
 
     ${["header", "body", "footer"].map(region => {
-        const query = region !== "body" ? `[name="${region}"]` : ":not([name])";
-        return `
+		const query = region !== "body" ? `[name="${region}"]` : ":not([name])";
+		return `
         slot:where(${query}) {
             box-sizing: border-box;
             display: var(--${identifier}${region}--Display, flex);
@@ -53,12 +52,12 @@ export default class AContainer extends HTMLElement {
             justify-content: var(--${identifier}${region}--JustifyContent, start);
 
             inline-size: min(var(--${identifier}${region}--Width, 100%), 100%);
-            ${region === "body" ? 'block-size: 100%;' : ''}
+            ${region === "body" ? "block-size: 100%;" : ""}
             margin-inline: auto;
 
             grid-area: ${region};
         }`;
-    }).join("\n")}
+	}).join("\n")}
 
     slot:where([name="header"]:not([empty])) {
         border-block-end: var(--${identifier}header--BorderWidth, 0) solid var(--band--header--BorderColor, var(--theme--ui--color--subtle));
@@ -71,67 +70,40 @@ export default class AContainer extends HTMLElement {
     :host([full]) {
         --${identifier}Width: 100%;
     }`;
-    };
+	};
 
-    constructor(tagName = "box") {
-        super();
-        this.attachShadow({ mode: "open" });
+	constructor(tagName = "box") {
+		super();
+		this.attachShadow({ mode: "open" });
+		this.#tagName = tagName;
 
-        this.#tagName = tagName;
-
-        this.tagEmptySlots = this.tagEmptySlots.bind(this);
-        this.stylesTemplate = this.stylesTemplate.bind(this);
-
-        // Attach a mutation observer to the slots to check for content changes
-        this.#observer = new MutationObserver((mutations) => {
-            mutations.forEach(mutation => {
-                if (mutation.type === "childList") {
-                    this.tagEmptySlots();
-                }
-            });
-        });
-    }
-
-    connectedCallback() {
-        const templateElement = document.createElement("template");
-        templateElement.innerHTML = `
+		const template = document.createElement("template");
+		template.innerHTML = `
             <div class="container">
                 <slot name="header"></slot>
                 <slot class="body"></slot>
                 <slot name="footer"></slot>
             </div>`;
+		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-        this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
+		const sheet = new CSSStyleSheet();
+		sheet.replaceSync(this.stylesTemplate(tagName));
+		this.shadowRoot.adoptedStyleSheets = [sheet];
 
-        const coreStyles = new CSSStyleSheet();
-        // Replace the styles with the variable styles for the tag name
-        coreStyles.replaceSync(this.stylesTemplate(this.#tagName));
+		this.shadowRoot.querySelectorAll("slot").forEach(slot => {
+			slot.addEventListener("slotchange", () => this.tagEmptySlots());
+		});
+	}
 
-        this.shadowRoot.adoptedStyleSheets.push(coreStyles);
+	connectedCallback() {
+		this.tagEmptySlots();
+	}
 
-        // Check if the slots have content; if not, attach an "empty" attribute for styling
-        this.tagEmptySlots();
-
-        this.#observer.observe(this.shadowRoot, { childList: true, subtree: true });
-    }
-
-    /**
-     * Tag the empty slots with an "empty" attribute for styling
-     */
-    tagEmptySlots() {
-        const slots = this.shadowRoot.querySelectorAll("slot");
-        slots.forEach(slot => {
-            if (slot.assignedNodes().length === 0) {
-                slot.setAttribute("empty", "");
-            } else {
-                slot.removeAttribute("empty");
-            }
-        });
-    }
-
-    disconnectedCallback() {
-        this.#observer.disconnect();
-    }
+	tagEmptySlots() {
+		this.shadowRoot.querySelectorAll("slot").forEach(slot => {
+			slot.toggleAttribute("empty", slot.assignedNodes().length === 0);
+		});
+	}
 }
 
 customElements.define("a-box", AContainer);

@@ -25,15 +25,8 @@ customElements.define(
             super();
             this.attachShadow({ mode: "open" });
             this.setAttribute("role", "note");
-        }
-
-        connectedCallback() {
-            const templateElement = document.createElement("template");
-            templateElement.innerHTML = `
-                <slot></slot>`;
-
-            this.shadowRoot.appendChild(templateElement.content.cloneNode(true));
             this.shadowRoot.adoptedStyleSheets = [styles];
+            this.shadowRoot.appendChild(document.createElement("slot"));
         }
     },
 );

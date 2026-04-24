@@ -1,3 +1,7 @@
+/* ============================================================
+   BASE — html & body resets
+   ============================================================ */
+
 html {
     backface-visibility: hidden;
     scroll-behavior: smooth;
@@ -16,12 +20,19 @@ body {
     }
 }
 
-/* Stylized highlight for selected text */
+/* ============================================================
+   SELECTION — styled text highlight
+   ============================================================ */
+
 ::selection {
     background: color-mix(in hsl, var(--theme--surface--color--accent) 80%, transparent);
     border-radius: 0.25em;
     color: var(--theme--text--Color);
 }
+
+/* ============================================================
+   LINKS — base anchor styles & states
+   ============================================================ */
 
 :where(a) {
     text-decoration: none;
@@ -47,6 +58,9 @@ body {
         text-decoration: underline;
         text-decoration-color: var(--theme--link--Color--focus);
         color: var(--theme--link--Color--focus);
+        outline: 1px solid var(--theme--ui--color--active);
+        outline-offset: var(--theme--OutlineOffset, 1px);
+        border-radius: var(--theme--BorderRadius);
     }
 
     &[name]:not([href]) {
@@ -63,17 +77,15 @@ body {
     img {
         cursor: pointer;
     }
-
-    &:is(:focus, :focus-visible) {
-        outline: 1px solid var(--theme--ui--color--active);
-        outline-offset: var(--theme--OutlineOffset, 1px);
-        border-radius: var(--theme--BorderRadius);
-    }
 }
 
 :where(a:visited) {
     color: var(--theme--link--Color);
 }
+
+/* ============================================================
+   UTILITIES — reusable helper classes
+   ============================================================ */
 
 :is(.sticky) {
     container-type: scroll-state;

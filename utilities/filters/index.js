@@ -152,6 +152,20 @@ export const digitsOnly = (string) => string?.replace(/\D/g, '')?.trim();
 
 export const keys = (obj) => Object.keys(obj);
 
+/**
+ * Ensures a URL is prefixed with https://.
+ * Passes through relative paths, mailto:, tel:, and already-prefixed URLs unchanged.
+ * Note: it's not aware of the context around the string so make sure you are running
+ * this filter on the entire URL string, not just a part of it.
+ * @param {string} url
+ * @returns {string}
+ */
+export const validateURL = (url) => {
+    if (!url || typeof url !== 'string') return url;
+    if (/^(https?:|mailto:|tel:|\/|#)/.test(url)) return encodeURI(url);
+    return `https://${encodeURI(url)}`;
+};
+
 export default {
     toISOString,
     customDateFormat,
@@ -163,5 +177,6 @@ export default {
     keys,
     stripWhitespace,
     trimWhitespace,
-    digitsOnly
+    digitsOnly,
+    validateURL
 };

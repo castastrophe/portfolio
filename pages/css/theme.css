@@ -1,4 +1,5 @@
 :root {
+    /* ---- Brand palette ---- */
     --accent--red: hsl(336, 65%, 50%);
     --accent--orange: hsl(24, 100%, 65%);
     --accent--blue: hsl(192, 70%, 40%);
@@ -6,7 +7,7 @@
 
     --base: var(--accent--red);
 
-    /* Roboto font weight mappings, 100-900 */
+    /* ---- Font weights (Roboto scale 100–900) ---- */
     --theme--FontWeight--thin: 100;
     --theme--FontWeight--extra-light: 200;
     --theme--FontWeight--light: 300;
@@ -20,10 +21,12 @@
     /* EB Garamond ends at 800 */
     --theme--FontWeight--black: 900;
 
+    /* ---- Line heights ---- */
     --theme--LineHeight--dense: 1.1;
     --theme--LineHeight: 1.4;
     --theme--LineHeight--spacious: 1.8;
 
+    /* ---- Typography ---- */
     --theme--text--FontFamily: "Roboto", "Lato", "Helvetica Neue", Helvetica, Arial, serif;
     --theme--text--FontFamily--signature: "Dancing Script", cursive;
     --theme--text--FontFamily--dense: "EB Garamond", 'Georgia', serif;
@@ -41,9 +44,11 @@
     --theme--heading--LineHeight: var(--theme--LineHeight--dense);
     --theme--heading--Color: var(--theme--text--Color);
 
+    /* ---- Spacing ---- */
     --theme--container--space: 16px;
     --theme--content--space: 10px;
 
+    /* ---- Shape ---- */
     --theme--BorderRadius: 0.2em;
     --theme--BorderRadius--circle: 50%;
 
@@ -54,15 +59,18 @@
     --theme--BorderWidth: 2px;
     --theme--BorderWidth--emphasis: 10px;
 
+    /* ---- Sizing ---- */
     --theme--container--MaxWidth: 1200px;
     --theme--content--MaxWidth: 80ch;
 
+    /* ---- Shadows ---- */
     --theme--container--shadow: 0 10px 15px -10px;
     --theme--container--shadow-color: light-dark(hsl(0, 0%, 60%), hsl(0, 0%, 30%));
 
     --theme--container--shadow--light: 0 5px 5px -10px;
     --theme--container--shadow-color--light: light-dark(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
 
+    /* ---- Surfaces ---- */
     --theme--surface--color: light-dark(hsl(0, 0%, 98%), hsl(0, 0%, 10%));
     --theme--surface--color--emphasis: light-dark(hsl(40, 12%, 93%), hsl(0, 1%, 18%));
 
@@ -75,6 +83,10 @@
         --theme--container--MaxWidth: 100%;
     }
 }
+
+/* ============================================================
+   ACCENT OVERRIDES — swap --base to change the accent color
+   ============================================================ */
 
 .accent--orange {
     --base: var(--accent--orange);
@@ -92,6 +104,7 @@
     --base: var(--accent--red);
 }
 
+/* Derived color tokens that re-compute whenever --base changes */
 :root,
 :is(.accent--orange, .accent--blue, .accent--yellow, .accent--reset) {
     --theme--ui--color: light-dark(var(--base), color-mix(in hsl, var(--base) 80%, white));

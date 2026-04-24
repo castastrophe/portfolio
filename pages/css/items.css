@@ -1,3 +1,7 @@
+/* ============================================================
+   ITEM HEADER — masthead at the top of a post/proposal
+   ============================================================ */
+
 :is(.item-header) {
     --image-size: max(150px, 20%);
     --headline--FontSize: 2.6em;
@@ -26,6 +30,10 @@
         line-height: var(--theme--LineHeight--dense);
     }
 }
+
+/* ============================================================
+   ITEM LAYOUT — two-column grid (sidebar TOC + main content)
+   ============================================================ */
 
 .item-layout {
     inline-size: 100%;
@@ -78,6 +86,10 @@
         }
     }
 }
+
+/* ============================================================
+   ITEM BODY — content area, inline table of contents, notes
+   ============================================================ */
 
 :is(.item-body) {
     --band--Display: block;

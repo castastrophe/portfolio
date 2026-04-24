@@ -1,0 +1,119 @@
+/* ============================================================
+   INLINE CODE — code spans inside prose
+   ============================================================ */
+
+:is(p>code, li>code) {
+  background: var(--theme--surface--color);
+  color: var(--theme--text--Color);
+
+  font-size: var(--theme--code--FontSize);
+  font-weight: var(--theme--FontWeight);
+  line-height: inherit;
+
+  border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
+  border-radius: var(--theme--BorderRadius);
+  padding: .2em .4em;
+}
+
+/* ============================================================
+   CODE BLOCKS — pre, Prism syntax highlighting, toolbar
+   ============================================================ */
+
+:is(pre) {
+  border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
+}
+
+:is(code) {
+  vertical-align: text-top;
+}
+
+:is(pre[class*="language-"]) {
+  font-family: var(--theme--code--FontFamily);
+  font-size: var(--theme--code--FontSize) !important;
+  padding: var(--theme--content--space) !important;
+
+  .token.operator {
+    color: inherit;
+    background-color: color-mix(in hsl, var(--theme--ui--color--subtle) 10%, transparent);
+  }
+}
+
+/* Prism Toolbar plugin wrapper */
+:is(.code-toolbar) {
+  position: relative;
+  background-color: color-mix(in sRGB, var(--prism-default-background) 20%, light-dark(white, black));
+
+  border: var(--theme--BorderWidth--thin) solid var(--theme--ui--color--subtle);
+  border-radius: var(--theme--BorderRadius);
+
+  /* Ensure space between code blocks and content */
+  &:not(:last-child) {
+    margin-block-end: 1em;
+  }
+
+  > * {
+    background-color: transparent !important;
+    margin: 0 !important;
+    border-width: 0 !important;
+  }
+
+  [class*="language-"]:is(code, pre) {
+    background-color: transparent;
+  }
+
+  &:is(:hover, :focus-visible) .toolbar {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .toolbar {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
+    gap: var(--theme--content--space);
+
+    padding-block: calc(var(--theme--content--space) * 0.4);
+    padding-inline: var(--theme--content--space);
+
+    @starting-style {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    transition: visibility 0.2s ease-in-out;
+
+    .toolbar-item {
+      margin: 0 !important;
+    }
+  }
+
+  :is(.copy-to-clipboard-button) {
+    border-width: var(--theme--BorderWidth--thin);
+    border-style: solid;
+    border-color: color-mix(in hsl, currentColor, transparent 60%);
+    background-color: color-mix(in hsl, var(--prism-default-background), var(--theme--surface--color) 10%) !important;
+    color: var(--theme--text--Color) !important;
+
+    padding-block: 0.25em !important;
+    padding-inline: 0.6em !important;
+    border-radius: var(--theme--BorderRadius) !important;
+    text-decoration: none;
+    margin: 0 !important;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--theme--ui--color);
+      background-color: color-mix(in oklch, var(--prism-default-background) 70%, var(--theme--surface--color)) !important;
+    }
+
+    &:focus-visible {
+      outline: var(--theme--Outline) solid var(--theme--ui--color);
+      outline-offset: var(--theme--OutlineOffset);
+    }
+  }
+}

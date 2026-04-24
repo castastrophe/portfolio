@@ -14,7 +14,7 @@ styles.replaceSync(`
     }
 
     .container {
-        margin-inline: auto; /* Center the container horizontally */
+        margin-inline: auto;
 
         padding-block: var(--card--Padding--vertical, var(--default-padding-vertical));
         padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
@@ -40,7 +40,7 @@ styles.replaceSync(`
             margin-inline: calc(var(--card--Padding--horizontal, var(--default-padding-horizontal)) * -1);
             inline-size: var(--header--item--Width);
 
-            ::slotted(*:is(iframe, picture, image)) {
+            ::slotted(*:is(iframe, picture, img)) {
                 --video--Width: var(--header--item--Width);
                 --image-size: var(--header--item--Width);
 
@@ -49,11 +49,11 @@ styles.replaceSync(`
                 inline-size: var(--header--item--Width);
             }
 
-            ::slotted(*:not(:is(iframe, picture, image))) {
+            ::slotted(*:not(:is(iframe, picture, img))) {
                 padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
             }
 
-            ::slotted(*:not(:is(iframe, picture, image)):first-child) {
+            ::slotted(*:not(:is(iframe, picture, img)):first-child) {
                 padding-block: var(--card--Padding--vertical, var(--default-padding-vertical));
             }
         }
@@ -104,13 +104,8 @@ styles.replaceSync(`
 customElements.define(
     "a-card",
     class ACard extends AContainer {
-
         constructor() {
             super("card");
-        }
-
-        connectedCallback() {
-            super.connectedCallback();
             this.shadowRoot.adoptedStyleSheets.push(styles);
         }
     },

@@ -167,6 +167,7 @@ export default async function (config) {
 	config.addFilter("clean", customFilters.trimWhitespace);
 	config.addFilter("keys", customFilters.keys);
 	config.addFilter("digitsOnly", customFilters.digitsOnly);
+	config.addFilter("validateURL", customFilters.validateURL);
 	const COLLECTION_TAGS = new Set(["posts", "proposals", "listing"]);
 	config.addFilter("contentTags", (tags) => (tags || []).filter(tag => !COLLECTION_TAGS.has(tag)));
 	config.addFilter("allTags", (collection) => {
