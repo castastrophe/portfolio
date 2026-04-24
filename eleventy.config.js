@@ -53,7 +53,6 @@ export default async function ( config ) {
 	const DATE_LANG = 'en-GB';
 	const postcssConfig = await loadConfig( { env: isProduction ? 'production' : 'development' } );
 	const imageOptions = {
-		urlPath: "/images/",
 		outputDir: "./public/images/",
 		formats: [ "webp", "png" ],
 		failOnError: true,
