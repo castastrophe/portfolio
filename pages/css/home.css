@@ -107,7 +107,7 @@ button::-moz-focus-inner {
    ============================================================ */
 
 :where(p) {
-  font-size: clamp(1rem,.96rem + .22vw,1.125rem);
+  font-size: clamp(1rem,.96rem + .22cqi,1.125rem);
   font-weight: var(--theme--FontWeight);
   line-height: var(--theme--text--LineHeight);
 
@@ -133,8 +133,8 @@ button::-moz-focus-inner {
   }
 }
 
-:is(h1, h2, h3, h4, h5, h6),
-:is(.title, .headline) {
+:where(h1, h2, h3, h4, h5, h6),
+:where(.title, .headline) {
   font-family: var(--theme--heading--FontFamily);
   color: var(--theme--heading--Color);
   line-height: var(--theme--heading--LineHeight);
@@ -172,8 +172,12 @@ button::-moz-focus-inner {
 }
 
 /* Don't allow line-breaking for the brand text */
-.brand {
+.no-wrap {
   white-space: nowrap;
+
+  @media screen and (width <= 612px) {
+    white-space: normal;
+  }
 }
 
 :is(.title) {
@@ -191,24 +195,35 @@ button::-moz-focus-inner {
   &:is(.highlight) {
     position: relative;
     transform-origin: left;
+    color: contrast-color(var(--theme--ui--color));
+    z-index: 1;
+
+    a-card[video] & {
+      --animation-direction: 1;
+      transform-origin: right;
+
+      &::before {
+        inset-inline-start: -.5em;
+      }
+    }
 
     &::before {
         content: "";
         display: block;
         inline-size: 100cqi;
         block-size: 2em;
-        background: var(--theme--surface--color--accent);
+        background: var(--theme--ui--color);
         position: absolute;
         z-index: -1;
         pointer-events: none;
-        inset-inline-end: -0.5em;
-        inset-block-start: -0.4em;
+        inset-inline-end: -.5em;
+        inset-block-start: -.5em;
 
-        @media (prefers-color-scheme: dark) {
+        /* @media (prefers-color-scheme: dark) {
           background: none;
           border-block-end: 5px solid var(--theme--ui--color);
           inset-block-end: -.2em;
-        }
+        } */
 
         @media not (prefers-reduced-motion: reduce) {
           @supports (animation-timeline: scroll()) {
@@ -231,14 +246,10 @@ button::-moz-focus-inner {
       margin-block-end: 1em;
     }
   }
-
-  &[slot="header"]:only-of-type {
-    margin-block: 0;
-  }
 }
 
 :is(.headline) {
-  font-size: var(--headline--FontSize, calc(1.6em + 2.4vw));
+  font-size: var(--headline--FontSize, calc(1em + 2.4cqi));
   font-weight: var(--theme--FontWeight--light);
   line-height: var(--theme--text--LineHeight);
 
@@ -252,14 +263,6 @@ button::-moz-focus-inner {
 
   &.company-name {
     margin-block: 0;
-  }
-}
-
-.employee-title {
-  white-space: nowrap;
-
-  @media screen and (width <= 612px) {
-    white-space: normal;
   }
 }
 
@@ -445,6 +448,12 @@ details {
   }
 }
 
+:is(.stacked) {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: var(--theme--content--space);
+}
+
 :is(.columns) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -508,12 +517,12 @@ details {
 }
 
 :is(.navigation) {
-  font-size: .8em;
+  flex-grow: 1;
 
   ul {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: var(--theme--content--space);
+    gap: calc(var(--theme--content--space) * 2);
 
     list-style-type: none;
     margin: 0;
@@ -594,10 +603,8 @@ details {
     transition: transform 0.2s ease-in-out;
   }
 
-  &:is(:hover, :focus, :focus-visible) {
-    &::after {
-      transform: translateX(0.25em);
-    }
+  &:is(:hover, :focus, :focus-visible)::after {
+    transform: translateX(0.25em);
   }
 }
 
@@ -631,8 +638,8 @@ details {
   }
 
   &:focus-visible {
-    outline: var(--theme--Outline) solid var(--theme--ui--color--active);
-    outline-offset: var(--theme--OutlineOffset, var(--theme--Outline));
+    outline: var(--theme--OutlineWidth) solid var(--theme--ui--color--active);
+    outline-offset: var(--theme--OutlineOffset, var(--theme--OutlineWidth));
     border-radius: var(--theme--BorderRadius);
   }
 
@@ -646,7 +653,7 @@ details {
    ============================================================ */
 
 /* Used beneath titles to describe publish date and author */
-:is(.metadata) {
+.metadata {
   flex-grow: 1;
   display: flex;
   flex-flow: row wrap;
@@ -673,10 +680,8 @@ details {
     text-align: end;
     margin-inline: 0.5em;
   }
-}
 
-@media screen and (width <= 768px) {
-  .metadata {
+  @media screen and (width <= 768px) {
     flex-direction: column;
     flex-wrap: nowrap;
 
@@ -704,6 +709,7 @@ a-band:where(:has(.title.highlight[slot="header"] + :is(a-card, a-box):is([slot=
   --band--header--Gap--vertical: calc(var(--theme--content--space) * 2);
 }
 
+/* @todo: convert this into a more generic band style */
 a-band:where(#intro) {
   --band--Background: color-mix(in sRGB, var(--theme--surface--color) 60%, transparent);
 }
@@ -734,36 +740,33 @@ a-card {
     padding: var(--theme--container--space);
   }
 
-  &:is(.video-card) {
-    --card--Width: 365px;
-  }
-
   &:is(.contact-card) {
-    --card--footer--BorderWidth: 0;
     --card--body--JustifyContent: center;
-    --image-size: 180px;
-
-    .content p:first-of-type {
-      margin-block-start: 10%;
-    }
+    --image-size: calc(120px + 5cqi);
+    --card--Width: 80ch;
+    max-inline-size: 80ch;
 
     picture {
       float: inline-end;
+      margin-block-start: -50px;
       margin-block-end: 0;
 
       img {
         shape-outside: var(--image-url);
-        shape-image-threshold: 0.5;
+        shape-image-threshold: .5;
         shape-margin: 0.1em;
+      }
+    }
+
+    @container card (inline-size <= 500px) {
+      picture {
+        display: none;
       }
     }
 
     @media screen and (width <= 768px) {
       .content p:first-of-type {
         margin-block-start: 0;
-      }
-      picture {
-        display: none;
       }
     }
   }
@@ -819,9 +822,6 @@ a-box {
 }
 
 .masthead {
-  --image--BorderRadius: var(--theme--BorderRadius--circle);
-
-  --band--body--JustifyContent: start;
   --band--body--AlignItems: center;
 
   --band--footer--Direction: row;
@@ -830,85 +830,38 @@ a-box {
   --band--footer--AlignItems: center;
 
   /* Note: this is the mobile-first layout */
-  --band--Grid--areas: "header body" "footer footer";
-  --band--Grid--columns: var(--image-size) 1fr;
+  --band--Grid--areas: "body" "footer";
   --band--Grid--rows: 1fr auto;
   --band--Width: var(--theme--content--MaxWidth);
 
   --headline--FontSize: 3.4em;
   --headline-summary--FontSize: 1.4em;
 
-  > a:first-child {
-      margin-block: calc(var(--theme--content--space) * -2);
-      max-inline-size: var(--image-size);
+  > div:first-child {
+    flex-grow: 1;
+
+      a:first-child {
+        --theme--BorderRadius: var(--theme--BorderRadius--circle);
+        max-inline-size: var(--image-size);
+    }
   }
 
-  @media screen and (width >= 1200px) {
-    --band--Grid--areas: "header body" ". footer";
-    --band--Gap--vertical: 2px;
-  }
-
-  @media screen and (width <= 720px) {
-    --headline--FontSize: calc(2em + 2.6vw);
-    --headline-summary--FontSize: calc(1em + .6vw);
-  }
-
-  @media screen and (width <= 612px) {
-    --headline--FontSize: 2.4rem;
-    --headline-summary--FontSize: 1.3rem;
-  }
-
-  &:is(.sticky) {
-    --band--Background: color-mix(in srgb, var(--theme--surface--color) 10%, transparent);
-    --band--Grid--areas: "body";
-    --band--Grid--columns: 1fr;
-    --band--Grid--rows: 1fr;
-    --band--AlignItems: center;
-    --band--body--JustifyContent: center;
-    --band--Width: 100%;
-    --band--footer--BorderColor: transparent;
-
-    --headline--FontSize: 1.6em;
-    --headline-summary--FontSize: 1em;
-
-    --image-size: 3.4em;
-
-    backdrop-filter: blur(1px);
-
-    @media screen and (width <= 680px) {
-      --band--Grid--areas: "body footer";
-      --band--Grid--columns: 1fr auto;
-      --band--footer--JustifyContent: center;
-    }
-
-    .headline {
-      margin-block-end: 0;
-      line-height: 1;
-    }
-
-    .headline-summary {
-      display: none;
-    }
-
-    .navigation {
-      font-size: .8em;
-      margin-block-start: calc(-1 * var(--theme--content--space));
-
-      .navigation-item {
-        background-color: var(--theme--surface--color);
-      }
-    }
+  .headline {
+    line-height: 1.1;
   }
 }
 
+#about {
+  --card--Width: 100ch;
+  --card--body--AlignItems: center;
+  --card--footer--Direction: row;
+  --card--footer--Wrap: wrap;
+  --card--footer--AlignItems: baseline;
+  --card--footer--JustifyContent: space-around;
+}
+
 #services {
-    --card--Width: min(50ch, 100%);
-
-    @container box (inline-size <= 992px) {
-        --card--Width: min(calc(var(--theme--content--MaxWidth) / 2), 100%);
-
-        font-size: .9em;
-    }
+  --card--Width: 50ch;
 }
 
 #consulting {

@@ -1,27 +1,36 @@
-<h3>Let's connect</h3>
-
-<p>Allons-y is ready to help your team build scalable design systems and improve your front-end architecture. We're available for full-time, consulting, speaking, workshops, or training. Please fill out the form below to inquire about services and availability.</p>
-
-<form name="contact" netlify-honeypot="bot-field" method="POST" netlify>
-  <p>
-    <input name="path" type="hidden" value="{{ page.url }}"/>
-    <label for="full-name">Name</label>
-    <input name="full-name" id="full-name" required="required"/>
-  </p>
-  <p>
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required="required"/>
-  </p>
-  <p>
-    <label for="comment">Message</label>
-    <textarea name="message" id="message" cols="45" rows="8" maxlength="65525" required="required"></textarea>
-  </p>
-  <p hidden>
-    <label for="bot-field" class="visually-hidden">Bot field</label>
-    <input type="text" name="bot-field" id="bot-field" style="display: none;"/>
-  </p>
-  <input type="hidden" name="subject" value="New lead from %{formName} (%{submissionId})" />
-  <p>
-    <button type="submit">Send</button>
-  </p>
+<form name="discovery-call" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
+    {% image 'img/cartoon-thinking.png', "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
+    <p>{{ tagline | default ("Share a few details and we will follow up to schedule a discovery call.") }}</p>
+    <input type="hidden" name="subject" value="New lead from contact form" />
+    <p hidden>
+        <label for="bot-field" class="sr-only">Bot field</label>
+        <input id="bot-field" name="bot-field" type="text" />
+    </p>
+    <div class="field-group">
+        <p class="form-field">
+            <label for="discovery-name">Name</label>
+            <input id="discovery-name" name="full-name" type="text" required="required" />
+        </p>
+        <p class="form-field">
+            <label for="discovery-email">Email</label>
+            <input id="discovery-email" name="email" type="email" required="required" />
+        </p>
+    </div>
+    <p class="form-field">
+        <label for="discovery-message">Message</label>
+        <textarea id="discovery-message" name="message" rows="4" required="required"></textarea>
+    </p>
+    <button type="submit" class="cta-button">Submit</button>
 </form>
+
+{% css %}
+form[name="discovery-call"] {
+    --image-size: 180px;
+
+    inline-size: 100%;
+
+    picture {
+        float: inline-end;
+    }
+}
+{% endcss %}

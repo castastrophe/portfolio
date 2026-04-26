@@ -51,13 +51,14 @@ styles.replaceSync(`
 
         &[aria-active="true"] {
             background-color: var(--theme--ui--color);
-            color: var(--theme--text--Color--invert);
+            color: contrast-color(var(--theme--ui--color));
             border-color: var(--theme--ui--color);
         }
     }
 
     .clear {
         background-color: var(--theme--surface--color--emphasis);
+        color: contrast-color(var(--theme--surface--color--emphasis));
         font-size: inherit;
     }
 

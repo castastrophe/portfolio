@@ -19,14 +19,18 @@ styles.replaceSync(`
 
 		padding-block: var(--band--Padding--vertical, var(--default-padding-vertical));
 		padding-inline: var(--band--Padding--horizontal, var(--default-padding-horizontal));
+
+		&:has(slot[name="aside"]:not([empty])) {
+			--default-grid-areas: "header header" "body aside" "footer footer";
+			--default-grid-columns: auto min(var(--band--aside--Width, 350px), 100%);
+
+			inline-size: min(calc(var(--band--Width, var(--theme--container--MaxWidth)) + var(--band--aside--Width, 350px)), 100%);
+		}
 	}
 
 	slot:where([name="header"]:not([empty])) {
-		--title--FontSize: 1.4rem;
-
 		justify-content: var(--band--header--JustifyContent, start);
-		inline-size: min(var(--band--header--Width, var(--theme--content--MaxWidth)), 100%);
-		padding-block: calc(var(--theme--content--space) * 2);
+		padding-block-end: calc(var(--theme--content--space) * 2);
 	}
 
 	slot:where(:not([name]):not([empty])) {
@@ -37,7 +41,6 @@ styles.replaceSync(`
 
 	slot:where([name="footer"]:not([empty])) {
 		justify-content: var(--band--footer--JustifyContent, start);
-		inline-size: min(var(--band--footer--Width, var(--theme--content--MaxWidth)), 100%);
 		padding-block-start: var(--theme--content--space);
 
 		border-width: var(--band--footer--BorderWidth, var(--theme--BorderWidth));
@@ -47,29 +50,6 @@ styles.replaceSync(`
 		slot:where([name="footer"]:not([empty])) {
 			border-color: var(--band--footer--BorderColor, var(--theme--ui--color));
 		}
-	}
-
-	:host([collapsed]) {
-		@scope (scope root) to (scope slot) {
-			--multiplier-vertical: 0;
-		}
-	}
-
-	:host([thin]) {
-		@scope (scope root) to (scope slot) {
-			--multiplier-vertical: 1;
-		}
-	}
-
-	:host([thick]) {
-		@scope (scope root) to (scope slot) {
-			--multiplier-vertical: 4;
-		}
-	}
-
-	:host([full]) {
-		--band--body--Width: 100%;
-		--band--footer--Width: 100%;
 	}
 
 	:host([space-between]) {
@@ -98,7 +78,7 @@ customElements.define(
 	"a-band",
 	class ABand extends AContainer {
 		constructor() {
-			super("band");
+			super("band", ["header", "body", "aside", "footer"]);
 			this.shadowRoot.adoptedStyleSheets.push(styles);
 			if (!this.hasAttribute("role")) this.setAttribute("role", "region");
 		}

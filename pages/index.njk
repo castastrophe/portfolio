@@ -11,40 +11,63 @@ eleventyNavigation:
     {% include "masthead.njk" %}
 {% endblock %}
 
+{% block content %}
 <main id="main-content" aria-label="Main content" tabindex="-1">
     <a-band id="about">
         <a-card bordered featured class="accent--blue">
             <div class="content">
-                <p class="headline-summary">Allons-y (<em>ah-lo(n)-zee</em>) is an idiomatic French expression meaning roughly, <strong><em>&ldquo;Let's go!&rdquo;</em></strong></p>
-                <p>That's exactly the energy we bring to design systems work. We help organizations build front-end infrastructure that empowers teams—transforming design vision into production-ready code while establishing the workflows that make collaboration seamless.</p>
-                <p>With expertise from Adobe, Red Hat, and the W3C CSS Working Group, we deliver enterprise-scale solutions that balance innovation with accessibility, performance, and developer experience. In addition to our technical expertise, we have available an experienced project manager with extensive government and banking experience, managing projects large and small from start to finish.</p>
+                <p class="headline-summary"><strong>We create custom web apps & design systems that help teams ship faster with confidence.</strong></p>
+                <p>If your product experience is inconsistent, your handoff is brittle, or your front-end foundation is slowing delivery, we help you turn that friction into a scalable system: clear standards, accessible components, and a codebase your team can build on. With expertise from Adobe, Red Hat, and the W3C CSS Working Group, plus dedicated project leadership, we guide the work from strategy through implementation.</p>
             </div>
-            <p><a class="cta-link" href="{{ '/about/' | url }}">Learn more about us</a></p>
+            <p slot="footer">
+                <a class="cta-link" href="mailto:{{ site.contact.email }}?subject=Discovery%20call%20request">Book discovery call</a>
+            </p>
+            <p slot="footer">
+                <a class="cta-link" href="{{ '/about/' | url }}">See recent work</a>
+            </p>
         </a-card>
     </a-band>
 
     {% if services.length > 0 %}
     <a-band id="services" thick class="accent--yellow">
+        <h2 class="title highlight" slot="header">Services</h2>
         {% for service in services %}
-        <a-card bordered overflow>
+        <a-card bordered overflow grow featured>
             <h2 class="title" slot="header" id="{{ service.category | url }}-{{ loop.index }}">{{ service.category }}</h2>
             <div class="content">
                 <p>{{ service.description }}</p>
             </div>
         </a-card>
         {% endfor %}
-        <a-card bordered featured overflow class="contact-card accent--reset">
+        <a-card bordered featured overflow class="contact-card accent--reset" slot="aside">
             <h2 class="title" slot="header">Let's talk</h2>
-            <div class="content" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
-                {% image "img/cartoon-thinking.png", "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
-                <p>To discuss what we can do together, please email us at <a href="mailto:{{ site.contact.email }}">consulting@allons-y.llc</a>.</p>
-            </div>
+            <form name="discovery-call" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
+                {% image 'img/cartoon-thinking.png', "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
+                <p>Share a few details and we will follow up to schedule a discovery call.</p>
+                <input type="hidden" name="subject" value="New lead from contact form" />
+                <p hidden>
+                    <label for="bot-field" class="sr-only">Bot field</label>
+                    <input id="bot-field" name="bot-field" type="text" />
+                </p>
+                <div class="field-group">
+                    <p class="form-field">
+                        <label for="discovery-name">Name</label>
+                        <input id="discovery-name" name="full-name" type="text" required="required" />
+                    </p>
+                    <p class="form-field">
+                        <label for="discovery-email">Email</label>
+                        <input id="discovery-email" name="email" type="email" required="required" />
+                    </p>
+                </div>
+                <p class="form-field">
+                    <label for="discovery-message">What would you like to build or improve?</label>
+                    <textarea id="discovery-message" name="message" rows="4" required="required"></textarea>
+                </p>
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
         </a-card>
     </a-band>
     {% endif %}
-
-    {% set accent="blue" %}
-    {% include "cta-band.njk" %}
 
     <a-band id="posts" thin>
         <h2 class="title highlight" slot="header"><a href="{{ '/posts/' | url }}" title="View all posts">Posts</a></h2>
@@ -53,7 +76,7 @@ eleventyNavigation:
             <h3 class="headline accent" slot="header"><a href="{{ article.url | validateURL }}">{{ article.data.title }}</a></h3>
             <p class="date" slot="header">{{ article.data.date | long }}</p>
             {% if article.data.description %}<p class="content" style="margin-block: .5em;">{{ article.data.description }}</p>{% endif %}
-            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled url="{{ '/posts/' | validateURL }}" filters slot="footer"></tag-group>{% endif %}
+            {% if article.data.tags.length > 0 %}<tag-group tags="{{ article.data.tags | join(',') }}" labeled url="{{ '/posts/' | url }}" filters slot="footer"></tag-group>{% endif %}
         </a-card>
         {% endfor %}
     </a-band>
@@ -71,3 +94,4 @@ eleventyNavigation:
         {% endfor %}
     </a-band>
 </main>
+{% endblock %}
