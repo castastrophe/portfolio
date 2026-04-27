@@ -1,26 +1,29 @@
 <form name="discovery-call" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
     {% image 'img/cartoon-thinking.png', "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
-    <p>{{ tagline | default ("Share a few details and we will follow up to schedule a discovery call.") }}</p>
-    <input type="hidden" name="subject" value="New lead from contact form" />
-    <p hidden>
-        <label for="bot-field" class="sr-only">Bot field</label>
-        <input id="bot-field" name="bot-field" type="text" />
-    </p>
-    <div class="field-group">
-        <p class="form-field">
-            <label for="discovery-name">Name</label>
-            <input id="discovery-name" name="full-name" type="text" required="required" />
+    <div class="form-fields">
+        <p>{{ tagline | default ("Share a few details and we will follow up to schedule a discovery call.") }}</p>
+        <input type="hidden" name="subject" value="New lead from contact form" />
+        <p hidden>
+            <label for="bot-field" class="sr-only">Bot field</label>
+            <input id="bot-field" name="bot-field" type="text" />
         </p>
+        <div class="field-group">
+            <p class="form-field">
+                <label for="discovery-name">Name</label>
+                <input id="discovery-name" name="full-name" type="text" required="required" />
+            </p>
+            <p class="form-field">
+                <label for="discovery-email">Email</label>
+                <input id="discovery-email" name="email" type="email" required="required" />
+            </p>
+        </div>
         <p class="form-field">
-            <label for="discovery-email">Email</label>
-            <input id="discovery-email" name="email" type="email" required="required" />
+            <label for="discovery-message">{{ messageLabel | default ("Message") }}</label>
+            <textarea id="discovery-message" name="message" rows="4" required="required"></textarea>
         </p>
+        <button type="submit" class="cta-button">Submit</button>
     </div>
-    <p class="form-field">
-        <label for="discovery-message">Message</label>
-        <textarea id="discovery-message" name="message" rows="4" required="required"></textarea>
-    </p>
-    <button type="submit" class="cta-button">Submit</button>
+    <div class="form-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
 </form>
 
 {% css %}
@@ -32,5 +35,81 @@ form[name="discovery-call"] {
     picture {
         float: inline-end;
     }
+
+    .form-status {
+        --status--BorderColor: var(--theme--ui--color--subtle);
+
+        border-inline-start: 4px solid var(--status--BorderColor);
+        background-color: color-mix(in sRGB, var(--status--BorderColor) 10%, var(--theme--surface--color));
+        border-radius: var(--theme--BorderRadius);
+        padding: 1em 1.25em;
+
+        &[data-state="success"] {
+            --status--BorderColor: hsl(155, 55%, 40%);
+        }
+
+        &[data-state="error"] {
+            --status--BorderColor: hsl(0, 70%, 50%);
+        }
+
+        :first-child { margin-block-start: 0; }
+        :last-child  { margin-block-end: 0; }
+
+        &:focus-visible {
+            outline: var(--theme--OutlineWidth) solid var(--status--BorderColor);
+            outline-offset: var(--theme--OutlineOffset, 4px);
+        }
+    }
 }
 {% endcss %}
+
+{% js %}
+document.querySelectorAll('form[name="discovery-call"]').forEach((form) => {
+    const status = form.querySelector('.form-status');
+    const fields = form.querySelector('.form-fields');
+    const submit = form.querySelector('button[type="submit"]');
+    if (!status || !fields || !submit) return;
+
+    const showStatus = (state, html) => {
+        status.dataset.state = state;
+        status.innerHTML = html;
+        status.hidden = false;
+        status.focus();
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const data = new FormData(form);
+        // Netlify identifies AJAX submissions by the form-name body field
+        data.append('form-name', form.getAttribute('name'));
+
+        const originalLabel = submit.textContent;
+        submit.disabled = true;
+        submit.textContent = 'Sending…';
+
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(data).toString(),
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const firstName = (data.get('full-name') || '').toString().trim().split(/\s+/)[0];
+            fields.hidden = true;
+            showStatus('success', `
+                <h3>Thanks${firstName ? `, ${firstName}` : ''}!</h3>
+                <p>Your message is on its way. I'll follow up within two business days to schedule a time to chat.</p>
+                <p>If your note is time-sensitive, feel free to email me directly.</p>
+            `);
+        } catch (error) {
+            submit.disabled = false;
+            submit.textContent = originalLabel;
+            showStatus('error', `
+                <p><strong>Something went wrong sending your message.</strong> Please try again, or email me directly if the problem persists.</p>
+            `);
+        }
+    });
+});
+{% endjs %}

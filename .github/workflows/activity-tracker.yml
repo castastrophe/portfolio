@@ -1,0 +1,54 @@
+name: Activity tracker
+
+on:
+  schedule:
+    # Runs daily at 07:00 UTC (roughly 3 AM ET / midnight PT)
+    - cron: "0 7 * * *"
+  workflow_dispatch: # Allow manual trigger from the Actions tab
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Fetch & categorize CSSWG activity
+        id: fetch
+        uses: ./.github/actions/fetch-csswg-activity
+        with:
+          token: ${{ github.token }}
+
+      - name: Generate AI theme summaries
+        id: summarize
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: |
+            Read the JSON file at ${{ steps.fetch.outputs.json_path }}.
+
+            This file contains structured data about recent CSS Working Group (csswg-drafts) activity on GitHub. Each object in the `themes` array has a `title`, `icon`, and an `issues` array — but the `summary` field is an empty string.
+
+            Your job: for each theme, write a concise 1–2 sentence summary of what's being discussed, based on the issue labels and titles in that theme. Write for a highly-experienced front-end developer audience. Be specific about specs and features — don't be vague. Use an informal but informed tone. Emphasize possible impact to web developers and if the discussion is seeking more developer feedback, add a call-to-action for developers to comment on the issue.
+
+            Also rewrite `summary.big_themes` to be a richer 2–3 sentence overview of the week's activity across all themes, and `summary.watch_for` to highlight the most interesting or impactful items (not just a count of Agenda+ items).
+
+            Write the updated JSON back to the same file path. Output only the file — no commentary.
+          claude_args: "--model claude-sonnet-4-6 --max-turns 3 --allowedTools Read,Write"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Upload to Netlify Blobs
+        run: netlify blobs:set content csswg_activity --input "${{ steps.fetch.outputs.json_path }}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+
+      - name: Trigger Netlify rebuild
+        run: netlify deploy --trigger
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}

@@ -1,0 +1,173 @@
+---
+layout: base
+title: CSS Working Group activity tracker
+description: A summary of recent activity in the W3C CSS Working Group GitHub repository
+eleventyExcludeFromCollections: true
+indexed: false
+customSheets:
+  - theme
+  - core
+  - csswg
+---
+
+{# ── Guard: bail gracefully if no blob data ── #}
+{% if not csswg %}
+<main id="main-content" aria-label="Main content" tabindex="-1">
+	<a-band>
+		<h1 slot="header" class="title highlight">Activity tracker</h1>
+		<p class="header-summary">A summary of recent activity in the <a href="https://github.com/w3c/csswg-drafts">W3C CSS Working Group GitHub repository</a></p>
+		<p>CSSWG activity data is not yet available. It will appear here after the next daily sync.</p>
+	</a-band>
+</main>
+{% else %}
+
+{% set agendaUrl = "https://github.com/w3c/csswg-drafts/issues?q=is%3Aissue%20state%3Aopen%20label%3AAgenda%2B" %}
+
+<main id="main-content" aria-label="Main content" tabindex="-1">
+
+	{# ── Summary banner ── #}
+	<a-band class="csswg-summary" accent>
+		<h1 slot="header" class="title highlight">Activity tracker</h1>
+		<p class="header-summary">A summary of recent activity in the <a href="https://github.com/w3c/csswg-drafts">W3C CSS Working Group GitHub repository</a></p>
+		<div class="csswg-summary__body">
+			<p><strong>Big themes this week:</strong> {{ csswg.summary.big_themes | safe }}</p>
+			<p><strong>Watch for:</strong> {{ csswg.summary.watch_for | safe }}</p>
+		</div>
+		<p class="csswg-updated" slot="footer">Updated at {{ csswg.meta.generated_at | readableDate }}</p>
+	</a-band>
+
+	{# ── Stats cards ── #}
+	<a-band class="csswg-stats" space-evenly thin>
+		<div class="csswg-stat accent--red">
+			<span class="csswg-stat__num">{{ csswg.stats.recently_active }}</span>
+			<span class="csswg-stat__label">Recently active</span>
+		</div>
+		<div class="csswg-stat accent--orange">
+			<span class="csswg-stat__num">{{ csswg.stats.agenda_plus }}</span>
+			<span class="csswg-stat__label"><a href="{{ agendaUrl }}">Agenda+</a></span>
+		</div>
+		<div class="csswg-stat accent--blue">
+			<span class="csswg-stat__num">{{ csswg.stats.recently_resolved }}</span>
+			<span class="csswg-stat__label">Recently resolved</span>
+		</div>
+		<div class="csswg-stat accent--yellow">
+			<span class="csswg-stat__num">{{ csswg.stats.hot_threads }}</span>
+			<span class="csswg-stat__label">Hot threads (15+)</span>
+		</div>
+	</a-band>
+
+	{# ── Themed summaries ── #}
+	<a-band id="themes">
+		<h2 slot="header" class="title highlight accent--blue">What's happening</h2>
+		{% for theme in csswg.themes %}
+		<a-card bordered {% if loop.first %}featured{% endif %}>
+			<p class="headline">{{ theme.icon }} {{ theme.title }}</p>
+			{% if theme.summary %}
+			<p>{{ theme.summary | safe }}</p>
+			{% endif %}
+			<tag-group slot="footer">
+				{% for issue in theme.issues %}
+				<a href="https://github.com/w3c/csswg-drafts/issues/{{ issue.number }}" class="csswg-issue-link">
+					#{{ issue.number }}
+					<span class="csswg-issue-label">{{ issue.label }}</span>
+					{% for badge in issue.badges %}
+					{% if badge == "agenda" %}
+					<span class="csswg-badge csswg-badge--agenda"><a href="{{ agendaUrl }}">Agenda+</a></span>
+					{% elif badge == "hot" %}
+					<span class="csswg-badge csswg-badge--hot">{{ issue.badge_detail or "Hot" }}</span>
+					{% elif badge == "new" %}
+					<span class="csswg-badge csswg-badge--new">New</span>
+					{% elif badge == "resolved" %}
+					<span class="csswg-badge csswg-badge--resolved">Resolved</span>
+					{% endif %}
+					{% endfor %}
+				</a>
+				{% endfor %}
+			</tag-group>
+		</a-card>
+		{% endfor %}
+	</a-band>
+
+	{# ── Recently resolved ── #}
+	{% if csswg.resolved | length %}
+	<a-band id="resolved">
+		<h2 slot="header" class="title highlight accent--orange">Recently resolved</h2>
+		<div class="csswg-resolved-list">
+			{% for item in csswg.resolved %}
+			<div class="csswg-resolved-item">
+				<a href="{{ item.url }}">#{{ item.number }}</a>
+				<span class="csswg-resolved-title">{{ item.resolution_summary }}</span>
+				<span class="csswg-resolved-date">· {{ item.closed_at }}</span>
+			</div>
+			{% endfor %}
+		</div>
+	</a-band>
+	{% endif %}
+
+	{# ── Full issue list (collapsed) ── #}
+	<a-band id="all-issues">
+		<h2 slot="header" class="title highlight accent--yellow">All recently updated issues</h2>
+		<details>
+			<summary>Show all {{ csswg.issues | length }} issues</summary>
+			<table class="csswg-table">
+				<thead>
+					<tr>
+						<th>Issue</th>
+						<th>Title</th>
+						<th>Comments</th>
+						<th>Updated</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for issue in csswg.issues %}
+					<tr{% if issue.comments >= 15 %} class="csswg-table--hot"{% endif %}>
+						<td><a href="{{ issue.url }}">#{{ issue.number }}</a></td>
+						<td>
+							{{ issue.title }}
+							{% for badge in issue.badges %}
+							{% if badge == "agenda" %}
+							<span class="csswg-badge csswg-badge--agenda"><a href="{{ agendaUrl }}">Agenda+</a></span>
+							{% elif badge == "hot" %}
+							<span class="csswg-badge csswg-badge--hot">Hot</span>
+							{% elif badge == "new" %}
+							<span class="csswg-badge csswg-badge--new">New</span>
+							{% endif %}
+							{% endfor %}
+						</td>
+						<td>{{ issue.comments }}</td>
+						<td>{{ issue.updated_at }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</details>
+	</a-band>
+
+	{# ── Agenda+ list (collapsed) ── #}
+	<a-band id="agenda">
+		<h2 slot="header" class="title highlight accent--red">All <a href="{{ agendaUrl }}">Agenda+</a> issues</h2>
+		<details>
+			<summary>Show all {{ csswg.agenda | length }} Agenda+ issues</summary>
+			<table class="csswg-table">
+				<thead>
+					<tr>
+						<th>Issue</th>
+						<th>Title</th>
+						<th>Comments</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for issue in csswg.agenda %}
+					<tr>
+						<td><a href="{{ issue.url }}">#{{ issue.number }}</a></td>
+						<td>{{ issue.title }}</td>
+						<td>{{ issue.comments }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</details>
+	</a-band>
+
+</main>
+{% endif %}

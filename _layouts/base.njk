@@ -27,10 +27,11 @@ customScripts:
 {% block footer %}
 <a-band id="contact" full thin>
     <div slot="footer">{% include "icon-group.njk" %}</div>
-    <div slot="footer">
+    <div slot="footer" class="funding">
+        <p>funding:</p>
         {% for funding in site.funding %}
-        <a href="{{ funding.url | validateURL }}" {% if funding.ratio %}style="--aspect-ratio: {{ funding.ratio }};"{% endif %} title="{{ funding.label }}">
-            {% if funding.img %}{% image funding.img, funding.label %}{% else %}<span>{{ funding.label }}</span>{% endif %}
+        <a class="funding-link" href="{{ funding.url | validateURL }}"{% if funding.ratio %} style="--aspect-ratio: {{ funding.ratio }};"{% endif %} title="{{ funding.label }}">
+            {% if funding.img %}{% image funding.img, funding.label %}{% elif funding.icon %}<span class="{{ funding.icon }}"></span>{% else %}<span>{{ funding.label }}</span>{% endif %}
         </a>
         {% endfor %}
     </div>
@@ -42,7 +43,30 @@ customScripts:
     --band--footer--Wrap: wrap;
     --band--footer--AlignItems: center;
     --band--footer--JustifyContent: space-around;
-    --image-size: 180px;
+
+    .funding {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: 0.5em;
+
+        p {
+            font-size: 1rem;
+            color: var(--theme--text--Color--subtle);
+        }
+    }
+
+    .funding-link {
+        font-size: 1.2em;
+        max-block-size: 1.5rem;
+        inline-size: auto;
+        display: inline-grid;
+        place-items: center;
+
+        span {
+            font-size: 1.2em;
+        }
+    }
 }
 {% endcss %}
 {% endblock %}

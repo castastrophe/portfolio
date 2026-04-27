@@ -1,0 +1,33 @@
+name: "Fetch CSSWG Activity"
+description: "Fetches and categorizes recent CSSWG GitHub issues into themed buckets."
+inputs:
+  token:
+    description: "GitHub token for API access."
+    required: true
+    default: ${{ github.token }}
+  themes_path:
+    description: "Workspace-relative path to the themes YAML file."
+    required: false
+    default: ".github/actions/fetch-csswg-activity/csswg-themes.yml"
+  hot_threshold:
+    description: "Minimum comment count to flag an issue as hot."
+    required: false
+    default: "15"
+outputs:
+  json_path:
+    description: "Absolute path to the generated JSON data file."
+    value: ${{ steps.run.outputs.json_path }}
+runs:
+  using: composite
+  steps:
+    - name: Install action dependencies
+      shell: bash
+      run: npm install --prefix ${{ github.action_path }} --no-fund --silent
+    - name: Fetch & categorize
+      id: run
+      shell: bash
+      run: node ${{ github.action_path }}/index.js
+      env:
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_THEMES_PATH: ${{ inputs.themes_path }}
+        INPUT_HOT_THRESHOLD: ${{ inputs.hot_threshold }}
