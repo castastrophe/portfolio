@@ -6,6 +6,7 @@ styles.replaceSync(`
 
         box-sizing: border-box;
         background-color: var(--note--Background, var(--theme--surface--color));
+        color: contrast-color(var(--note--Background, var(--theme--surface--color)));
         border: var(--theme--BorderWidth) solid var(--theme--ui--color);
         border-inline-start: var(--theme--BorderWidth--emphasis) solid var(--theme--ui--color);
         border-radius: var(--theme--BorderRadius);

@@ -1,25 +1,5 @@
-<a-band id="cta" thick space-evenly{% if accent %} class="accent--{{ accent }}"{% endif %}>
-    <a-note>
-        <p>Available for full-time, consulting, speaking, writing, or workshops.</p>
-        {% if site.contact.email %}<p><a class="cta-link" href="mailto:{{ site.contact.email }}">Email us</a></p>{% endif %}
-    </a-note>
-    {% if not hideImage %}<img src="../img/cartoon-thinking.png" alt="A cartoon of the author, Cassondra Roberts, thinking about the future of the web.">{% endif %}
+<a-band id="cta" thick{% if accent %} class="accent--{{ accent }}"{% endif %}>
+  <h2 class="title highlight" slot="header">Let's talk</h2>
+    {% set tagline = "Available for full-time, consulting, speaking, writing, or workshops." %}
+    {% include "contact-form.njk" %}
 </a-band>
-
-{% css %}
-#cta {
-  --band--body--Wrap: nowrap;
-  --band--body--Width: auto;
-  --image-size: 200px;
-
-  a-note {
-    align-self: center;
-
-    @media screen and (width <= 768px) {
-      + picture {
-        display: none;
-      }
-    }
-  }
-}
-{% endcss %}

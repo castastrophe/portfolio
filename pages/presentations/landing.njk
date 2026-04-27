@@ -1,6 +1,7 @@
 ---
 layout: base
 title: Presentations
+permalink: /presentations/
 tags:
     - listing
 eleventyNavigation:
@@ -28,12 +29,12 @@ eleventyNavigation:
 
         {% for item in presentations %}
         {% if item.youtube_id %}
-        <a-card bordered video overflow>
+        <a-card bordered video overflow class="accent--blue">
             {% if item.youtube_id %}
             <iframe class="video" src="https://www.youtube.com/embed/{{ item.youtube_id }}" frameborder="0" allowfullscreen slot="header" title="{{ item.description }}"></iframe>
             {% endif %}
             <div class="content">
-                <h3 class="title">{{ item.title }}</h3>
+                <h3 class="title highlight">{{ item.title }}</h3>
                 <h4 class="headline"><a href="https://www.youtube.com/watch?v={{ item.youtube_id }}"
                         title="Click to watch this interview">{{ item.headline }}</a></h4>
                 <p>{{ item.description }}</p>

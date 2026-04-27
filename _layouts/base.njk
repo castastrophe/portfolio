@@ -1,4 +1,5 @@
 ---
+
 customSheets:
   - theme
   - animation
@@ -9,14 +10,13 @@ customScripts:
   - home
 ---
 
-{% extends "_layouts/foundation.njk" %}
+{% extends "./foundation.njk" %}
 
 {% block background %}
 {% include "../pages/assets/background.svg" %}
 {% endblock %}
 
 {% block header %}
-    <a href="#main-content" class="skip-link cta-button">Skip to content</a>
     {{ header | safe }}
 {% endblock %}
 
@@ -26,25 +26,23 @@ customScripts:
 
 {% block footer %}
 <a-band id="contact" full thin>
+    <div slot="footer">{% include "icon-group.njk" %}</div>
     <div slot="footer">
-        {% include "icon-group.njk" %}
+        {% for funding in site.funding %}
+        <a href="{{ funding.url | validateURL }}" {% if funding.ratio %}style="--aspect-ratio: {{ funding.ratio }};"{% endif %} title="{{ funding.label }}">
+            {% if funding.img %}{% image funding.img, funding.label %}{% else %}<span>{{ funding.label }}</span>{% endif %}
+        </a>
+        {% endfor %}
     </div>
-    <a slot="footer" href="{{ site.funding[0].url | validateURL }}" {% if site.funding[0].ratio %}style="--aspect-ratio: {{ site.funding[0].ratio }};"{% endif %} title="{{ site.funding[0].label }}">
-        {% if site.funding[0].img %}<img src="{{ site.funding[0].img }}" alt="{{ site.funding[0].label }}">{% else %}<span>{{ site.funding[0].label }}</span>{% endif %}
-    </a>
 </a-band>
+
 {% css %}
 #contact {
     --band--footer--Direction: row;
+    --band--footer--Wrap: wrap;
     --band--footer--AlignItems: center;
-    --band--footer--JustifyContent: space-between;
-    --image-size: min(180px, 100%);
-
-    @media screen and (width <= 612px) {
-        --band--footer--Direction: column;
-        --band--footer--JustifyContent: center;
-        --band--footer--AlignItems: center;
-    }
+    --band--footer--JustifyContent: space-around;
+    --image-size: 180px;
 }
 {% endcss %}
 {% endblock %}

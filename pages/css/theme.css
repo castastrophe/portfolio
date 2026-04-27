@@ -2,7 +2,7 @@
     /* ---- Brand palette ---- */
     --accent--red: hsl(336, 65%, 50%);
     --accent--orange: hsl(24, 100%, 65%);
-    --accent--blue: hsl(192, 70%, 40%);
+    --accent--blue: hsl(192, 70%, 50%);
     --accent--yellow: light-dark(hsl(42, 100%, 71%), hsla(42, 100%, 60%));
 
     --base: var(--accent--red);
@@ -107,7 +107,7 @@
 /* Derived color tokens that re-compute whenever --base changes */
 :root,
 :is(.accent--orange, .accent--blue, .accent--yellow, .accent--reset) {
-    --theme--ui--color: light-dark(var(--base), color-mix(in hsl, var(--base) 80%, white));
+    --theme--ui--color: var(--base);
     --theme--ui--color--hover: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
     --theme--ui--color--active: color-mix(in oklch, var(--theme--ui--color) 40%, transparent);
 

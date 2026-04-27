@@ -1,12 +1,14 @@
 export default class AContainer extends HTMLElement {
-	#tagName;
-
-	stylesTemplate = (prefix = "") => {
-		const identifier = prefix ? `${prefix}--` : "";
-		const containerName = prefix && prefix !== "container" ? `box ${prefix}` : "box";
+    #regions = ["header", "body", "footer"];
+    #tagName = "box";
+	stylesTemplate = () => {
+		const identifier = `${this.#tagName}--`;
+		const containerName = this.#tagName !== "container" ? `${this.#tagName} ${this.#tagName}` : this.#tagName;
 		return `
     :host {
-        --default-grid-areas: "header" "body" "footer";
+        --default-grid-areas: ${this.#regions.map(region => `"${region}"`).join(" ")};
+        --default-grid-columns: ${this.#regions.map(() => `1fr`).join(" ")};
+        --default-grid-rows: ${this.#regions.map(() => `1fr`).join(" ")};
 
         display: block;
         box-sizing: border-box;
@@ -30,16 +32,16 @@ export default class AContainer extends HTMLElement {
 
         display: var(--${identifier}Display, grid);
         grid-template-areas: var(--${identifier}Grid--areas, var(--default-grid-areas));
-        grid-template-columns: var(--${identifier}Grid--columns, 1fr);
-        grid-template-rows: var(--${identifier}Grid--rows, auto 1fr auto);
+        grid-auto-columns: var(--${identifier}Grid--columns, 1fr);
+        grid-auto-rows: var(--${identifier}Grid--rows, auto 1fr auto);
         row-gap: var(--${identifier}Gap--vertical, calc(var(--theme--content--space) * var(--multiplier-vertical, 1)));
         column-gap: var(--${identifier}Gap--horizontal, calc(var(--theme--content--space) * var(--multiplier-horizontal, 2)));
-        align-items: var(--${identifier}AlignItems, center);
-        justify-content: var(--${identifier}JustifyContent, stretch);
+        align-items: var(--${identifier}AlignItems, stretch);
+        justify-content: var(--${identifier}JustifyContent, center);
     }
 
-    ${["header", "body", "footer"].map(region => {
-		const query = region !== "body" ? `[name="${region}"]` : ":not([name])";
+    ${this.#regions.map(region => {
+		const query = !["default", "body"].includes(region) ? `[name="${region}"]` : ":not([name])";
 		return `
         slot:where(${query}) {
             box-sizing: border-box;
@@ -51,7 +53,7 @@ export default class AContainer extends HTMLElement {
             align-items: var(--${identifier}${region}--AlignItems, stretch);
             justify-content: var(--${identifier}${region}--JustifyContent, start);
 
-            inline-size: min(var(--${identifier}${region}--Width, 100%), 100%);
+            inline-size: min(var(--${identifier}${region}--Width, var(--theme--content--MaxWidth)), 100%);
             ${region === "body" ? "block-size: 100%;" : ""}
             margin-inline: auto;
 
@@ -59,35 +61,63 @@ export default class AContainer extends HTMLElement {
         }`;
 	}).join("\n")}
 
-    slot:where([name="header"]:not([empty])) {
-        border-block-end: var(--${identifier}header--BorderWidth, 0) solid var(--band--header--BorderColor, var(--theme--ui--color--subtle));
-    }
+    ${this.#regions.filter(region => region === "header").map(region => `
+        slot:where([name="${region}"]:not([empty])) {
+            border-block-end: var(--${identifier}${region}--BorderWidth, 0) solid var(--band--${region}--BorderColor, var(--theme--ui--color--subtle));
+        }
+    `).join("\n")}
 
-    slot:where([name="footer"]:not([empty])) {
-        border-block-start: var(--${identifier}footer--BorderWidth, 0) solid var(--band--footer--BorderColor, var(--theme--ui--color--subtle));
-    }
+    ${this.#regions.filter(region => region === "footer").map(region => `
+        slot:where([name="${region}"]:not([empty])) {
+            border-block-start: var(--${identifier}${region}--BorderWidth, 0) solid var(--${identifier}${region}--BorderColor, var(--theme--ui--color--subtle));
+        }
+    `).join("\n")}
+
+	:host([collapsed]) {
+		@scope (scope root) to (scope slot) {
+			--multiplier-vertical: 0;
+		}
+	}
+
+	:host([thin]) {
+		@scope (scope root) to (scope slot) {
+			--multiplier-vertical: 1;
+		}
+	}
+
+	:host([thick]) {
+		@scope (scope root) to (scope slot) {
+			--multiplier-vertical: 4;
+		}
+	}
 
     :host([full]) {
         --${identifier}Width: 100%;
+        ${this.#regions.filter(region => region !== "header").map(region => `
+            --${identifier}${region}--Width: 100%;
+        `).join("\n")}
     }`;
 	};
 
-	constructor(tagName = "box") {
+	constructor(tagName, regions) {
 		super();
 		this.attachShadow({ mode: "open" });
-		this.#tagName = tagName;
+
+        this.#tagName = tagName ?? "box";
+		this.#regions = regions ?? ["header", "body", "footer"];
 
 		const template = document.createElement("template");
 		template.innerHTML = `
             <div class="container">
-                <slot name="header"></slot>
-                <slot class="body"></slot>
-                <slot name="footer"></slot>
+                ${this.#regions.map(region => {
+                    if (["default", "body"].includes(region)) return `<slot></slot>`;
+                    return `<slot name="${region}"></slot>`;
+                }).join("\n")}
             </div>`;
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
 		const sheet = new CSSStyleSheet();
-		sheet.replaceSync(this.stylesTemplate(tagName));
+		sheet.replaceSync(this.stylesTemplate());
 		this.shadowRoot.adoptedStyleSheets = [sheet];
 
 		this.shadowRoot.querySelectorAll("slot").forEach(slot => {

@@ -10,12 +10,16 @@ styles.replaceSync(`
         border: var(--card--BorderWidth, 0) solid var(--card--BorderColor, var(--theme--ui--color--subtle));
         border-radius: var(--card--BorderRadius, var(--theme--BorderRadius));
 
-        max-inline-size: min(var(--card--Width, var(--theme--content--MaxWidth)), 100%);
+        inline-size: min(var(--card--Width, var(--theme--content--MaxWidth)), 100%);
+		flex: var(--card--FlexGrow, 0) 0 auto;
+    }
+
+    :host([grow]) {
+        flex-grow: var(--card--FlexGrow, 1);
     }
 
     .container {
-        margin-inline: auto;
-
+        inline-size: 100%;
         padding-block: var(--card--Padding--vertical, var(--default-padding-vertical));
         padding-inline: var(--card--Padding--horizontal, var(--default-padding-horizontal));
     }
@@ -34,11 +38,16 @@ styles.replaceSync(`
         slot[name="header"]:not([empty]) {
             --title--Padding: var(--theme--content--space) var(--card--Padding--horizontal, var(--default-padding-horizontal));
 
-            background: var(--theme--surface--color--accent);
+            background: var(--theme--ui--color);
+
+            &::slotted(:is(h1, h2, h3, h4, h5, h6, .title, .headline)) {
+                color: contrast-color(var(--theme--ui--color)) !important;
+            }
 
             margin-block-start: calc(var(--card--Padding--vertical, var(--default-padding-vertical)) * -1);
             margin-inline: calc(var(--card--Padding--horizontal, var(--default-padding-horizontal)) * -1);
             inline-size: var(--header--item--Width);
+
 
             ::slotted(*:is(iframe, picture, img)) {
                 --video--Width: var(--header--item--Width);
@@ -61,9 +70,11 @@ styles.replaceSync(`
 
     :host([video]) {
         --card--Padding--horizontal: calc(var(--theme--content--space) * 2);
+        --card--header--JustifyContent: center;
 
         slot[name="header"]:not([empty]) {
-            background: none;
+                background: black;
+                block-size: calc(100% + var(--card--Padding--horizontal, var(--default-padding-horizontal)) * 2);
         }
 
         slot:where(:not([name]):not([empty])) {
@@ -87,7 +98,11 @@ styles.replaceSync(`
     }
 
     :host([bordered][featured]) {
-        --card--BorderColor: color-mix(in srgb, var(--theme--ui--color) 40%, var(--theme--surface--color));
+        border-color: color-mix(in srgb, var(--theme--ui--color) 40%, var(--theme--surface--color));
+    }
+
+    :host([bordered][featured][overflow]) {
+        border-color: var(--card--BorderColor, var(--theme--ui--color));
     }
 
     @media print {

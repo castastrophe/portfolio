@@ -1,7 +1,6 @@
 /* ============================================================
    BASE — html & body resets
    ============================================================ */
-
 html {
     backface-visibility: hidden;
     scroll-behavior: smooth;
@@ -14,7 +13,9 @@ body {
     font-optical-sizing: auto;
     color: var(--theme--text--Color);
     overflow-x: hidden;
-
+    text-wrap: stable;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
     scroll-snap-type: y mandatory;
 
     @media print {
@@ -23,10 +24,13 @@ body {
     }
 }
 
+[id] {
+    scroll-margin-block-start: 1.5rlh;
+}
+
 /* ============================================================
    SELECTION — styled text highlight
    ============================================================ */
-
 ::selection {
     background: color-mix(in hsl, var(--theme--surface--color--accent) 80%, transparent);
     border-radius: 0.25em;
@@ -36,7 +40,6 @@ body {
 /* ============================================================
    LINKS — base anchor styles & states
    ============================================================ */
-
 :where(a) {
     text-decoration: none;
     text-underline-offset: .2ex;
@@ -49,6 +52,14 @@ body {
         aspect-ratio: var(--aspect-ratio, 1 / 1);
         inline-size: var(--image-size, 250px);
         line-height: 1;
+
+        &.circle {
+            shape-outside: circle(80px at 40% 50%) margin-box;
+            float: inline-start;
+            margin-inline-start: 0;
+            padding-inline-end: 20px;
+            box-sizing: content-box;
+        }
     }
 
     &:hover {
@@ -61,8 +72,8 @@ body {
         text-decoration: underline;
         text-decoration-color: var(--theme--link--Color--focus);
         color: var(--theme--link--Color--focus);
-        outline: 1px solid var(--theme--ui--color--active);
-        outline-offset: var(--theme--OutlineOffset, 1px);
+        outline: var(--theme--OutlineWidth) solid var(--theme--ui--color--active);
+        outline-offset: var(--theme--OutlineOffset);
         border-radius: var(--theme--BorderRadius);
     }
 
@@ -82,17 +93,13 @@ body {
     }
 }
 
-:where(a:visited) {
-    color: var(--theme--link--Color);
-}
-
 :is([hidden]) {
     display: none;
 }
 
 /* Screen-reader-only text: visually hidden, still read aloud.
    Used by the markdown-it-anchor permalink assistive labels. */
-:is(.sr-only, .visually-hidden) {
+.sr-only {
     position: absolute;
     clip-path: inset(50%);
     overflow: hidden;
@@ -104,6 +111,155 @@ body {
     border: 0;
 }
 
-:is(.shadow) {
-  box-shadow: var(--theme--container--shadow) var(--theme--container--shadow-color), var(--theme--container--shadow--light) var(--theme--container--shadow-color--light);
+.shadow {
+    box-shadow: var(--theme--container--shadow) var(--theme--container--shadow-color), var(--theme--container--shadow--light) var(--theme--container--shadow-color--light);
+}
+
+:where(form) {
+    .field-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 12em), 1fr));
+        gap: var(--theme--content--space);
+    }
+}
+
+:where(label) {
+    text-wrap: stable;
+    padding-block-start: var(--theme--content--space);
+    padding-inline: 0;
+    font-weight: var(--theme--FontWeight--thin);
+    line-height: var(--theme--LineHeight--spacious);
+    color: var(--theme--text--Color);
+
+    :is(& + [disabled], [disabled] + &) {
+        color: var(--theme--text--Color--subtle);
+    }
+}
+
+:where(input, textarea, select, button) {
+    font: inherit;
+    color: inherit;
+}
+
+:where(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="reset"], [type="button"], [type="image"], [type="file"], [type="range"], [type="color"], [type="hidden"]), textarea, select) {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-inline-size: 3em;
+    block-size: 2.5em;
+    padding: var(--theme--content--space);
+    vertical-align: top;
+    background-color: color-mix(in sRGB, var(--theme--surface--color) 80%, transparent);
+    border: var(--theme--BorderWidth) solid var(--theme--ui--color--subtle);
+    border-radius: var(--theme--BorderRadius);
+    color: var(--theme--text--Color);
+    text-overflow: ellipsis;
+    margin: 0;
+    appearance: none;
+
+    &:is(textarea) {
+        display: block;
+        min-block-size: 7em;
+        resize: vertical;
+        line-height: var(--theme--LineHeight);
+    }
+
+    &[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+
+        &:is(::-webkit-inner-spin-button, ::-webkit-outer-spin-button) {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    &:hover {
+        border-color: var(--theme--ui--color--active);
+    }
+
+    &:focus-visible {
+        outline: var(--theme--OutlineWidth) solid;
+        outline-color: var(--theme--ui--color--active);
+        outline-offset: var(--theme--OutlineOffset);
+        border-color: var(--theme--ui--color--active);
+    }
+
+    &:-moz-ui-invalid {
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        opacity: 1;
+        font-size: var(--theme--FontSize);
+        font-family: var(--theme--FontFamily);
+        font-weight: var(--theme--FontWeight);
+        font-style: var(--theme--FontStyle);
+        color: var(--theme--text--Color);
+    }
+
+    &:is(:hover, :focus-visible)::placeholder {
+        color: var(--theme--text--Color);
+    }
+
+    &:user-invalid:not(:focus-visible, :disabled, :read-only) {
+        border-color: #c9252d;
+    }
+
+    &:user-valid:not(:focus-visible, :disabled, :read-only) {
+        border-color: #12805c;
+    }
+
+    &:read-only {
+        border-color: var(--theme--ui--color--subtle);
+        color: var(--theme--text--Color--subtle);
+        outline: none;
+    }
+
+    &:disabled {
+        background-color: var(--theme--surface--color--disabled);
+        border-color: var(--theme--ui--color--subtle);
+        color: var(--theme--text--Color);
+        resize: none;
+        opacity: 1;
+    }
+
+    &:disabled::placeholder {
+        color: var(--theme--text--Color);
+    }
+
+    &:read-only::placeholder {
+        color: var(--theme--text--Color--subtle);
+        background-color: initial;
+    }
+}
+
+/* Optional wrapper for validation icons:
+   <label class="form-field"> <input required ...> </label> */
+.form-field {
+    position: relative;
+    display: grid;
+
+    &::after {
+        position: absolute;
+        pointer-events: none;
+        inset-inline-end: 0.75em;
+        inset-block-start: calc(1em * var(--theme--LineHeight--spacious) + var(--theme--content--space) + .4em);
+        opacity: 0;
+    }
+
+    &:has(:is(input, textarea, select):user-valid:not(:focus-visible, :disabled, :read-only))::after {
+        content: "✓";
+        color: #12805c;
+        opacity: 1;
+    }
+
+    &:has(:is(input, textarea, select):user-invalid:not(:focus-visible, :disabled, :read-only))::after {
+        content: "!";
+        color: #c9252d;
+        opacity: 1;
+    }
+
+    &:has(+ button) {
+        margin-block-end: calc(var(--theme--content--space) * 2);
+    }
 }
