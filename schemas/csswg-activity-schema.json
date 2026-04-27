@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "csswg-activity.schema.json",
+  "title": "CSSWG Activity Data",
+  "description": "Schema for CSS Working Group activity tracker data stored in Netlify Blobs",
+  "type": "object",
+  "required": ["meta", "summary", "stats", "themes", "agenda", "resolved", "issues"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Metadata about when and how this data was generated",
+      "required": ["generated_at", "source"],
+      "properties": {
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of when this data was fetched"
+        },
+        "source": {
+          "type": "string",
+          "const": "github:w3c/csswg-drafts",
+          "description": "Data source identifier"
+        },
+        "generator_version": {
+          "type": "string",
+          "description": "Version of the fetch script that generated this data"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "AI-generated plain-language summary for the TL;DR banner",
+      "required": ["big_themes", "watch_for"],
+      "properties": {
+        "big_themes": {
+          "type": "string",
+          "description": "1–2 sentence summary of the week's biggest themes"
+        },
+        "watch_for": {
+          "type": "string",
+          "description": "1 sentence about what's coming up (Agenda+ items, etc.)"
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "description": "Numeric counts for the stats cards",
+      "required": ["recently_active", "agenda_plus", "recently_resolved", "hot_threads"],
+      "properties": {
+        "recently_active": { "type": "integer" },
+        "agenda_plus": { "type": "integer" },
+        "recently_resolved": { "type": "integer" },
+        "hot_threads": { "type": "integer", "description": "Issues with 15+ comments" }
+      }
+    },
+    "themes": {
+      "type": "array",
+      "description": "Thematic groupings with AI-generated summaries",
+      "items": {
+        "type": "object",
+        "required": ["title", "icon", "summary", "issues"],
+        "properties": {
+          "title": { "type": "string", "description": "Theme name, e.g. 'Color & theming'" },
+          "icon": { "type": "string", "description": "Single emoji for the theme" },
+          "summary": { "type": "string", "description": "Plain-language summary of activity in this theme (HTML allowed for inline code)" },
+          "issues": {
+            "type": "array",
+            "description": "Key issues in this theme",
+            "items": {
+              "type": "object",
+              "required": ["number", "label"],
+              "properties": {
+                "number": { "type": "integer" },
+                "label": { "type": "string", "description": "Short description for inline display" },
+                "badges": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["agenda", "hot", "new", "resolved"]
+                  }
+                },
+                "badge_detail": { "type": "string", "description": "Optional detail like '44 comments'" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "agenda": {
+      "type": "array",
+      "description": "All issues tagged Agenda+ for upcoming CSSWG discussion",
+      "items": { "$ref": "#/$defs/issue_summary" }
+    },
+    "resolved": {
+      "type": "array",
+      "description": "Recently closed/resolved issues",
+      "items": {
+        "allOf": [{ "$ref": "#/$defs/issue_summary" }],
+        "properties": {
+          "closed_at": { "type": "string", "format": "date" },
+          "resolution_summary": { "type": "string", "description": "AI-generated one-line summary of the resolution" }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "description": "All recently updated issues (full list for the details table)",
+      "items": { "$ref": "#/$defs/issue_detail" }
+    }
+  },
+  "$defs": {
+    "issue_summary": {
+      "type": "object",
+      "required": ["number", "title", "url", "comments"],
+      "properties": {
+        "number": { "type": "integer" },
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "comments": { "type": "integer" }
+      }
+    },
+    "issue_detail": {
+      "type": "object",
+      "required": ["number", "title", "url", "comments", "updated_at"],
+      "properties": {
+        "number": { "type": "integer" },
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "comments": { "type": "integer" },
+        "updated_at": { "type": "string", "format": "date" },
+        "labels": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "badges": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["agenda", "hot", "new", "resolved"]
+          }
+        },
+        "badge_detail": { "type": "string" }
+      }
+    }
+  }
+}

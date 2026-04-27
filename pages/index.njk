@@ -41,30 +41,8 @@ eleventyNavigation:
         {% endfor %}
         <a-card bordered featured overflow class="contact-card accent--reset" slot="aside">
             <h2 class="title" slot="header">Let's talk</h2>
-            <form name="discovery-call" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="--image-url: url({{ 'img/cartoon-thinking.png' | imgSrc }})">
-                {% image 'img/cartoon-thinking.png', "A cartoon of the author, Cassondra Roberts, thinking about the future of the web.", [180, 180] %}
-                <p>Share a few details and we will follow up to schedule a discovery call.</p>
-                <input type="hidden" name="subject" value="New lead from contact form" />
-                <p hidden>
-                    <label for="bot-field" class="sr-only">Bot field</label>
-                    <input id="bot-field" name="bot-field" type="text" />
-                </p>
-                <div class="field-group">
-                    <p class="form-field">
-                        <label for="discovery-name">Name</label>
-                        <input id="discovery-name" name="full-name" type="text" required="required" />
-                    </p>
-                    <p class="form-field">
-                        <label for="discovery-email">Email</label>
-                        <input id="discovery-email" name="email" type="email" required="required" />
-                    </p>
-                </div>
-                <p class="form-field">
-                    <label for="discovery-message">What would you like to build or improve?</label>
-                    <textarea id="discovery-message" name="message" rows="4" required="required"></textarea>
-                </p>
-                <button type="submit" class="cta-button">Submit</button>
-            </form>
+            {% set messageLabel = "What would you like to build or improve?" %}
+            {% include "contact-form.njk" %}
         </a-card>
     </a-band>
     {% endif %}

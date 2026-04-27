@@ -1,0 +1,12 @@
+{
+  "name": "fetch-csswg-activity",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fetches and categorizes recent CSSWG GitHub issues.",
+  "main": "index.js",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^6.0.0",
+    "js-yaml": "^4.1.0"
+  }
+}

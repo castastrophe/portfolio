@@ -1,0 +1,208 @@
+/* ============================================================
+   CSSWG Activity Tracker — page-specific styles
+   Hooks into theme.css custom properties throughout.
+   ============================================================ */
+
+/* ── Summary banner ── */
+
+.csswg-summary {
+	--band--Padding--vertical: calc(var(--theme--container--space) * 2);
+
+	& .csswg-summary__body {
+		max-inline-size: var(--theme--content--MaxWidth);
+
+		& p {
+			font-size: 1rem;
+			line-height: var(--theme--LineHeight--spacious);
+
+			& + p {
+				margin-block-start: 0.5em;
+			}
+
+			& strong {
+				font-weight: var(--theme--FontWeight--semi-bold);
+			}
+
+			& code {
+				font-family: var(--theme--code--FontFamily);
+				font-size: var(--theme--code--FontSize);
+			}
+		}
+	}
+}
+
+.csswg-updated {
+	font-size: 0.8rem;
+	color: var(--theme--text--Color--subtle);
+}
+
+/* ── Stats cards ── */
+
+.csswg-stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: var(--theme--container--space);
+	background: var(--theme--surface--color);
+	border-radius: var(--theme--BorderRadius);
+	box-shadow: var(--theme--container--shadow--light) var(--theme--container--shadow-color--light);
+	min-inline-size: 120px;
+}
+
+.csswg-stat__num {
+	font-size: 2rem;
+	font-weight: var(--theme--FontWeight--bold);
+	line-height: var(--theme--LineHeight--dense);
+	color: var(--theme--text--Color--accent);
+}
+
+.csswg-stat__label {
+	font-size: 0.75rem;
+	color: var(--theme--text--Color--subtle);
+	margin-block-start: 2px;
+
+	& a {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+			color: var(--theme--link--Color--hover);
+		}
+	}
+}
+
+/* ── Issue links in theme cards ── */
+
+.csswg-issue-link {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.3em;
+	font-size: 0.82rem;
+	padding-block: 0.15em;
+}
+
+.csswg-issue-label {
+	color: var(--theme--text--Color--subtle);
+}
+
+/* ── Badges ── */
+
+.csswg-badge {
+	display: inline-block;
+	padding-inline: 7px;
+	padding-block: 1px;
+	border-radius: 5px;
+	font-size: 0.7rem;
+	font-weight: var(--theme--FontWeight--semi-bold);
+	vertical-align: middle;
+	margin-inline-start: 4px;
+	line-height: 1.6;
+}
+
+.csswg-badge--agenda {
+	background: var(--accent--red);
+	color: var(--theme--text--Color--invert);
+
+	& a {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+			text-underline-offset: 2px;
+		}
+	}
+
+	&:hover {
+		filter: brightness(1.15);
+	}
+}
+
+.csswg-badge--hot {
+	background: var(--accent--orange);
+	color: var(--theme--text--Color--invert);
+}
+
+.csswg-badge--new {
+	background: hsl(142, 60%, 40%);
+	color: var(--theme--text--Color--invert);
+}
+
+.csswg-badge--resolved {
+	background: hsl(260, 60%, 55%);
+	color: var(--theme--text--Color--invert);
+}
+
+/* ── Resolved list ── */
+
+.csswg-resolved-list {
+	max-inline-size: var(--theme--content--MaxWidth);
+}
+
+.csswg-resolved-item {
+	margin-block-end: 0.5em;
+	font-size: 0.9rem;
+	line-height: var(--theme--LineHeight);
+}
+
+.csswg-resolved-title {
+	color: var(--theme--text--Color);
+}
+
+.csswg-resolved-date {
+	color: var(--theme--text--Color--subtle);
+	font-size: 0.8rem;
+}
+
+/* ── Data table ── */
+
+.csswg-table {
+	inline-size: 100%;
+	border-collapse: collapse;
+	font-size: 0.82rem;
+	margin-block-start: 0.5em;
+
+	& th {
+		text-align: start;
+		padding: 0.4em 0.5em;
+		border-block-end: var(--theme--BorderWidth) solid var(--theme--ui--color--subtle);
+		color: var(--theme--text--Color--subtle);
+		font-weight: var(--theme--FontWeight--semi-bold);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	& td {
+		padding: 0.45em 0.5em;
+		border-block-end: var(--theme--BorderWidth--thin) solid var(--theme--surface--color--emphasis);
+	}
+
+	& tr:hover {
+		background: var(--theme--surface--color--emphasis);
+	}
+}
+
+.csswg-table--hot {
+	background: color-mix(in oklch, var(--accent--orange) 8%, transparent);
+}
+
+/* ── Collapsible details ── */
+
+details {
+	margin-block-start: 0.5em;
+
+	& summary {
+		cursor: pointer;
+		font-size: 0.85rem;
+		font-weight: var(--theme--FontWeight--medium);
+		color: var(--theme--link--Color);
+		padding-block: 0.35em;
+		user-select: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

@@ -1,0 +1,79 @@
+- title: "Color & theming"
+  icon: "🎨"
+  patterns:
+    - css-color
+    - color-mix
+    - color-adjust
+    - light-dark
+
+- title: "Text & internationalization"
+  icon: "📝"
+  patterns:
+    - css-text
+    - text-autospace
+    - text-spacing
+    - i18n
+    - ":lang"
+    - css-fonts
+
+- title: "UI & interaction"
+  icon: "🖱️"
+  patterns:
+    - css-ui
+    - user-select
+    - interest-invoker
+    - interest-button
+    - css-forms
+    - window-drag
+
+- title: "Layout & sizing"
+  icon: "📐"
+  patterns:
+    - css-viewport
+    - css-gaps
+    - css-sizing
+    - css-box
+    - css-grid
+    - css-flexbox
+    - css-position
+    - anchor-position
+    - css-break
+    - css-inline
+    - css-overflow
+
+- title: "Animations & view transitions"
+  icon: "🎬"
+  patterns:
+    - view-transition
+    - scroll-animation
+    - css-animations
+    - css-transitions
+    - web-animations
+
+- title: "Accessibility"
+  icon: "♿"
+  patterns:
+    - a11y
+    - text-scale
+    - outline-offset
+    - forced-colors
+    - "prefers-"
+
+- title: "Selectors & pseudo-elements"
+  icon: "🔍"
+  patterns:
+    - selectors
+    - css-pseudo
+    - "::"
+
+- title: "Values & functions"
+  icon: "⚙️"
+  patterns:
+    - css-values
+    - calc-mix
+    - "random()"
+    - css-borders
+    - css-images
+    - css-shapes
+    - css-masking
+    - css-transforms

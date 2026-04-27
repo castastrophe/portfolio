@@ -15,9 +15,14 @@
     "funding": [
         {
             "url": "https://buymeacoffee.com/castastrophe",
-            "img": "https://cdn.buymeacoffee.com/buttons/v2/default-violet.png",
-            "label": "Buy me a coffee",
-            "ratio": "4 / 1"
+            "img": "./pages/assets/bmc-brand-icon.svg",
+            "ratio": "320 / 462",
+            "label": "Buy me a coffee"
+        },
+        {
+            "url": "https://github.com/sponsors/castastrophe",
+            "icon": "fa-brands fa-github",
+            "label": "GitHub Sponsors"
         }
     ],
     "socials": [
